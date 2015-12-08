@@ -1,0 +1,42 @@
+TO DO:
+	- Authentication - user, user_session
+	- CustomerAuthentication - customer, customer_session (create fake customer for newcomers)
+	- Item - item
+	- ItemVariant - item_variant, item_variant_item (link between item and variants)
+	- Category - category, 
+	- Cart - customer_cart
+	- Order - order	
+	- OrderItem(for history) - order_item
+	- Payment - payment_type
+	- Delivery - delivery_type
+	- Static pages (wysiwyg+images)
+	- Images (+videos?)
+	- Emails
+	- Links (used for products,  categories and static pages)
+	- XML output
+	- import from cashier
+	- ajax saving
+	- pop-up cart list (not mobile)
+	- breadcrumb
+	- ssl (https)
+	
+	(pages)
+-front
+	- category
+	- product
+	- customer info	+ customer's orders hist. + change pass.
+	- customer login
+	- cart
+	- create order: address -> delivery -> payment -> confirmed
+	- static page
+- admin
+	- user login
+	- user det. + change pass.
+	- dashboard
+	- customers
+		- customer det. (+ orders list)
+	- orders
+		- order det.
+	- categories + cat. detail
+	- items + item detail
+	
