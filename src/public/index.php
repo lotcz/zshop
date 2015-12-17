@@ -5,12 +5,10 @@
 	$home_dir = $globals['home_dir'];
 	$base_url = $globals['base_url'];
 
-	require_once $home_dir . 'classes/functions.php';	
+	require_once $home_dir . 'classes/functions.php';
 	require_once $home_dir . 'classes/localization.php';
+	require_once $home_dir . 'models/base.m.php';
 	require_once $home_dir . 'classes/authentication.php';
-	
-	// controller name
-	$controller = 'none';
 	
 	// rendering globals
 	$master_template = 'master';

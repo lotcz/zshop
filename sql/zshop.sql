@@ -27,3 +27,16 @@ CREATE TABLE IF NOT EXISTS `user_sessions` (
     ON DELETE CASCADE
     ON UPDATE NO ACTION
 ) ENGINE = InnoDB;
+
+DROP TABLE IF EXISTS `customers` ;
+
+CREATE TABLE IF NOT EXISTS `customers` (
+  `customer_id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `customer_login` VARCHAR(100) NOT NULL,
+  `customer_email` VARCHAR(255) NOT NULL,
+  `customer_password_hash` VARCHAR(255) NOT NULL,
+  `customer_failed_attempts` INT NOT NULL DEFAULT 0,
+  PRIMARY KEY (`customer_id`),
+  UNIQUE INDEX `customers_email_unique` (`customer_email` ASC),
+  UNIQUE INDEX `customers_login_unique` (`customer_login` ASC))
+ENGINE = InnoDB;

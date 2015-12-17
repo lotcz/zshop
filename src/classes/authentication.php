@@ -1,6 +1,6 @@
 <?php
 
-require_once $home_dir . 'models/user.m.php';
+require_once '../models/user.m.php';
 
 /*
 	provides basic authentication mechanism
