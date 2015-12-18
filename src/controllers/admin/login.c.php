@@ -8,3 +8,5 @@
 			$messages[] = t('Login incorrect!');
 		}
 	}
+	
+	$page_title	= t('Administrator Sign In');

@@ -2,7 +2,7 @@ DROP TABLE IF EXISTS `user_sessions` ;
 DROP TABLE IF EXISTS `users` ;
 
 CREATE TABLE IF NOT EXISTS `users` (
-  `user_id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_login` VARCHAR(100) NOT NULL,
   `user_email` VARCHAR(255) NOT NULL,
   `user_password_hash` VARCHAR(255) NOT NULL,
@@ -15,7 +15,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `user_sessions` ;
 
 CREATE TABLE IF NOT EXISTS `user_sessions` (
-  `user_session_id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_session_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_session_token_hash` VARCHAR(255) NOT NULL,
   `user_session_user_id` INT(10) UNSIGNED NOT NULL,
   `user_session_created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -31,12 +31,23 @@ CREATE TABLE IF NOT EXISTS `user_sessions` (
 DROP TABLE IF EXISTS `customers` ;
 
 CREATE TABLE IF NOT EXISTS `customers` (
-  `customer_id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `customer_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `customer_login` VARCHAR(100) NOT NULL,
   `customer_email` VARCHAR(255) NOT NULL,
   `customer_password_hash` VARCHAR(255) NOT NULL,
-  `customer_failed_attempts` INT NOT NULL DEFAULT 0,
+  `customer_failed_attempts` INT UNSIGNED NOT NULL DEFAULT 0,
   PRIMARY KEY (`customer_id`),
   UNIQUE INDEX `customers_email_unique` (`customer_email` ASC),
   UNIQUE INDEX `customers_login_unique` (`customer_login` ASC))
+ENGINE = InnoDB;
+
+DROP TABLE IF EXISTS `aliases` ;
+
+CREATE TABLE IF NOT EXISTS `aliases` (
+  `alias_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `alias_url` VARCHAR(200) NOT NULL,
+  `alias_target_type` TINYINT NOT NULL,
+  `alias_target_id` INT UNSIGNED NOT NULL,
+  PRIMARY KEY (`alias_id`),
+  UNIQUE INDEX `aliases_url_unique` (`alias_url` ASC))
 ENGINE = InnoDB;

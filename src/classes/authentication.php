@@ -30,19 +30,21 @@ class Authentication {
 			$this->logout();
 		}
 		
-		$user = User::loadByLoginOrEmail($this->db, $loginoremail);
-		if (isset($user)) {
-			if ($user->user_failed_attempts > $this::$max_attempts) {
+		$user = new User($this->db);
+		$user->loadByLoginOrEmail($loginoremail);
+		
+		if ($user->is_loaded) {
+			if ($user->val('user_failed_attempts') > $this::$max_attempts) {
 				redirect('/error.html');
 			}
-			if (password_verify($password, $user->user_password_hash)) {
+			if (password_verify($password, $user->val('user_password_hash'))) {
 				// success - create new session
 				$this->user = $user;
 				$token = $this->generateToken();
 				$token_hash = password_hash($token, PASSWORD_DEFAULT);
 				$expires = time()+60*60*24*30; //30 days
 				if ($st = $this->db->prepare('INSERT INTO user_sessions (user_session_token_hash, user_session_user_id, user_session_expires) VALUES (?,?,?)')) {
-					$st->bind_param('sis', $token_hash, $this->user->user_id, date('Y-m-d G:i:s', $expires));
+					$st->bind_param('sis', $token_hash, $this->user->val('user_id'), date('Y-m-d G:i:s', $expires));
 					if (!$st->execute()) {
 						die('Session db error:' . $this->db->error);
 					}						
@@ -52,7 +54,7 @@ class Authentication {
 					die('Session db error:' . $this->db->error);
 				}
 			} else {
-				$user->user_failed_attempts += 1;
+				$user->data['user_failed_attempts'] += 1;
 				$user->save();
 			}
 		}
@@ -76,7 +78,7 @@ class Authentication {
 			$statement->fetch();
 			$statement->close();
 			if (password_verify($session_token, $session_token_hash)) {
-				$this->user = User::loadById($this->db, $user_id);
+				$this->user = new User($this->db, $user_id);
 			}
 		}
 	}

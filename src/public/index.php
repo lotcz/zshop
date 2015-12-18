@@ -14,6 +14,7 @@
 	$master_template = 'master';
 	$main_template = 'default';
 	$page = 'pages/front'; // path to view AND controller
+	$page_title = null; // set this in controller
 	$messages = [];
 	$data = [];
 	
@@ -37,6 +38,7 @@
 			
 			// ADMIN SECTION
 			case 'admin' :
+				$main_template = 'admin';
 				if ($auth->isAuth()) {
 					if (isset($path[1])) {
 						$page = 'admin/' . $path[1];

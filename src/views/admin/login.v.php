@@ -1,5 +1,4 @@
 <div class="inner cover">
-	<h3 class="cover-heading">Přihlášení</h3>
 	<form method="post" action="/admin" class="form-horizontal" style="max-width:320px;margin:auto">
 		<span class="help-block">Pouze pro správce e-shopu.</span>
 		<div class="form-group">
@@ -17,9 +16,9 @@
 		<?php
 			renderBlock('messages');
 		?>
-		<div class="form-group">
-			<a class="form-button" href="/"><?= t('Back') ?></a>
-			<input type="submit" class="btn btn-success form-button" value="Si!">			
+		<div class="form-buttons">
+			<a class="form-button" href="/"><?= t('Go to e-shop') ?></a>
+			<input type="submit" class="btn btn-success form-button" value="<?=t('Sign in') ?>">			
 		</div>
 	</form>	
 </div>

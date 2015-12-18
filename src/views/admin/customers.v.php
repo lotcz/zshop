@@ -1,20 +1,36 @@
-<div class='inner cover'>	
-	<form method='post' action='/admin/customer' class='code-form'>		
-		<input type='submit' class='btn btn-success' value='Create new customer'>
-	</form>	
-	<table>
-		<tr><th>login</th><th>e-mail</th><th>failed logins</th><th></th></tr>
-		<?php
-			global $db;
-			$result = $db->query('SELECT * FROM customers ORDER BY customer_id');
-			while ($row = $result->fetch_assoc()) {
-				echo '<tr>';
-				echo '<td>' . $row['customer_login'] . '</td>';
-				echo '<td>' . $row['customer_email'] . '</td>';				
-				echo '<td><a href="/admin/customer/edit/' . $row['customer_id'] . '">edit</a></td>';
-				echo '</tr>';
-			}
-		?>
-	</table>
-	<a href="/admin">Zpět</a>
+<div class="inner cover">	
+	<a class="btn btn-success top-button" href="/admin/customer"><?=t('Create new customer') ?></a>
+
+	<div class="table-responsive">
+		<table class="table table-striped table-hover">
+			<thead>
+				<tr>
+					<th><?=t('Login') ?></th>
+					<th><?=t('E-mail') ?></th>
+					<th><?=t('Failed logins') ?></th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+			<?php
+				global $db;
+				$result = $db->query('SELECT * FROM customers ORDER BY customer_id');
+				while ($row = $result->fetch_assoc()) {
+					echo '<tr onclick="javascript:openDetail(' . $row['customer_id'] . ');">';
+					echo '<td>' . $row['customer_login'] . '</td>';
+					echo '<td>' . $row['customer_email'] . '</td>';	
+					echo '<td>' . $row['customer_failed_attempts'] . '</td>';									
+					echo '<td><a href="/admin/customer/edit/' . $row['customer_id'] . '">edit</a></td>';
+					echo '</tr>';
+				}
+			?>
+			</tbody>
+		</table>
+	</div>
 </div>
+
+<script>
+	function openDetail(id) {
+		document.location = '<?=$base_url . '/admin/customer/edit/' ?>' + id;
+	}
+</script>

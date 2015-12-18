@@ -17,13 +17,15 @@
 		$customer->save();
 		redirect('/admin/customers');
 	} elseif (isset($path[2]) && $path[2] == 'edit') {		
-		$customer = new Customer($db, $path[3]);		
+		$customer = new Customer($db, $path[3]);
+		$page_title	= t('Editing Customer');
 	} elseif (isset($path[2]) && $path[2] == 'delete') {
 		$customer = new Customer($db);
 		$customer->deleteById($path[3]);
 		redirect('/admin/customers');
 	} else {
 		$customer = new Customer($db);
+		$page_title	= t('New Customer');
 	}
 	
 	$data = $customer;

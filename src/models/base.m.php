@@ -2,7 +2,7 @@
 
 class ModelBase {
 
-	private $db = null;
+	protected $db = null;
 
 	public $table_name = 'table';
 	public $id_name = 'table_id';

@@ -1,5 +1,5 @@
 TO DO:
-	- Authentication - user, user_session
+	- periodic job : DB backup, delete old sessions, create xml
 	- CustomerAuthentication - customer, customer_session (create fake customer for newcomers)
 	- Item - item
 	- ItemVariant - item_variant, item_variant_item (link between item and variants)
@@ -15,8 +15,7 @@ TO DO:
 	- Links (used for products,  categories and static pages)
 	- XML output
 	- import from cashier
-	- ajax saving
-	- pop-up cart list (not mobile)
+	- ajax cart
 	- breadcrumb
 	- ssl (https)
 	
