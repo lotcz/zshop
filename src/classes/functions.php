@@ -30,7 +30,14 @@
 	*/
 	function t($s) {
 		global $localization;
-		return $localization->translate($s);
+		$t = $localization->translate($s);
+		if (func_num_args() > 1) {
+			$args = func_get_args();
+			array_shift($args);
+			array_unshift($args, $t);
+			$t = call_user_func_array('sprintf', $args);
+		}
+		return $t;
 	}
 		
 	/*

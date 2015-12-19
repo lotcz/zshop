@@ -1,4 +1,4 @@
-<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="height:50px">
 	<div class="container">
 		<!-- grouped for better mobile display -->
 		<div class="navbar-header">
@@ -23,7 +23,7 @@
 	<!-- /.container -->
 </nav>
 
-<div class="container" style="margin-top:70px">			
+<div class="container" style="margin-top:50px">			
 	<div class="row">
 		<div class="col-md-3 sidebar">
 			<?php					
