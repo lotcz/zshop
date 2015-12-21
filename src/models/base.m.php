@@ -6,6 +6,7 @@ class ModelBase {
 
 	public $table_name = 'table';
 	public $id_name = 'table_id';
+	
 	public $is_loaded = false;
 	public $data = [];
 	
@@ -48,6 +49,35 @@ class ModelBase {
 		}		
 	}
 
+	public function loadSingleFiltered($filter) {
+		if (isset($filter) && is_array($filter)) {
+			$columns = [];
+			$bindings = [];
+			$types = '';
+			
+			foreach ($filter as $key => $value) {			
+				$columns[] = $key . ' = ?';
+				$bindings[] = & $filter[$key];
+				$types .= ModelBase::getTypeChar($value);			
+			}
+			array_unshift($bindings, $types);
+			
+			$sql = sprintf('SELECT * FROM %s WHERE %s', $this->table_name, implode(' AND ', $columns));
+			if ($statement = $this->db->prepare($sql)) {
+				call_user_func_array(array($statement, 'bind_param'), $bindings);
+				$statement->execute();
+				$result = $statement->get_result();
+				if ($row = $result->fetch_array(MYSQLI_ASSOC)) {
+					$this->is_loaded = true;
+					$this->setData($row);
+				}
+				$statement->close();
+			} else {
+				die('DB error:' . $this->db->error);
+			}
+		}		
+	}
+
 	public function save() {
 		$id = $this->val($this->id_name);		
 		
@@ -60,7 +90,7 @@ class ModelBase {
 				if ($key != $this->id_name) {
 					$columns[] = $key . ' = ?';
 					$bindings[] = & $this->data[$key];
-					$types .= 's';
+					$types .= ModelBase::getTypeChar($value);
 				}
 			}
 			$bindings[] = & $this->data[$this->id_name];
@@ -88,7 +118,7 @@ class ModelBase {
 					$columns[] = $key;
 					$values[] = '?';
 					$bindings[] = & $this->data[$key];
-					$types .= 's';
+					$types .= ModelBase::getTypeChar($value);
 				}
 			}			
 			array_unshift($bindings, $types);			
@@ -97,20 +127,20 @@ class ModelBase {
 			if ($st = $this->db->prepare($sql)) {				
 				call_user_func_array(array($st, 'bind_param'), $bindings);				
 				if (!$st->execute()) {
-					die('DB error:' . $this->db->error);
+					die('DB execute error:' . $this->db->error);
 				} else {
 					$this->data[$this->id_name] = $this->db->insert_id;
 				}
 				$st->close();
 			} else {
-				die('DB error:' . $this->db->error);
+				die('DB prepare error:' . $this->db->error);
 			}
 		}
 	}
 
 	public function deleteById($id) {
 		if (!isset($id)) {
-			$id = $this->data[$this->id_name];
+			$id = $this->val($this->id_name);
 		}
 		$sql = sprintf('DELETE FROM %s WHERE %s = ?', $this->table_name, $this->id_name);
 		if ($statement = $this->db->prepare($sql)) {
@@ -122,4 +152,26 @@ class ModelBase {
 		}		
 	}
 
+	/*
+		format datetime for mysql
+	*/
+	static function mysqlTimestamp($d) {
+		if (isset($d)) {
+			return date('Y-m-d G:i:s', $d);	
+		} else {
+			return null;
+		}		
+	}
+	
+	/*
+		get character representing type for bind_param function
+	*/
+	static function getTypeChar($val) {
+		if (is_int($val)) {
+			return 'i';	
+		} else {
+			return 's';
+		}		
+	}
+	
 }

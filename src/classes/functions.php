@@ -40,17 +40,6 @@
 		return $t;
 	}
 		
-	/*
-		format datetime for mysql
-	*/
-	function mysqlTimestamp($d) {
-		if (isset($d)) {
-			return date('Y-m-d G:i:s', $d);	
-		} else {
-			return null;
-		}		
-	}
-	
 	function renderBlock($block) {
 		global $home_dir;
 		include $home_dir . 'blocks/' . $block . '.b.php';

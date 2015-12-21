@@ -20,5 +20,5 @@ class User extends ModelBase {
 			die('DB error:' . $this->db->error);
 		}		
 	}
-	
+
 }

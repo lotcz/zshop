@@ -12,8 +12,8 @@
 		</div>
 		<div class="form-buttons">
 			<a class="form-button" href="/admin/customers"><?= t('Back') ?></a>
-			<input type="button" onclick="javascript:deleteUser();" class="btn btn-danger form-button" value="Delete">
-			<input type="button" onclick="javascript:validate();" class="btn btn-success form-button" value="Save">
+			<input type="button" onclick="javascript:deleteUser();" class="btn btn-danger form-button" value="<?= t('Delete') ?>">
+			<input type="button" onclick="javascript:validate();" class="btn btn-success form-button" value="<?= t('Save') ?>">
 		</div>
 	</form>	
 </div>

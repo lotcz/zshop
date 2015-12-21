@@ -1,5 +1,5 @@
 <div class="inner cover">	
-	<a class="btn btn-success top-button" href="/admin/customer"><?=t('Create new customer') ?></a>
+	<a class="btn btn-success top-button" href="/admin/customer">+ <?=t('New Customer') ?></a>
 
 	<div class="table-responsive">
 		<table class="table table-striped table-hover">
@@ -20,7 +20,7 @@
 					echo '<td>' . $row['customer_login'] . '</td>';
 					echo '<td>' . $row['customer_email'] . '</td>';	
 					echo '<td>' . $row['customer_failed_attempts'] . '</td>';									
-					echo '<td><a href="/admin/customer/edit/' . $row['customer_id'] . '">edit</a></td>';
+					echo '<td><a href="/admin/customer/edit/' . $row['customer_id'] . '">' . t('Edit') . '</a></td>';
 					echo '</tr>';
 				}
 			?>

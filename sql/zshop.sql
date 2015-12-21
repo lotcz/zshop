@@ -3,10 +3,11 @@ DROP TABLE IF EXISTS `users` ;
 
 CREATE TABLE IF NOT EXISTS `users` (
   `user_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `user_login` VARCHAR(100) NOT NULL,
+  `user_login` VARCHAR(100),
   `user_email` VARCHAR(255) NOT NULL,
   `user_password_hash` VARCHAR(255) NOT NULL,
   `user_failed_attempts` INT NOT NULL DEFAULT 0,
+  `user_last_access` TIMESTAMP,
   PRIMARY KEY (`user_id`),
   UNIQUE INDEX `users_email_unique` (`user_email` ASC),
   UNIQUE INDEX `users_login_unique` (`user_login` ASC))
@@ -36,6 +37,8 @@ CREATE TABLE IF NOT EXISTS `customers` (
   `customer_email` VARCHAR(255) NOT NULL,
   `customer_password_hash` VARCHAR(255) NOT NULL,
   `customer_failed_attempts` INT UNSIGNED NOT NULL DEFAULT 0,
+  `customer_created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `customer_last_access` TIMESTAMP,
   PRIMARY KEY (`customer_id`),
   UNIQUE INDEX `customers_email_unique` (`customer_email` ASC),
   UNIQUE INDEX `customers_login_unique` (`customer_login` ASC))
@@ -51,3 +54,69 @@ CREATE TABLE IF NOT EXISTS `aliases` (
   PRIMARY KEY (`alias_id`),
   UNIQUE INDEX `aliases_url_unique` (`alias_url` ASC))
 ENGINE = InnoDB;
+
+DROP TABLE IF EXISTS `product_category` ;
+DROP TABLE IF EXISTS `categories`;
+
+CREATE TABLE IF NOT EXISTS `categories` (
+  `category_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `category_abx_id` INT UNSIGNED,
+  `category_parent_id` INT UNSIGNED,
+  `category_name` VARCHAR(200) NOT NULL,
+  `category_description` TEXT NULL,
+  PRIMARY KEY (`category_id`),
+  UNIQUE INDEX `categories_abx_id_unique` (`category_abx_id` ASC),
+  CONSTRAINT `category_parent_fk`
+    FOREIGN KEY (`category_parent_id`)
+    REFERENCES `categories` (`category_id`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION
+) ENGINE = InnoDB;
+
+DROP TABLE IF EXISTS `product_variants` ;
+DROP TABLE IF EXISTS `products` ;
+
+CREATE TABLE IF NOT EXISTS `products` (
+  `product_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `product_abx_id` INT UNSIGNED NULL,
+  `product_name` VARCHAR(255) NOT NULL,
+  `product_price` DECIMAL(10,2) UNSIGNED NOT NULL,
+  `product_stock` INT UNSIGNED NOT NULL DEFAULT 0,
+  PRIMARY KEY (`product_id`),
+  UNIQUE INDEX `products_abx_id_unique` (`product_abx_id` ASC)
+) ENGINE = InnoDB;
+
+DROP TABLE IF EXISTS `product_category` ;
+
+CREATE TABLE IF NOT EXISTS `product_category` (
+  `product_category_product_id` INT UNSIGNED NOT NULL,
+  `product_category_category_id` INT UNSIGNED NOT NULL,
+  PRIMARY KEY (`product_category_product_id`, `product_category_category_id`),
+  CONSTRAINT `product_category_product_fk`
+    FOREIGN KEY (`product_category_product_id`)
+    REFERENCES `products` (`product_id`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION,
+  CONSTRAINT `product_category_category_fk`
+    FOREIGN KEY (`product_category_category_id`)
+    REFERENCES `categories` (`category_id`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION
+) ENGINE = InnoDB;
+
+DROP TABLE IF EXISTS `product_variants` ;
+
+CREATE TABLE IF NOT EXISTS `product_variants` (
+  `product_variant_id` INT UNSIGNED NOT NULL,
+  `product_variant_product_id` INT UNSIGNED NOT NULL,
+  `product_variant_name` VARCHAR(100) NOT NULL,
+  `product_variant_stock` INT UNSIGNED NOT NULL DEFAULT 0,
+  `product_variant_price` DECIMAL(10,2) UNSIGNED NULL,
+  PRIMARY KEY (`product_variant_id`),
+  UNIQUE INDEX `product_variants_unique` (`product_variant_product_id`, `product_variant_name`),
+  CONSTRAINT `product_variant_product_fk`
+    FOREIGN KEY (`product_variant_product_id`)
+    REFERENCES `products` (`product_id`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION 
+) ENGINE = InnoDB;

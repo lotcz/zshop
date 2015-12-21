@@ -8,7 +8,7 @@
 
 		<meta name="description" content="">
 		<meta name="author" content="Karel Zavadil">
-		<link rel="icon" href="favicon.ico">
+		<link rel="icon" href="/favicon.ico">
 
 		<title>zShop</title>
 

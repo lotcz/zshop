@@ -26,11 +26,10 @@
 		$messages[] = 'Database connection error:' . $db->error_message;
 	} else {		
 		$auth = new Authentication($db);
-		
+		$path = [''];
+
 		if (isset($_GET['path'])) {
 			$path = explode('/',trimSlashes(strtolower($_GET['path'])));
-		} else {
-			$path = [''];
 		}
 
 		// select page to display
@@ -39,17 +38,24 @@
 			// ADMIN SECTION
 			case 'admin' :
 				$main_template = 'admin';
-				if ($auth->isAuth()) {
-					if (isset($path[1])) {
-						$page = 'admin/' . $path[1];
-					} else {
-						$page = 'admin/dashboard';
-					}				
-				} else {				
-					$page = 'admin/login';
+				if (isset($path[1]) && $path[1] == 'forgotten-password' ) {
+					$page = 'admin/forgot';
+				} else {
+					if ($auth->isAuth()) {
+						if (isset($path[1])) {
+							$page = 'admin/' . $path[1];
+						} else {
+							$page = 'admin/dashboard';
+						}				
+					} else {				
+						$page = 'admin/login';
+					}
 				}
 				break;
-			
+			case 'import' :
+				$page = 'import/abx';
+				break;
+				
 			// CUSTOMER SECTION
 			default :
 				$page = 'pages/front';

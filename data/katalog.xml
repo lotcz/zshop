@@ -1,0 +1,1554 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shop>
+  <export_desc>
+    <source>ABX_Astor_v2</source>
+    <lic_id>10-AS-167</lic_id>
+    <user>Vlasta</user>
+    <pc_id>B87A99F5-842A</pc_id>
+    <stamp>2015-12-18 16:47</stamp>
+  </export_desc>
+  <categories>
+    <category>
+      <id>7</id>
+      <parentid>0</parentid>
+      <name>VLASOVÉ OZDOBY + BIŽUTERIE</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>8</id>
+      <parentid>7</parentid>
+      <name>- Bižuterie, Kosmetická zrcátka,</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>9</id>
+      <parentid>7</parentid>
+      <name>- gumičky</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>10</id>
+      <parentid>7</parentid>
+      <name>- skřipce</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>11</id>
+      <parentid>7</parentid>
+      <name>- čelenky</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>12</id>
+      <parentid>7</parentid>
+      <name>- pérka, pinety, sponky, cvakačky</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>13</id>
+      <parentid>7</parentid>
+      <name>- Hřebínky</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>14</id>
+      <parentid>7</parentid>
+      <name>- Spony, Tvořítka</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>15</id>
+      <parentid>0</parentid>
+      <name>KARTÁČE NA VLASY</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>16</id>
+      <parentid>0</parentid>
+      <name>HRAČKY</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>17</id>
+      <parentid>16</parentid>
+      <name>-Boby-Odstrkovadla-Kola-Tříkolky</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>18</id>
+      <parentid>16</parentid>
+      <name>-Dekorace,  Párty</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>19</id>
+      <parentid>16</parentid>
+      <name>-K vodě</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>20</id>
+      <parentid>16</parentid>
+      <name>-Bazény</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>21</id>
+      <parentid>16</parentid>
+      <name>-Hudebni nástroje</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>22</id>
+      <parentid>16</parentid>
+      <name>-Lego</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>23</id>
+      <parentid>16</parentid>
+      <name>-Na písek</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>24</id>
+      <parentid>16</parentid>
+      <name>-Nádobíčko</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>25</id>
+      <parentid>16</parentid>
+      <name>-Panenky a příslušenství</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>26</id>
+      <parentid>16</parentid>
+      <name>-Látkové a Plyšové hračky</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>27</id>
+      <parentid>16</parentid>
+      <name>-Společenské hry</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>28</id>
+      <parentid>16</parentid>
+      <name>-Kostky a Stavebnice</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>29</id>
+      <parentid>16</parentid>
+      <name>-Dřevěné hračky</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>30</id>
+      <parentid>16</parentid>
+      <name>-Zvukové</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>31</id>
+      <parentid>16</parentid>
+      <name>-Auta a jiné dopravní prostředky</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>32</id>
+      <parentid>16</parentid>
+      <name>-Pro malé parádnice</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>33</id>
+      <parentid>16</parentid>
+      <name>-Karnevalové kostýmy</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>34</id>
+      <parentid>16</parentid>
+      <name>-Na zahradu</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>35</id>
+      <parentid>16</parentid>
+      <name>-Hasbro</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>36</id>
+      <parentid>16</parentid>
+      <name>-Kreslíme, Tvoříme, Modelujeme</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>37</id>
+      <parentid>16</parentid>
+      <name>-Puzzle</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>39</id>
+      <parentid>16</parentid>
+      <name>-Ostatní</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>40</id>
+      <parentid>16</parentid>
+      <name>-Hračky do vany</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>41</id>
+      <parentid>16</parentid>
+      <name>-Chladítka, Kousátka</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>42</id>
+      <parentid>16</parentid>
+      <name>-Deky, hrazdičky, nočníky</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>43</id>
+      <parentid>16</parentid>
+      <name>-Vybavení pro školáky</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>44</id>
+      <parentid>16</parentid>
+      <name>-Na kočárek nebo postýlku</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>45</id>
+      <parentid>16</parentid>
+      <name>-Chrastítka</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>46</id>
+      <parentid>16</parentid>
+      <name>-Deštníky, Pláštěnky</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>47</id>
+      <parentid>16</parentid>
+      <name>-Hračky pro nejmenší</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>48</id>
+      <parentid>16</parentid>
+      <name>-Knížky pro děti</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>49</id>
+      <parentid>48</parentid>
+      <name>- Leporela</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>50</id>
+      <parentid>48</parentid>
+      <name>- Básničky a říkadla</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>51</id>
+      <parentid>48</parentid>
+      <name>- Pohádky</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>52</id>
+      <parentid>48</parentid>
+      <name>- Leporela odkrývací</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>53</id>
+      <parentid>48</parentid>
+      <name>- Naučná literatura</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>54</id>
+      <parentid>48</parentid>
+      <name>- Pro začínající čtenáře</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>55</id>
+      <parentid>16</parentid>
+      <name>-Pro kluky</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>56</id>
+      <parentid>0</parentid>
+      <name>KOSMETIKA</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>57</id>
+      <parentid>56</parentid>
+      <name>- Péče o nehty</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>58</id>
+      <parentid>56</parentid>
+      <name>- Čistá přírodní kosmetika SALOOS</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>59</id>
+      <parentid>56</parentid>
+      <name>- Opalovací přípravky</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>60</id>
+      <parentid>56</parentid>
+      <name>-  Péče o vlasy</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>61</id>
+      <parentid>60</parentid>
+      <name>- Trvalá</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>62</id>
+      <parentid>60</parentid>
+      <name>- Barvy na vlasy</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>63</id>
+      <parentid>60</parentid>
+      <name>- balzámy, kondicionéry</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>64</id>
+      <parentid>60</parentid>
+      <name>- Laky</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>65</id>
+      <parentid>60</parentid>
+      <name>- Tužidla, gely, vosky</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>66</id>
+      <parentid>60</parentid>
+      <name>- Šampony</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>67</id>
+      <parentid>60</parentid>
+      <name>- Regenerace vlasů</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>68</id>
+      <parentid>56</parentid>
+      <name>- Péče o ruce</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>69</id>
+      <parentid>68</parentid>
+      <name>- Tekutá mýdla</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>70</id>
+      <parentid>68</parentid>
+      <name>- Krémy na ruce</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>71</id>
+      <parentid>56</parentid>
+      <name>- Péče o oči a tvář</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>72</id>
+      <parentid>71</parentid>
+      <name>- Mascary - Řasenky</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>73</id>
+      <parentid>71</parentid>
+      <name>- Make-upy, Korektory, Pudry,Tvářenky</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>74</id>
+      <parentid>71</parentid>
+      <name>- Pleťové krémy a masky pro ženy v každém věku</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>75</id>
+      <parentid>71</parentid>
+      <name>- Oči</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>76</id>
+      <parentid>71</parentid>
+      <name>- Péče o problematickou a aknózní pleť</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>77</id>
+      <parentid>71</parentid>
+      <name>- Odlíčení</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>78</id>
+      <parentid>71</parentid>
+      <name>- pleťové krémy pro ženy od 20 let</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>79</id>
+      <parentid>71</parentid>
+      <name>- pleťové krémy pro ženy od 30 let</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>80</id>
+      <parentid>71</parentid>
+      <name>- pleťové krémy pro ženy od 40 let</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>81</id>
+      <parentid>71</parentid>
+      <name>- pleťové krémy pro ženy od 50 let</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>82</id>
+      <parentid>71</parentid>
+      <name>- pleťové krémy pro ženy od 60 let</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>83</id>
+      <parentid>71</parentid>
+      <name>- Rty</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>84</id>
+      <parentid>71</parentid>
+      <name>- Pudřenky, Štětce,  Aplikátory</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>85</id>
+      <parentid>56</parentid>
+      <name>- Péče O Tělo</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>86</id>
+      <parentid>85</parentid>
+      <name>- Samoopalovací krémy a spreje</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>87</id>
+      <parentid>85</parentid>
+      <name>- Tělové krémy a mléka</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>88</id>
+      <parentid>85</parentid>
+      <name>- Bylinné čaje a nativní strava</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>89</id>
+      <parentid>85</parentid>
+      <name>- Bylinná Masážní Kosmetika</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>90</id>
+      <parentid>85</parentid>
+      <name>- Boj s celulitidou</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>91</id>
+      <parentid>85</parentid>
+      <name>- Deodoranty a antiperspiranty</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>92</id>
+      <parentid>85</parentid>
+      <name>- Intimní péče</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>93</id>
+      <parentid>85</parentid>
+      <name>- Koupelová kosmetika</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>94</id>
+      <parentid>85</parentid>
+      <name>- Sprchové gely</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>97</id>
+      <parentid>56</parentid>
+      <name>- Depilace, Epilace, Paty</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>98</id>
+      <parentid>97</parentid>
+      <name>- Dámské holicí strojky + pěny</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>99</id>
+      <parentid>97</parentid>
+      <name>- Depilační pěny, vosky a náplasti</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>100</id>
+      <parentid>97</parentid>
+      <name>- Krémy na nohy</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>101</id>
+      <parentid>56</parentid>
+      <name>- Proti klíšťatům a bodavému hmyzu</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>102</id>
+      <parentid>0</parentid>
+      <name>BABY PROGRAM</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>103</id>
+      <parentid>102</parentid>
+      <name>-Láhve, Termoobaly</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>104</id>
+      <parentid>102</parentid>
+      <name>-Hrníčky a jiné nádoby</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>105</id>
+      <parentid>102</parentid>
+      <name>-Misky, talířky, sady</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>106</id>
+      <parentid>102</parentid>
+      <name>-Příbory, Bryndáky</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>107</id>
+      <parentid>102</parentid>
+      <name>-Dudlíky, šidítka, řetízky</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>108</id>
+      <parentid>102</parentid>
+      <name>-Péče a bezpečnost, teploměry</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>109</id>
+      <parentid>0</parentid>
+      <name>KOSMETICKÉ TAŠKY-KUFRY-ETUE</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>110</id>
+      <parentid>0</parentid>
+      <name>KOSMETIKA- Pro Pány</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>111</id>
+      <parentid>110</parentid>
+      <name>- Pánské holicí strojky, pěny a gely na holení</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>112</id>
+      <parentid>110</parentid>
+      <name>- Sprchové gely a péče o tělo</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>113</id>
+      <parentid>110</parentid>
+      <name>-  Deodoranty, antiperspiranty</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>114</id>
+      <parentid>110</parentid>
+      <name>- Péče o pleť</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>115</id>
+      <parentid>110</parentid>
+      <name>- Péče o vlasy a styling pro muže</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>116</id>
+      <parentid>110</parentid>
+      <name>- Vody a balzámy po holení</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>117</id>
+      <parentid>0</parentid>
+      <name>KOSMETIKA- Pro Děti</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>118</id>
+      <parentid>117</parentid>
+      <name>- Šampony a kondicionéry</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>119</id>
+      <parentid>117</parentid>
+      <name>- Koupání</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>120</id>
+      <parentid>117</parentid>
+      <name>- Péče o zadeček</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>121</id>
+      <parentid>117</parentid>
+      <name>- Dětské pleťové krémy a oleje</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>122</id>
+      <parentid>117</parentid>
+      <name>- Ochrana proti sluníčku</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>123</id>
+      <parentid>0</parentid>
+      <name>PARFÉMY- Dámské</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>125</id>
+      <parentid>123</parentid>
+      <name>* 4711 UNISEX</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>126</id>
+      <parentid>123</parentid>
+      <name>* Adidas</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>127</id>
+      <parentid>123</parentid>
+      <name>* Antonio Banderas</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>128</id>
+      <parentid>123</parentid>
+      <name>* Beckham</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>129</id>
+      <parentid>123</parentid>
+      <name>* Bruno Banani</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>130</id>
+      <parentid>123</parentid>
+      <name>* Exclamation</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>131</id>
+      <parentid>123</parentid>
+      <name>* Gabriela Sabatini</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>132</id>
+      <parentid>123</parentid>
+      <name>* Chanson d´Eau</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>133</id>
+      <parentid>123</parentid>
+      <name>* Christina Aguilera</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>134</id>
+      <parentid>123</parentid>
+      <name>* Inessance Paris</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>135</id>
+      <parentid>123</parentid>
+      <name>* Kylie Minogue</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>136</id>
+      <parentid>123</parentid>
+      <name>* Mexx</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>137</id>
+      <parentid>123</parentid>
+      <name>* Naomi Campbell</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>138</id>
+      <parentid>123</parentid>
+      <name>* Pret á Porter</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>139</id>
+      <parentid>123</parentid>
+      <name>* Puma</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>140</id>
+      <parentid>123</parentid>
+      <name>* Charlie</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>141</id>
+      <parentid>123</parentid>
+      <name>* Imitace</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>143</id>
+      <parentid>123</parentid>
+      <name>* Guess</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>145</id>
+      <parentid>123</parentid>
+      <name>* Blase</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>147</id>
+      <parentid>123</parentid>
+      <name>* Avril Lavigne</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>148</id>
+      <parentid>123</parentid>
+      <name>* Heidi Klum</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>149</id>
+      <parentid>123</parentid>
+      <name>* Celine Dion</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>150</id>
+      <parentid>123</parentid>
+      <name>* Halle Berry</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>151</id>
+      <parentid>123</parentid>
+      <name>* Esprit</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>152</id>
+      <parentid>123</parentid>
+      <name>* Celebrate</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>153</id>
+      <parentid>123</parentid>
+      <name>* Replay</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>155</id>
+      <parentid>123</parentid>
+      <name>* Beyoncé</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>156</id>
+      <parentid>123</parentid>
+      <name>* Playboy</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>157</id>
+      <parentid>0</parentid>
+      <name>PARFÉMY- Pánské</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>158</id>
+      <parentid>157</parentid>
+      <name>* 4711 UNISEX</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>159</id>
+      <parentid>157</parentid>
+      <name>* Mexx</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>160</id>
+      <parentid>157</parentid>
+      <name>* Playboy</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>161</id>
+      <parentid>157</parentid>
+      <name>* Blue Stratos</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>162</id>
+      <parentid>157</parentid>
+      <name>* Brut</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>163</id>
+      <parentid>157</parentid>
+      <name>* Adidas</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>164</id>
+      <parentid>157</parentid>
+      <name>* Antonio Banderas</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>165</id>
+      <parentid>157</parentid>
+      <name>* David Beckham</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>166</id>
+      <parentid>157</parentid>
+      <name>* Bruno Banani</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>167</id>
+      <parentid>157</parentid>
+      <name>* Denim</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>168</id>
+      <parentid>157</parentid>
+      <name>* Esprit</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>169</id>
+      <parentid>157</parentid>
+      <name>* Puma</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>170</id>
+      <parentid>157</parentid>
+      <name>* Tonino Lamborghini</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>171</id>
+      <parentid>157</parentid>
+      <name>* Azzaro Chrome</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>172</id>
+      <parentid>157</parentid>
+      <name>* Imitace</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>173</id>
+      <parentid>157</parentid>
+      <name>* Route 66</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>174</id>
+      <parentid>157</parentid>
+      <name>* Replay</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>175</id>
+      <parentid>157</parentid>
+      <name>* STR8</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>177</id>
+      <parentid>157</parentid>
+      <name>* MARC O&apos;POLO</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>178</id>
+      <parentid>157</parentid>
+      <name>* Alex</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>179</id>
+      <parentid>0</parentid>
+      <name>PARFÉMY- Dívčí</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>182</id>
+      <parentid>0</parentid>
+      <name>DROGERIE</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>183</id>
+      <parentid>182</parentid>
+      <name>-WC čistota</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>184</id>
+      <parentid>182</parentid>
+      <name>- Sezonní zboží - Velikonoce</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>185</id>
+      <parentid>182</parentid>
+      <name>- Hygienické potřeby</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>186</id>
+      <parentid>182</parentid>
+      <name>- Koberce - Nábytek</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>187</id>
+      <parentid>182</parentid>
+      <name>- Prádelna- Koupelna</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>188</id>
+      <parentid>182</parentid>
+      <name>- Kuchyně - Nádobí</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>189</id>
+      <parentid>182</parentid>
+      <name>- Okna - Podlahy</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>190</id>
+      <parentid>182</parentid>
+      <name>- Osvěžovače vzduchu - Odpady</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>191</id>
+      <parentid>182</parentid>
+      <name>- Na hubení hmyzu</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>192</id>
+      <parentid>0</parentid>
+      <name>FOTO, VIDEO</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>197</id>
+      <parentid>0</parentid>
+      <name>DÁRKOVÉ BALÍČKY - Pro Ženy</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>198</id>
+      <parentid>0</parentid>
+      <name>DÁRKOVÉ BALÍČKY - Pro Muže</name>
+      <desc></desc>
+      <image></image>
+    </category>
+    <category>
+      <id>199</id>
+      <parentid>0</parentid>
+      <name>KNIHY A KALENDÁŘE</name>
+      <desc></desc>
+      <image></image>
+    </category>
+  </categories>
+  <manufacturers>
+  </manufacturers>
+  <products>
+    <product>
+      <id>2043</id>
+      <ean>2159</ean>
+      <name>Proč (ne)mít děti Radek Bár Pohled muže na život s dětmi</name>
+      <manufacturer>11</manufacturer>
+      <price_eu>114.88</price_eu>
+      <price_d1>114.88</price_d1>
+      <price_d2>114.88</price_d2>
+      <price_d3>114.88</price_d3>
+      <price_sale>0.00</price_sale>
+      <price_eus>139.00</price_eus>
+      <price_d1s>139.00</price_d1s>
+      <price_d2s>139.00</price_d2s>
+      <price_d3s>139.00</price_d3s>
+      <tax>21</tax>
+      <stock>10.00</stock>
+      <unit>ks</unit>
+      <availability>skladem 10 ks</availability>
+      <images>
+      </images>
+      <categories>
+        <category>199</category>
+      </categories>
+    </product>
+    <product>
+      <id>5832</id>
+      <ean>49802</ean>
+      <name>Michal Tučný Zpráva o životě</name>
+      <manufacturer>64</manufacturer>
+      <price_eu>247.11</price_eu>
+      <price_sale>230.58</price_sale>
+      <price_eus>299.00</price_eus>
+      <price_sales>279.00</price_sales>
+      <tax>21</tax>
+      <stock>0.00</stock>
+      <unit>ks</unit>
+      <availability>2 dny</availability>
+      <images>
+      </images>
+      <categories>
+        <category>199</category>
+      </categories>
+    </product>
+    <product>
+      <id>9757</id>
+      <ean>192002</ean>
+      <name>Violetta Jak a proč se rodí přátelství Příručky pro holky</name>
+      <manufacturer>65</manufacturer>
+      <price_eu>139.67</price_eu>
+      <price_eus>169.00</price_eus>
+      <tax>21</tax>
+      <stock>0.00</stock>
+      <unit>ks</unit>
+      <availability>2 dny</availability>
+      <images>
+      </images>
+      <categories>
+        <category>199</category>
+      </categories>
+    </product>
+    <product>
+      <id>9758</id>
+      <ean>192003</ean>
+      <name>Violetta Příběh jednoho úspěchu - ze zákulisí tel. seriálu</name>
+      <manufacturer>65</manufacturer>
+      <price_eu>247.11</price_eu>
+      <price_eus>299.00</price_eus>
+      <tax>21</tax>
+      <stock>0.00</stock>
+      <unit>ks</unit>
+      <availability>2 dny</availability>
+      <images>
+      </images>
+      <categories>
+        <category>199</category>
+      </categories>
+    </product>
+    <product>
+      <id>9759</id>
+      <ean>192004</ean>
+      <name>Zvěrolékař léčí, zvířata uzdravují Jan Herčík Alena Hrachovcová</name>
+      <manufacturer>65</manufacturer>
+      <price_eu>205.79</price_eu>
+      <price_eus>249.00</price_eus>
+      <tax>21</tax>
+      <stock>1.00</stock>
+      <unit>ks</unit>
+      <availability>skladem 1 ks</availability>
+      <images>
+      </images>
+      <categories>
+        <category>199</category>
+      </categories>
+    </product>
+    <product>
+      <id>9762</id>
+      <ean>192006</ean>
+      <name>Jeho Veličenstvo Bertie Stephen Clarke</name>
+      <manufacturer>64</manufacturer>
+      <price_eu>247.11</price_eu>
+      <price_sale>222.31</price_sale>
+      <price_eus>299.00</price_eus>
+      <price_sales>269.00</price_sales>
+      <tax>21</tax>
+      <stock>1.00</stock>
+      <unit>ks</unit>
+      <availability>skladem 1 ks</availability>
+      <images>
+      </images>
+      <categories>
+        <category>199</category>
+      </categories>
+    </product>
+    <product>
+      <id>9763</id>
+      <ean>192007</ean>
+      <name>Kameňáky aneb další Špalíček plný legrace</name>
+      <manufacturer>64</manufacturer>
+      <price_eu>164.46</price_eu>
+      <price_sale>147.93</price_sale>
+      <price_eus>199.00</price_eus>
+      <price_sales>179.00</price_sales>
+      <tax>21</tax>
+      <stock>0.00</stock>
+      <unit>ks</unit>
+      <availability>2 dny</availability>
+      <images>
+      </images>
+      <categories>
+        <category>199</category>
+      </categories>
+    </product>
+    <product>
+      <id>9766</id>
+      <ean>192009</ean>
+      <name>Pralinky Barbara Nesvadbová</name>
+      <manufacturer>64</manufacturer>
+      <price_eu>189.26</price_eu>
+      <price_sale>172.73</price_sale>
+      <price_eus>229.00</price_eus>
+      <price_sales>209.00</price_sales>
+      <tax>21</tax>
+      <stock>0.00</stock>
+      <unit>ks</unit>
+      <availability>2 dny</availability>
+      <images>
+      </images>
+      <categories>
+        <category>199</category>
+      </categories>
+    </product>
+    <product>
+      <id>9768</id>
+      <ean>192011</ean>
+      <name>Violetta Kniha krásy</name>
+      <manufacturer>65</manufacturer>
+      <price_eu>247.11</price_eu>
+      <price_eus>299.00</price_eus>
+      <tax>21</tax>
+      <stock>0.00</stock>
+      <unit>ks</unit>
+      <availability>2 dny</availability>
+      <images>
+      </images>
+      <categories>
+        <category>199</category>
+      </categories>
+    </product>
+    <product>
+      <id>9771</id>
+      <ean>192014</ean>
+      <name>Violetta Jak a proč se rodí láska</name>
+      <manufacturer>65</manufacturer>
+      <price_eu>139.67</price_eu>
+      <price_eus>169.00</price_eus>
+      <tax>21</tax>
+      <stock>1.00</stock>
+      <unit>ks</unit>
+      <availability>skladem 1 ks</availability>
+      <images>
+      </images>
+      <categories>
+        <category>199</category>
+      </categories>
+    </product>
+    <product>
+      <id>9908</id>
+      <ean>192017</ean>
+      <name>Angry Birds Komiks Návnada  5+</name>
+      <manufacturer>64</manufacturer>
+      <price_eu>106.61</price_eu>
+      <price_sale>90.08</price_sale>
+      <price_eus>129.00</price_eus>
+      <price_sales>109.00</price_sales>
+      <tax>21</tax>
+      <stock>0.00</stock>
+      <unit>ks</unit>
+      <availability>2 dny</availability>
+      <images>
+      </images>
+      <categories>
+        <category>199</category>
+      </categories>
+    </product>
+    <product>
+      <id>9911</id>
+      <ean>192018</ean>
+      <name>Vůně posečené trávy Ivanka Devátá</name>
+      <manufacturer>64</manufacturer>
+      <price_eu>205.79</price_eu>
+      <price_eus>249.00</price_eus>
+      <tax>21</tax>
+      <stock>1.00</stock>
+      <unit>ks</unit>
+      <availability>skladem 1 ks</availability>
+      <images>
+      </images>
+      <categories>
+        <category>199</category>
+      </categories>
+    </product>
+    <product>
+      <id>9932</id>
+      <ean>192019</ean>
+      <name>Hurvínkova cesta do Tramtárie</name>
+      <manufacturer>65</manufacturer>
+      <price_eu>164.46</price_eu>
+      <price_eus>199.00</price_eus>
+      <tax>21</tax>
+      <stock>0.00</stock>
+      <unit>ks</unit>
+      <availability>2 dny</availability>
+      <images>
+      </images>
+      <categories>
+        <category>199</category>
+      </categories>
+    </product>
+    <product>
+      <id>9998</id>
+      <ean>192020</ean>
+      <name>Drsný je zákon mé země Román z časů, kdy Vikingové dobývali svět</name>
+      <manufacturer>64</manufacturer>
+      <price_eu>304.96</price_eu>
+      <price_sale>263.64</price_sale>
+      <price_eus>369.00</price_eus>
+      <price_sales>319.00</price_sales>
+      <tax>21</tax>
+      <stock>0.00</stock>
+      <unit>ks</unit>
+      <availability>2 dny</availability>
+      <images>
+      </images>
+      <categories>
+        <category>199</category>
+      </categories>
+    </product>
+    <product>
+      <id>9999</id>
+      <ean>192021</ean>
+      <name>Jak se Honzík naučil zavazovat tkaničku</name>
+      <manufacturer>64</manufacturer>
+      <price_eu>164.46</price_eu>
+      <price_eus>199.00</price_eus>
+      <tax>21</tax>
+      <stock>1.00</stock>
+      <unit>ks</unit>
+      <availability>skladem 1 ks</availability>
+      <images>
+      </images>
+      <categories>
+        <category>199</category>
+      </categories>
+    </product>
+    <product>
+      <id>10000</id>
+      <ean>192022</ean>
+      <name>Jak se Káťa naučila zavazovat tkaničku</name>
+      <manufacturer>64</manufacturer>
+      <price_eu>164.46</price_eu>
+      <price_eus>199.00</price_eus>
+      <tax>21</tax>
+      <stock>2.00</stock>
+      <unit>ks</unit>
+      <availability>skladem 2 ks</availability>
+      <images>
+      </images>
+      <categories>
+        <category>199</category>
+      </categories>
+    </product>
+ 
+  </products>
+</shop>
