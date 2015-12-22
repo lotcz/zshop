@@ -7,7 +7,7 @@
 				<tr>
 					<th><?=t('Login') ?></th>
 					<th><?=t('E-mail') ?></th>
-					<th><?=t('Failed logins') ?></th>
+					<th><?=t('Failed Logins') ?></th>
 					<th></th>
 				</tr>
 			</thead>

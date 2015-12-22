@@ -5,7 +5,7 @@
 		if ($auth->isAuth()) {
 			redirect('admin/dashboard');
 		} else {
-			$messages[] = t('Login incorrect!');
+			$messages->error(t('Login incorrect!'));
 		}
 	}
 	

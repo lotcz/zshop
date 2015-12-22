@@ -5,6 +5,8 @@ class User extends ModelBase {
 	public $table_name = 'users';
 	public $id_name = 'user_id';
 
+	static $reset_password_expires = 60*60*24*7; //7 days
+
 	public function loadByLoginOrEmail($loginoremail) {
 		$sql = sprintf('SELECT * FROM %s WHERE user_login = ? OR user_email = ?', $this->table_name);
 		if ($statement = $this->db->prepare($sql)) {
@@ -20,5 +22,5 @@ class User extends ModelBase {
 			die('DB error:' . $this->db->error);
 		}		
 	}
-
+	
 }

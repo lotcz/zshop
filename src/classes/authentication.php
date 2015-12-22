@@ -80,7 +80,7 @@ class Authentication {
 				$session->data['user_session_id'] = $session_id;
 				$session->data['user_session_expires'] = ModelBase::mysqlTimestamp($expires);
 				$session->save();
-				setcookie($this->cookie_name, $this->session->val('user_session_id') . "-" . $session_token, $expires, '/', false, false); 				
+				setcookie($this->cookie_name, $this->session->val('user_session_id') . '-' . $session_token, $expires, '/', false, false); 				
 				$this->user = new User($this->db, $this->session->val('user_session_user_id'));				
 				$this->updateLastAccess();
 			}
@@ -101,7 +101,7 @@ class Authentication {
 		
 		if (isset($_COOKIE[$this->cookie_name])) {			
 			unset($_COOKIE[$this->cookie_name]);
-			setcookie($this->cookie_name, '', time()-3600);
+			setcookie($this->cookie_name, '', time()-3600, '/', false, false);
 		}
 		
 		if (isset($this->session)) {

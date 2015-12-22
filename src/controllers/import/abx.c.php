@@ -1,5 +1,7 @@
 <?php
 
+	set_time_limit ( 60*60 );
+	
 	require_once $home_dir . 'classes/zip.php';
 	require_once $home_dir . 'models/category.m.php';
 	require_once $home_dir . 'models/product.m.php';
@@ -37,18 +39,18 @@
 		foreach ($xml->categories->category as $category) {
 			$data['cat_total'] += 1;
 			$zCategory = new Category($db);
-			$zCategory->loadByAbxId($category->id);
+			$zCategory->loadByAbxId(intval($category->id));
 			if ($zCategory->is_loaded) {
 				$data['cat_updated'] += 1;
 			} else {
 				$data['cat_inserted'] += 1;
-				$zCategory->data['category_abx_id'] = $category->id;
+				$zCategory->data['category_abx_id'] = intval($category->id);
 			}
 			$zCategory->data['category_name'] = $category->name;
 			$zCategory->data['category_description'] = $category->desc;
 			if (isset($category->parentid) && $category->parentid > 0) {
 				$parent = new Category($db);
-				$parent->loadByAbxId($category->parentid);
+				$parent->loadByAbxId(intval($category->parentid));
 				if ($parent->is_loaded) {
 					$zCategory->data['category_parent_id'] = $parent->val('category_id');
 				}
@@ -63,7 +65,7 @@
 		/* produkty */		
 		foreach ($xml->products->product as $product) {
 			$data['total'] += 1;			
-			$prod_id = trim($product->ean);			
+			$prod_id = intval(trim($product->ean));
 			$zProduct = new Product($db);
 			$zProduct->loadByAbxId($prod_id);
 			if ($zProduct->is_loaded) {
@@ -77,7 +79,7 @@
 			$product_price = ($price_sales) ? $price_sales : $price_eus;
 			$product_name = trim($product->name);			
 			$zProduct->data['product_price'] = $product_price;
-			$zProduct->data['product_stock'] = trim($product->stock);
+			$zProduct->data['product_stock'] = intval(trim($product->stock));
 			
 			/* varianty */	
 			if (strpos($product_name, ' var.') > 0) {				
@@ -86,7 +88,7 @@
 				$zProduct->save();
 				
 				$zVariant = new ProductVariant($db);
-				$zVariant->load($prod_id, $prodvar);
+				$zVariant->load($zProduct->data['product_id'], $prodvar);
 				$zVariant->data['product_variant_name'] = $prodvar;
 				$zVariant->data['product_variant_product_id'] = $zProduct->data['product_id'];
 				$zVariant->data['product_variant_price'] = $product_price;
@@ -103,7 +105,7 @@
 			if ($product->categories->category) {
 				foreach ($product->categories->category as $cat) {
 					$zCategory = new Category($db);
-					$zCategory->loadByAbxId($cat);
+					$zCategory->loadByAbxId(intval($cat));
 					$zProduct->addToCategory($zCategory->val('category_id'));
 				}
 			}

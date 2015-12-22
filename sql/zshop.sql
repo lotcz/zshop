@@ -5,9 +5,11 @@ CREATE TABLE IF NOT EXISTS `users` (
   `user_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_login` VARCHAR(100),
   `user_email` VARCHAR(255) NOT NULL,
-  `user_password_hash` VARCHAR(255) NOT NULL,
+  `user_password_hash` VARCHAR(255) NULL,
   `user_failed_attempts` INT NOT NULL DEFAULT 0,
   `user_last_access` TIMESTAMP,
+  `user_reset_password_hash` VARCHAR(255) NULL,
+  `user_reset_password_until` TIMESTAMP NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE INDEX `users_email_unique` (`user_email` ASC),
   UNIQUE INDEX `users_login_unique` (`user_login` ASC))
@@ -107,7 +109,7 @@ CREATE TABLE IF NOT EXISTS `product_category` (
 DROP TABLE IF EXISTS `product_variants` ;
 
 CREATE TABLE IF NOT EXISTS `product_variants` (
-  `product_variant_id` INT UNSIGNED NOT NULL,
+  `product_variant_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `product_variant_product_id` INT UNSIGNED NOT NULL,
   `product_variant_name` VARCHAR(100) NOT NULL,
   `product_variant_stock` INT UNSIGNED NOT NULL DEFAULT 0,

@@ -39,6 +39,20 @@
 		}
 		return $t;
 	}
+	
+	/*
+		handle fatal db error
+	*/
+	function dbErr($model, $operation, $sql, $message) {
+		global $globals;
+		global $messages;
+		
+		if ($globals['debug_mode']) {
+			$messages->dbErr($model, $operation, $sql, $message);
+		} else {
+			redirect('error');
+		}
+	}
 		
 	function renderBlock($block) {
 		global $home_dir;

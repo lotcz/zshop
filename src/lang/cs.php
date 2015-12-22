@@ -1,24 +1,32 @@
 <?php
 	global $language_data;
 	$language_data['cs_css'] = 'highlighted';
+	
 	$language_data['Hello'] = 'Dobrý den';
-	$language_data['Log out'] = 'Odhlásit se';	
-	$language_data['Go to e-shop'] = 'Přejít do e-shopu.';	
-	$language_data['Back'] = 'zpět';
+	$language_data['Log Out'] = 'Odhlásit se';	
+	$language_data['Go to E-shop'] = 'Přejít do e-shopu.';
+	$language_data['Forgotten Password'] = 'Zapomenuté heslo';
+	$language_data['Login or E-mail'] = 'Login nebo e-mail';
+	$language_data['Reset Password'] = 'Resetovat heslo';
+	$language_data['Sign In'] = 'Přihlásit';
+	$language_data['Back'] = 'Zpět';
 	$language_data['Save'] = 'Uložit';
 	$language_data['Delete'] = 'Smazat';
-	$language_data['Edit'] = 'editovat';
-	
+	$language_data['Edit'] = 'Editovat';
+	$language_data['Password'] = 'Heslo';
+	$language_data['Administrator Sign In'] = 'Vstup pro správce';
 	$language_data['Max value is %s.'] = 'Maximální hodnota je %s.';
 	
 	$language_data['Administration'] = 'Administrace';
 	$language_data['Administrators'] = 'Správci';
 	$language_data['Editing Administrator'] = 'Editace správce';
 	$language_data['Add Administrator'] = 'Přidat správce e-shopu';
-	
+	$language_data['Last Visit'] = 'Poslední návštěva';
+	$language_data['Failed Logins'] = 'Neúspěsná přihlášení';
+					
 	$language_data['Products'] = 'Zboží';
-	$language_data['Editing Product'] = 'Editace položky';
-	$language_data['New Product'] = 'Nová položka';
+	$language_data['Editing Product'] = 'Editace zboží';
+	$language_data['New Product'] = 'Nové zboží';
 	
 	$language_data['Categories'] = 'Kategorie';
 	$language_data['Editing Category'] = 'Editace kategorie';

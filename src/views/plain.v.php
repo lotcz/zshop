@@ -5,8 +5,9 @@
 	</head>
 
 	<body>
-	
+		
 		<?php
+			renderBlock('messages');
 			include $home_dir . 'views/' . $page . '.v.php';
 		?>		
 

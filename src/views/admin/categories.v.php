@@ -1,5 +1,5 @@
 <div class="inner cover">	
-	<a class="btn btn-success top-button" href="/admin/category"><?=t('Create new category') ?></a>
+	<a class="btn btn-success top-button" href="/admin/category">+ <?=t('New Category') ?></a>
 
 	<div class="table-responsive">
 		<table class="table table-striped table-hover">

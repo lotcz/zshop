@@ -36,15 +36,18 @@ class ModelBase {
 			$sql = sprintf('SELECT * FROM %s WHERE %s = ?', $this->table_name, $this->id_name);
 			if ($statement = $this->db->prepare($sql)) {
 				$statement->bind_param('i', $id);
-				$statement->execute();
-				$result = $statement->get_result();
-				if ($row = $result->fetch_array(MYSQLI_ASSOC)) {
-					$this->is_loaded = true;
-					$this->setData($row);
+				if ($statement->execute()) {
+					$result = $statement->get_result();
+					if ($row = $result->fetch_array(MYSQLI_ASSOC)) {
+						$this->is_loaded = true;
+						$this->setData($row);
+					}
+					$statement->close();
+				} else {
+					dbErr($this->table_name, 'execute', $sql, $this->db->error);					
 				}
-				$statement->close();
 			} else {
-				die('DB error:' . $this->db->error);
+				dbErr($this->table_name, 'prepare', $sql, $this->db->error);				
 			}
 		}		
 	}
@@ -65,20 +68,23 @@ class ModelBase {
 			$sql = sprintf('SELECT * FROM %s WHERE %s', $this->table_name, implode(' AND ', $columns));
 			if ($statement = $this->db->prepare($sql)) {
 				call_user_func_array(array($statement, 'bind_param'), $bindings);
-				$statement->execute();
-				$result = $statement->get_result();
-				if ($row = $result->fetch_array(MYSQLI_ASSOC)) {
-					$this->is_loaded = true;
-					$this->setData($row);
-				}
-				$statement->close();
+				if ($statement->execute()) {
+					$result = $statement->get_result();
+					if ($row = $result->fetch_array(MYSQLI_ASSOC)) {
+						$this->is_loaded = true;
+						$this->setData($row);
+					}
+					$statement->close();
+				} else {
+					dbErr($this->table_name, 'execute', $sql, $this->db->error);					
+				}				
 			} else {
-				die('DB error:' . $this->db->error);
+				dbErr($this->table_name, 'prepare', $sql, $this->db->error);				
 			}
 		}		
 	}
 
-	public function save() {
+	public function save() {		
 		$id = $this->val($this->id_name);		
 		
 		if (isset($id) && $id > 0) {
@@ -101,11 +107,11 @@ class ModelBase {
 			if ($st = $this->db->prepare($sql)) {
 				call_user_func_array(array($st, 'bind_param'), $bindings);	
 				if (!$st->execute()) {
-					die('DB error:' . $this->db->error);
+					dbErr($this->table_name, 'execute', $sql, $this->db->error);					
 				}
 				$st->close();
 			} else {
-				die('DB error:' . $this->db->error);
+				dbErr($this->table_name, 'prepare', $sql, $this->db->error);
 			}	
 		} else {
 			$columns = [];
@@ -127,13 +133,13 @@ class ModelBase {
 			if ($st = $this->db->prepare($sql)) {				
 				call_user_func_array(array($st, 'bind_param'), $bindings);				
 				if (!$st->execute()) {
-					die('DB execute error:' . $this->db->error);
+					dbErr($this->table_name, 'execute', $sql, $this->db->error);					
 				} else {
 					$this->data[$this->id_name] = $this->db->insert_id;
 				}
 				$st->close();
 			} else {
-				die('DB prepare error:' . $this->db->error);
+				dbErr($this->table_name, 'prepare', $sql, $this->db->error);
 			}
 		}
 	}
@@ -145,10 +151,13 @@ class ModelBase {
 		$sql = sprintf('DELETE FROM %s WHERE %s = ?', $this->table_name, $this->id_name);
 		if ($statement = $this->db->prepare($sql)) {
 			$statement->bind_param('i', $id);
-			$statement->execute();
-			$statement->close();
+			if ($statement->execute()) {
+				$statement->close();	
+			} else {
+				dbErr($this->table_name, 'prepare', $sql, $this->db->error);
+			}			
 		} else {
-			die('DB error:' . $this->db->error);
+			dbErr($this->table_name, 'prepare', $sql, $this->db->error);
 		}		
 	}
 

@@ -1,9 +1,6 @@
 TO DO:
 	- periodic job : DB backup, delete old sessions, create xml
 	- CustomerAuthentication - customer, customer_session (create fake customer for newcomers)
-	- Item - item
-	- ItemVariant - item_variant, item_variant_item (link between item and variants)
-	- Category - category, 
 	- Cart - customer_cart
 	- Order - order	
 	- OrderItem(for history) - order_item
@@ -12,12 +9,14 @@ TO DO:
 	- Static pages (wysiwyg+images)
 	- Images (+videos?)
 	- Emails
-	- Links (used for products,  categories and static pages)
+	- Aliases (used for products,  categories and static pages)
 	- XML output
-	- import from cashier
-	- ajax cart
+	- ajax Add to cart
 	- breadcrumb
 	- ssl (https)
+	- protect import and periodic job by security token
+	- model base insecure because of field names inserted directly (protect at least in public part)
+	- protect from brutal force attack (user login, customer login, both forgotten pass)
 	
 	(pages)
 -front

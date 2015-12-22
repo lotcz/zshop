@@ -7,6 +7,7 @@
 
 	require_once $home_dir . 'classes/functions.php';
 	require_once $home_dir . 'classes/localization.php';
+	require_once $home_dir . 'classes/messages.php';
 	require_once $home_dir . 'models/base.m.php';
 	require_once $home_dir . 'classes/authentication.php';
 	
@@ -15,21 +16,24 @@
 	$main_template = 'default';
 	$page = 'pages/front'; // path to view AND controller
 	$page_title = null; // set this in controller
-	$messages = [];
+	$messages = new Messages();
 	$data = [];
 	
-	$db = new mysqli($globals['db_host'], $globals['db_login'], $globals['db_password'], $globals['db_name']);
 	$localization = new Localization($home_dir . 'lang/');
+	$db = new mysqli($globals['db_host'], $globals['db_login'], $globals['db_password'], $globals['db_name']);
 	
 	if ($db->connect_errno > 0) {
 		$page = 'pages/error';
-		$messages[] = 'Database connection error:' . $db->error_message;
-	} else {		
+		if ($globals['debug_mode']) {
+			$messages->error('Database connection error:' . $db->error_message);
+		}
+	} else {
+		
 		$auth = new Authentication($db);
 		$path = [''];
 
 		if (isset($_GET['path'])) {
-			$path = explode('/',trimSlashes(strtolower($_GET['path'])));
+			$path = explode('/', trimSlashes(strtolower($_GET['path'])));
 		}
 
 		// select page to display
@@ -38,20 +42,31 @@
 			// ADMIN SECTION
 			case 'admin' :
 				$main_template = 'admin';
-				if (isset($path[1]) && $path[1] == 'forgotten-password' ) {
-					$page = 'admin/forgot';
-				} else {
-					if ($auth->isAuth()) {
-						if (isset($path[1])) {
-							$page = 'admin/' . $path[1];
-						} else {
-							$page = 'admin/dashboard';
-						}				
-					} else {				
-						$page = 'admin/login';
-					}
+				if (!isset($path[1])) {
+					$path[1] = '';
 				}
+				
+				switch ($path[1]) {	
+					case 'forgotten-password' :				
+						$page = 'admin/forgot';
+						break;
+					case 'reset-password' :
+						$page = 'admin/reset';
+						break;
+					default:
+						if ($auth->isAuth()) {
+							if (isset($path[1])) {
+								$page = 'admin/' . $path[1];
+							} else {
+								$page = 'admin/dashboard';
+							}				
+						} else {				
+							$page = 'admin/login';
+						}
+				}
+				
 				break;
+				
 			case 'import' :
 				$page = 'import/abx';
 				break;
@@ -70,6 +85,6 @@
 	}
 		
 	// render page
-	include $home_dir . 'views/' . $master_template . '.v.php';
-	
+	include $home_dir . 'views/' . $master_template . '.v.php';		
+		
 	$db->close();

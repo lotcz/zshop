@@ -6,8 +6,8 @@
 				<tr>
 					<th><?=t('Login') ?></th>
 					<th><?=t('E-mail') ?></th>
-					<th><?=t('Last visit') ?></th>
-					<th><?=t('Failed logins') ?></th>
+					<th><?=t('Last Visit') ?></th>
+					<th><?=t('Failed Logins') ?></th>
 					<th></th>
 				</tr>
 			</thead>
