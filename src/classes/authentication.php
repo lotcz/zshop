@@ -40,12 +40,12 @@ class Authentication {
 			if ($user->val('user_failed_attempts') > $this::$max_attempts) {
 				$messages[] = t('Max. number of login attempts exceeded. Please ask for new password.');
 			}
-			if (password_verify($password, $user->val('user_password_hash'))) {
+			if (Authentication::verifyPassword($password, $user->val('user_password_hash'))) {
 				// success - create new session				
 				$this->user = $user;
 				$this->updateLastAccess();
 				$token = $this->generateToken();
-				$token_hash = password_hash($token, PASSWORD_DEFAULT);
+				$token_hash = Authentication::hashPassword($token);
 				$expires = time()+Authentication::$session_expire;
 				$session = new UserSession($this->db);
 				$session->data['user_session_token_hash'] = $token_hash;
@@ -74,7 +74,7 @@ class Authentication {
 		
 		if (isset($session_id)) {
 			$this->session = new UserSession($this->db, $session_id);			
-			if (password_verify($session_token, $this->session->val('user_session_token_hash'))) {
+			if (Authentication::verifyPassword($session_token, $this->session->val('user_session_token_hash'))) {
 				$expires = time()+Authentication::$session_expire;
 				$session = new UserSession($this->db);
 				$session->data['user_session_id'] = $session_id;
@@ -116,6 +116,10 @@ class Authentication {
 
 	static function hashPassword($pass) {
 		return password_hash($pass, PASSWORD_DEFAULT);
+	}
+	
+	static function verifyPassword($pass, $hash) {
+		return password_verify($pass, $hash);
 	}
 	
 }

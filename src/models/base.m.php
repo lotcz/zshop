@@ -166,7 +166,7 @@ class ModelBase {
 	*/
 	static function mysqlTimestamp($d) {
 		if (isset($d)) {
-			return date('Y-m-d G:i:s', $d);	
+			return date('Y-m-d H:i:s', $d);	
 		} else {
 			return null;
 		}		

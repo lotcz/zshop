@@ -4,19 +4,21 @@
 	
 	$page_title = t('Reset Password');
 	
-	if (isset($page[2])) {
-		$arr = explode('-', $page[2]);
+	$data['reset_valid'] = false;
+	
+	if (isset($path[2]) && isset($_GET['reset_token'])) {
+		$user_id = intval($path[2]);
+		$reset_token = $_GET['reset_token'];
+		$zUser = new User($db, $user_id);
 		
-		$zUser = new User($db, $arr[0]);
-		if ($zUser->is_loaded) {
-			$reset_token = generateToken(50);
-			$expires = time() + User::$reset_password_expires;
-			$zUser->data['user_reset_password_hash'] = Authentication::hashPassword($reset_token);			
-			$zUser->data['user_reset_password_expires'] = ModelBase::mysqlTimestamp($expires);
-			$zUser->save();
-			
-			Emails::sendPlain($globals['emails_from'], $zUser->val('user_email'), '', t('Forgotten Password'), t('To reset your password, visit this link: %s.', $reset_token));
-			$messages->add(t('An e-mail was sent to your address with reset password instructions.'));
+		$messages->add($zUser->val('user_reset_password_expires') > ModelBase::mysqlTimestamp(time()));
+		$messages->add($reset_token);
+		$messages->add($zUser->val('user_reset_password_hash'));
+		
+		if ($zUser->is_loaded && $zUser->val('user_reset_password_expires') > ModelBase::mysqlTimestamp(time()) && password_verify($reset_token, $zUser->val('user_reset_password_hash'))) {
+			$data['reset_valid'] = true;
+			$data['user_id'] = $zUser->val('user_id');
+			$data['reset_token'] = $reset_token;
 		} else {
 			$messages->error(t('Your link seems to be invalid.'));
 		}
