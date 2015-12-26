@@ -30,28 +30,7 @@ class ModelBase {
 			return null;
 		}
 	}
-
-	public function loadById($id) {
-		if (isset($id)) {
-			$sql = sprintf('SELECT * FROM %s WHERE %s = ?', $this->table_name, $this->id_name);
-			if ($statement = $this->db->prepare($sql)) {
-				$statement->bind_param('i', $id);
-				if ($statement->execute()) {
-					$result = $statement->get_result();
-					if ($row = $result->fetch_array(MYSQLI_ASSOC)) {
-						$this->is_loaded = true;
-						$this->setData($row);
-					}
-					$statement->close();
-				} else {
-					dbErr($this->table_name, 'execute', $sql, $this->db->error);					
-				}
-			} else {
-				dbErr($this->table_name, 'prepare', $sql, $this->db->error);				
-			}
-		}		
-	}
-
+	
 	public function loadSingleFiltered($filter) {
 		if (isset($filter) && is_array($filter)) {
 			$columns = [];
@@ -82,6 +61,11 @@ class ModelBase {
 				dbErr($this->table_name, 'prepare', $sql, $this->db->error);				
 			}
 		}		
+	}
+
+	public function loadById($id) {		
+		$filter[$this->id_name] = $id;
+		$this->loadSingleFiltered($filter);		
 	}
 
 	public function save() {		

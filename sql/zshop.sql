@@ -122,3 +122,13 @@ CREATE TABLE IF NOT EXISTS `product_variants` (
     ON DELETE CASCADE
     ON UPDATE NO ACTION 
 ) ENGINE = InnoDB;
+
+DROP TABLE IF EXISTS `ip_failed_attempts` ;
+
+CREATE TABLE IF NOT EXISTS `ip_failed_attempts` (
+  `ip_failed_attempt_ip` VARCHAR(15),
+  `ip_failed_attempt_count` INT UNSIGNED NOT NULL DEFAULT 1,
+  `ip_failed_attempt_first` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `ip_failed_attempt_last` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`ip_failed_attempt_ip`)
+) ENGINE = InnoDB;

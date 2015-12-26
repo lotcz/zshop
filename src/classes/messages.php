@@ -1,19 +1,59 @@
 <?php
 
-class Messages {
+class Message {
 	
-	public $messages = [];
+	public $type = 'info';	
+	public $text = '';
 	
-	public function add($message, $type = 'info') {
-		$this->messages[] = [$message, $type];
+	function __construct($text, $type = 'info') {		
+		$this->type = $type;
+		$this->text = $text;
 	}
 	
-	public function error($message) {
-		$this->add($message, 'error');
+	public function render() {
+		$class = $this->type;
+		$prefix = '';
+		
+		switch ($this->type) {
+			case 'error':
+				$class = 'danger';
+				$prefix = '<strong>' . t('Error') . ':</strong>';
+				break;
+			case 'db-error':
+				$class = 'danger';
+				$prefix = '<strong>DB Error:</strong> ';
+				break;
+		}
+		
+		return sprintf('<div class="alert alert-%s">%s %s</div>', $class, $prefix, $this->text);
+	}
+
+}
+
+class Messages {
+
+	public $messages = [];
+	
+	public function add($text, $type = 'info') {
+		$this->messages[] = new Message($text, $type);
+	}
+	
+	public function error($text) {
+		$this->add($text, 'error');
 	}
 	
 	public function dbErr($model, $operation, $sql, $message) {
-		$this->add(sprintf('DB error: \'%s\' in model %s during operation \'%s\'. <br/>SQL: %s', $message, $model, $operation, $sql), 'error');
+		$this->add(sprintf('\'%s\' in model %s during operation \'%s\'. <br/>SQL: %s', $message, $model, $operation, $sql), 'db-error');
 	}
 	
+	public function render() {
+		if (count($this->messages) > 0) {
+			echo '<div class="messages">';
+			foreach ($this->messages as $m) {				
+				echo $m->render();
+			}
+			echo '</div>';
+		}
+	}
+
 }

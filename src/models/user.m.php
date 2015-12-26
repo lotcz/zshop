@@ -19,7 +19,7 @@ class User extends ModelBase {
 			}
 			$statement->close();
 		} else {
-			die('DB error:' . $this->db->error);
+			dbErr($this->table_name, 'prepare', $sql, $this->db->error);
 		}		
 	}
 	

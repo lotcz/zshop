@@ -2,15 +2,23 @@ h1 {
 	text-align:center;
 }
 
+.alert {
+	padding:6px 12px;
+}
+
+/* tables */
+
+.table-hover > tbody > tr {
+	cursor:pointer;
+}
+
 .top-button {
 	margin-bottom:15px;
 	margin-left:auto;
 	margin-right:auto;
 }
 
-.table-hover > tbody > tr {
-	cursor:pointer;
-}
+/* forms */
 
 .form-validation {
 	display:none;

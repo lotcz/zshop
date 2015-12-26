@@ -6,31 +6,29 @@ class Product extends ModelBase {
 	public $id_name = 'product_id';
 	
 	public function loadByAbxId($id) {
-		if (isset($id)) {
-			$filter['product_abx_id'] = intval($id);
-			$this->loadSingleFiltered($filter);
-		} else {
-			$this->is_loaded = false;
-		}		
+		$filter['product_abx_id'] = intval($id);
+		$this->loadSingleFiltered($filter);		
 	}
 	
 	public function removeFromAllCategories() {		
-		if ($statement = $this->db->prepare('DELETE FROM product_category WHERE product_category_product_id = ?')) {
+		$sql = 'DELETE FROM product_category WHERE product_category_product_id = ?';
+		if ($statement = $this->db->prepare($sql)) {
 			$statement->bind_param('i', $this->val($this->id_name));
 			$statement->execute();
 			$statement->close();
 		} else {
-			die('DB error:' . $this->db->error);
+			dbErr($this->table_name, 'prepare', $sql, $this->db->error);
 		}		
 	}
 	
 	public function addToCategory($category_id) {		
-		if ($statement = $this->db->prepare('INSERT INTO product_category (product_category_product_id, product_category_category_id) VALUES(?,?)')) {
+		$sql = 'INSERT INTO product_category (product_category_product_id, product_category_category_id) VALUES(?,?)';
+		if ($statement = $this->db->prepare($sql)) {
 			$statement->bind_param('ii', $this->val($this->id_name), $category_id);
 			$statement->execute();
 			$statement->close();
 		} else {
-			die('DB error:' . $this->db->error);
+			dbErr($this->table_name, 'prepare', $sql, $this->db->error);
 		}		
 	}
 	

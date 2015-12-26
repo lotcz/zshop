@@ -43,7 +43,7 @@
 			case 'admin' :
 				$main_template = 'admin';
 				if (!isset($path[1])) {
-					$path[1] = '';
+					$path[1] = 'dashboard';
 				}
 				
 				switch ($path[1]) {	
@@ -54,12 +54,8 @@
 						$page = 'admin/reset';
 						break;
 					default:
-						if ($auth->isAuth()) {
-							if (isset($path[1])) {
-								$page = 'admin/' . $path[1];
-							} else {
-								$page = 'admin/dashboard';
-							}				
+						if ($auth->isAuth()) {							
+							$page = 'admin/' . $path[1];							
 						} else {				
 							$page = 'admin/login';
 						}

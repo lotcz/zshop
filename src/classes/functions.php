@@ -50,6 +50,7 @@
 		if ($globals['debug_mode']) {
 			$messages->dbErr($model, $operation, $sql, $message);
 		} else {
+			// log error
 			redirect('error');
 		}
 	}
