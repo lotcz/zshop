@@ -1,5 +1,6 @@
 <div class="inner cover">	
 	<a class="btn btn-success top-button" href="/admin/product">+ <?=t('New Product') ?></a>
+	<a class="btn btn-warning top-button" href="/import?token=<?=$globals['security_token'] ?>">+ <?=t('Run Import') ?></a>
 
 	<div class="table-responsive">
 		<table class="table table-striped table-hover">

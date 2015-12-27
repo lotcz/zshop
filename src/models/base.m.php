@@ -10,10 +10,10 @@ class ModelBase {
 	public $is_loaded = false;
 	public $data = [];
 	
-	function __construct($db, $id = null) {		
+	function __construct($db = null, $id = null) {		
 		$this->db = $db;
 		if (isset($id)) {
-			$this->loadById($id);
+			$this->loadById(intval($id));
 		}
 	}
 

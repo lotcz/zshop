@@ -60,6 +60,16 @@
 		include $home_dir . 'blocks/' . $block . '.b.php';
 	}
 	
+	function renderLink($href, $title, $css) {
+		global $base_url;
+		echo sprintf('<a href="%s" class="%s">%s</a>', $base_url . '/' . $href, $css, t($title));
+	}
+	
+	function renderImage($src, $alt, $css) {
+		global $base_url;		
+		echo sprintf('<img src="%s" class="%s" alt="%s" />', $base_url . '/images/' . $src, $css, t($alt));
+	}
+		
 	/*
 		TOKEN GENERATOR
 		

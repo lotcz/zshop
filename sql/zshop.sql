@@ -68,6 +68,7 @@ CREATE TABLE IF NOT EXISTS `categories` (
   `category_description` TEXT NULL,
   PRIMARY KEY (`category_id`),
   UNIQUE INDEX `categories_abx_id_unique` (`category_abx_id` ASC),
+  INDEX `categories_parent_id_index` (`category_parent_id` ASC),
   CONSTRAINT `category_parent_fk`
     FOREIGN KEY (`category_parent_id`)
     REFERENCES `categories` (`category_id`)
@@ -91,9 +92,9 @@ CREATE TABLE IF NOT EXISTS `products` (
 DROP TABLE IF EXISTS `product_category` ;
 
 CREATE TABLE IF NOT EXISTS `product_category` (
-  `product_category_product_id` INT UNSIGNED NOT NULL,
   `product_category_category_id` INT UNSIGNED NOT NULL,
-  PRIMARY KEY (`product_category_product_id`, `product_category_category_id`),
+  `product_category_product_id` INT UNSIGNED NOT NULL,  
+  PRIMARY KEY ( `product_category_category_id`, `product_category_product_id`),
   CONSTRAINT `product_category_product_fk`
     FOREIGN KEY (`product_category_product_id`)
     REFERENCES `products` (`product_id`)
@@ -132,3 +133,8 @@ CREATE TABLE IF NOT EXISTS `ip_failed_attempts` (
   `ip_failed_attempt_last` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`ip_failed_attempt_ip`)
 ) ENGINE = InnoDB;
+
+CREATE VIEW viewProducts AS
+	SELECT *
+    FROM products p
+    LEFT OUTER JOIN product_category pc ON (p.product_id = pc.product_category_product_id);

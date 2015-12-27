@@ -1,0 +1,71 @@
+/* color scheme */
+nav.header {
+	background-image:url('../images/header.jpg');
+	
+	/*
+	background-image: -webkit-linear-gradient(top,#0852A0 0,#88c7e6 100%);
+    background-image: -o-linear-gradient(top,#0852A0 0,#88c7e6 100%);
+    background-image: -webkit-gradient(linear,left top,left bottom,from(#0852A0),to(#88c7e6));
+    background-image: linear-gradient(to bottom,#0852A0 0,#88c7e6 100%);
+	*/
+}
+
+.logo {
+	margin-top:20px;
+}
+
+.main-title {
+	color:Black;
+	text-align:center;
+}
+
+.main-title h1 {
+	background-color:White;
+	display:inline-block;
+	border-radius: 10px;
+	padding:10px;
+}
+
+.head-block {
+	background-color:White;		
+	display:inline-block;
+	vertical-align:top;
+	margin-top:20px;	
+}
+
+.user {	
+	padding:10px;
+	border-radius: 10px;
+	float:right;
+}
+
+.language {	
+	padding:6px 8px;
+	border-radius: 18px;
+}
+
+.language img {
+	margin:0;
+}
+
+.language a {
+	border:solid 1px White;
+	border-radius: 16px;
+	padding:4px 7px;
+	display:inline-block;
+}
+
+.language a.highlighted {
+	border:inset 1.5px darkturquoise;
+	background-color: LightBlue;
+}
+
+/* PRODUCTS */
+
+.product .panel-body {
+	height:150px;
+}
+
+.product .panel-heading {
+	height:100px;
+}

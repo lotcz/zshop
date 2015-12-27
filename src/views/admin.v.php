@@ -26,12 +26,14 @@
 <div class="container" style="margin-top:50px">			
 	<div class="row">
 		<div class="col-md-3 sidebar">
+			<p>
+				<a class="btn btn-default form-button" href="/"><?=t('Go to E-shop') ?></a>
+			<p>
 			<?php					
 				if ($auth->isAuth()) {
 					renderBlock('admin');
 				}
-			?>
-			<hr/>
+			?>			
 			<div style="text-align:center">
 				<?php renderBlock('lang'); ?>
 			</div>

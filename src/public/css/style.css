@@ -6,6 +6,10 @@ h1 {
 	padding:6px 12px;
 }
 
+ol, ul {
+    margin: 0;
+}
+
 /* tables */
 
 .table-hover > tbody > tr {

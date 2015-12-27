@@ -1,3 +1,3 @@
 <?php
 
-	$data['test'] = 'This is a test.';
+	$page_tile = t('Welcome');

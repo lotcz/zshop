@@ -1,4 +1,15 @@
-<div class="inner cover">
-	<p><?= t('Hello') ?></p>
-	<?= $data['test'] ?>
+<div class="inner cover">	
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h3 class="panel-title">Panel title</h3>
+		</div>
+		<div class="panel-body">
+			Panel content
+		</div>
+	</div>
+	
+	<?php
+		renderBlock('sellers');
+	?>
+	
 </div>

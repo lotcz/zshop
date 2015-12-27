@@ -19,7 +19,8 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
 
 		<!-- Custom styles for this template -->
-		<link href="/style.css" rel="stylesheet">
+		<link href="/css/style.css" rel="stylesheet">
+		<link href="/css/parfumerie.css" rel="stylesheet">
 		
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 		<!--[if lt IE 9]>
@@ -42,7 +43,8 @@
 		<!-- Latest compiled and minified JavaScript -->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
-		<script src="/tools.js"></script>
+		<script src="/js/tools.js"></script>
+		<script src="/js/forms.js"></script>		
 
 	</body>
 </html>

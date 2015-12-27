@@ -69,7 +69,11 @@
 				
 			// CUSTOMER SECTION
 			default :
-				$page = 'pages/front';
+				if (strlen($path[0]) > 0) {
+					$page = 'pages/' . $path[0];
+				} else {
+					$page = 'pages/front';
+				}
 		}
 
 	}

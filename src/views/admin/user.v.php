@@ -8,7 +8,7 @@
 		<div class="form-group">
 			<label for="user_email" class="col-sm-3 control-label"><?= t('E-mail') ?>:</label>
 			<div class="col-sm-4"><input type="text" name="user_email" maxlength="255" value="<?=$data->val('user_email') ?>" class="form-control" /></div>
-			<div class="col-sm-5 form-validation" id="user_email_validation"><?= t('Required.') ?></div>
+			<div class="col-sm-5 form-validation" id="user_email_validation"><?= t('Please enter valid e-mail address.') ?></div>
 		</div>
 		<div class="form-group">
 			<label for="user_failed_attempts" class="col-sm-3 control-label"><?= t('Failed Logins') ?>:</label>
@@ -26,7 +26,7 @@
 		<div class="form-buttons">
 			<a class="form-button" href="/admin/users"><?= t('Back') ?></a>
 			<input type="button" onclick="javascript:deleteUser();" class="btn btn-danger form-button" value="<?=t('Delete') ?>">
-			<input type="button" onclick="javascript:validate();" class="btn btn-success form-button" value="<?=t('Save') ?>">
+			<input type="submit" onclick="javascript:validate();return false;" class="btn btn-success form-button" value="<?=t('Save') ?>">
 		</div>
 	</form>	
 </div>
@@ -34,7 +34,7 @@
 <script>
 	function validate() {
 		var isValid = true;
-		isValid = validateField('user_email') && isValid;
+		isValid = validateEmailField('user_email') && isValid;
 		
 		if (isValid) {
 			document.forms[0].submit();
