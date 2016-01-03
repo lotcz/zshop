@@ -31,22 +31,9 @@ class Product extends ModelBase {
 			dbErr($this->table_name, 'prepare', $sql, $this->db->error);
 		}		
 	}
-	/*
-	static function select($db, $table_name, $where = null, $bindings = null, $types = null, $paging = null, $orderby = null) {		
-		$stmt = SqlQuery::select($db, $table_name, $where, $bindings, $types, $paging, $orderby);
-		$result = $stmt->get_result();
-		$list = [];
-		while ($row = $result->fetch_assoc()) {
-			$model = new Self($db);	
-			$model->setData($row);
-			$list[] = $model;
-		}
-		$stmt->close();
-		return $list;
-	}
-	*/
-	public function test() {
-			return 'Hello World!';
+	
+	public function loadVariants() {
+		$this->variants = ModelBase::select($this->db, 'product_variants', 'product_variant_product_id = ?', [ $this->val('product_id') ]);
 	}
 	
 }

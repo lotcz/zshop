@@ -8,8 +8,18 @@
 		</div>
 		<div class="form-group">
 			<label for="category_parent_id" class="col-sm-2 control-label"><?= t('Parent category') ?>:</label>
-			<div class="col-sm-6"><input type="text" name="category_parent_id" value="<?=$data->val('category_parent_id') ?>" class="form-control" /></div>
-		</div>
+			<div class="col-sm-6">
+				<?php 
+					renderSelect(
+						'category_parent_id',
+						ModelBase::select($db, 'categories'),
+						'category_id',
+						'category_name',
+						$data->val('category_parent_id')
+					);
+				?>
+			</div>
+		</div>		
 		<div class="form-buttons">
 			<a class="form-button" href="/admin/categories"><?= t('Back') ?></a>
 			<input type="button" onclick="javascript:deleteCategory();" class="btn btn-danger form-button" value="<?=t('Delete') ?>">

@@ -68,7 +68,7 @@ class Authentication {
 						
 		if (isset($_COOKIE[$this->cookie_name])) {
 			$arr = explode('-', $_COOKIE[$this->cookie_name]);
-			$session_id = $arr[0];
+			$session_id = intval($arr[0]);
 			$session_token = $arr[1];
 		}
 		

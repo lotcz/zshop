@@ -11,10 +11,10 @@
 		} else {
 			$category = new Category($db);
 		}
-		$category->setData($_POST);
-		unset($category->data['category_parent_id']);
-		$category->save();
-		redirect('/admin/categories');
+		$category->setData($_POST);		
+		if ($category->save()) {
+			redirect('/admin/categories');
+		}
 	} elseif (isset($path[2]) && $path[2] == 'edit') {
 		$category = new Category($db, $path[3]);
 		$page_title	= t('Editing Category');

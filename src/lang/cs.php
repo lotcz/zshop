@@ -14,6 +14,7 @@
 	$language_data['Delete'] = 'Smazat';
 	$language_data['Edit'] = 'Editovat';
 	$language_data['Password'] = 'Heslo';
+	$language_data['Search'] = 'Hledat';
 	$language_data['Administrator Sign In'] = 'Vstup pro správce';
 	$language_data['Max value is %s.'] = 'Maximální hodnota je %s.';
 	$language_data['%d - %d of %d'] = '<b>%d</b> až <b>%d</b> z celkových <b>%d</b>.';

@@ -1,6 +1,5 @@
 version 1.1:
-	- products, categories, variants
-	- import products and categories
+	- import variants correctly!
 	- browse products
 	
 version  1.2

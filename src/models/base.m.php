@@ -53,16 +53,18 @@ class ModelBase {
 
 	static function select($db, $table_name, $where = null, $bindings = null, $types = null, $paging = null, $orderby = null) {		
 		$stmt = SqlQuery::select($db, $table_name, $where, $bindings, $types, $paging, $orderby);
-		$result = $stmt->get_result();
-		$list = [];
-		$class = get_called_class();
-		while ($row = $result->fetch_assoc()) {			
-			$model = new $class($db);	
-			$model->setData($row);
-			$list[] = $model;
+		if ($stmt) {
+			$result = $stmt->get_result();
+			$list = [];
+			$class = get_called_class();
+			while ($row = $result->fetch_assoc()) {			
+				$model = new $class($db);	
+				$model->setData($row);
+				$list[] = $model;
+			}
+			$stmt->close();
+			return $list;
 		}
-		$stmt->close();
-		return $list;
 	}
 	
 	public function fetch() {
@@ -74,6 +76,7 @@ class ModelBase {
 	}
 	
 	public function save() {		
+		$result = false;
 		$id = $this->val($this->id_name);		
 		
 		if (isset($id) && $id > 0) {
@@ -95,8 +98,10 @@ class ModelBase {
 			
 			if ($st = $this->db->prepare($sql)) {
 				call_user_func_array(array($st, 'bind_param'), $bindings);	
-				if (!$st->execute()) {
-					dbErr($this->table_name, 'execute', $sql, $this->db->error);					
+				if ($st->execute()) {
+					$result = true;
+				} else {
+					dbErr($this->table_name, 'execute', $sql, $this->db->error);
 				}
 				$st->close();
 			} else {
@@ -121,16 +126,18 @@ class ModelBase {
 			
 			if ($st = $this->db->prepare($sql)) {				
 				call_user_func_array(array($st, 'bind_param'), $bindings);				
-				if (!$st->execute()) {
-					dbErr($this->table_name, 'execute', $sql, $this->db->error);					
-				} else {
+				if ($st->execute()) {
+					$result = true;
 					$this->data[$this->id_name] = $this->db->insert_id;
+				} else {
+					dbErr($this->table_name, 'execute', $sql, $this->db->error);					
 				}
 				$st->close();
 			} else {
 				dbErr($this->table_name, 'prepare', $sql, $this->db->error);
 			}
 		}
+		return $result;
 	}
 
 	public function deleteById($id) {

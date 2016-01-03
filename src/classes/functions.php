@@ -84,7 +84,28 @@
 		global $base_url;		
 		echo sprintf('<img src="%s" class="%s" alt="%s" />', $base_url . '/images/' . $src, $css, t($alt));
 	}
+
+	function renderSelect($name, $items, $id_name, $label_name, $selected_value = null) {
+		?>
+			<select name="<?=$name ?>" class="form-control">
+				<?php
+					for ($i = 0, $max = count($items); $i < $max; $i++) {
+						$value = $items[$i]->val($id_name);
+						$selected = '';
+						if ($value == $selected_value) {
+							$selected = 'selected';
+						}
+						?>
+							<option value="<?=$items[$i]->val($id_name) ?>" <?=$selected ?> ><?=$items[$i]->val($label_name) ?></option>
+						<?php
+					}
+				?>
+			</select>
+		<?php
 		
+	}
+	
+	
 	/*
 		TOKEN GENERATOR
 		

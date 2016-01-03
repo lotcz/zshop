@@ -11,6 +11,35 @@
 			<div class="col-sm-6"><input type="text" name="product_price" value="<?=$data->val('product_price') ?>" class="form-control" /></div>
 			<div class="col-sm-4 form-validation" id="product_price_validation"><?= t('Required.') ?></div>
 		</div>
+		<div class="form-group">
+			<label for="product_default_category_id" class="col-sm-2 control-label"><?=t('Default category') ?>:</label>
+			<div class="col-sm-6">
+				<?php 
+					renderSelect(
+						'product_default_category_id',
+						ModelBase::select($db, 'categories'),
+						'category_id',
+						'category_name',
+						15
+					);
+				?>
+			</div>
+			<div class="col-sm-4 form-validation" id="product_price_validation"><?= t('Required.') ?></div>
+		</div>
+		<div class="form-group">
+			<label for="product_default_variant_id" class="col-sm-2 control-label"><?=t('Default variant') ?>:</label>
+			<div class="col-sm-6">
+				<?php 
+					renderSelect(
+						'product_default_variant_id',
+						$data->variants,
+						'product_variant_id',
+						'product_variant_name'
+					);
+				?>
+			</div>
+			<div class="col-sm-4 form-validation" id="product_price_validation"><?= t('Required.') ?></div>
+		</div>
 		<div class="form-buttons">
 			<a class="form-button" href="/admin/products"><?= t('Back') ?></a>
 			<input type="button" onclick="javascript:deleteProduct();" class="btn btn-danger form-button" value="<?=t('Delete') ?>">
