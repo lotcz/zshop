@@ -36,7 +36,7 @@ class Authentication {
 		$user = new User($this->db);
 		$user->loadByLoginOrEmail($loginoremail);
 		
-		if ($user->is_loaded) {
+		if (isset($user) && $user->is_loaded) {
 			if ($user->val('user_failed_attempts') > $this::$max_attempts) {
 				$messages[] = t('Max. number of login attempts exceeded. Please ask for new password.');
 			}
@@ -50,7 +50,7 @@ class Authentication {
 				$session = new UserSession($this->db);
 				$session->data['user_session_token_hash'] = $token_hash;
 				$session->data['user_session_user_id'] = $this->user->val('user_id');
-				$session->data['user_session_expires'] = ModelBase::mysqlTimestamp($expires);
+				$session->data['user_session_expires'] = SqlQuery::mysqlTimestamp($expires);
 				$session->save();
 				setcookie($this->cookie_name, $session->val('user_session_id') . "-" . $token, $expires, '/', false, false); 				
 				$this->session = $session;
@@ -74,11 +74,11 @@ class Authentication {
 		
 		if (isset($session_id)) {
 			$this->session = new UserSession($this->db, $session_id);			
-			if (Authentication::verifyPassword($session_token, $this->session->val('user_session_token_hash'))) {
+			if (isset($this->session) && Authentication::verifyPassword($session_token, $this->session->val('user_session_token_hash'))) {
 				$expires = time()+Authentication::$session_expire;
 				$session = new UserSession($this->db);
 				$session->data['user_session_id'] = $session_id;
-				$session->data['user_session_expires'] = ModelBase::mysqlTimestamp($expires);
+				$session->data['user_session_expires'] = SqlQuery::mysqlTimestamp($expires);
 				$session->save();
 				setcookie($this->cookie_name, $this->session->val('user_session_id') . '-' . $session_token, $expires, '/', false, false); 				
 				$this->user = new User($this->db, $this->session->val('user_session_user_id'));				
@@ -91,7 +91,7 @@ class Authentication {
 		if ($this->isAuth()) {
 			$user = new User($this->db);
 			$user->data['user_id'] = $this->user->val('user_id');
-			$user->data['user_last_access'] = ModelBase::mysqlTimestamp(time());
+			$user->data['user_last_access'] = SqlQuery::mysqlTimestamp(time());
 			$user->save();
 		}
 	}

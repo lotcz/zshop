@@ -14,14 +14,12 @@
 			</thead>
 			<tbody>
 			<?php
-				global $db;
-				$result = $db->query('SELECT * FROM products ORDER BY product_name');
-				while ($row = $result->fetch_assoc()) {
-					echo '<tr onclick="javascript:openDetail(' . $row['product_id'] . ');">';
-					echo '<td>' . $row['product_id'] . '</td>';
-					echo '<td>' . $row['product_name'] . '</td>';
-					echo '<td>' . $row['product_abx_id'] . '</td>';	
-					echo '<td><a href="/admin/product/edit/' . $row['product_id'] . '">' . t('Edit') . '</a></td>';
+				foreach ($data['products'] as $product) {
+					echo '<tr onclick="javascript:openDetail(' . $product->val('product_id') . ');">';
+					echo '<td>' . $product->val('product_id') . '</td>';
+					echo '<td>' . $product->val('product_name') . '</td>';
+					echo '<td>' . $product->val('product_abx_id') . '</td>';	
+					echo '<td><a href="/admin/product/edit/' . $product->val('product_id') . '">' . t('Edit') . '</a></td>';
 					echo '</tr>';
 				}
 			?>

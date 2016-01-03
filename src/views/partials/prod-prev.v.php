@@ -1,6 +1,6 @@
 <?php
-	global $block_product;
-	$product = $block_product;
+	global $data;
+	$product = $data['partials.prod-prev'];
 ?>
 
 <div class="col-md-3 product">
@@ -11,8 +11,10 @@
 			?>
 		</div>
 		<div class="panel-heading">
+		
 			<h3 class="panel-title">
 				<?php
+					echo $product->test();
 					renderLink('admin/product/edit/'. $product->val('product_id'), $product->val('product_name'), '');
 				?>
 			</h3>

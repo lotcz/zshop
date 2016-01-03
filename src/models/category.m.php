@@ -30,5 +30,6 @@ class Category extends ModelBase {
 			dbErr($this->table_name, 'prepare', $sql, $this->db->error);				
 		}		
 	}
+		
 	
 }

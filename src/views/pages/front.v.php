@@ -8,8 +8,4 @@
 		</div>
 	</div>
 	
-	<?php
-		renderBlock('sellers');
-	?>
-	
 </div>

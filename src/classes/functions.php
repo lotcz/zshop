@@ -41,6 +41,14 @@
 	}
 	
 	/*
+		log a debug message
+	*/
+	function dbg($data) {		
+		global $messages;
+		$messages->add($data);
+	}
+	
+	/*
 		handle fatal db error
 	*/
 	function dbErr($model, $operation, $sql, $message) {
@@ -58,6 +66,13 @@
 	function renderBlock($block) {
 		global $home_dir;
 		include $home_dir . 'blocks/' . $block . '.b.php';
+	}
+		
+	function renderPartial($name, $paramdata) {
+		global $home_dir;
+		global $data;
+		$data['partials.' . $name] = $paramdata;
+		include $home_dir . 'views/partials/' . $name . '.v.php';
 	}
 	
 	function renderLink($href, $title, $css) {

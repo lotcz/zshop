@@ -1,13 +1,21 @@
-<div class="row">
+<div class="row top-sellers">
 	<?php
-		global $db;
-		global $block_product;
+		require_once '../models/product.m.php';
+		global $db, $messages;
 		
-		$result = $db->query('SELECT * FROM products ORDER BY RAND() LIMIT 4');
-		while ($row = $result->fetch_assoc()) {
-			$block_product = new ModelBase();
-			$block_product->setData($row);
-			renderBlock('product');
+		$sellers = Product::select(
+		/* db */		$db, 
+		/* table */		'viewProducts', 
+		/* where */		null,
+		/* bindings */	null,
+		/* types */		null,
+		/* paging */	new Paging(4),
+		/* orderby */	'RAND()'
+		);
+		
+		foreach ($sellers as $product) {
+			renderPartial('prod-prev', $product);
 		}
-	?>	
+		
+	?>
 </div>

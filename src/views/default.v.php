@@ -56,6 +56,8 @@
 				renderBlock('messages');
 										
 				include $home_dir . 'views/' . $page . '.v.php';
+				
+				renderBlock('sellers');
 			?>
 		</div>
 	</div>
