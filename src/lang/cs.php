@@ -16,7 +16,8 @@
 	$language_data['Password'] = 'Heslo';
 	$language_data['Administrator Sign In'] = 'Vstup pro správce';
 	$language_data['Max value is %s.'] = 'Maximální hodnota je %s.';
-	
+	$language_data['%d - %d of %d'] = '<b>%d</b> až <b>%d</b> z celkových <b>%d</b>.';
+
 	$language_data['Administration'] = 'Administrace';
 	$language_data['Administrators'] = 'Správci';
 	$language_data['Editing Administrator'] = 'Editace správce';

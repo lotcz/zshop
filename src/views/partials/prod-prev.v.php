@@ -14,7 +14,6 @@
 		
 			<h3 class="panel-title">
 				<?php
-					echo $product->test();
 					renderLink('admin/product/edit/'. $product->val('product_id'), $product->val('product_name'), '');
 				?>
 			</h3>

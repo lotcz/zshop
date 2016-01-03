@@ -5,6 +5,7 @@
 	
 	$paging = Paging::getFromUrl();
 	$search = isset($_GET['s']) ? $_GET['s'] : '';
+	$data['search'] = $search;
 	
 	$where = null;
 	$bindings = null;
@@ -14,11 +15,12 @@
 		$where = 'product_name LIKE ?';
 		$bindings = [ '%' . $search . '%' ];
 		$types = 's';
+		$paging->filter = $search;
 	}
 	
 	$products = Product::select(
 		/* db */		$db, 
-		/* table */		'viewProducts', 
+		/* table */		'products', 
 		/* where */		$where,
 		/* bindings */	$bindings,
 		/* types */		$types,
@@ -27,3 +29,4 @@
 	);
 	
 	$data['products'] = $products;
+	$data['paging'] = $paging;

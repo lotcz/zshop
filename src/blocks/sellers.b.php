@@ -9,7 +9,7 @@
 		/* where */		null,
 		/* bindings */	null,
 		/* types */		null,
-		/* paging */	new Paging(4),
+		/* paging */	new Paging(0,4),
 		/* orderby */	'RAND()'
 		);
 		

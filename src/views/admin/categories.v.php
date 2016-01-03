@@ -1,6 +1,10 @@
 <div class="inner cover">	
 	<a class="btn btn-success top-button" href="/admin/category">+ <?=t('New Category') ?></a>
 
+	<?php
+		renderPartial('paging', $data['paging'])
+	?>
+	
 	<div class="table-responsive">
 		<table class="table table-striped table-hover">
 			<thead>
@@ -14,15 +18,13 @@
 			</thead>
 			<tbody>
 			<?php
-				global $db;
-				$result = $db->query('SELECT * FROM categories ORDER BY COALESCE(category_parent_id, category_id)');
-				while ($row = $result->fetch_assoc()) {
-					echo '<tr onclick="javascript:openDetail(' . $row['category_id'] . ');">';
-					echo '<td>' . $row['category_id'] . '</td>';
-					echo '<td>' . $row['category_name'] . '</td>';
-					echo '<td>' . $row['category_abx_id'] . '</td>';	
-					echo '<td>' . $row['category_parent_id'] . '</td>';									
-					echo '<td><a href="/admin/category/edit/' . $row['category_id'] . '">' . t('Edit') . '</a></td>';
+				foreach ($data['categories'] as $cat) {
+					echo '<tr onclick="javascript:openDetail(' . $cat->val('category_id') . ');">';
+					echo '<td>' . $cat->val('category_id') . '</td>';
+					echo '<td>' . $cat->val('category_name') . '</td>';
+					echo '<td>' . $cat->val('category_abx_id') . '</td>';	
+					echo '<td>' . $cat->val('category_parent_id') . '</td>';									
+					echo '<td><a href="/admin/category/edit/' . $cat->val('category_id') . '">' . t('Edit') . '</a></td>';
 					echo '</tr>';
 				}
 			?>
