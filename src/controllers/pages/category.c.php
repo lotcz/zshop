@@ -9,6 +9,20 @@
 	$data['category'] = $category;
 	$page_title = t($category->val('category_name'));
 	
+	$sorting = isset($_GET['o']) ? ucfirst($_GET['o']) : 'Price';
+	$dir = (isset($_GET['d']) && (strtolower($_GET['d']) == 'asc')) ? '' : 'DESC';
+	
+	switch ($sorting) {
+		case 'Popularity' :
+			$orderby = 'product_stock ' . $dir;
+			break;
+		case 'Alphabet' : 
+			$orderby = 'product_name ' . $dir;
+			break;
+		default:
+			$orderby = 'product_price ' . $dir;
+	}
+	
 	$products = Product::select(
 	/* db */		$db, 
 	/* table */		'viewProducts', 
@@ -16,7 +30,7 @@
 	/* bindings */	[ $category->val('category_id') ],
 	/* types */		'i',
 	/* paging */	null,
-	/* orderby */	'product_name'
+	/* orderby */	$orderby
 	);
 	
 	$data['products'] = $products;

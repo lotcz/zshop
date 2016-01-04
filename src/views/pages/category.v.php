@@ -11,9 +11,9 @@
 				<div class="panel-body">
 					<?php
 						foreach ($category->children as $cat) {
-							echo '<div class="col-md-4">';
+							echo '<div class="col-md-4"><h4>';
 							renderLink('category/' . $cat->val('category_id'), $cat->val('category_name'), '');
-							echo '</div>';
+							echo '</h4></div>';
 						}
 					?>			
 				</div>
@@ -21,11 +21,14 @@
 		<?php
 	}	
 
-	/*
-		PRODUCTS IN CATEGORY
-	*/
-	foreach ( $data['products'] as $product) {
-		renderPartial('prod-prev', $product);
-	}
-
+	renderPartial('prod-sort', null);
+	
 ?>
+
+<div class="row">	
+	<?php
+		foreach ( $data['products'] as $product) {
+			renderPartial('prod-prev', $product);
+		}
+	?>
+</div>

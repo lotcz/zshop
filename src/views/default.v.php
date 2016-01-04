@@ -9,7 +9,7 @@
 			</a>
 		</div>
 		
-		<div class="col-md-8 main-title">
+		<div class="col-md-7 main-title">
 			<h1>zShop 1.2</h1>
 		</div>
 		
@@ -24,13 +24,13 @@
 		</div>
 		
 		<!-- Collect the nav links, forms, and other content for toggling -->
-		<div class="col-md-2 head-block user" id="bs-example-navbar-collapse-1">
-			<ul>
-				<?php 
-					renderBlock('user');	
-					renderBlock('lang');					
-				?>
-			</ul>
+		<div class="col-md-3 user head-block text-center" id="bs-example-navbar-collapse-1">
+			
+					<?php
+						renderBlock('user');
+						renderBlock('lang');
+					?>
+				
 		</div>
 		<!-- /.navbar-collapse -->
 	</div>
