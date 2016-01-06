@@ -4,7 +4,7 @@
 	
 	$language_data['Hello'] = 'Dobrý den';
 	$language_data['Log Out'] = 'Odhlásit se';	
-	$language_data['Go to E-shop'] = 'Přejít do e-shopu.';
+	$language_data['Go to E-shop'] = 'Přejít do e-shopu';
 	$language_data['Forgotten Password'] = 'Zapomenuté heslo';
 	$language_data['Login or E-mail'] = 'Login nebo e-mail';
 	$language_data['Reset Password'] = 'Resetovat heslo';

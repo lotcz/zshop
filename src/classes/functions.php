@@ -75,9 +75,19 @@
 		include $home_dir . 'views/partials/' . $name . '.v.php';
 	}
 	
-	function renderLink($href, $title, $css) {
+	function renderLink($href, $title, $css = '') {
 		global $base_url;
 		echo sprintf('<a href="%s" class="%s">%s</a>', $base_url . '/' . $href, $css, t($title));
+	}
+	
+	function renderMenuLink($href, $title) {
+		global $base_url, $raw_path;
+		if ($raw_path == $href) {
+			$css = 'active';
+		} else {
+			$css = '';
+		}
+		echo sprintf('<li class="%s"><a href="%s" >%s</a>', $css, $base_url . '/' . $href, t($title));
 	}
 	
 	function renderImage($src, $alt, $css) {

@@ -1,3 +1,6 @@
+<div style="text-align:center">
+	<p><?php renderBlock('lang'); ?></p>
+</div>
 <div class="inner cover">
 	<form method="post" action="/admin" class="form-horizontal" >
 		<div class="form-group">

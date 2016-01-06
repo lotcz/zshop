@@ -1,5 +1,10 @@
+body.admin {
+	padding-top:51px;
+}
+
 h1 {
 	text-align:center;
+	margin-top:10px;
 }
 
 .alert {

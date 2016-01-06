@@ -31,9 +31,11 @@
 		
 		$auth = new Authentication($db);
 		$path = [''];
-
+		$raw_path = '/';
+		
 		if (isset($_GET['path'])) {
 			$path = explode('/', trimSlashes(strtolower($_GET['path'])));
+			$raw_path = '/' . implode('/', $path);
 		}
 
 		// select page to display

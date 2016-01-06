@@ -1,49 +1,29 @@
-<nav class="navbar navbar-inverse navbar-fixed-top header" role="navigation" style="height:140px">
-	<div class="container">
-		
-		<div class="col-md-2">
-			<a href="<?=$base_url ?>" alt="<?=t('Home') ?>">
-				<?php
-					renderImage('logo.jpg', 'Logo', 'img-circle logo' );			
-				?>
-			</a>
-		</div>
-		
-		<div class="col-md-7 main-title">
-			<h1>zShop 1.2</h1>
-		</div>
-		
-		<!-- grouped for better mobile display -->
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-				<span class="sr-only">Toggle navigation</span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</button>			
-		</div>
-		
-		<!-- Collect the nav links, forms, and other content for toggling -->
-		<div class="col-md-3 user head-block text-center" id="bs-example-navbar-collapse-1">
-			
+<div class="container">
+	<div class="jumbotron basic-bg">
+		<div class="row">	
+			<div class="col-md-2">
+				<a href="<?=$base_url ?>" alt="<?=t('Home') ?>">
 					<?php
-						renderBlock('user');
-						renderBlock('lang');
+						renderImage('logo.jpg', 'Logo', 'img-circle logo' );			
 					?>
-				
+				</a>
+			</div>
+			
+			<div class="col-md-7 main-title">
+				<h1>zShop 1.2</h1>
+			</div>
+			
+			<div class="col-md-3">		
+				<?php
+					renderBlock('lang');
+				?>			
+			</div>
 		</div>
-		<!-- /.navbar-collapse -->
 	</div>
-	<!-- /.container -->
-</nav>
 
-<div class="container" style="margin-top:160px">			
 	<div class="row">
 		<div class="col-md-3 sidebar">
-			<?php					
-				if ($auth->isAuth()) {
-					renderLink('admin','Administration','btn btn-default');
-				}
+			<?php				
 				renderBlock('categories');
 			?>			
 		</div>

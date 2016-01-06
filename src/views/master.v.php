@@ -29,10 +29,16 @@
 		<![endif]-->
 	</head>
 
-	<body>
+	<body class="<?= $auth->isAuth() ? 'admin' : '' ?>">
 	
-		<?php
+		<?php		
+			
+			if ($auth->isAuth()) {
+				renderBlock('adm-top');
+			}
+		
 			include $home_dir . 'views/' . $main_template . '.v.php';
+			
 		?>
 		
 		<!-- Bootstrap core JavaScript
