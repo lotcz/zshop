@@ -1,6 +1,9 @@
 <?php
 	global $language_data;
-	$language_data['cs_css'] = 'highlighted';
+	$language_data['language_code'] = 'cs';
+	$language_data['language_name'] = 'Čeština';
+	$language_data['Czech'] = 'Čeština';	
+	$language_data['cs_css'] = 'active';
 	
 	$language_data['Hello'] = 'Dobrý den';
 	$language_data['Log Out'] = 'Odhlásit se';	

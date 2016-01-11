@@ -2,6 +2,12 @@ body.admin {
 	padding-top:51px;
 }
 
+.header {
+	border-radius:5px;
+	padding:15px;
+	margin:15px 0;
+}
+
 h1 {
 	text-align:center;
 	margin-top:10px;
@@ -25,6 +31,10 @@ ol, ul {
 	margin-bottom:15px;
 	margin-left:auto;
 	margin-right:auto;
+}
+
+.language img {
+	margin:0 10px 0 0;
 }
 
 /* forms */

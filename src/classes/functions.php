@@ -115,6 +115,11 @@
 		
 	}
 	
+	function formatPrice($price) {
+		$p = intval($price);
+		$res = sprintf('%d Kč',$p);
+		return $res;
+	}
 	
 	/*
 		TOKEN GENERATOR

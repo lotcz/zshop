@@ -1,5 +1,5 @@
 <div class="container">
-	<div class="jumbotron basic-bg">
+	<div class="header basic-bg">
 		<div class="row">	
 			<div class="col-md-2">
 				<a href="<?=$base_url ?>" alt="<?=t('Home') ?>">

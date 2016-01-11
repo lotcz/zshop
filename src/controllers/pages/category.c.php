@@ -29,7 +29,7 @@
 	/* where */		'product_category_category_id = ?',
 	/* bindings */	[ $category->val('category_id') ],
 	/* types */		'i',
-	/* paging */	null,
+	/* paging */	new Paging(10),
 	/* orderby */	$orderby
 	);
 	
