@@ -1,6 +1,7 @@
 <?php
 	
-	require_once '../models/product.m.php';	
+	require_once '../models/product.m.php';
+	require_once '../models/category.m.php';
 	
 	global $db;
 	

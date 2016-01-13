@@ -12,6 +12,7 @@
 	require_once $home_dir . 'classes/authentication.php';
 	
 	// rendering globals
+	$theme = null;
 	$master_template = 'master';
 	$main_template = 'default';
 	$page = 'pages/front'; // path to view AND controller
@@ -71,6 +72,7 @@
 				
 			// CUSTOMER SECTION
 			default :
+				$theme = 'parfumerie';
 				if (strlen($path[0]) > 0) {
 					$page = 'pages/' . $path[0];
 				} else {

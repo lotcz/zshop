@@ -6,8 +6,8 @@ class Product extends ModelBase {
 	public $id_name = 'product_id';
 	
 	public function loadByAbxId($id) {
-		$filter['product_abx_id'] = intval($id);
-		$this->loadSingleFiltered($filter);		
+		$filter = 'product_abx_id = ?';
+		$this->loadSingleFiltered($filter, [$id]);		
 	}
 	
 	public function removeFromAllCategories() {		
@@ -36,4 +36,11 @@ class Product extends ModelBase {
 		$this->variants = ModelBase::select($this->db, 'product_variants', 'product_variant_product_id = ?', [ $this->val('product_id') ]);
 	}
 	
+	public function renderImage() {
+		if ($this->val('product_image')) {
+			renderProductImage($this->val('product_image'),$this->val('product_name'),'');
+		} else {
+			renderImage('no-image.png',t('Image missing'),'');
+		}
+	}
 }

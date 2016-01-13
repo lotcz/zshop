@@ -40,3 +40,5 @@
 	$language_data['Customers'] = 'Zákazníci';
 	$language_data['Editing Customer'] = 'Editace zákazníka';
 	$language_data['New Customer'] = 'Nový zákazník';
+	
+	$language_data['Total <b>%s</b> items.'] = 'Celkem <b>%s</b> položek.';

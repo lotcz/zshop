@@ -10,7 +10,6 @@ body.admin {
 
 h1 {
 	text-align:center;
-	margin-top:10px;
 }
 
 .alert {
@@ -35,6 +34,19 @@ ol, ul {
 
 .language img {
 	margin:0 10px 0 0;
+}
+
+.dropdown.btn {
+	padding:0;
+}
+
+.dropdown.btn > .dropdown-toggle {
+	padding:6px 12px;
+	display:inline-block;
+}
+
+.dropdown .caret {
+	margin-left:10px;
 }
 
 /* forms */

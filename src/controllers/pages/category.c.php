@@ -23,14 +23,17 @@
 			$orderby = 'product_price ' . $dir;
 	}
 	
+	$paging = new Paging(0,12);
+	
 	$products = Product::select(
 	/* db */		$db, 
 	/* table */		'viewProducts', 
 	/* where */		'product_category_category_id = ?',
 	/* bindings */	[ $category->val('category_id') ],
 	/* types */		'i',
-	/* paging */	new Paging(10),
+	/* paging */	$paging,
 	/* orderby */	$orderby
 	);
 	
 	$data['products'] = $products;
+	$data['paging'] = $paging;

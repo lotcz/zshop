@@ -7,13 +7,17 @@
 	*/
 	if (isset($category->children) && count($category->children) > 0) {
 		?>
-			<div class="panel panel-default">		
+			<div class="panel panel-default spaced">		
 				<div class="panel-body">
 					<?php
 						foreach ($category->children as $cat) {
-							echo '<div class="col-md-4"><h4>';
-							renderLink('category/' . $cat->val('category_id'), $cat->val('category_name'), '');
-							echo '</h4></div>';
+							?>
+								<div class="col-md-4">
+									<?php
+										renderLink('category/' . $cat->val('category_id'), $cat->val('category_name'), '');
+									?>
+								</div>
+							<?php							
 						}
 					?>			
 				</div>
@@ -25,7 +29,7 @@
 	
 ?>
 
-<div class="row">	
+<div class="row spaced products">	
 	<?php
 		foreach ( $data['products'] as $product) {
 			renderPartial('prod-prev', $product);

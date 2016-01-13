@@ -28,6 +28,9 @@
 		<div class="collapse navbar-collapse" id="navbar">		
 			<ul class="nav navbar-nav navbar-left">
 				<?php 
+					if ($path[0] == 'admin') {
+						renderMenuLink('/admin', 'Dashboard');
+					}
 					renderMenuLink('/admin/categories', 'Categories');
 					renderMenuLink('/admin/products', 'Products');
 					renderMenuLink('/admin/users', 'Administrators');

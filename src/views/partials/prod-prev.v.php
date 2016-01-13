@@ -8,20 +8,22 @@
 		<div class="panel-body">
 			
 			<div class="product-image">
-				<a href="/admin/product/edit/<?=$product->val('product_id') ?>"><?php renderImage('product.jpeg','Product',''); ?></a>
+				<a href="/admin/product/edit/<?=$product->val('product_id') ?>"><?php $product->renderImage(); ?></a>
 			</div>
 			
-			<div class="product-price">
-				<div class="price">
-					<?=formatPrice($product->val('product_price')) ?>
-				</div>					
-			</div>			
+					
 						
 			<div class="panel-title">				
 				<?php
 					renderLink('admin/product/edit/'. $product->val('product_id'), $product->val('product_name'), '');
 				?>
 			</div>
+			
+			<div class="product-price">
+				<div class="price">
+					<?=formatPrice($product->val('product_price')) ?>
+				</div>					
+			</div>	
 
 		</div>
 		

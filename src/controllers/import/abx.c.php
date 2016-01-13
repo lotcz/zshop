@@ -1,5 +1,28 @@
 <?php
 
+	function myTrim($s) {
+		$chrs = '-*/1234567890';
+		
+		do {
+			$trimmed = false;
+			$s = trim($s);
+			if (strlen($s)) {
+				for ($i = 0, $max = strlen($chrs); $i < $max; $i++) {
+					if ($s[0] == $chrs[$i]) {
+						$s = substr($s,1,strlen($s)-1);
+						$trimmed = true;
+					}
+					if ($s[strlen($s)-1] == $chrs[$i]) {
+						$s = substr($s,0,strlen($s)-1);
+						$trimmed = true;
+					}
+				}
+			}
+		} while ($trimmed);		
+		
+		return $s;
+	}
+	
 	$page_title	= 'Import ABX';
 	$master_template = 'plain';
 		
@@ -48,7 +71,7 @@
 					$data['cat_inserted'] += 1;
 					$zCategory->data['category_abx_id'] = intval($category->id);
 				}
-				$zCategory->data['category_name'] = $category->name;
+				$zCategory->data['category_name'] = myTrim($category->name);
 				$zCategory->data['category_description'] = $category->desc;
 				if (isset($category->parentid) && $category->parentid > 0) {
 					$parent = new Category($db);
@@ -64,54 +87,57 @@
 				possibly update all stock numbers to zero here?
 			*/
 			
-			/* produkty */		
-			foreach ($xml->products->product as $product) {
-				$data['total'] += 1;			
-				$prod_id = intval(trim($product->ean));
-				$zProduct = new Product($db);
-				$zProduct->loadByAbxId($prod_id);
-				if ($zProduct->is_loaded) {
-					$data['updated'] += 1;
-				} else {
-					$data['inserted'] += 1;
-					$zProduct->data['product_abx_id'] = $prod_id;
-				}
-				$price_sales = trim($product->price_sales);
-				$price_eus = trim($product->price_eus);
-				$product_price = ($price_sales) ? $price_sales : $price_eus;
-				$product_name = trim($product->name);			
-				$zProduct->data['product_price'] = $product_price;
-				$zProduct->data['product_stock'] = intval(trim($product->stock));
+			if (true) {
 				
-				/* varianty */	
-				if (strpos($product_name, ' var.') > 0) {				
-					list($prodname, $prodvar) = explode(' var.', $product_name);
-					$zProduct->data['product_name'] = $prodname;
-					$zProduct->save();
+				/* produkty */		
+				foreach ($xml->products->product as $product) {
+					$data['total'] += 1;			
+					$prod_id = intval(trim($product->ean));
+					$zProduct = new Product($db);
+					$zProduct->loadByAbxId($prod_id);
+					if ($zProduct->is_loaded) {
+						$data['updated'] += 1;
+					} else {
+						$data['inserted'] += 1;
+						$zProduct->data['product_abx_id'] = $prod_id;
+					}
+					$price_sales = trim($product->price_sales);
+					$price_eus = trim($product->price_eus);
+					$product_price = ($price_sales) ? $price_sales : $price_eus;
+					$product_name = myTrim($product->name);			
+					$zProduct->data['product_price'] = $product_price;
+					$zProduct->data['product_stock'] = intval(trim($product->stock));
 					
-					$zVariant = new ProductVariant($db);
-					$zVariant->load($zProduct->data['product_id'], $prodvar);
-					$zVariant->data['product_variant_name'] = $prodvar;
-					$zVariant->data['product_variant_product_id'] = $zProduct->data['product_id'];
-					$zVariant->data['product_variant_price'] = $product_price;
-					$zVariant->data['product_variant_stock'] = trim($product->stock);
-					$zVariant->save();
-				} else {
-					$zProduct->data['product_name'] = $product_name;
-					$zProduct->save();
-				}
-				
-				/* kategorie */
-				$zProduct->removeFromAllCategories();
-				
-				if ($product->categories->category) {
-					foreach ($product->categories->category as $cat) {
-						$zCategory = new Category($db);
-						$zCategory->loadByAbxId(intval($cat));
-						$zProduct->addToCategory($zCategory->val('category_id'));
+					/* varianty */	
+					if (strpos($product_name, ' var.') > 0) {				
+						list($prodname, $prodvar) = explode(' var.', $product_name);
+						$zProduct->data['product_name'] = $prodname;
+						$zProduct->save();
+						
+						$zVariant = new ProductVariant($db);
+						$zVariant->load($zProduct->data['product_id'], $prodvar);
+						$zVariant->data['product_variant_name'] = $prodvar;
+						$zVariant->data['product_variant_product_id'] = $zProduct->data['product_id'];
+						$zVariant->data['product_variant_price'] = $product_price;
+						$zVariant->data['product_variant_stock'] = trim($product->stock);
+						$zVariant->save();
+					} else {
+						$zProduct->data['product_name'] = $product_name;
+						$zProduct->save();
+					}
+					
+					/* kategorie */
+					$zProduct->removeFromAllCategories();
+					
+					if ($product->categories->category) {
+						foreach ($product->categories->category as $cat) {
+							$zCategory = new Category($db);
+							$zCategory->loadByAbxId(intval($cat));
+							$zProduct->addToCategory($zCategory->val('category_id'));
+						}
 					}
 				}
-			}
+			} // if false
 
 		} else {
 			$data['outmsg'] = sprintf('Import file %s not found!', $xml_path);

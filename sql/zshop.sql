@@ -85,6 +85,7 @@ CREATE TABLE IF NOT EXISTS `products` (
   `product_name` VARCHAR(255) NOT NULL,
   `product_price` DECIMAL(10,2) UNSIGNED NOT NULL,
   `product_stock` INT UNSIGNED NOT NULL DEFAULT 0,
+  `product_image` VARCHAR(255) NULL,
   PRIMARY KEY (`product_id`),
   UNIQUE INDEX `products_abx_id_unique` (`product_abx_id` ASC)
 ) ENGINE = InnoDB;

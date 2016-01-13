@@ -1,5 +1,5 @@
 <div class="container">
-	<div class="header basic-bg">
+	<div class="header basic-bg spaced">
 		<div class="row">	
 			<div class="col-md-2">
 				<a href="<?=$base_url ?>" alt="<?=t('Home') ?>">
@@ -10,7 +10,7 @@
 			</div>
 			
 			<div class="col-md-7 main-title">
-				<h1>zShop 1.2</h1>
+				zShop 1.2
 			</div>
 			
 			<div class="col-md-3">		
@@ -21,7 +21,7 @@
 		</div>
 	</div>
 
-	<div class="row">
+	<div class="row spaced">
 		<div class="col-md-3 sidebar">
 			<?php				
 				renderBlock('categories');
@@ -30,11 +30,15 @@
 		<div class="col-md-9">
 			<?php
 				if (isset($page_title)) {
-					echo '<h1>' . $page_title . '</h1>';
+					?>
+						
+							<h1><?=$page_title ?></h1>
+						
+					<?php
 				}
 				
 				renderBlock('messages');
-										
+
 				include $home_dir . 'views/' . $page . '.v.php';
 				
 				renderBlock('sellers');

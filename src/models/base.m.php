@@ -8,7 +8,8 @@ class ModelBase {
 
 	public $table_name = 'table';
 	public $id_name = 'table_id';
-	
+
+	static $cache_all = null;
 	public $is_loaded = false;
 	public $data = [];
 	
@@ -86,7 +87,7 @@ class ModelBase {
 			
 			foreach ($this->data as $key => $value) {
 				if ($key != $this->id_name) {
-					$columns[] = $key . ' = ?';
+					$columns[] = SqlQuery::validateColumn($key) . ' = ?';
 					$bindings[] = & $this->data[$key];
 					$types .= SqlQuery::getTypeChar($value);
 				}
@@ -115,7 +116,7 @@ class ModelBase {
 			
 			foreach ($this->data as $key => $value) {
 				if ($key != $this->id_name) {
-					$columns[] = $key;
+					$columns[] = SqlQuery::validateColumn($key);
 					$values[] = '?';
 					$bindings[] = & $this->data[$key];
 					$types .= SqlQuery::getTypeChar($value);
@@ -156,5 +157,20 @@ class ModelBase {
 			dbErr($this->table_name, 'prepare', $sql, $this->db->error);
 		}		
 	}
-		
+	
+	public function getAll() {
+		if (isset(Self::$cache_all)) {
+			return Self::$cache_all;
+		} else {
+			$all = Self::select($this->db, $this->table_name);
+			Self::$cache_all = $all;
+		}
+		return Self::$cache_all;
+	}
+	
+	static function all($db) {
+		$class = get_called_class();
+		$m = new $class($db);
+		return $m->getAll();
+	}
 }

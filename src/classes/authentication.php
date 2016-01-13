@@ -74,7 +74,7 @@ class Authentication {
 		
 		if (isset($session_id)) {
 			$this->session = new UserSession($this->db, $session_id);			
-			if (isset($this->session) && Authentication::verifyPassword($session_token, $this->session->val('user_session_token_hash'))) {
+			if (isset($this->session) && $this->session->is_loaded && Authentication::verifyPassword($session_token, $this->session->val('user_session_token_hash'))) {
 				$expires = time()+Authentication::$session_expire;
 				$session = new UserSession($this->db);
 				$session->data['user_session_id'] = $session_id;

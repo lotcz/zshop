@@ -17,7 +17,7 @@
 				<?php 
 					renderSelect(
 						'product_default_category_id',
-						ModelBase::select($db, 'categories'),
+						Category::all($db),
 						'category_id',
 						'category_name',
 						15
@@ -39,6 +39,11 @@
 				?>
 			</div>
 			<div class="col-sm-4 form-validation" id="product_price_validation"><?= t('Required.') ?></div>
+		</div>
+		<div class="form-group">
+			<label for="product_abx_id" class="col-sm-2 control-label"><?=t('Extenal ID (ABX)') ?>:</label>
+			<div class="col-sm-6"><span name="product_abx_id" class="form-control" ><?=$data->val('product_abx_id') ?></span></div>
+			<div class="col-sm-4 form-validation" id="product_abx_id"><?= t('Required.') ?></div>
 		</div>
 		<div class="form-buttons">
 			<a class="form-button" href="/admin/products"><?= t('Back') ?></a>

@@ -137,6 +137,10 @@ class SqlQuery {
 		}		
 	}
 	
+	static function validateColumn($col) {
+		return substr($col,0,50);
+	}
+	
 	static function getTypeChar($val) {
 		if (is_int($val)) {
 			return 'i';	
@@ -195,7 +199,7 @@ class SqlQuery {
 			$this->limitSQL = sprintf('LIMIT %d,%d', $this->paging->offset, $this->paging->limit);			
 		}
 		
-		if (isset($this->where)) {
+		if (isset($this->where)) {			
 			$this->whereSQL = sprintf('WHERE %s', $this->where);
 		}
 		
