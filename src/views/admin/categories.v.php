@@ -22,7 +22,7 @@
 					echo '<tr onclick="javascript:openDetail(' . $cat->val('category_id') . ');">';
 					echo '<td>' . $cat->val('category_id') . '</td>';
 					echo '<td>' . $cat->val('category_name') . '</td>';
-					echo '<td>' . $cat->val('category_abx_id') . '</td>';	
+					echo '<td>' . $cat->val('category_ext_id') . '</td>';	
 					echo '<td>' . $cat->val('category_parent_id') . '</td>';									
 					echo '<td><a href="/admin/category/edit/' . $cat->val('category_id') . '">' . t('Edit') . '</a></td>';
 					echo '</tr>';

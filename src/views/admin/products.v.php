@@ -28,7 +28,7 @@
 				echo '<tr onclick="javascript:openDetail(' . $product->val('product_id') . ');">';
 				echo '<td>' . $product->val('product_id') . '</td>';
 				echo '<td>' . $product->val('product_name') . '</td>';
-				echo '<td>' . $product->val('product_abx_id') . '</td>';	
+				echo '<td>' . $product->val('product_ext_id') . '</td>';	
 				echo '<td><a href="/admin/product/edit/' . $product->val('product_id') . '">' . t('Edit') . '</a></td>';
 				echo '</tr>';
 			}

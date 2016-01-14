@@ -12,13 +12,14 @@ function setLang(lang) {
 	document.location = document.location;
 }
 
-function productAdded() {
-	
+function productAdded(data) {
+	$('#cart_price').html(data.p);
+	$('#cart_count').html(data.c);
 }
 
 function addProductToCart(id) {
 	var cnt = $('#prod_count_' + id).val();
-	$.get('/ajax/cart_add', 
+	$.getJSON('/ajax/cart_add', 
 			{
 				product_id: id,
 				count: cnt

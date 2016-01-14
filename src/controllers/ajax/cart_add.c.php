@@ -1,6 +1,6 @@
 <?php
 	global $home_dir, $db, $custAuth;
-	require_once $home_dir . 'models/cart.m.php';
+	require_once $home_dir . 'models/cart.m.php';	
 			
 	$product_id = intval(_g('product_id'));
 	$count = intval(_g('count'));
@@ -15,7 +15,6 @@
 			$cart->data['cart_customer_id'] = $custAuth->customer_id;
 			$cart->data['cart_count'] = $count;
 		}		
-		$cart->save();
-		$data = 'OK';
-	}	
-	
+		$cart->save();	
+		$data = Cart::loadCartTotals($db, $custAuth->customer_id);
+	}

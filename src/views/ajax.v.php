@@ -1,3 +1,3 @@
 <?php
 	
-	echo $data;
+	echo json_encode($data);

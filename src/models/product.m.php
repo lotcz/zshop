@@ -55,17 +55,5 @@ class Product extends ModelBase {
 		/* orderby */	'product_name'
 		);		
 	}
-	
-	static function loadCartTotals($db, $customer_id) {
-		$totals = [];
-		$sql = 'SELECT SUM(product_price * cart_count) AS total_price, SUM(cart_count) AS total_count FROM viewProductsInCart WHERE cart_customer_id = ?';
-		$statement = SqlQuery::executeSQL($db, $sql, [$customer_id]);
-		$result = $statement->get_result();
-		if ($row = $result->fetch_assoc()) {
-			$totals = $row;
-		}
-		$statement->close();
-		return $totals;		
-	}
-	
+		
 }
