@@ -9,11 +9,17 @@
 				</a>
 			</div>
 			
-			<div class="col-md-7 main-title">
+			<div class="col-md-6 main-title">
 				zShop 1.2
 			</div>
 			
-			<div class="col-md-3">		
+			<div class="col-md-2">		
+				<?php
+					renderBlock('cart');
+				?>			
+			</div>
+			
+			<div class="col-md-2">		
 				<?php
 					renderBlock('lang');
 				?>			

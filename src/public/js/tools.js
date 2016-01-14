@@ -11,3 +11,19 @@ function setLang(lang) {
 	setCookie('language', lang, 365, '/');
 	document.location = document.location;
 }
+
+function productAdded() {
+	
+}
+
+function addProductToCart(id) {
+	var cnt = $('#prod_count_' + id).val();
+	$.get('/ajax/cart_add', 
+			{
+				product_id: id,
+				count: cnt
+			},
+			productAdded
+		);
+	return false;
+}

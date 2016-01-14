@@ -5,7 +5,7 @@
 		
 		$sellers = Product::select(
 		/* db */		$db, 
-		/* table */		'viewProducts', 
+		/* table */		'products', 
 		/* where */		null,
 		/* bindings */	null,
 		/* types */		null,

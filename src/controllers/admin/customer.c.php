@@ -1,18 +1,19 @@
 <?php
 	
-	require_once '../models/customer.m.php';
-	
-	global $db;
-	
+	global $db, $home_dir;
+	require_once $home_dir . 'models/customer.m.php';
+	require_once $home_dir . 'classes/custauth.php';
+		
 	if (isset($_POST['customer_id'])) {
 		if ($_POST['customer_id'] > 0) {
 			$customer = new Customer($db, $_POST['customer_id']);
 		} else {
 			$customer = new Customer($db);
 		}
-		$customer->setData($_POST);		
-		if (isset($_POST['user_password']) && strlen($_POST['user_password']) > 0) {
-			$user->user_password_hash = Authentication::hashPassword($_POST['user_password']);
+		$customer->setData($_POST);
+		unset($customer->data['customer_password']);		
+		if (isset($_POST['customer_password']) && strlen($_POST['customer_password']) > 0) {
+			$customer->data['customer_password_hash'] = CustomerAuthentication::hashPassword($_POST['customer_password']);
 		}
 		$customer->save();
 		redirect('/admin/customers');

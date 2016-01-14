@@ -43,6 +43,10 @@ h1 {
 	margin-right:10px;
 }
 
+.basic-bg .panel {
+	color:Black;
+}
+
 .page-header {
 	margin-top:0;
 }

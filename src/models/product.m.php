@@ -5,8 +5,8 @@ class Product extends ModelBase {
 	public $table_name = 'products';
 	public $id_name = 'product_id';
 	
-	public function loadByAbxId($id) {
-		$filter = 'product_abx_id = ?';
+	public function loadByExtId($id) {
+		$filter = 'product_ext_id = ?';
 		$this->loadSingleFiltered($filter, [$id]);		
 	}
 	
@@ -43,4 +43,29 @@ class Product extends ModelBase {
 			renderImage('no-image.png',t('Image missing'),'');
 		}
 	}
+	
+	static function loadCart($db, $customer_id) {
+		return Product::select(
+		/* db */		$db, 
+		/* table */		'viewProductsInCart', 
+		/* where */		'cart_customer_id = ?',
+		/* bindings */	[ intval($customer_id) ],
+		/* types */		'i',
+		/* paging */	null,
+		/* orderby */	'product_name'
+		);		
+	}
+	
+	static function loadCartTotals($db, $customer_id) {
+		$totals = [];
+		$sql = 'SELECT SUM(product_price * cart_count) AS total_price, SUM(cart_count) AS total_count FROM viewProductsInCart WHERE cart_customer_id = ?';
+		$statement = SqlQuery::executeSQL($db, $sql, [$customer_id]);
+		$result = $statement->get_result();
+		if ($row = $result->fetch_assoc()) {
+			$totals = $row;
+		}
+		$statement->close();
+		return $totals;		
+	}
+	
 }

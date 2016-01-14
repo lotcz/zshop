@@ -1,16 +1,31 @@
 <?php
 	
+	function myTrim($s, $chrs = '.,-*/1234567890') {				
+		do {
+			$trimmed = false;
+			$s = trim($s);
+			if (strlen($s)) {
+				for ($i = 0, $max = strlen($chrs); $i < $max; $i++) {
+					if ($s[0] == $chrs[$i]) {
+						$s = substr($s,1,strlen($s)-1);
+						$trimmed = true;
+					}
+					if ($s[strlen($s)-1] == $chrs[$i]) {
+						$s = substr($s,0,strlen($s)-1);
+						$trimmed = true;
+					}
+				}
+			}
+		} while ($trimmed);		
+		
+		return $s;
+	}
+	
 	/*
 		remove slashes if they are present at first or last character of the string
 	*/
-	function trimSlashes($s) {
-		if ($s[0] == '/') {
-			$s = substr($s,1,strlen($s)-1);
-		}
-		if ($s[strlen($s)-1] == '/') {
-			$s = substr($s,0,strlen($s)-1);
-		}
-		return $s;
+	function trimSlashes($s) {		
+		return myTrim($s, '/');
 	}
 	
 	/* 
@@ -23,6 +38,11 @@
 		global $base_url;
 		header('Location: ' . trimSlashes($base_url) . '/' . trimSlashes($url), true, $statusCode);
 		die();
+	}
+	
+	/* GET */
+	function _g($name) {
+		return isset($_GET[$name]) ? $_GET[$name] : (isset($_POST[$name]) ? $_POST[$name] : null);
 	}
 	
 	/*

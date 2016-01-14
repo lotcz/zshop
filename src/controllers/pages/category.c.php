@@ -27,7 +27,7 @@
 	
 	$products = Product::select(
 	/* db */		$db, 
-	/* table */		'viewProducts', 
+	/* table */		'viewProductsInCategories', 
 	/* where */		'product_category_category_id = ?',
 	/* bindings */	[ $category->val('category_id') ],
 	/* types */		'i',

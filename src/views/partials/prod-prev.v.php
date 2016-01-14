@@ -1,6 +1,7 @@
 <?php
-	global $data;
+	global $data, $custAuth;
 	$product = $data['partials.prod-prev'];
+		
 ?>
 
 <div class="col-md-3 product">
@@ -9,9 +10,7 @@
 			
 			<div class="product-image">
 				<a href="/admin/product/edit/<?=$product->val('product_id') ?>"><?php $product->renderImage(); ?></a>
-			</div>
-			
-					
+			</div>				
 						
 			<div class="panel-title">				
 				<?php
@@ -29,8 +28,8 @@
 		
 		<div class="panel-heading text-right">
 			<form class="form-inline">
-				<input name="prod_count" value="1" type="text" maxlength="2" class="form-control" style="width:50px;" />
-				<button class="btn btn-success">+ <?=t('Add')?></button>
+				<input id="prod_count_<?=$product->val('product_id')?>" value="1" type="text" maxlength="2" class="form-control" style="width:50px;" />
+				<button class="btn btn-success" onclick="addProductToCart(<?=$product->val('product_id')?>);return false;">+ <?=t('Add')?></button>
 			</form>
 		</div>
 			

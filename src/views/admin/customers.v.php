@@ -4,9 +4,9 @@
 	<div class="table-responsive">
 		<table class="table table-striped table-hover">
 			<thead>
-				<tr>
-					<th><?=t('Login') ?></th>
+				<tr>					
 					<th><?=t('E-mail') ?></th>
+					<th><?=t('Name') ?></th>
 					<th><?=t('Failed Logins') ?></th>
 					<th></th>
 				</tr>
@@ -16,9 +16,9 @@
 				global $db;
 				$result = $db->query('SELECT * FROM customers ORDER BY customer_id');
 				while ($row = $result->fetch_assoc()) {
-					echo '<tr onclick="javascript:openDetail(' . $row['customer_id'] . ');">';
-					echo '<td>' . $row['customer_login'] . '</td>';
+					echo '<tr onclick="javascript:openDetail(' . $row['customer_id'] . ');">';					
 					echo '<td>' . $row['customer_email'] . '</td>';	
+					echo '<td>' . $row['customer_name'] . '</td>';
 					echo '<td>' . $row['customer_failed_attempts'] . '</td>';									
 					echo '<td><a href="/admin/customer/edit/' . $row['customer_id'] . '">' . t('Edit') . '</a></td>';
 					echo '</tr>';

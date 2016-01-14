@@ -1,27 +1,4 @@
 <?php
-
-	function myTrim($s) {
-		$chrs = '-*/1234567890';
-		
-		do {
-			$trimmed = false;
-			$s = trim($s);
-			if (strlen($s)) {
-				for ($i = 0, $max = strlen($chrs); $i < $max; $i++) {
-					if ($s[0] == $chrs[$i]) {
-						$s = substr($s,1,strlen($s)-1);
-						$trimmed = true;
-					}
-					if ($s[strlen($s)-1] == $chrs[$i]) {
-						$s = substr($s,0,strlen($s)-1);
-						$trimmed = true;
-					}
-				}
-			}
-		} while ($trimmed);		
-		
-		return $s;
-	}
 	
 	$page_title	= 'Import ABX';
 	$master_template = 'plain';
@@ -64,18 +41,18 @@
 			foreach ($xml->categories->category as $category) {
 				$data['cat_total'] += 1;
 				$zCategory = new Category($db);
-				$zCategory->loadByAbxId(intval($category->id));
+				$zCategory->loadByExtId(intval($category->id));
 				if ($zCategory->is_loaded) {
 					$data['cat_updated'] += 1;
 				} else {
 					$data['cat_inserted'] += 1;
-					$zCategory->data['category_abx_id'] = intval($category->id);
+					$zCategory->data['category_ext_id'] = intval($category->id);
 				}
 				$zCategory->data['category_name'] = myTrim($category->name);
 				$zCategory->data['category_description'] = $category->desc;
 				if (isset($category->parentid) && $category->parentid > 0) {
 					$parent = new Category($db);
-					$parent->loadByAbxId(intval($category->parentid));
+					$parent->loadByExtId(intval($category->parentid));
 					if ($parent->is_loaded) {
 						$zCategory->data['category_parent_id'] = $parent->val('category_id');
 					}
@@ -94,12 +71,12 @@
 					$data['total'] += 1;			
 					$prod_id = intval(trim($product->ean));
 					$zProduct = new Product($db);
-					$zProduct->loadByAbxId($prod_id);
+					$zProduct->loadByExtId($prod_id);
 					if ($zProduct->is_loaded) {
 						$data['updated'] += 1;
 					} else {
 						$data['inserted'] += 1;
-						$zProduct->data['product_abx_id'] = $prod_id;
+						$zProduct->data['product_ext_id'] = $prod_id;
 					}
 					$price_sales = trim($product->price_sales);
 					$price_eus = trim($product->price_eus);
@@ -132,7 +109,7 @@
 					if ($product->categories->category) {
 						foreach ($product->categories->category as $cat) {
 							$zCategory = new Category($db);
-							$zCategory->loadByAbxId(intval($cat));
+							$zCategory->loadByExtId(intval($cat));
 							$zProduct->addToCategory($zCategory->val('category_id'));
 						}
 					}

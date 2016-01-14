@@ -1,8 +1,14 @@
+DROP TABLE IF EXISTS `cart` ;
 DROP TABLE IF EXISTS `user_sessions` ;
 DROP TABLE IF EXISTS `users` ;
+DROP TABLE IF EXISTS `customers`;
+DROP TABLE IF EXISTS `aliases` ;
+DROP TABLE IF EXISTS `product_category` ;
+DROP TABLE IF EXISTS `categories`;
 
 CREATE TABLE IF NOT EXISTS `users` (
   `user_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_deleted` BIT DEFAULT 0,
   `user_login` VARCHAR(100),
   `user_email` VARCHAR(255) NOT NULL,
   `user_password_hash` VARCHAR(255) NULL,
@@ -31,20 +37,48 @@ CREATE TABLE IF NOT EXISTS `user_sessions` (
     ON UPDATE NO ACTION
 ) ENGINE = InnoDB;
 
-DROP TABLE IF EXISTS `customers` ;
+DROP TABLE IF EXISTS `cart` ;
+DROP TABLE IF EXISTS `customers`;
 
 CREATE TABLE IF NOT EXISTS `customers` (
   `customer_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `customer_login` VARCHAR(100) NOT NULL,
+  `customer_deleted` BOOL DEFAULT FALSE,
   `customer_email` VARCHAR(255) NOT NULL,
   `customer_password_hash` VARCHAR(255) NOT NULL,
   `customer_failed_attempts` INT UNSIGNED NOT NULL DEFAULT 0,
   `customer_created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `customer_last_access` TIMESTAMP,
+  
+  `customer_name` VARCHAR(100),
+  `customer_address_city` VARCHAR(100),
+  `customer_address_street` VARCHAR(100),
+  `customer_address_zip` INT,
+  
+  `customer_ship_name` VARCHAR(100),
+  `customer_ship_city` VARCHAR(100),
+  `customer_ship_street` VARCHAR(100),
+  `customer_ship_zip` INT,
+  
+  `customer_sex` TINYINT,
   PRIMARY KEY (`customer_id`),
-  UNIQUE INDEX `customers_email_unique` (`customer_email` ASC),
-  UNIQUE INDEX `customers_login_unique` (`customer_login` ASC))
+  UNIQUE INDEX `customers_email_unique` (`customer_email` ASC))
 ENGINE = InnoDB;
+
+DROP TABLE IF EXISTS `customer_sessions` ;
+
+CREATE TABLE IF NOT EXISTS `customer_sessions` (
+  `customer_session_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `customer_session_token_hash` VARCHAR(255) NOT NULL,
+  `customer_session_customer_id` INT(10) UNSIGNED NOT NULL,
+  `customer_session_created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `customer_session_expires` TIMESTAMP NOT NULL,
+  PRIMARY KEY (`customer_session_id`),
+  CONSTRAINT `customer_session_customer_fk`
+    FOREIGN KEY (`customer_session_customer_id`)
+    REFERENCES `customers` (`customer_id`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION
+) ENGINE = InnoDB;
 
 DROP TABLE IF EXISTS `aliases` ;
 
@@ -62,12 +96,12 @@ DROP TABLE IF EXISTS `categories`;
 
 CREATE TABLE IF NOT EXISTS `categories` (
   `category_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `category_abx_id` INT UNSIGNED,
+  `category_ext_id` INT UNSIGNED,
   `category_parent_id` INT UNSIGNED,
   `category_name` VARCHAR(200) NOT NULL,
   `category_description` TEXT NULL,
   PRIMARY KEY (`category_id`),
-  UNIQUE INDEX `categories_abx_id_unique` (`category_abx_id` ASC),
+  UNIQUE INDEX `categories_ext_id_unique` (`category_ext_id` ASC),
   INDEX `categories_parent_id_index` (`category_parent_id` ASC),
   CONSTRAINT `category_parent_fk`
     FOREIGN KEY (`category_parent_id`)
@@ -76,18 +110,20 @@ CREATE TABLE IF NOT EXISTS `categories` (
     ON UPDATE NO ACTION
 ) ENGINE = InnoDB;
 
+DROP TABLE IF EXISTS `cart` ;
 DROP TABLE IF EXISTS `product_variants` ;
 DROP TABLE IF EXISTS `products` ;
 
 CREATE TABLE IF NOT EXISTS `products` (
   `product_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `product_abx_id` INT UNSIGNED NULL,
+  `product_deleted` BOOL DEFAULT 0,
+  `product_ext_id` INT UNSIGNED NULL,
   `product_name` VARCHAR(255) NOT NULL,
   `product_price` DECIMAL(10,2) UNSIGNED NOT NULL,
   `product_stock` INT UNSIGNED NOT NULL DEFAULT 0,
   `product_image` VARCHAR(255) NULL,
   PRIMARY KEY (`product_id`),
-  UNIQUE INDEX `products_abx_id_unique` (`product_abx_id` ASC)
+  UNIQUE INDEX `products_ext_id_unique` (`product_ext_id` ASC)
 ) ENGINE = InnoDB;
 
 DROP TABLE IF EXISTS `product_category` ;
@@ -108,6 +144,13 @@ CREATE TABLE IF NOT EXISTS `product_category` (
     ON UPDATE NO ACTION
 ) ENGINE = InnoDB;
 
+DROP VIEW IF EXISTS `viewProductsInCategories` ;
+
+CREATE VIEW viewProductsInCategories AS
+	SELECT *
+    FROM products p
+    LEFT OUTER JOIN product_category pc ON (p.product_id = pc.product_category_product_id);
+    
 DROP TABLE IF EXISTS `product_variants` ;
 
 CREATE TABLE IF NOT EXISTS `product_variants` (
@@ -135,7 +178,29 @@ CREATE TABLE IF NOT EXISTS `ip_failed_attempts` (
   PRIMARY KEY (`ip_failed_attempt_ip`)
 ) ENGINE = InnoDB;
 
-CREATE VIEW viewProducts AS
+DROP TABLE IF EXISTS `cart` ;
+
+CREATE TABLE IF NOT EXISTS `cart` (
+  `cart_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `cart_product_id` INT UNSIGNED NOT NULL,
+  `cart_customer_id` INT UNSIGNED NOT NULL,
+  `cart_count` INT NOT NULL DEFAULT 1,  
+  PRIMARY KEY (`cart_id`),
+  CONSTRAINT `cart_product_fk`
+    FOREIGN KEY (`cart_product_id`)
+    REFERENCES `products` (`product_id`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION ,
+  CONSTRAINT `cart_customer_fk`
+    FOREIGN KEY (`cart_customer_id`)
+    REFERENCES `customers` (`customer_id`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION 
+) ENGINE = InnoDB;
+
+DROP VIEW IF EXISTS `viewProductsInCart` ;
+
+CREATE VIEW viewProductsInCart AS
 	SELECT *
-    FROM products p
-    LEFT OUTER JOIN product_category pc ON (p.product_id = pc.product_category_product_id);
+    FROM cart c
+    LEFT OUTER JOIN products p ON (c.cart_product_id = p.product_id);

@@ -53,19 +53,19 @@ class ModelBase {
 	}
 
 	static function select($db, $table_name, $where = null, $bindings = null, $types = null, $paging = null, $orderby = null) {		
+		$list = [];
 		$stmt = SqlQuery::select($db, $table_name, $where, $bindings, $types, $paging, $orderby);
 		if ($stmt) {
-			$result = $stmt->get_result();
-			$list = [];
+			$result = $stmt->get_result();			
 			$class = get_called_class();
 			while ($row = $result->fetch_assoc()) {			
 				$model = new $class($db);	
 				$model->setData($row);
 				$list[] = $model;
 			}
-			$stmt->close();
-			return $list;
+			$stmt->close();			
 		}
+		return $list;
 	}
 	
 	public function fetch() {

@@ -41,9 +41,9 @@
 			<div class="col-sm-4 form-validation" id="product_price_validation"><?= t('Required.') ?></div>
 		</div>
 		<div class="form-group">
-			<label for="product_abx_id" class="col-sm-2 control-label"><?=t('Extenal ID (ABX)') ?>:</label>
-			<div class="col-sm-6"><span name="product_abx_id" class="form-control" ><?=$data->val('product_abx_id') ?></span></div>
-			<div class="col-sm-4 form-validation" id="product_abx_id"><?= t('Required.') ?></div>
+			<label for="product_ext_id" class="col-sm-2 control-label"><?=t('Extenal ID (ABX)') ?>:</label>
+			<div class="col-sm-6"><span name="product_ext_id" class="form-control" ><?=$data->val('product_ext_id') ?></span></div>
+			<div class="col-sm-4 form-validation" id="product_ext_id"><?= t('Required.') ?></div>
 		</div>
 		<div class="form-buttons">
 			<a class="form-button" href="/admin/products"><?= t('Back') ?></a>

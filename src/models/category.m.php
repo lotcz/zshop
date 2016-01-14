@@ -5,8 +5,8 @@ class Category extends ModelBase {
 	public $table_name = 'categories';
 	public $id_name = 'category_id';
 	
-	public function loadByAbxId($id) {
-		$filter = 'category_abx_id = ?';
+	public function loadByExtId($id) {
+		$filter = 'category_ext_id = ?';
 		$this->loadSingleFiltered($filter, [$id]);
 	}
 

@@ -10,6 +10,7 @@
 	require_once $home_dir . 'classes/messages.php';
 	require_once $home_dir . 'models/base.m.php';
 	require_once $home_dir . 'classes/authentication.php';
+	require_once $home_dir . 'classes/custauth.php';
 	
 	// rendering globals
 	$theme = null;
@@ -69,10 +70,17 @@
 			case 'import' :
 				$page = 'import/abx';
 				break;
+			
+			case 'ajax' :
+				$master_template = 'ajax';
+				$custAuth = new CustomerAuthentication($db);
+				$page = 'ajax/' . $path[1];
+				break;
 				
 			// CUSTOMER SECTION
 			default :
 				$theme = 'parfumerie';
+				$custAuth = new CustomerAuthentication($db);				
 				if (strlen($path[0]) > 0) {
 					$page = 'pages/' . $path[0];
 				} else {
