@@ -17,6 +17,7 @@ class Cart extends ModelBase {
 		$result = $statement->get_result();
 		if ($row = $result->fetch_assoc()) {
 			$totals = $row;
+			$totals['pf'] = formatPrice($row['p']);
 		}
 		$statement->close();
 		return $totals;		

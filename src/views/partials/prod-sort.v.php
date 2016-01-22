@@ -1,9 +1,9 @@
 <?php
 	global $data;
 	
-	$items = [ 'Price' , 'Popularity', 'Alphabet' ];	
+	$items = [ 'sortby_Price' , 'sortby_Popularity', 'sortby_Alphabet' ];	
 	
-	$sorting = isset($_GET['o']) ? ucfirst($_GET['o']) : $items[0];
+	$sorting = isset($_GET['o']) ? $_GET['o'] : $items[0];
 		
 	if (!in_array($sorting, $items)) {
 		$sorting = $items[0];
@@ -16,7 +16,7 @@
 <div class="basic-bg prod-sort spaced">
 	<form class="form-inline">
 		<div class="form-group">
-			<label><?=t('Sort by:') ?></label>
+			<label><?=t('Order by') ?>:</label>
 			<div class="dropdown btn btn-default form-control">
 				<span class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
 					<?=t($sorting) ?>
@@ -33,8 +33,7 @@
 				</ul>
 			</div>
 		</div>
-		<div class="form-group">
-			<label><?=t('Direction:') ?></label>
+		<div class="form-group">			
 			<div class="dropdown btn btn-default form-control">
 				<span class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
 					<?=t($dir) ?>
@@ -45,13 +44,12 @@
 					<li class="<?= ($dir == 'desc') ? 'active' : '' ?>"><a href="?o=<?=$sorting ?>"><?=t('desc') ?></a></li>					
 				</ul>
 			</div>
-		</div>
-		
-		<div class="form-group">			
 			<label>
 				<?=t('Total <b>%s</b> items.',$total) ?>
 			</label>
 		</div>
+		
+	
 		
 	</form>
 </div>

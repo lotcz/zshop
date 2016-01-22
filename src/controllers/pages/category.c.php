@@ -9,14 +9,14 @@
 	$data['category'] = $category;
 	$page_title = t($category->val('category_name'));
 	
-	$sorting = isset($_GET['o']) ? ucfirst($_GET['o']) : 'Price';
+	$sorting = isset($_GET['o']) ? ucfirst($_GET['o']) : 'sortby_Price';
 	$dir = (isset($_GET['d']) && (strtolower($_GET['d']) == 'asc')) ? '' : 'DESC';
 	
 	switch ($sorting) {
-		case 'Popularity' :
+		case 'sortby_Popularity' :
 			$orderby = 'product_stock ' . $dir;
 			break;
-		case 'Alphabet' : 
+		case 'sortby_Alphabet' : 
 			$orderby = 'product_name ' . $dir;
 			break;
 		default:

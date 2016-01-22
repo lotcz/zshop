@@ -1,4 +1,4 @@
-<div class="panel panel-default">
+<div class="cart">
 <?php
 
 	global $db, $home_dir, $globals, $path, $custAuth;
@@ -7,14 +7,13 @@
 	if (isset($custAuth) && $custAuth->isAuth()) {
 		$totals = Cart::loadCartTotals($db, $custAuth->customer->val('customer_id'));
 		?>
-			<div class="panel-heading">
-				<?=$custAuth->customer->val('customer_email')?>
+			<div>
+				<span class="glyphicon glyphicon-shopping-cart"></span>
+				<?=t('Shopping cart')?>:
 			</div>
-			<div class="panel-body">
-				<span id="cart_price"><?=$totals['p']?></span>
-				<span id="cart_count"><?=$totals['c']?></span>
+					
+			<div class="price" id="cart_price"><?=$totals['pf']?></div>
 				
-			</div>
 		<?php		
 	} else {	
 		renderLink('/login', t('Sign In'), '');

@@ -18,6 +18,20 @@
 	$language_data['Edit'] = 'Editovat';
 	$language_data['Password'] = 'Heslo';
 	$language_data['Search'] = 'Hledat';
+	
+	/* PRODUCTS */
+	$language_data['Buy'] = 'Koupit';
+	$language_data['Order by'] = 'Řadit podle';
+	$language_data['sortby_Price'] = 'Ceny';
+	$language_data['sortby_Alphabet'] = 'Abecedy';
+	$language_data['sortby_Popularity'] = 'Oblíbenosti';
+	$language_data['asc'] = 'Vzestupně';
+	$language_data['desc'] = 'Sestupně';
+	
+	$language_data['Cart'] = 'Košík';
+	$language_data['<b>%s</b> items'] = '<b>%s</b> položek';
+	
+	/* ADMIN SECTION */
 	$language_data['Administrator Sign In'] = 'Vstup pro správce';
 	$language_data['Max value is %s.'] = 'Maximální hodnota je %s.';
 	$language_data['%d - %d of %d'] = '<b>%d</b> až <b>%d</b> z celkových <b>%d</b>.';

@@ -1,7 +1,7 @@
 <div class="container">
 	<div class="header basic-bg spaced">
 		<div class="row">	
-			<div class="col-md-2">
+			<div class="col-md-3">
 				<a href="<?=$base_url ?>" alt="<?=t('Home') ?>">
 					<?php
 						renderImage('logo.jpg', 'Logo', 'img-circle logo' );			
@@ -12,16 +12,11 @@
 			<div class="col-md-6 main-title">
 				zShop 1.2
 			</div>
-			
-			<div class="col-md-2">		
-				<?php
-					renderBlock('cart');
-				?>			
-			</div>
-			
-			<div class="col-md-2">		
+				
+			<div class="col-md-3 text-right">		
 				<?php
 					renderBlock('lang');
+					renderBlock('cart');
 				?>			
 			</div>
 		</div>
