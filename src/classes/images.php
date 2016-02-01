@@ -3,7 +3,7 @@
 class Images {
 
 	static $formats = array('mini-thumb' => array( 'width' => 75, 'height' => 50 ),
-							'thumb' => array( 'width' => 330, 'height' => 247 ),
+							'thumb' => array( 'width' => 200, 'height' => 150 ),
 							'view' => array( 'width' => 1000, 'height' => 750 )
 						);
 
