@@ -129,6 +129,16 @@
 						$zProduct->data['product_stock'] = $product_stock;
 						$zProduct->save();
 						
+						// update alias
+						$a = new Alias($db, $zProduct->val('product_alias_id'));							
+						if (!$a->is_loaded) {
+							$a->setUrl($zProduct->getAliasUrl());
+							$a->data['alias_path'] = $zProduct->getAliasPath();
+							$a->save();
+							$zProduct->data['product_alias_id'] = $a->ival('alias_id');				
+							$zProduct->save();
+						}
+						
 						/* kategorie */
 						$zProduct->removeFromAllCategories();
 						

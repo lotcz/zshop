@@ -1,5 +1,7 @@
 <?php
 
+require_once $home_dir . 'models/alias.m.php';
+
 class Product extends ModelBase {
 	
 	public $table_name = 'products';
@@ -40,9 +42,9 @@ class Product extends ModelBase {
 		$this->categories = ModelBase::select($this->db, 'viewCategoriesByProduct', 'product_category_product_id = ?', [ $this->val('product_id') ]);
 	}
 	
-	public function renderImage() {
-		if ($this->val('product_image')) {
-			renderProductImage($this->val('product_image'),$this->val('product_name'),'');
+	public function renderImage($size = 'thumb') {
+		if ($this->val('product_image')) {			
+			renderProductImage($this->val('product_image'), $size, $this->val('product_name'), '');
 		} else {
 			renderImage('no-image.png',t('Image missing'),'');
 		}
@@ -59,5 +61,13 @@ class Product extends ModelBase {
 		/* orderby */	'product_name'
 		);		
 	}
-		
+	
+	public function getAliasUrl() {		
+		return $this->val('product_name');		
+	}
+	
+	public function getAliasPath() {
+		return 'product/' . $this->val('product_id');
+	}
+	
 }

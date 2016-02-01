@@ -9,7 +9,7 @@
 		<div class="panel-body">
 			
 			<div class="product-image">
-				<a href="/admin/product/edit/<?=$product->val('product_id') ?>"><?php $product->renderImage(); ?></a>
+				<a href="/<?=$product->val('alias_url') ?>"><?php $product->renderImage(); ?></a>
 			</div>				
 						
 			<div class="panel-title">				
