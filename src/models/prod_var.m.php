@@ -10,4 +10,8 @@ class ProductVariant extends ModelBase {
 		$this->loadSingleFiltered($filter, [intval($product_id), $variant_name]);
 	}
 
+	public function loadByExtId($id) {
+		$filter = 'product_variant_ext_id = ?';
+		$this->loadSingleFiltered($filter, [$id]);		
+	}
 }

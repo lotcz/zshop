@@ -5,6 +5,9 @@
 	global $db, $data;
 	
 	$category = new Category($db, $path[1]);
+	if (!$category->is_loaded) {
+		redirect('notfound');
+	}
 	$category->loadChildren();
 	$data['category'] = $category;
 	$page_title = t($category->val('category_name'));

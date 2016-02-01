@@ -36,6 +36,10 @@ class Product extends ModelBase {
 		$this->variants = ModelBase::select($this->db, 'product_variants', 'product_variant_product_id = ?', [ $this->val('product_id') ]);
 	}
 	
+	public function loadCategories() {
+		$this->categories = ModelBase::select($this->db, 'viewCategoriesByProduct', 'product_category_product_id = ?', [ $this->val('product_id') ]);
+	}
+	
 	public function renderImage() {
 		if ($this->val('product_image')) {
 			renderProductImage($this->val('product_image'),$this->val('product_name'),'');

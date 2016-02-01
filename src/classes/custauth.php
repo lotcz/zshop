@@ -20,10 +20,36 @@ class CustomerAuthentication {
 	static $session_expire = 60*60*24*7; //7 days
 	
 	function __construct($auth_db) {
-		$this->db = $auth_db;
-		$this->checkAuthentication();
+		$this->db = $auth_db;	
+		$this->checkAuthentication();		
+		
+		// create anonymous session
+		if (!$this->isAuth()) {
+			$token = $this->generateToken();
+			$this->customer = new Customer($auth_db);
+			$this->customer->data['customer_anonymous'] = true;
+			$this->customer->data['customer_name'] = t('Anonymous');
+			$this->customer->data['customer_email'] = t('Anonymous') . '@' . $token;
+			$this->customer->save();			
+			$this->createSession($token);
+		}	
 	}
 
+	private function createSession($token = null) {
+		if (!(isset($token))) {
+			$token = $this->generateToken();
+		}
+		$token_hash = CustomerAuthentication::hashPassword($token);
+		$expires = time()+CustomerAuthentication::$session_expire;
+		$session = new CustomerSession($this->db);
+		$session->data['customer_session_token_hash'] = $token_hash;
+		$session->data['customer_session_customer_id'] = $this->customer->val('customer_id');
+		$session->data['customer_session_expires'] = SqlQuery::mysqlTimestamp($expires);
+		$session->save();
+		setcookie($this->cookie_name, $session->val('customer_session_id') . "-" . $token, $expires, '/', false, false); 				
+		$this->session = $session;
+	}
+	
 	public function isAuth() {
 		return isset($this->customer) && isset($this->session);
 	}
@@ -44,17 +70,9 @@ class CustomerAuthentication {
 			if (CustomerAuthentication::verifyPassword($password, $customer->val('customer_password_hash'))) {
 				// success - create new session				
 				$this->customer = $customer;
+				$this->createSession();
 				$this->updateLastAccess();
-				$token = $this->generateToken();
-				$token_hash = CustomerAuthentication::hashPassword($token);
-				$expires = time()+CustomerAuthentication::$session_expire;
-				$session = new CustomerSession($this->db);
-				$session->data['customer_session_token_hash'] = $token_hash;
-				$session->data['customer_session_customer_id'] = $this->customer->val('customer_id');
-				$session->data['customer_session_expires'] = SqlQuery::mysqlTimestamp($expires);
-				$session->save();
-				setcookie($this->cookie_name, $session->val('customer_session_id') . "-" . $token, $expires, '/', false, false); 				
-				$this->session = $session;
+				
 			} else {
 				$customer->data['customer_failed_attempts'] += 1;
 				$customer->save();

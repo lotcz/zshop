@@ -2,7 +2,7 @@
 	<input type="text" name="s" value="<?=$data['search'] ?>" class="form-control" />
 	<input type="submit" value="<?=t('Search') ?>" class="btn btn-primary form-control" />
 	<a class="btn btn-success form-control" href="/admin/product">+ <?=t('New Product') ?></a>
-	<a class="btn btn-warning form-control" href="/import?token=<?=$globals['security_token'] ?>">+ <?=t('Run Import') ?></a>
+	<a target="_blank" class="btn btn-warning form-control" href="/import?token=<?=$globals['security_token'] ?>">+ <?=t('Run Import') ?></a>
 	<div>
 		<?= $data['paging']->getInfo() ?>
 	</div>

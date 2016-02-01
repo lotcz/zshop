@@ -9,10 +9,14 @@
 				</a>
 			</div>
 			
-			<div class="col-md-6 main-title">
-				zShop 1.2
+			<div class="col-md-3 main-title"><?=$globals['shop_title'] ?></div>
+			
+			<div class="col-md-3 text-center">		
+				<?php
+					renderBlock('search');					
+				?>			
 			</div>
-				
+			
 			<div class="col-md-3 text-right">		
 				<?php
 					renderBlock('lang');

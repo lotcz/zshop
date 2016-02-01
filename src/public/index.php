@@ -33,11 +33,11 @@
 		
 		$auth = new Authentication($db);
 		$path = [''];
-		$raw_path = '/';
+		$raw_path = '';
 		
 		if (isset($_GET['path'])) {
 			$path = explode('/', trimSlashes(strtolower($_GET['path'])));
-			$raw_path = '/' . implode('/', $path);
+			$raw_path = implode('/', $path);
 		}
 
 		// select page to display
@@ -82,7 +82,14 @@
 				$theme = 'parfumerie';
 				$custAuth = new CustomerAuthentication($db);				
 				if (strlen($path[0]) > 0) {
-					$page = 'pages/' . $path[0];
+					require_once $home_dir . 'models/alias.m.php';
+					$alias = new Alias($db);
+					$alias->loadByUrl($raw_path);
+					if ($alias->is_loaded) {
+						$path = explode('/', $alias->val('alias_path'));
+						$raw_path = $alias->val('alias_path');						
+					}
+					$page = 'pages/' . $path[0];					
 				} else {
 					$page = 'pages/front';
 				}

@@ -37,6 +37,7 @@
 	$language_data['%d - %d of %d'] = '<b>%d</b> až <b>%d</b> z celkových <b>%d</b>.';
 
 	$language_data['Administration'] = 'Administrace';
+	$language_data['Dashboard'] = 'Ovládací panel';
 	$language_data['Administrators'] = 'Správci';
 	$language_data['Editing Administrator'] = 'Editace správce';
 	$language_data['Add Administrator'] = 'Přidat správce e-shopu';

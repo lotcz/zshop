@@ -34,6 +34,12 @@ class ModelBase {
 		}
 	}
 	
+	public function ival($key) {
+		if (isset($this->data[$key])) {
+			return parseInt($this->data[$key]);
+		}
+	}
+	
 	public function loadSingleFiltered($where, $bindings = null, $types = null) {
 		$statement = SqlQuery::select($this->db, $this->table_name, $where, $bindings, $types);
 		if ($statement) {
@@ -41,15 +47,21 @@ class ModelBase {
 			if ($row = $result->fetch_array(MYSQLI_ASSOC)) {
 				$this->is_loaded = true;
 				$this->setData($row);
+			} else {
+				$this->is_loaded = false;
+				$this->data = [];
 			}
 			$statement->close();
 		}		
 	}
 
-	public function loadById($id) {		
-		$where = sprintf('%s = ?', $this->id_name);
-		$bindings = [$id];
-		return $this->loadSingleFiltered($where, $bindings);
+	public function loadById($id) {
+		$id = parseInt($id);
+		if (isset($id)) {
+			$where = sprintf('%s = ?', $this->id_name);
+			$bindings = [$id];
+			$this->loadSingleFiltered($where, $bindings);
+		}
 	}
 
 	static function select($db, $table_name, $where = null, $bindings = null, $types = null, $paging = null, $orderby = null) {		
@@ -78,7 +90,7 @@ class ModelBase {
 	
 	public function save() {		
 		$result = false;
-		$id = $this->val($this->id_name);		
+		$id = $this->ival($this->id_name);		
 		
 		if (isset($id) && $id > 0) {
 			$columns = [];
@@ -128,6 +140,7 @@ class ModelBase {
 			if ($st = $this->db->prepare($sql)) {				
 				call_user_func_array(array($st, 'bind_param'), $bindings);				
 				if ($st->execute()) {
+					$this->is_loaded = true;
 					$result = true;
 					$this->data[$this->id_name] = $this->db->insert_id;
 				} else {
@@ -141,7 +154,7 @@ class ModelBase {
 		return $result;
 	}
 
-	public function deleteById($id) {
+	public function deleteById($id = null) {
 		if (!isset($id)) {
 			$id = $this->val($this->id_name);
 		}
@@ -149,9 +162,11 @@ class ModelBase {
 		if ($statement = $this->db->prepare($sql)) {
 			$statement->bind_param('i', $id);
 			if ($statement->execute()) {
-				$statement->close();	
+				$statement->close();
+				$this->is_loaded = false;
+				$this->data = [];
 			} else {
-				dbErr($this->table_name, 'prepare', $sql, $this->db->error);
+				dbErr($this->table_name, 'execute', $sql, $this->db->error);
 			}			
 		} else {
 			dbErr($this->table_name, 'prepare', $sql, $this->db->error);

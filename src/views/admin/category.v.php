@@ -7,19 +7,40 @@
 			<div class="col-sm-4 form-validation" id="category_name_validation"><?= t('Required.') ?></div>
 		</div>
 		<div class="form-group">
-			<label for="category_parent_id" class="col-sm-2 control-label"><?= t('Parent category') ?>:</label>
+			<label for="category_parent_id" class="col-sm-2 control-label"><?= t('Parent Category') ?>:</label>
 			<div class="col-sm-6">
 				<?php 
+					$parent_categories = Category::all($db);
+					$empty = new Category();
+					$empty->data['category_id'] = '';
+					$empty->data['category_name'] = t('-- empty --');					
+					array_unshift($parent_categories, $empty);
+					
 					renderSelect(
 						'category_parent_id',
-						ModelBase::select($db, 'categories'),
+						$parent_categories,
 						'category_id',
 						'category_name',
 						$data->val('category_parent_id')
 					);
 				?>
 			</div>
-		</div>		
+		</div>
+		
+		<?php
+			if (isset($data->alias)) {
+				$alias_url = $data->alias->val('alias_url');				
+			} else {
+				$alias_url = '';
+			}
+		?>
+		
+		<div class="form-group has-feedback">
+			<label class="col-sm-2 control-label" for="alias_url"><?= t('URL Alias') ?>:</label>
+			<div class="col-sm-6"><input type="text" name="alias_url" value="<?=$alias_url ?>" class="form-control" /></div>
+			<div class="col-sm-4 form-validation" id="alias_url_validation"><?= t('Url already exists.') ?></div>
+		</div>
+		
 		<div class="form-buttons">
 			<a class="form-button" href="/admin/categories"><?= t('Back') ?></a>
 			<input type="button" onclick="javascript:deleteCategory();" class="btn btn-danger form-button" value="<?=t('Delete') ?>">

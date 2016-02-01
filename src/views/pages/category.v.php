@@ -2,6 +2,8 @@
 	global $data;
 	$category = $data['category'];
 	
+	echo $raw_path;
+	
 	/*
 		LINKS TO CHILDREN CATEGORIES
 	*/
@@ -14,7 +16,11 @@
 							?>
 								<div class="col-md-4">
 									<?php
+									if (strlen($cat->val('alias_url')) > 0) {
+										renderLink($cat->val('alias_url'), $cat->val('category_name'), '');			
+									} else {
 										renderLink('category/' . $cat->val('category_id'), $cat->val('category_name'), '');
+									}										
 									?>
 								</div>
 							<?php							

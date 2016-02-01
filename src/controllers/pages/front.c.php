@@ -1,3 +1,3 @@
 <?php
 
-	$page_tile = t('Welcome');
+	$page_title = t('Welcome');

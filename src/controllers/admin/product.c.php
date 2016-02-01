@@ -28,4 +28,6 @@
 	}
 	
 	$product->loadVariants();
+	$product->loadCategories();
+	
 	$data = $product;
