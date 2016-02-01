@@ -86,6 +86,10 @@ h1 {
 	padding:5px 10px;
 }
 
+.sidebar {
+	/*border-right:solid 1px LightGray;*/
+}
+
 /* PRODUCTS */
 
 .product .panel-title {
@@ -124,15 +128,36 @@ h1 {
 	padding-right:10px;
 }
 
-.cart {
+.item-count, form .form-control.item-count {
+	width:50px;
+}
+
+.cart .table > tbody > tr > td {
+    vertical-align: middle;
+}
+
+.cart .table > tbody > tr:first-child > td {
+    border-top:0;
+}
+
+.cart .table > tbody > tr > td:first-child {
+	padding-left:15px;
+}
+
+.cart .table {
+    margin:0;
+}
+
+.cart-small {
 	margin-top:10px;
 	font-size:15px;	
 }
 
-.cart .price {
+.cart-small .price {
 	line-height:1;
 	margin-top:5px;
 	text-align:right;
+	color:White;
 }
 
 .price {

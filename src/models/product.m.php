@@ -43,8 +43,9 @@ class Product extends ModelBase {
 	}
 	
 	public function renderImage($size = 'thumb') {
-		if ($this->val('product_image')) {			
-			renderProductImage($this->val('product_image'), $size, $this->val('product_name'), '');
+		if ($this->val('product_image')) {	
+			global $images;
+			$images->renderImage($this->val('product_image'), $size);
 		} else {
 			renderImage('no-image.png',t('Image missing'),'');
 		}

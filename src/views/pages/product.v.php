@@ -8,7 +8,7 @@
 		<div class="panel panel-default spaced">		
 			<div class="panel-body">
 				<?php					
-					$product->renderImage('full');					
+					$product->renderImage('view');					
 				?>
 			</div>
 		</div>	

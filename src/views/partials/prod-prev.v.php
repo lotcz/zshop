@@ -28,7 +28,7 @@
 		
 		<div class="panel-heading text-right">
 			<form class="form-inline">
-				<input id="prod_count_<?=$product->val('product_id')?>" value="1" type="text" maxlength="2" class="form-control" style="width:50px;" />
+				<input id="prod_count_<?=$product->val('product_id')?>" value="1" type="text" maxlength="2" class="form-control item-count" />
 				<button class="btn btn-success" onclick="addProductToCart(<?=$product->val('product_id')?>);return false;"><span class="glyphicon glyphicon-shopping-cart"></span><?=t('Buy')?></button>
 			</form>
 		</div>

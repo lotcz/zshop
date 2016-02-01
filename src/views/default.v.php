@@ -36,9 +36,7 @@
 			<?php
 				if (isset($page_title)) {
 					?>
-						
-							<h1><?=$page_title ?></h1>
-						
+						<h1><?=$page_title ?></h1>						
 					<?php
 				}
 				
@@ -46,7 +44,7 @@
 
 				include $home_dir . 'views/' . $page . '.v.php';
 				
-				renderBlock('sellers');
+				renderBlock('messages');				
 			?>
 		</div>
 	</div>

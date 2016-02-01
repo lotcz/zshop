@@ -1,5 +1,7 @@
 <?php
 
+require_once $home_dir . 'models/product.m.php';
+
 class Cart extends ModelBase {
 	
 	public $table_name = 'cart';
@@ -21,6 +23,10 @@ class Cart extends ModelBase {
 		}
 		$statement->close();
 		return $totals;		
+	}
+	
+	static function loadCart($db, $customer_id) {
+		return Product::loadCart($db, $customer_id);
 	}
 	
 }

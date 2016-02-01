@@ -11,6 +11,7 @@
 	require_once $home_dir . 'models/base.m.php';
 	require_once $home_dir . 'classes/authentication.php';
 	require_once $home_dir . 'classes/custauth.php';
+	require_once $home_dir . 'classes/images.php';
 	
 	// rendering globals
 	$theme = null;
@@ -20,6 +21,7 @@
 	$page_title = null; // set this in controller
 	$messages = new Messages();
 	$data = [];
+	$images = new Images($globals['images_dir'], $globals['images_url']);
 	
 	$localization = new Localization($home_dir . 'lang/');
 	$db = new mysqli($globals['db_host'], $globals['db_login'], $globals['db_password'], $globals['db_name']);

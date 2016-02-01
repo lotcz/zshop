@@ -90,6 +90,21 @@
 			redirect('error');
 		}
 	}
+	
+	/*
+		handle error
+	*/
+	function handleErr($message, $type) {
+		global $globals;
+		global $messages;
+		
+		if ($globals['debug_mode']) {
+			$messages->add($message, $type);
+		} else {
+			// log error
+			redirect('error');
+		}
+	}
 		
 	function renderBlock($block) {
 		global $home_dir;
@@ -121,16 +136,6 @@
 	function renderImage($src, $alt, $css) {
 		global $base_url;		
 		echo sprintf('<img src="%s" class="%s" alt="%s" />', $base_url . '/images/' . $src, $css, t($alt));
-	}
-
-	function renderProductImage($src, $size = 'thumb', $alt = '', $css = '') {
-		global $globals;		
-		if ($size == 'thumb') {
-			echo sprintf('<img src="%s" class="%s" alt="%s" />', $globals['images_url'] . '/thumbs/thumb_' . $src, $css, t($alt));
-		} else {
-			echo sprintf('<img src="%s" class="%s" alt="%s" />', $globals['images_url'] . '/' . $src, $css, t($alt));
-		}
-		
 	}
 	
 	function renderSelect($name, $items, $id_name, $label_name, $selected_value = null) {

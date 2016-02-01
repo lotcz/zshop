@@ -1,24 +1,60 @@
-<div class="panel label-default">
+<div class="cart panel panel-default">
 <?php
-	if ($total > 0) {
+	if (isset($custAuth) && $custAuth->isAuth()) {
 		?>
-			<div class="panel-body">
+			<div class="">
 				<?php
-					foreach ($products as $product) {
+					if ($totals['c'] > 0) {
 						?>
-							<div>
-								<?php
-									echo $product->val('cart_count');
-									renderLink('admin/product/edit/' . $product->val('product_id'), $product->val('product_name'), '');
-								?>								
+							<div class="table-responsive">
+								<table class="table">									
+									<tbody>
+										<?php
+											foreach ($products as $product) {
+												?>
+													<tr onclick="javascript:openDetail(<?=$product->val('product_id') ?>);">
+														<td>
+															<?php
+																$images->renderImage($product->val('product_image'), 'mini-thumb');
+															?>
+														</td>
+														<td>
+															<?php
+																renderLink($product->val('alias_url'), $product->val('product_name'))
+															?>
+														</td>
+														<td class="text-right"><?=formatPrice($product->val('product_price')) ?></td>
+														<td><input type="text" maxlength="2" class="form-control item-count" value="<?=$product->val('cart_count') ?>"></td>
+														<td class="text-right"><?=formatPrice($product->val('item_price')) ?></td>
+														<td><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></td>
+													</tr>
+												<?php
+											}
+										?>
+										<tr>
+											<td></td>											
+											<td colspan="2" class="text-right"><a class="btn btn-primary"><?=t('Update Cart') ?></a></td>
+											<td class="text-right"><?=$totals['pf'] ?></td>
+											<td><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></td>
+										</tr>
+									</tbody>
+								</table>
 							</div>
+							
+						<?php
+						
+					} else {
+						?>
+							<p>Your shopping cart is empty.</p>							
 						<?php
 					}
 				?>
 			</div>
 		<?php
 	} else {	
-		renderLink('/login', t('Sign In'), '');
+		?>
+			<p>You can't be logged in! Maybe your browser has cookies disabled?</p>			
+		<?php
 	}
 	
 ?>
