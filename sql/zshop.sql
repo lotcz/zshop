@@ -49,6 +49,9 @@ CREATE TABLE IF NOT EXISTS `customers` (
   `customer_created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `customer_last_access` TIMESTAMP,
   
+  `customer_fb_access` VARCHAR(255),
+  `customer_gplus_access` VARCHAR(255),
+    
   `customer_name` VARCHAR(100),
   `customer_address_city` VARCHAR(100),
   `customer_address_street` VARCHAR(100),

@@ -14,6 +14,10 @@ h1 {
 	font-family:Georgia, serif;
 }
 
+a, a:hover, a:active, a:focus {
+	outline:0;
+}
+
 .spaced {
 	margin-top:15px;
 	margin-bottom:15px;
@@ -138,7 +142,7 @@ h1 {
 }
 
 .cart .table > tbody > tr:first-child > td {
-    border-top:0;
+   --border-top:0;
 }
 
 .cart .table > tbody > tr > td:first-child {
@@ -147,6 +151,14 @@ h1 {
 
 .cart .table {
     margin:0;
+}
+
+.cart .remove-item {
+	font-size:150%;
+	-color:firebrick;
+	font-weight:bold;
+	margin-top:4px;
+	display:inline-block;
 }
 
 .cart-small {
@@ -164,4 +176,9 @@ h1 {
 .price {
 	font-size:200%;
 	text-align:center;
+}
+
+.panel-success > .panel-heading {
+	background-image: linear-gradient(to bottom, #5CB85C 0px, #419641 100%);
+	color:White;
 }

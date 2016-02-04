@@ -159,8 +159,7 @@
 	}
 	
 	function formatPrice($price) {
-		$p = intval($price);
-		$res = sprintf('%d Kč',$p);
+		$res = sprintf('%s&nbsp;Kč', number_format($price , 0 , "," , "&nbsp;" ));
 		return $res;
 	}
 	

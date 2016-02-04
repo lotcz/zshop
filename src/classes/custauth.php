@@ -27,11 +27,11 @@ class CustomerAuthentication {
 		if (!$this->isAuth()) {
 			$token = $this->generateToken();
 			$this->customer = new Customer($auth_db);
-			$this->customer->data['customer_anonymous'] = true;
+			$this->customer->data['customer_anonymous'] = 1;
 			$this->customer->data['customer_name'] = t('Anonymous');
 			$this->customer->data['customer_email'] = t('Anonymous') . '@' . $token;
 			$this->customer->save();			
-			$this->createSession($token);
+			$this->createSession();
 		}	
 	}
 
@@ -78,6 +78,35 @@ class CustomerAuthentication {
 				$customer->save();
 			}
 			
+		}
+		
+	}
+	
+	public function loginWithFacebook($access) {
+		
+		if (isset($_COOKIE[$this->cookie_name])) {
+			$this->logout();
+		}
+		
+		$customer = new Customer($this->db);
+		$customer->loadSingleFiltered(
+			'customer_fb_access = ?',
+			[$access]
+		);
+		
+		if ($customer->is_loaded) {
+			if ($customer->val('customer_failed_attempts') > $this::$max_attempts) {
+				die('Max. number of login attempts exceeded. Please ask for new password.');
+			}
+						
+			$this->customer = $customer;
+			$this->createSession();
+			$this->updateLastAccess();
+			
+		} else {
+			// log ip failed attempts
+			//$customer->data['customer_failed_attempts'] += 1;
+			//$customer->save();
 		}
 		
 	}
