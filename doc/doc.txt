@@ -18,6 +18,8 @@ TO DO:
 	- protect import and periodic job by security token
 	- model base insecure because of field names inserted directly (protect at least in public part)
 	- protect from brutal force attack (user login, customer login, both forgotten pass)
+	- prevent more than 100 logins/registrations from one IP
+	- detect products already in cart and mark them, also alter product count
 	
 	(pages)
 -front

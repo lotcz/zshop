@@ -1,4 +1,6 @@
 version  1.3
+	- register
+	- login
 	- shopping cart page	
 	- import product descriptions from cube cart
 	- categories menu rolldown

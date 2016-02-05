@@ -1,0 +1,85 @@
+body.admin {
+	padding-top:51px;
+}
+
+a, a:hover, a:active, a:focus,
+.btn, .btn:hover, .btn:active, .btn:focus {
+	outline:0;
+}
+
+.header {
+	border-radius:5px;
+	padding:15px;
+	margin:15px 0;
+}
+
+h1 {
+	text-align:center;
+}
+
+.alert {
+	padding:6px 12px;
+}
+
+ol, ul {
+    margin: 0;
+}
+
+.vcenter fb {
+	vertical-align:middle;
+	display:inline-block;
+}
+
+/* tables */
+
+.table-hover > tbody > tr {
+	cursor:pointer;
+}
+
+.top-button {
+	margin-bottom:15px;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+.language img {
+	margin:0 10px 0 0;
+}
+
+.dropdown.btn {
+	padding:0;
+}
+
+.dropdown.btn > .dropdown-toggle {
+	padding:6px 12px;
+	display:inline-block;
+}
+
+.dropdown .caret {
+	margin-left:10px;
+}
+
+/* forms */
+
+.form-validation {
+	display:none;
+	color:red;
+	margin-top:7px;
+}
+
+.form-button {
+	margin-left:10px;
+	margin-right:10px;
+}
+
+.form-buttons {
+	display:block;
+	text-align:center;
+	margin-left:auto;
+	margin-right:auto;
+	margin-top:15px;
+}
+
+.admin-form {
+	margin-top:25px;
+}

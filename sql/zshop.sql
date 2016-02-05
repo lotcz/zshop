@@ -13,8 +13,8 @@ CREATE TABLE IF NOT EXISTS `ip_failed_attempts` (
 CREATE TABLE IF NOT EXISTS `users` (
   `user_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_deleted` BIT DEFAULT 0 NOT NULL,
-  `user_login` VARCHAR(100),
-  `user_email` VARCHAR(255) NOT NULL,
+  `user_login` VARCHAR(50),
+  `user_email` VARCHAR(50) NOT NULL,
   `user_password_hash` VARCHAR(255) NULL,
   `user_failed_attempts` INT NOT NULL DEFAULT 0,
   `user_last_access` TIMESTAMP,
@@ -43,23 +43,23 @@ CREATE TABLE IF NOT EXISTS `customers` (
   `customer_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `customer_deleted` BOOL DEFAULT FALSE,
   `customer_anonymous` BOOL DEFAULT TRUE,
-  `customer_email` VARCHAR(255) NOT NULL,
+  `customer_email` VARCHAR(50) NOT NULL,
   `customer_password_hash` VARCHAR(255) ,
   `customer_failed_attempts` INT UNSIGNED NOT NULL DEFAULT 0,
   `customer_created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `customer_last_access` TIMESTAMP,
-  
+
   `customer_fb_access` VARCHAR(255),
   `customer_gplus_access` VARCHAR(255),
     
-  `customer_name` VARCHAR(100),
-  `customer_address_city` VARCHAR(100),
-  `customer_address_street` VARCHAR(100),
+  `customer_name` VARCHAR(50),
+  `customer_address_city` VARCHAR(50),
+  `customer_address_street` VARCHAR(50),
   `customer_address_zip` INT,
   
-  `customer_ship_name` VARCHAR(100),
-  `customer_ship_city` VARCHAR(100),
-  `customer_ship_street` VARCHAR(100),
+  `customer_ship_name` VARCHAR(50),
+  `customer_ship_city` VARCHAR(50),
+  `customer_ship_street` VARCHAR(50),
   `customer_ship_zip` INT,  
   
   PRIMARY KEY (`customer_id`),
