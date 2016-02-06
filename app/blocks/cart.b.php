@@ -11,7 +11,7 @@
 	?>
 		<div>
 			<span class="glyphicon glyphicon-shopping-cart"></span>
-			<?=t('Shopping cart')?>:
+			<?=t('Shopping Cart')?>:
 		</div>
 				
 		<a class="price" href="/cart"><div id="cart_price"><?=$totals['pf']?></div></a>

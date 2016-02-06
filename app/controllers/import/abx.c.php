@@ -22,7 +22,7 @@
 		require_once $home_dir . 'models/product.m.php';
 		require_once $home_dir . 'models/prod_var.m.php';		
 
-		$data_path = '../../data/';
+		$data_path = '../data/';
 		$archive_file = 'katalog.zip';
 		$xml_file = 'katalog.xml';
 		$archive_path = $data_path . $archive_file;

@@ -36,7 +36,6 @@ CREATE TABLE IF NOT EXISTS `user_sessions` (
     FOREIGN KEY (`user_session_user_id`)
     REFERENCES `users` (`user_id`)
     ON DELETE CASCADE
-    ON UPDATE NO ACTION
 ) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `customers` (
@@ -77,7 +76,6 @@ CREATE TABLE IF NOT EXISTS `customer_sessions` (
     FOREIGN KEY (`customer_session_customer_id`)
     REFERENCES `customers` (`customer_id`)
     ON DELETE CASCADE
-    ON UPDATE NO ACTION
 ) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `aliases` (
@@ -100,10 +98,12 @@ CREATE TABLE IF NOT EXISTS `categories` (
   INDEX `categories_parent_id_index` (`category_parent_id` ASC),
   CONSTRAINT `category_parent_fk`
     FOREIGN KEY (`category_parent_id`)
-    REFERENCES `categories` (`category_id`),
+    REFERENCES `categories` (`category_id`)
+    ON DELETE SET NULL,
   CONSTRAINT `category_alias_fk`
     FOREIGN KEY (`category_alias_id`)
     REFERENCES `aliases` (`alias_id`)
+    ON DELETE SET NULL
 ) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `products` (
@@ -120,10 +120,12 @@ CREATE TABLE IF NOT EXISTS `products` (
   PRIMARY KEY (`product_id`), 
   CONSTRAINT `product_category_parent_fk`
     FOREIGN KEY (`product_default_category_id`)
-    REFERENCES `categories` (`category_id`),
+    REFERENCES `categories` (`category_id`)
+    ON DELETE SET NULL,
   CONSTRAINT `product_alias_fk`
     FOREIGN KEY (`product_alias_id`)
-    REFERENCES `aliases` (`alias_id`),
+    REFERENCES `aliases` (`alias_id`)
+    ON DELETE SET NULL,
   UNIQUE INDEX `products_ext_id_unique` (`product_ext_id` ASC)
 ) ENGINE = InnoDB;
 
@@ -134,13 +136,11 @@ CREATE TABLE IF NOT EXISTS `product_category` (
   CONSTRAINT `product_category_product_fk`
     FOREIGN KEY (`product_category_product_id`)
     REFERENCES `products` (`product_id`)
-    ON DELETE CASCADE
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE,
   CONSTRAINT `product_category_category_fk`
     FOREIGN KEY (`product_category_category_id`)
     REFERENCES `categories` (`category_id`)
     ON DELETE CASCADE
-    ON UPDATE NO ACTION
 ) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `product_variants` (
@@ -154,7 +154,8 @@ CREATE TABLE IF NOT EXISTS `product_variants` (
   UNIQUE INDEX `product_variants_unique` (`product_variant_product_id`, `product_variant_name`),
   CONSTRAINT `product_variant_product_fk`
     FOREIGN KEY (`product_variant_product_id`)
-    REFERENCES `products` (`product_id`),
+    REFERENCES `products` (`product_id`)
+    ON DELETE CASCADE,
   UNIQUE INDEX `product_variants_ext_id_unique` (`product_variant_ext_id` ASC)
 ) ENGINE = InnoDB;
 
@@ -171,13 +172,16 @@ CREATE TABLE IF NOT EXISTS `cart` (
   PRIMARY KEY (`cart_id`),
   CONSTRAINT `cart_product_fk`
     FOREIGN KEY (`cart_product_id`)
-    REFERENCES `products` (`product_id`),
+    REFERENCES `products` (`product_id`)
+    ON DELETE CASCADE,
   CONSTRAINT `cart_customer_fk`
     FOREIGN KEY (`cart_customer_id`)
-    REFERENCES `customers` (`customer_id`),
+    REFERENCES `customers` (`customer_id`)
+    ON DELETE CASCADE,
   CONSTRAINT `cart_variant_fk`
     FOREIGN KEY (`cart_variant_id`)
     REFERENCES `product_variants` (`product_variant_id`)
+    ON DELETE SET NULL
 ) ENGINE = InnoDB;
 
 DROP VIEW IF EXISTS `viewCategories`;
@@ -220,3 +224,23 @@ CREATE VIEW viewProductsInCart AS
     LEFT OUTER JOIN products p ON (c.cart_product_id = p.product_id)
     LEFT OUTER JOIN product_variants pv ON (c.cart_variant_id = pv.product_variant_id)
     LEFT OUTER JOIN aliases a ON (a.alias_id = p.product_alias_id);
+    
+DROP VIEW IF EXISTS `viewSessionsStats` ;
+
+CREATE VIEW viewSessionsStats AS
+	SELECT 'Anonymous' as n, COUNT(*) as c
+    FROM customer_sessions cs
+    LEFT OUTER JOIN customers c ON (c.customer_id = cs.customer_session_customer_id)
+    WHERE c.customer_anonymous = 1
+    
+    UNION
+    
+    SELECT 'Customers' as n, COUNT(*) as c
+    FROM customer_sessions cs
+    LEFT OUTER JOIN customers c ON (c.customer_id = cs.customer_session_customer_id)
+    WHERE c.customer_anonymous = 0
+    
+    UNION
+    
+    SELECT 'Admins' as n, COUNT(*) as c FROM user_sessions;
+

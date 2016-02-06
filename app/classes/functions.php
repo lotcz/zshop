@@ -83,10 +83,12 @@
 		global $globals;
 		global $messages;
 		
-		if ($globals['debug_mode']) {
+		if (!isset($messages)) {
+			die($message);
+		} elseif ($globals['debug_mode']) {
 			$messages->dbErr($model, $operation, $sql, $message);
 		} else {
-			// log error
+			//TODO: log error
 			redirect('error');
 		}
 	}

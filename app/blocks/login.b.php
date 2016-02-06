@@ -25,6 +25,7 @@
 					</fb:login-button>
 					<div id="fbstatus">
 					</div>
+					<script src="/js/fb.js"></script>
 				</div>
 				<div class="col-md-8">
 					<input type="submit" onclick="javascript:validate();return false;" class="btn btn-primary" value="<?=t('Sign In') ?>">					

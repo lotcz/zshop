@@ -6,11 +6,14 @@
 	$language_data['cs_css'] = 'active';
 	
 	$language_data['Hello'] = 'Dobrý den';
+	$language_data['Anonymous'] = 'Anonym';
 	$language_data['Log Out'] = 'Odhlásit se';	
 	$language_data['Go to E-shop'] = 'Přejít do e-shopu';
 	$language_data['Forgotten Password'] = 'Zapomenuté heslo';
 	$language_data['Login or E-mail'] = 'Login nebo e-mail';
 	$language_data['Reset Password'] = 'Resetovat heslo';
+	$language_data['Shopping Cart'] = 'Nákupní košík';
+	
 	$language_data['Sign In'] = 'Přihlásit';
 	$language_data['Back'] = 'Zpět';
 	$language_data['Save'] = 'Uložit';
@@ -31,6 +34,9 @@
 	$language_data['Cart'] = 'Košík';
 	$language_data['<b>%s</b> items'] = '<b>%s</b> položek';
 	
+	/* LONG USER MESSAGES */
+	$language_data['--cookies--'] = 'Tato stránka nefunguje bez souborů cookies v prohlížeči. Prosím zapněte si funkci cookies v nastavení Vašeho prohlížeče.';
+
 	/* ADMIN SECTION */
 	$language_data['Administrator Sign In'] = 'Vstup pro správce';
 	$language_data['Max value is %s.'] = 'Maximální hodnota je %s.';

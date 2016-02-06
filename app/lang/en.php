@@ -10,3 +10,6 @@
 	$language_data['sortby_Popularity'] = 'Popularity';
 	$language_data['asc'] = 'Ascending';
 	$language_data['desc'] = 'Descending';
+	
+	/* LONG USER MESSAGES */
+	$language_data['--cookies--'] = 'This site cannot be used without browser cookies! Please enable cookies in your browser settings.';

@@ -17,6 +17,7 @@ class CustomerAuthentication {
 	public $customer_id = 0;
 	
 	static $max_attempts = 100;
+	static $min_password_length = 5;
 	static $session_expire = 60*60*24*7; //7 days
 	
 	function __construct($auth_db) {
@@ -29,16 +30,19 @@ class CustomerAuthentication {
 			$this->customer = new Customer($auth_db);
 			$this->customer->data['customer_anonymous'] = 1;
 			$this->customer->data['customer_name'] = t('Anonymous');
-			$this->customer->data['customer_email'] = t('Anonymous') . '@' . $token;
+			$this->customer->data['customer_email'] = 'anonymous@' . $token;
 			$this->customer->save();			
 			$this->createSession();
 		}	
 	}
 
 	private function createSession($token = null) {
+		// TODO: check if IP address has too many sessions already
+		
 		if (!(isset($token))) {
 			$token = $this->generateToken();
 		}
+		
 		$token_hash = CustomerAuthentication::hashPassword($token);
 		$expires = time()+CustomerAuthentication::$session_expire;
 		$session = new CustomerSession($this->db);
@@ -74,6 +78,7 @@ class CustomerAuthentication {
 				$this->updateLastAccess();
 				
 			} else {
+				// TODO: log IP failed attempt
 				$customer->data['customer_failed_attempts'] += 1;
 				$customer->save();
 			}
@@ -170,6 +175,14 @@ class CustomerAuthentication {
 			$this->session->deleteById();
 			$this->session = null;
 		}
+	}
+	
+	public function isValidEmail($email) {
+		return filter_var($email, FILTER_VALIDATE_EMAIL);
+	}
+	
+	public function isValidPassword($password) {
+		return (strlen($password) >= CustomerAuthentication::$min_password_length);
 	}
 	
 	private function generateToken() {
