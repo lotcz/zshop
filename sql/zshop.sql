@@ -244,3 +244,5 @@ CREATE VIEW viewSessionsStats AS
     
     SELECT 'Admins' as n, COUNT(*) as c FROM user_sessions;
 
+/* aliases */
+INSERT INTO aliases (alias_url, alias_path) VALUES ('kosik','cart');

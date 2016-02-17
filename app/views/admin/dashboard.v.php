@@ -6,11 +6,14 @@
 	</div>
 	<div class="panel-body">
 		<div class="row">
-			<div class="col-md-6">
-				<canvas id="myChart1" width="200" height="200" />
+			<div class="col-md-4">
+				<canvas id="myChart1" />
 			</div>
-			<div class="col-md-6">
-				<canvas id="myChart2" width="200" height="200" />
+			<div class="col-md-4">
+				<canvas id="myChart2" />
+			</div>
+			<div class="col-md-4">
+				<canvas id="myChart3" />
 			</div>
 		</div>
 		<div>		
@@ -23,6 +26,8 @@
 <!-- https://cdnjs.com/libraries/chart.js-->
 
 <script>
+	Chart.defaults.global.responsive = true;
+
 	var data = [
 		<?php
 			foreach ($sessions as $s) {
@@ -36,43 +41,44 @@
 		?>
 	]
 
-	var options = {
-		//Boolean - Whether we should show a stroke on each segment
-		segmentShowStroke : true,
+	
+	// For a pie chart
+	var ctx = document.getElementById('myChart1').getContext('2d');
+	var myPieChart = new Chart(ctx).Pie(data);
 
-		//String - The colour of each segment stroke
-		segmentStrokeColor : "#fff",
+	// And for a doughnut chart
+	var ctx2 = document.getElementById("myChart2").getContext("2d");
+	var myDoughnutChart = new Chart(ctx2).Doughnut(data);
 
-		//Number - The width of each segment stroke
-		segmentStrokeWidth : 2,
+	
+	var ldata = {
+		labels: ["January", "February", "March", "April", "May", "June", "July"],
+		datasets: [
+			{
+				label: "My First dataset",
+				fillColor: "rgba(220,220,220,0.2)",
+				strokeColor: "rgba(220,220,220,1)",
+				pointColor: "rgba(220,220,220,1)",
+				pointStrokeColor: "#fff",
+				pointHighlightFill: "#fff",
+				pointHighlightStroke: "rgba(220,220,220,1)",
+				data: [65, 59, 80, 81, 56, 55, 40]
+			},
+			{
+				label: "My Second dataset",
+				fillColor: "rgba(151,187,205,0.2)",
+				strokeColor: "rgba(151,187,205,1)",
+				pointColor: "rgba(151,187,205,1)",
+				pointStrokeColor: "#fff",
+				pointHighlightFill: "#fff",
+				pointHighlightStroke: "rgba(151,187,205,1)",
+				data: [28, 48, 40, 19, 86, 27, 90]
+			}
+		]
+	};
+	
+	var ctx3 = document.getElementById('myChart3').getContext('2d');
+	var myLineChart = new Chart(ctx3).Line(ldata);
 
-		//Number - The percentage of the chart that we cut out of the middle
-		percentageInnerCutout : 50, // This is 0 for Pie charts
 
-		//Number - Amount of animation steps
-		animationSteps : 100,
-
-		//String - Animation easing effect
-		animationEasing : "easeOutBounce",
-
-		//Boolean - Whether we animate the rotation of the Doughnut
-		animateRotate : true,
-
-		//Boolean - Whether we animate scaling the Doughnut from the centre
-		animateScale : false,
-
-		//String - A legend template
-		legendTemplate : "<ul class=\"legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>"
-
-	}
-
-	$(function(){
-		// For a pie chart
-		var ctx = document.getElementById('myChart1').getContext('2d');
-		var myPieChart = new Chart(ctx).Pie(data);
-
-		// And for a doughnut chart
-		ctx = document.getElementById("myChart2").getContext("2d");
-		var myDoughnutChart = new Chart(ctx).Doughnut(data,options);
-	});
 </script>

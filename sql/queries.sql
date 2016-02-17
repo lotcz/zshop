@@ -21,4 +21,10 @@ WHERE product_category_product_id = 7170;
 
 select * from cart;
 
+select * from customers;
+
+select * from customer_sessions;
+
 delete from customer_sessions where customer_session_id > 0;
+delete from cart where cart_id > 0;
+delete from customers where customer_id > 0;

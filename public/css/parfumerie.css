@@ -128,12 +128,13 @@ h1 {
 	
 }
 
-.product button .glyphicon {	
-	padding-right:10px;
+.product .prod-item-count {
+	display:inline-block;	
+	width:50px;	
 }
 
-.item-count, form .form-control.item-count {
-	width:50px;
+.product button .glyphicon {	
+	padding-right:10px;
 }
 
 .cart .table > tbody > tr > td {
@@ -152,12 +153,48 @@ h1 {
     margin:0;
 }
 
-.cart .remove-item {
+.cart .item .glyphicon {
 	font-size:150%;
-	-color:firebrick;
-	font-weight:bold;
-	margin-top:4px;
+	color:#A5A5A5;
+}
+
+.cart .item .item-count {
+	min-width:110px;
+}
+
+.cart .item .item-count .glyphicon {
+	position:relative;
+	top:4px;	
+}
+
+.cart .item.removed {
+	background-color:#A9A9A9;
+}
+
+.cart .item.removed a {
+	color:Black;	
+}
+
+.cart .item.removed img {
+	opacity:0.5;
+}
+
+.cart .item.removed .item-count .glyphicon {
+	color:White;	
+}
+
+.cart .item.removed .remove-item .glyphicon {
+	color:#60FF40;
+	
+}
+
+.cart .item .item-count input {
 	display:inline-block;
+	position:relative;
+	top:-2px;
+	width:50px;
+	margin-left:3px;
+	margin-right:3px;
 }
 
 .customer-small .link {

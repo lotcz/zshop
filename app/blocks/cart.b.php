@@ -14,7 +14,7 @@
 			<?=t('Shopping Cart')?>:
 		</div>
 				
-		<a class="price" href="/cart"><div id="cart_price"><?=$totals['pf']?></div></a>
+		<a class="price" href="/cart"><span class="cart-total-price"><?=$totals['pf']?></span></a>
 			
 	<?php		
 	

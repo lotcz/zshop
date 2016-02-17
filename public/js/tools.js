@@ -31,9 +31,14 @@ function setLang(lang) {
 	document.location = document.location;
 }
 
+// CART
+
+function updateCart(data) {
+	$('.cart-total-price').html(data.pf);
+}
+
 function productAdded(data) {
-	$('#cart_price').html(data.pf);
-	$('#cart_count').html(data.c);
+	updateCart(data);
 }
 
 function addProductToCart(id) {
@@ -44,6 +49,23 @@ function addProductToCart(id) {
 				count: cnt
 			},
 			productAdded
+		);
+	return false;
+}
+
+function productUpdated(data) {
+	updateCart(data);	
+	$('#item_total_price_'+data.ii).html(data.ip);
+}
+
+function updateProductInCart(id) {
+	var cnt = $('#prod_count_' + id).val();
+	$.getJSON('/ajax/cart/update', 
+			{
+				product_id: id,
+				count: cnt
+			},
+			productUpdated
 		);
 	return false;
 }
