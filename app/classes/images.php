@@ -11,12 +11,9 @@ class Images {
 
 	public $root_images_url = "";
 
-	public $status = "uninitialized";
-
 	function __construct( $data_path, $data_url) {
 		$this->root_images_disk_path = $data_path;
 		$this->root_images_url = $data_url;   
-		$this->status = "OK"; //would be good to implement some kind of check for Phalcon and php versions
 	}
 	
 	public function getImagePath( $image, $format = null ) {
@@ -45,27 +42,61 @@ class Images {
 			}
 			$original_path = $this->getImagePath( $image );
 			if (file_exists($original_path)) {
-				/* Phalcon 1.3.2
-				$image = new Phalcon\Image\Adapter\GD( $original_path );
-				$image->resize(Images::$formats[$format]['width'], Images::$formats[$format]['height']);
-				if (!$image->save($resized_path)) {
-					$this->flashMessages("Cannot resize image $original_path.");
+				
+				$info = getimagesize($original_path);
+				$mime = $info['mime'];
+
+				switch ($mime) {	
+
+					case 'image/png':
+						$image_create_func = 'imagecreatefrompng';
+						$image_save_func = 'imagepng';
+						$new_image_ext = 'png';
+						break;
+
+					case 'image/gif':
+						$image_create_func = 'imagecreatefromgif';
+						$image_save_func = 'imagegif';
+						$new_image_ext = 'gif';
+						break;
+
+					default: //case 'image/jpeg':
+						$image_create_func = 'imagecreatefromjpeg';
+						$image_save_func = 'imagejpeg';
+						$new_image_ext = 'jpg';
+						break;							
 				}
-				*/
+				
+				$format_width = Images::$formats[$format]['width'];
+				$format_height = Images::$formats[$format]['height'];
+				
+				$img = $image_create_func($original_path);				
+				
+				list($width, $height) = getimagesize($original_path);
+								
+				if ($width > $format_width) {
+					$newHeight = ($height / $width) * $format_width;
+					$newWidth = $format_width;
+				} else {
+					$newHeight = $height;
+					$newWidth = $width;
+				}
+				
+				if ($newHeight > $format_height) {
+					$newWidth = ($newWidth / $newHeight) * $format_height;
+					$newHeight = $format_height;
+				}
 
-				$original_image = imagecreatefromjpeg($original_path);
+				$tmp = imagecreatetruecolor($newWidth, $newHeight);
+				imagecopyresampled($tmp, $img, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
 
-				/* PHP 5.5.
-				$rsr_scl = imagescale($rsr_org, ImagesGD::$formats[$format]['width'], ImagesGD::$formats[$format]['height'],  IMG_BICUBIC_FIXED);
-				*/
+				if (file_exists($resized_path)) {
+					unlink($resized_path);
+				}
+				$image_save_func($tmp, "$resized_path");
 
-				/* PHP 5.4 */
-				list($source_image_width, $source_image_height, $source_image_type) = getimagesize($original_path);
-				$resized_image = imagecreatetruecolor(Images::$formats[$format]['width'], Images::$formats[$format]['height']);
-				imagecopyresampled($resized_image, $original_image, 0, 0, 0, 0, Images::$formats[$format]['width'], Images::$formats[$format]['height'], $source_image_width, $source_image_height);
-				imagejpeg($resized_image, $resized_path);
-				imagedestroy($resized_image);
-				imagedestroy($original_image);
+				imagedestroy($img);
+				imagedestroy($tmp);
 				
 			} else {
 				handleErr("Image $original_path not found. Cannot resize.", 'error');
@@ -88,9 +119,7 @@ class Images {
 	}
 	
 	public function img( $image, $format = null ) {
-		if ($this->status == "OK") {
-			$this->prepareImage( $image, $format );
-		}
+		$this->prepareImage( $image, $format );
 		return $this->getImageURL( $image, $format );
 	}
 	
@@ -98,4 +127,5 @@ class Images {
 		$url = $this->img($image, $format);
 		echo sprintf('<img src="%s" class="%s" alt="%s" />', $url, $css, $alt);
 	}
+	
 }
