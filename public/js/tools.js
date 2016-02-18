@@ -31,6 +31,16 @@ function setLang(lang) {
 	document.location = document.location;
 }
 
+// AJAX LOADER
+
+function showAjaxLoaders() {
+	$('.ajax-loader').animate({opacity:1});
+}
+
+function hideAjaxLoaders() {
+	$('.ajax-loader').animate({opacity:0});
+}
+
 // CART
 
 function updateCart(data) {
@@ -39,9 +49,11 @@ function updateCart(data) {
 
 function productAdded(data) {
 	updateCart(data);
+	hideAjaxLoaders();
 }
 
 function addProductToCart(id) {
+	showAjaxLoaders();
 	var cnt = $('#prod_count_' + id).val();
 	$.getJSON('/ajax/cart/add', 
 			{
@@ -56,9 +68,11 @@ function addProductToCart(id) {
 function productUpdated(data) {
 	updateCart(data);	
 	$('#item_total_price_'+data.ii).html(data.ip);
+	hideAjaxLoaders();
 }
 
 function updateProductInCart(id) {
+	showAjaxLoaders();
 	var cnt = $('#prod_count_' + id).val();
 	$.getJSON('/ajax/cart/update', 
 			{

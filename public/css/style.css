@@ -5,6 +5,7 @@ body.admin {
 a, a:hover, a:active, a:focus,
 .btn, .btn:hover, .btn:active, .btn:focus {
 	outline:0;
+	text-decoration:none;
 }
 
 .header {
@@ -82,4 +83,19 @@ ol, ul {
 
 .admin-form {
 	margin-top:25px;
+}
+
+.ajax-loader {
+	opacity:0;
+	display:inline-block;
+	margin:auto;	
+	background-image:url('../images/ajax-loader.gif');
+	width:31px;
+	height:31px;
+}
+
+.ajax-loader-blue {
+	background-image:url('../images/ajax-loader-blue.gif');
+	width:32px;
+	height:32px;
 }

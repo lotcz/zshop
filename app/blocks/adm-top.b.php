@@ -33,6 +33,7 @@
 					}
 					renderMenuLink('admin/categories', 'Categories');
 					renderMenuLink('admin/products', 'Products');
+					renderMenuLink('admin/orders', 'Orders');
 					renderMenuLink('admin/users', 'Administrators');
 					renderMenuLink('admin/customers', 'Customers');					
 				?>

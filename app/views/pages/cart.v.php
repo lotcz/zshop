@@ -120,8 +120,9 @@
 											<form class="form-horizontal">												
 												<div class="form-group">
 													<label for="email" class="col-sm-5 control-label"><?=t('Total Cost') ?>:</label>
-													<div class="col-sm-6 price">
+													<div class="col-sm-6 price">														
 														<span class="form-control-static cart-total-price"><?=$totals['pf'] ?></span>
+														<span class="ajax-loader"></span>
 													</div>			
 												</div>												
 												<div class="form-group text-center">
@@ -135,7 +136,37 @@
 							<?php
 							
 						} else {
-							echo "logged in";
+							?>
+							
+								<div class="col-md-8 address">									
+									<?php
+										renderBlock('register');
+									?>
+								</div>
+								
+								<div class="col-md-4">
+									<div class="panel panel-default">
+										<div class="panel-heading">
+											<h3 class="panel-title"><?=t('Place an order') ?></h3>
+										</div>
+										<div class="panel-body">
+											<form class="form-horizontal">												
+												<div class="form-group">
+													<label for="email" class="col-sm-5 control-label"><?=t('Total Cost') ?>:</label>
+													<div class="col-sm-6 price">														
+														<span class="form-control-static cart-total-price"><?=$totals['pf'] ?></span>
+														<span class="ajax-loader"></span>
+													</div>
+												</div>
+												<div class="form-group text-center">
+													<a class="btn btn-success"><?=t('Order') ?></a>
+												</div>
+											</form>						
+										</div>
+									</div>
+								</div>
+							
+							<?php
 						}
 					?>																		
 					

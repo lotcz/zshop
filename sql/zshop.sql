@@ -86,6 +86,8 @@ CREATE TABLE IF NOT EXISTS `aliases` (
   UNIQUE INDEX `aliases_url_unique` (`alias_url` ASC))
 ENGINE = InnoDB;
 
+INSERT INTO aliases (alias_url, alias_path) VALUES ('kosik','cart');
+
 CREATE TABLE IF NOT EXISTS `categories` (
   `category_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `category_ext_id` INT UNSIGNED,
@@ -145,6 +147,7 @@ CREATE TABLE IF NOT EXISTS `product_category` (
 
 CREATE TABLE IF NOT EXISTS `product_variants` (
   `product_variant_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `product_variant_deleted` BOOL NOT NULL DEFAULT 0,
   `product_variant_product_id` INT UNSIGNED NOT NULL,
   `product_variant_ext_id` INT UNSIGNED NULL,
   `product_variant_name` VARCHAR(100) NOT NULL,
@@ -180,6 +183,60 @@ CREATE TABLE IF NOT EXISTS `cart` (
     ON DELETE CASCADE,
   CONSTRAINT `cart_variant_fk`
     FOREIGN KEY (`cart_variant_id`)
+    REFERENCES `product_variants` (`product_variant_id`)
+    ON DELETE SET NULL
+) ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `order_states` (
+ `order_state_id` TINYINT UNSIGNED NOT NULL AUTO_INCREMENT,
+ `order_state_closed` BOOL NOT NULL,
+ `order_state_name` VARCHAR(50) NOT NULL,
+  PRIMARY KEY (`order_state_id`)
+) ENGINE = InnoDB;
+
+INSERT INTO `order_states` (`order_state_closed`, `order_state_name`) VALUES (0,'New (waiting for payment)'),(0,'Processing'),(0,'Re-opened'),(1,'Shipped (closed)'),(1,'Rejected');
+
+CREATE TABLE IF NOT EXISTS `orders` (
+  `order_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `order_order_state_id` TINYINT UNSIGNED NOT NULL DEFAULT 1, 
+  `order_customer_id` INT UNSIGNED NOT NULL,
+  `order_payment_code` INT UNSIGNED NOT NULL ,
+  `order_created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `order_last_status_change` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+ 
+  `order_ship_name` VARCHAR(50),
+  `order_ship_city` VARCHAR(50),
+  `order_ship_street` VARCHAR(50),
+  `order_ship_zip` INT,  
+  
+  PRIMARY KEY (`order_id`),
+  UNIQUE INDEX `order_payment_code_unique_index` (`order_payment_code`),
+  CONSTRAINT `order_customer_fk`
+    FOREIGN KEY (`order_customer_id`)
+    REFERENCES `customers` (`customer_id`)
+) ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `order_products` (
+  `order_product_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,  
+  `order_product_order_id` INT UNSIGNED NOT NULL,
+  `order_product_product_id` INT UNSIGNED NULL,
+  `order_product_variant_id` INT UNSIGNED NULL,
+  `order_product_name` VARCHAR(255) NOT NULL,
+  `order_product_variant_name` VARCHAR(100) NOT NULL,
+  `order_product_price` DECIMAL(10,2) UNSIGNED NOT NULL,
+  `order_product_count` INT UNSIGNED NOT NULL DEFAULT 1, 
+
+  PRIMARY KEY (`order_product_id`),
+  CONSTRAINT `order_product_pruduct_fk`
+    FOREIGN KEY (`order_product_product_id`)
+    REFERENCES `products` (`product_id`)
+    ON DELETE SET NULL,
+  CONSTRAINT `order_product_order_fk`
+    FOREIGN KEY (`order_product_order_id`)
+    REFERENCES `orders` (`order_id`)
+    ON DELETE CASCADE,
+  CONSTRAINT `order_product_variant_fk`
+    FOREIGN KEY (`order_product_variant_id`)
     REFERENCES `product_variants` (`product_variant_id`)
     ON DELETE SET NULL
 ) ENGINE = InnoDB;
@@ -244,5 +301,20 @@ CREATE VIEW viewSessionsStats AS
     
     SELECT 'Admins' as n, COUNT(*) as c FROM user_sessions;
 
-/* aliases */
-INSERT INTO aliases (alias_url, alias_path) VALUES ('kosik','cart');
+
+DROP VIEW IF EXISTS `viewOrders`;
+
+CREATE VIEW viewOrders AS
+	SELECT *
+    FROM orders o
+    LEFT OUTER JOIN customers c ON (c.customer_id = o.order_customer_id)
+	LEFT OUTER JOIN order_states os ON (os.order_state_id = o.order_order_state_id);
+    
+DROP VIEW IF EXISTS `viewOrderProducts`;
+  
+CREATE VIEW viewOrderProducts AS
+	SELECT *
+    FROM order_products o
+    LEFT OUTER JOIN products p ON (p.product_id = o.order_product_product_id);
+
+

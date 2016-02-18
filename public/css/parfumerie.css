@@ -1,9 +1,5 @@
-/* color scheme */
 body {
 	background-color:White;
-	-background-image:url('../images/bg.jpg');
-	-background-position:center center;
-	-background-attachment:fixed;
 }
 
 h1 {
@@ -158,6 +154,14 @@ h1 {
 	color:#A5A5A5;
 }
 
+.cart .item .minus-item .glyphicon:hover {	
+	color:Red;
+}
+
+.cart .item .plus-item .glyphicon:hover {	
+	color:Green;
+}
+
 .cart .item .item-count {
 	min-width:110px;
 }
@@ -184,8 +188,7 @@ h1 {
 }
 
 .cart .item.removed .remove-item .glyphicon {
-	color:#60FF40;
-	
+	color:#60FF40;	
 }
 
 .cart .item .item-count input {
@@ -214,6 +217,10 @@ h1 {
 	margin-top:5px;
 	text-align:right;
 	color:White;
+}
+
+.cart-small .price span {
+	vertical-align:middle;
 }
 
 .price {

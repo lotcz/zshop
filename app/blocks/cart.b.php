@@ -13,8 +13,11 @@
 			<span class="glyphicon glyphicon-shopping-cart"></span>
 			<?=t('Shopping Cart')?>:
 		</div>
-				
-		<a class="price" href="/cart"><span class="cart-total-price"><?=$totals['pf']?></span></a>
+			
+		<a class="price" href="/cart">
+			<span class="ajax-loader ajax-loader-blue"></span>	
+			<span class="cart-total-price"><?=$totals['pf']?></span>			
+		</a>
 			
 	<?php		
 	
