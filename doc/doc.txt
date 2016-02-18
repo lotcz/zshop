@@ -1,26 +1,24 @@
 TO DO:
-	- remove katalog.xml from git
 	- periodic job : DB backup, delete old sessions, create xml
-	- CustomerAuthentication - customer, customer_session (create fake customer for newcomers)
-	- Cart - customer_cart
-	- Order - order	
-	- OrderItem(for history) - order_item
-	- Payment - payment_type
-	- Delivery - delivery_type
+	
+	- Payment - payment_type ?
+	- Delivery - delivery_type ?
 	- Static pages (wysiwyg+images)
-	- Images (+videos?)
-	- Emails
-	- Aliases (used for products,  categories and static pages)
+	
+	- Emails	
 	- XML output
-	- ajax Add to cart
 	- breadcrumb
 	- ssl (https)
-	- protect import and periodic job by security token
 	- model base insecure because of field names inserted directly (protect at least in public part)
 	- protect from brutal force attack (user login, customer login, both forgotten pass)
 	- prevent more than 100 logins/registrations from one IP
 	- detect products already in cart and mark them, also alter product count
 	
-	(pages)
+	- shopping cart page	
+	- import product descriptions from cube cart
+	- categories menu rolldown
+	- breadcrumb
+	- browsing products (lazy loading)
+
 
 	
