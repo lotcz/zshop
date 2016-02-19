@@ -4,7 +4,7 @@ require_once $home_dir . 'models/ord_prod.m.php';
 
 class Order extends ModelBase {
 	
-	public $table_name = 'order';
+	public $table_name = 'orders';
 	public $id_name = 'order_id';	
 
 	public function loadProducts() {

@@ -32,7 +32,7 @@
 						<td><?=$order->val('order_state_name') ?></td>
 						<td><?=$order->val('order_state_closed') ?></td>
 						<td><?=$order->val('customer_name') ?></td>
-						<td><a href="/admin/order/edit/<?=$order->val('order_id') ?>"><?=t('Edit') ?></a></td>
+						<td><a href="/admin/order/edit/<?=$order->val('order_id') ?>?ret=/admin/orders"><?=t('Edit') ?></a></td>
 					</tr>
 				<?php
 			}
@@ -47,6 +47,6 @@
 
 <script>
 	function openDetail(id) {
-		document.location = '<?=$base_url . '/admin/order/edit/' ?>' + id;
+		document.location = '<?=$base_url . '/admin/order/edit/' ?>' + id + '?ret=/admin/orders';
 	}
 </script>
