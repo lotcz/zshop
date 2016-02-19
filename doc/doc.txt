@@ -1,4 +1,7 @@
 TO DO:
+	- search tables by field
+	- deploy files with Git and FTP
+	- incorporate http://www.malot.fr/bootstrap-datetimepicker/demo.php ?
 	- periodic job : DB backup, delete old sessions, create xml
 	
 	- Payment - payment_type ?

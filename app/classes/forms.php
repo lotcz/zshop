@@ -17,7 +17,7 @@ class Form {
 		$this->del_url = $del_url;
 		$this->method = $method;
 		$this->css = $css;		
-		$this->ret = _g('ret', false);
+		$this->ret = _g('r', false);
 	}
 	
 	public function addField($field) {
@@ -155,7 +155,7 @@ class Form {
 					?>
 					
 					<div class="form-buttons">
-						<a class="form-button" href="<?=$this->ret ?>"><?= t('Back') ?></a>
+						<a class="form-button" href="<?=_url($this->ret) ?>"><?= t('Back') ?></a>
 						<input type="button" onclick="javascript:deleteItem();" class="btn btn-danger form-button" value="<?=t('Delete') ?>">
 						<input type="button" onclick="javascript:validateForm();" class="btn btn-success form-button" value="<?=t('Save') ?>">
 					</div>

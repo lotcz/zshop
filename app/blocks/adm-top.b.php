@@ -31,22 +31,25 @@
 					if ($path[0] == 'admin') {
 						renderMenuLink('admin', 'Dashboard');
 					}
-					renderMenuLink('admin/categories', 'Categories');
+					
 					renderMenuLink('admin/products', 'Products');
 					renderMenuLink('admin/orders', 'Orders');
 					renderMenuLink('admin/users', 'Administrators');
 					renderMenuLink('admin/customers', 'Customers');					
 				?>
 				<li class="dropdown">
-				  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-				  <ul class="dropdown-menu">
-					<li><a href="#">Action</a></li>
-					<li><a href="#">Another action</a></li>
-					<li><a href="#">Something else here</a></li>
-					<li role="separator" class="divider"></li>
-					<li class="dropdown-header">Nav header</li>
-					<li><a href="#">Separated link</a></li>
-					<li><a href="#">One more separated link</a></li>
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?=t('More...') ?><span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<?php
+							renderMenuLink('admin/categories', 'Categories');
+							
+						?>
+						<li role="separator" class="divider"></li>
+						<li class="dropdown-header"><?=t('Other') ?></li>
+						<?php
+							renderMenuLink('admin/aliases', 'Aliases');
+							renderMenuLink('admin/ip_failed_attempts', 'Failed attempts');
+						?>
 				  </ul>
 				</li>
 			</ul>

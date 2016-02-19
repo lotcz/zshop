@@ -7,9 +7,9 @@ class Images {
 							'view' => array( 'width' => 800, 'height' => 600 )
 						);
 
-	public $root_images_disk_path = "";
+	public $root_images_disk_path = '';
 
-	public $root_images_url = "";
+	public $root_images_url = '';
 
 	function __construct( $data_path, $data_url) {
 		$this->root_images_disk_path = $data_path;

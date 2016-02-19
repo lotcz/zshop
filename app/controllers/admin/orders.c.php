@@ -1,25 +1,32 @@
 <?php
-	require_once $home_dir . 'models/order.m.php';
+	
+	require_once $home_dir . 'classes/tables.php';
 	
 	$page_title	= t('Orders');
-	
-	$paging = Paging::getFromUrl();
-	$search = isset($_GET['s']) ? $_GET['s'] : '';
-	$data['search'] = $search;
-	
-	$where = null;
-	$bindings = null;
-	$types = null;
-	
-	$orders = Order::select(
-		/* db */		$db, 
-		/* table */		'viewOrders', 
-		/* where */		$where,
-		/* bindings */	$bindings,
-		/* types */		$types,
-		/* paging */	$paging,
-		/* orderby */	'order_created'
+		
+	$table = new AdminTable(
+		'viewOrders', 		
+		'order'
 	);
 	
-	$data['orders'] = $orders;
-	$data['paging'] = $paging;
+	$table->add([		
+		[
+			'name' => 'order_created',
+			'label' => 'Date',
+			'type' => 'date'			
+		],
+		[
+			'name' => 'order_state_name',
+			'label' => 'Status'			
+		],
+		[
+			'name' => 'customer_name',
+			'label' => 'Customer'
+		],
+		[
+			'name' => 'order_payment_code',
+			'label' => 'Payment Code'			
+		]
+	]);
+	
+	$table->prepare($db);

@@ -4,6 +4,7 @@
 	require_once $home_dir . 'classes/forms.php';
 	
 	$form = new AdminForm('order');
+	$page = 'admin/form';
 
 	$form->add([
 		[
@@ -30,7 +31,7 @@
 			'label' => 'Customer',
 			'type' => 'foreign_key_link',
 			'link_table' => 'customers',
-			'link_template' => '/admin/customer/edit/%d',
+			'link_template' => 'admin/customer/edit/%d',
 			'link_id_field' => 'customer_id',
 			'link_label_field' => 'customer_name'
 		],

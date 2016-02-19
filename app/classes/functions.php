@@ -120,24 +120,33 @@
 		include $home_dir . 'views/partials/' . $name . '.v.php';
 	}
 	
-	function renderLink($href, $title, $css = '') {
+	function _url($link, $ret = null) {
 		global $base_url;
-		echo sprintf('<a href="%s" class="%s">%s</a>', $base_url . '/' . $href, $css, t($title));
+		$url = $base_url . '/' . $link;
+		if (isset($ret)) {
+			$url .= '?r=' . $ret;
+		}
+		
+		return $url;
+	}
+	
+	function renderLink($href, $title, $css = '') {
+		echo sprintf('<a href="%s" class="%s">%s</a>', _url($href), $css, t($title));
 	}
 	
 	function renderMenuLink($href, $title) {
-		global $base_url, $raw_path;
+		global $raw_path;
 		if ($raw_path == $href) {
 			$css = 'active';
 		} else {
 			$css = '';
 		}
-		echo sprintf('<li class="%s"><a href="%s" >%s</a>', $css, $base_url . '/' . $href, t($title));
+		echo sprintf('<li class="%s"><a href="%s" >%s</a>', $css, _url($href), t($title));
 	}
 	
 	function renderImage($src, $alt, $css) {
 		global $base_url;		
-		echo sprintf('<img src="%s" class="%s" alt="%s" />', $base_url . '/images/' . $src, $css, t($alt));
+		echo sprintf('<img src="%s" class="%s" alt="%s" />', _url('images/' . $src), $css, t($alt));
 	}
 	
 	function renderSelect($name, $items, $id_name, $label_name, $selected_value = null) {
