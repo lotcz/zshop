@@ -1,9 +1,29 @@
 <?php
 	
-	require_once $home_dir . 'models/product.m.php';
-	require_once $home_dir . 'models/category.m.php';
-	
-	global $db;
+	require_once $home_dir . 'models/product.m.php';	
+	require_once $home_dir . 'classes/forms.php';
+
+	$form = new AdminForm('product');
+	$page = 'admin/form';
+
+	$form->add([
+		[
+			'name' => 'product_id',
+			'type' => 'hidden'
+		],
+		[
+			'name' => 'product_name',
+			'label' => 'Name',
+			'type' => 'text'
+		],
+		[
+			'name' => 'product_price',
+			'label' => 'Price',
+			'type' => 'text',
+			'validations' => [['type' => 'price']]
+		]	
+		
+	]);
 	
 	if (isset($_POST['product_id'])) {
 		if ($_POST['product_id'] > 0) {
@@ -11,7 +31,7 @@
 		} else {
 			$product = new Product($db);
 		}
-		$product->setData($_POST);		
+		$product->setData($form->processInput($_POST));
 		if ($product->save()) {
 			redirect('/admin/products');
 		}
@@ -30,4 +50,4 @@
 	$product->loadVariants();
 	$product->loadCategories();
 	
-	$data = $product;
+	$form->prepare($db, $product);

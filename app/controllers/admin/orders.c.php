@@ -3,7 +3,8 @@
 	require_once $home_dir . 'classes/tables.php';
 	
 	$page_title	= t('Orders');
-		
+	$page = 'admin/table';
+	
 	$table = new AdminTable(
 		'viewOrders', 		
 		'order'

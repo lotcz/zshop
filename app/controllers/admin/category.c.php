@@ -3,11 +3,40 @@
 	require_once $home_dir . 'models/category.m.php';
 	require_once $home_dir . 'models/alias.m.php';
 	
-	global $db;
+	require_once $home_dir . 'classes/forms.php';
+
+	$form = new AdminForm('category');
+	$page = 'admin/form';
+
+	$form->add([
+		[
+			'name' => 'category_id',
+			'type' => 'hidden'
+		],
+		[
+			'name' => 'category_name',
+			'label' => 'Name',
+			'type' => 'text'
+		],
+		[
+			'name' => 'alias_url',
+			'label' => 'Alias',
+			'type' => 'text'
+		],
+		[
+			'name' => 'category_parent_id',
+			'label' => 'Parent Category',
+			'type' => 'select',
+			'select_table' => 'categories',
+			'select_id_field' => 'category_id',
+			'select_label_field' => 'category_name'
+		]	
+		
+	]);
 	
 	if (isset($_POST['category_id'])) {
 		$category = new Category($db, $_POST['category_id']);
-		$category->setData($_POST);	
+		$category->setData($form->processInput($_POST));	
 		$category->data['category_parent_id'] = parseInt($category->val('category_parent_id'));
 		$alias_url = $category->val('alias_url');
 		unset($category->data['alias_url']);
@@ -47,4 +76,4 @@
 		$page_title	= t('New Category');
 	}
 	
-	$data = $category;
+	$form->prepare($db, $category);

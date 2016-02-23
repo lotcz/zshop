@@ -1,19 +1,20 @@
 <?php
-	require_once $home_dir . 'models/category.m.php';
+
+	require_once $home_dir . 'classes/tables.php';
+	
 	$page_title	= t('Categories');
+	$page = 'admin/table';
 	
-	$paging = Paging::getFromUrl();
-	$search = isset($_GET['s']) ? $_GET['s'] : '';
-	
-	$categories = Category::select(
-		/* db */		$db, 
-		/* table */		'categories', 
-		/* where */		null,
-		/* bindings */	null,
-		/* types */		null,
-		/* paging */	$paging,
-		/* orderby */	'category_name'
+	$table = new AdminTable(
+		'categories', 		
+		'category'
 	);
 	
-	$data['categories'] = $categories;
-	$data['paging'] = $paging;
+	$table->add([		
+		[
+			'name' => 'category_name',
+			'label' => 'Name'			
+		]
+	]);
+	
+	$table->prepare($db);

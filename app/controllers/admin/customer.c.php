@@ -1,8 +1,35 @@
 <?php
-	
-	global $db, $home_dir;
+		
 	require_once $home_dir . 'models/customer.m.php';
-	require_once $home_dir . 'classes/custauth.php';
+	require_once $home_dir . 'classes/forms.php';
+
+	$form = new AdminForm('customer');
+	$page = 'admin/form';
+
+	$form->add([
+		[
+			'name' => 'customer_id',
+			'type' => 'hidden'
+		],
+		[
+			'name' => 'customer_name',
+			'label' => 'Name',
+			'type' => 'text'
+		],
+		[
+			'name' => 'customer_email',
+			'label' => 'E-mail',
+			'type' => 'text',
+			'validations' => [['type' => 'price']]
+		],
+		[
+			'name' => 'customer_password',
+			'label' => 'Password',
+			'type' => 'password',
+			'validations' => [['type' => 'password']]
+		]	
+		
+	]);
 		
 	if (isset($_POST['customer_id'])) {
 		if ($_POST['customer_id'] > 0) {
@@ -10,7 +37,7 @@
 		} else {
 			$customer = new Customer($db);
 		}
-		$customer->setData($_POST);
+		$customer->setData($form->processInput($_POST));
 		unset($customer->data['customer_password']);		
 		if (isset($_POST['customer_password']) && strlen($_POST['customer_password']) > 0) {
 			$customer->data['customer_password_hash'] = CustomerAuthentication::hashPassword($_POST['customer_password']);
@@ -29,4 +56,4 @@
 		$page_title	= t('New Customer');
 	}
 	
-	$data = $customer;
+	$form->prepare($db, $customer);

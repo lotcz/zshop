@@ -51,13 +51,13 @@ class Form {
 										
 			if ($field->type == 'select') {
 				$field->select_data = ModelBase::select(
-				/* db */		$db, 
-				/* table */		$field->select_table, 
-				/* where */		null,
-				/* bindings */	null,
-				/* types */		null,
-				/* paging */	null,
-				/* orderby */	$field->select_label_field
+					$db, 
+					$field->select_table, /* table */
+					null, /* where */
+					null, /* bindings */
+					null, /* types */
+					null, /* paging */
+					$field->select_label_field /* orderby */
 				);
 			} elseif ($field->type == 'foreign_key_link') {
 				$entity = new ModelBase($db);
@@ -170,7 +170,7 @@ class Form {
 									if (isset($field->validations)) {
 										foreach ($field->validations as $val) {
 											?>
-												frm.add('<?=$field->name ?>', '<?=$val['type'] ?>', '<?=$val['param'] ?>');
+										frm.add('<?=$field->name ?>', '<?=$val['type'] ?>', '<?=(isset($val['param'])) ? $val['param'] : 1 ?>');
 											<?php
 										}
 									}

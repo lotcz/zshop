@@ -2,7 +2,8 @@
 	require_once $home_dir . 'classes/tables.php';
 	
 	$page_title	= t('Customers');
-		
+	$page = 'admin/table';
+	
 	$table = new AdminTable(
 		'customers', 		
 		'customer'
