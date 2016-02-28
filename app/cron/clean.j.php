@@ -5,7 +5,7 @@
 	$sessions = CustomerSession::Select(
 		/* db */		$db, 
 		/* table */		'customer_sessions', 
-		/* where */		'customer_session_expires >= ?',
+		/* where */		'customer_session_expires <= ?',
 		/* bindings */	[SqlQuery::mysqlTimestamp(time())],
 		/* types */		's',
 		/* paging */	null,
@@ -18,4 +18,6 @@
 		if ($customer->val('customer_anonymous')) {
 			$customer->deleteById();
 		}		
-	}	
+	}
+	
+	echo 'Sessions cleared.';

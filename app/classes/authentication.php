@@ -4,7 +4,7 @@ require_once $home_dir . 'models/user.m.php';
 require_once $home_dir . 'models/session.m.php';
 
 /*
-	provides basic authentication mechanism
+	provides basic authentication mechanism for e-shop administrators (users table)
 */
 class Authentication {
 	
@@ -25,6 +25,10 @@ class Authentication {
 
 	public function isAuth() {
 		return isset($this->user) && isset($this->session);
+	}
+	
+	public function can($perm_name) {
+		return $this->isAuth() && ($this->user->val('user_is_superuser') || $this->user->hasPermission($perm_name));
 	}
 	
 	public function login($loginoremail, $password) {

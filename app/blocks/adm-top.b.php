@@ -34,21 +34,30 @@
 					
 					renderMenuLink('admin/products', 'Products');
 					renderMenuLink('admin/orders', 'Orders');
-					renderMenuLink('admin/users', 'Administrators');
+					
 					renderMenuLink('admin/customers', 'Customers');					
 				?>
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?=t('More...') ?><span class="caret"></span></a>
 					<ul class="dropdown-menu">
+						<li class="dropdown-header"><?=t('Content') ?></li>
 						<?php
 							renderMenuLink('admin/categories', 'Categories');
 							
 						?>
 						<li role="separator" class="divider"></li>
-						<li class="dropdown-header"><?=t('Other') ?></li>
+						<li class="dropdown-header"><?=t('Administrators') ?></li>
+						<?php
+							renderMenuLink('admin/users', 'Administrators');
+							renderMenuLink('admin/roles', 'Administrator roles');
+							
+						?>
+						<li role="separator" class="divider"></li>
+						<li class="dropdown-header"><?=t('Advanced') ?></li>
 						<?php
 							renderMenuLink('admin/aliases', 'Aliases');
-							renderMenuLink('admin/ip_failed_attempts', 'Failed attempts');
+							renderMenuLink('admin/ip_failed_attempts', 'Failed login attempts');
+							renderMenuLink('admin/jobs', 'Jobs');
 						?>
 				  </ul>
 				</li>

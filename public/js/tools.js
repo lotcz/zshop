@@ -56,13 +56,12 @@ function addProductToCart(id) {
 	showAjaxLoaders();
 	var cnt = $('#prod_count_' + id).val();
 	$.getJSON('/ajax/cart/add', 
-			{
-				product_id: id,
-				count: cnt
-			},
-			productAdded
-		);
-	return false;
+		{
+			product_id: id,
+			count: cnt
+		},
+		productAdded
+	);
 }
 
 function productUpdated(data) {
@@ -75,11 +74,10 @@ function updateProductInCart(id) {
 	showAjaxLoaders();
 	var cnt = $('#prod_count_' + id).val();
 	$.getJSON('/ajax/cart/update', 
-			{
-				product_id: id,
-				count: cnt
-			},
-			productUpdated
-		);
-	return false;
+		{
+			product_id: id,
+			count: cnt
+		},
+		productUpdated
+	);
 }

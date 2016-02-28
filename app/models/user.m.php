@@ -14,4 +14,19 @@ class User extends ModelBase {
 		$this->loadSingleFiltered($where, $bindings, $types);		
 	}
 	
+	public function loadPermissions() {
+		$permissions = ModelBase::select($this->db, 'viewPermissionsByUser', 'user_role_user_id = ?', [ $this->val('user_id') ]);
+		$this->permissions = [];
+		foreach ($permissions as $permission) {
+			$this->permissions[] = $permission->val('permission_name');
+		}
+	}
+	
+	public function hasPermission($perm_name) {
+		if (!isset($this->permissions)) {
+			$this->loadPermissions();
+		}
+		return in_array($perm_name, $this->permissions);
+	}	
+	
 }

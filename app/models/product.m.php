@@ -1,7 +1,5 @@
 <?php
 
-require_once $home_dir . 'models/alias.m.php';
-
 class Product extends ModelBase {
 	
 	public $table_name = 'products';

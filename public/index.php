@@ -67,11 +67,7 @@
 						}
 				}
 				
-				break;
-				
-			case 'import' :
-				$page = 'import/abx';
-				break;
+				break;				
 			
 			case 'ajax' :
 				$master_template = 'ajax';

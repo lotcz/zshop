@@ -9,7 +9,9 @@ class Form {
 	public $css;
 	public $ret = false;
 	public $fields = [];
-	public $data = [];
+	public $data = [];	
+	public $render_wrapper = true;
+	public $render_admin_btns = false;
 	
 	function __construct($id = 'entity_id', $action = '', $del_url = null, $method = 'POST', $css = 'form-horizontal admin-form') {
 		$this->id = $id;
@@ -73,119 +75,131 @@ class Form {
 	public function render() {
 		global $base_url;
 		
-		// render whole form
-		
+		if ($this->render_wrapper) {
 			?>
 				<form id="form_<?=$this->id ?>" action="<?=sprintf($this->action, $this->data->val($this->id)) ?>" method="<?=$this->method ?>" class="<?=$this->css ?>">
-					
-					<?php
-						
-						if ($this->ret) {
-							?>
-								<input type="hidden" name="ret" value="<?=$this->ret ?>" />
-							<?php
-						}
-						
-						foreach ($this->fields as $field) {
-							$disabled = (isset($field->disabled)) ? $field->disabled : '';
-							
-							if ($field->type == 'hidden') {
-								?>
-									<input type="hidden" name="<?=t($field->name) ?>" id="field_<?=t($field->name) ?>" value="<?=$this->data->val($field->name) ?>" />
-								<?php
-							} else {
-								?>
-									<div class="form-group">
-										<label for="<?=$field->name ?>" class="col-sm-2 control-label"><?=t($field->label) ?>:</label>
-										<div class="col-sm-6">
-											<?php
-																		
-												switch ($field->type) {
-													case 'text' :
-													?>
-														<input type="text" name="<?=t($field->name) ?>" <?=$disabled ?> value="<?=$this->data->val($field->name) ?>" class="form-control" />
-													<?php
-													break;			
-													
-													case 'select' :
-														renderSelect(
-															$field->name,
-															$field->select_data,
-															$field->select_id_field,
-															$field->select_label_field,
-															$this->data->val($field->name)
-														);
-													break;
-													
-													case 'foreign_key_link' :
-														?>
-															<p class="form-control-static">
-																<?php
-																	renderLink(
-																		$field->link_url,
-																		$field->link_label															
-																	);
-																?>
-															</p>
-														<?php
-													break;
-													
-													case 'static' :
-														?>
-															<p class="form-control-static"><?=$this->data->val($field->name)?></p>
-														<?php
-													break;
-												}
-											
-												if (isset($field->validations)) {
-													foreach ($field->validations as $val) {
-														?>
-															<div class="form-validation" id="<?=$field->name ?>_validation_<?=$val['type'] ?>"><?= t('Required.') ?></div>
-														<?php
-													}
-												}
-											?>											
-											
-										</div>
-										
-									</div>
-								<?php
-							}						
-						}
-					?>
-					
-					<div class="form-buttons">
-						<a class="form-button" href="<?=_url($this->ret) ?>"><?= t('Back') ?></a>
-						<input type="button" onclick="javascript:deleteItem();" class="btn btn-danger form-button" value="<?=t('Delete') ?>">
-						<input type="button" onclick="javascript:validateForm();" class="btn btn-success form-button" value="<?=t('Save') ?>">
-					</div>
+			<?php
+		}
+								
+		if ($this->ret) {
+			?>
+				<input type="hidden" name="ret" value="<?=$this->ret ?>" />
+			<?php
+		}
 		
-				</form>
-				
-				<script>
-					function validateForm() {
-						var frm = new formValidation('form_<?=$this->id ?>');
+		foreach ($this->fields as $field) {
+			$disabled = (isset($field->disabled)) ? $field->disabled : '';
+			
+			if ($field->type == 'hidden') {
+				?>
+					<input type="hidden" name="<?=t($field->name) ?>" id="field_<?=t($field->name) ?>" value="<?=$this->data->val($field->name) ?>" />
+				<?php
+			} else {
+				?>
+					<div class="form-group">
+						<label for="<?=$field->name ?>" class="col-sm-2 control-label"><?=t($field->label) ?>:</label>
+						<div class="col-sm-6">
 							<?php
-								foreach ($this->fields as $field) {
-									if (isset($field->validations)) {
-										foreach ($field->validations as $val) {
-											?>
-										frm.add('<?=$field->name ?>', '<?=$val['type'] ?>', '<?=(isset($val['param'])) ? $val['param'] : 1 ?>');
-											<?php
-										}
+														
+								switch ($field->type) {
+									case 'text' :
+									?>
+										<input type="text" name="<?=t($field->name) ?>" <?=$disabled ?> value="<?=$this->data->val($field->name) ?>" class="form-control" />
+									<?php
+									break;			
+									
+									case 'select' :
+										renderSelect(
+											$field->name,
+											$field->select_data,
+											$field->select_id_field,
+											$field->select_label_field,
+											$this->data->val($field->name)
+										);
+									break;
+									
+									case 'foreign_key_link' :
+										?>
+											<p class="form-control-static">
+												<?php
+													renderLink(
+														$field->link_url,
+														$field->link_label															
+													);
+												?>
+											</p>
+										<?php
+									break;
+									
+									case 'static' :
+										?>
+											<p class="form-control-static"><?=$this->data->val($field->name)?></p>
+										<?php
+									break;
+								}
+							
+								if (isset($field->validations)) {
+									foreach ($field->validations as $val) {
+										?>
+											<div class="form-validation" id="<?=$field->name ?>_validation_<?=$val['type'] ?>"><?= t('Required.') ?></div>
+										<?php
 									}
 								}
-							?>						
-						frm.submit();
-					}
-					
-					function deleteItem() {
+							?>											
+							
+						</div>
+						
+					</div>
+				<?php
+			}						
+		}
+						
+		if ($this->render_admin_btns) {
+			?>
+	
+				<div class="form-buttons">
+					<a class="form-button" href="<?=_url($this->ret) ?>"><?= t('Back') ?></a>
+					<input type="button" onclick="javascript:deleteItem_<?=$this->id ?>();" class="btn btn-danger form-button" value="<?=t('Delete') ?>">
+					<input type="button" onclick="javascript:validateForm_<?=$this->id ?>();" class="btn btn-success form-button" value="<?=t('Save') ?>">
+				</div>
+				
+				<script>
+					function deleteItem_<?=$this->id ?>() {
 						if (confirm('<?= t('Are you sure to delete this item?') ?>')) {
-							document.location = '<?= $base_url . sprintf($this->del_url, $this->data->val($this->id)) ?>?ret=<?=$this->ret ?>';
+							document.location = '<?= _url(sprintf($this->del_url, $this->data->val($this->id)), $this->ret) ?>';
 						}
 					}	
 				</script>
 			<?php
+		}
+		
+		if ($this->render_wrapper) {
+			?>
+				</form>
+			<?php
+		}
+		
+		?>
+				
+			<script>
+				function validateForm_<?=$this->id ?>() {
+					var frm = new formValidation('form_<?=$this->id ?>');
+						<?php
+							foreach ($this->fields as $field) {
+								if (isset($field->validations)) {
+									foreach ($field->validations as $val) {
+										?>
+											frm.add('<?=$field->name ?>', '<?=$val['type'] ?>', '<?=(isset($val['param'])) ? $val['param'] : 1 ?>');
+										<?php
+									}
+								}
+							}
+						?>						
+					frm.submit();
+				}			
+			</script>
+		
+		<?php
 	}
 		
 }
@@ -193,7 +207,14 @@ class Form {
 class AdminForm extends Form {
 		
 	function __construct($entity) {
-		parent::__construct($entity . '_id', '/admin/' . $entity . '/edit/%d', '/admin/' . $entity . '/delete/%d');
+		parent::__construct($entity . '_id', 'admin/' . $entity . '/edit/%d', 'admin/' . $entity . '/delete/%d');
+		$this->render_admin_btns = true;
+		$this->addField(
+			[
+				'name' => $this->id,
+				'type' => 'hidden'
+			]
+		);
 	}
 	
 }

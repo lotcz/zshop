@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS `ip_failed_attempts` (
 CREATE TABLE IF NOT EXISTS `users` (
   `user_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_deleted` BIT DEFAULT 0 NOT NULL,
+  `user_is_superuser` BIT DEFAULT 0 NOT NULL,
   `user_login` VARCHAR(50),
   `user_email` VARCHAR(50) NOT NULL,
   `user_password_hash` VARCHAR(255) NULL,
@@ -38,6 +39,50 @@ CREATE TABLE IF NOT EXISTS `user_sessions` (
     ON DELETE CASCADE
 ) ENGINE = InnoDB;
 
+CREATE TABLE IF NOT EXISTS `roles` (
+  `role_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `role_name` NVARCHAR(50) NOT NULL,
+  `role_description` NVARCHAR(255),
+  PRIMARY KEY (`role_id`),
+  UNIQUE INDEX `role_name_unique` (`role_name` ASC)
+) ENGINE = InnoDB;
+
+INSERT INTO roles (role_name) VALUES (N'Správce uživatelů');
+INSERT INTO roles (role_name) VALUES (N'Správce zboží');
+INSERT INTO roles (role_name) VALUES (N'Správce objednávek');
+
+CREATE TABLE IF NOT EXISTS `user_roles` (
+  `user_role_user_id` INT UNSIGNED NOT NULL,
+  `user_role_role_id` INT UNSIGNED NOT NULL,
+  PRIMARY KEY (`user_role_user_id`, `user_role_role_id`),
+  INDEX `user_roles_user_index` (`user_role_user_id`),
+  CONSTRAINT `user_roles_user_fk`
+    FOREIGN KEY (`user_role_user_id`)
+    REFERENCES `users` (`user_id`)
+    ON DELETE CASCADE,
+  CONSTRAINT `user_roles_role_fk`
+    FOREIGN KEY (`user_role_role_id`)
+    REFERENCES `roles` (`role_id`)
+    ON DELETE CASCADE
+) ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `permissions` (
+  `permission_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `permission_name` VARCHAR(50) NOT NULL,  
+  `permission_description` VARCHAR(255),  
+  PRIMARY KEY (`permission_id`),
+  UNIQUE INDEX `permissions_name_unique` (`permission_name`)
+) ENGINE = InnoDB;
+
+INSERT INTO permissions (permission_name, permission_description) VALUES ('view_orders', 'Browse orders');
+INSERT INTO permissions (permission_name, permission_description) VALUES ('edit_orders', 'Edit orders');
+
+CREATE TABLE IF NOT EXISTS `role_permissions` (
+  `role_permission_role_id` INT UNSIGNED NOT NULL,
+  `role_permission_permission_id` INT UNSIGNED NOT NULL,  
+  PRIMARY KEY (`role_permission_role_id`,  `role_permission_permission_id`)
+) ENGINE = InnoDB;
+
 CREATE TABLE IF NOT EXISTS `customers` (
   `customer_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `customer_deleted` BOOL DEFAULT FALSE,
@@ -51,14 +96,14 @@ CREATE TABLE IF NOT EXISTS `customers` (
   `customer_fb_access` VARCHAR(255),
   `customer_gplus_access` VARCHAR(255),
     
-  `customer_name` VARCHAR(50),
-  `customer_address_city` VARCHAR(50),
-  `customer_address_street` VARCHAR(50),
+  `customer_name` NVARCHAR(50),
+  `customer_address_city` NVARCHAR(50),
+  `customer_address_street` NVARCHAR(50),
   `customer_address_zip` INT,
   
-  `customer_ship_name` VARCHAR(50),
-  `customer_ship_city` VARCHAR(50),
-  `customer_ship_street` VARCHAR(50),
+  `customer_ship_name` NVARCHAR(50),
+  `customer_ship_city` NVARCHAR(50),
+  `customer_ship_street` NVARCHAR(50),
   `customer_ship_zip` INT,  
   
   PRIMARY KEY (`customer_id`),
@@ -93,7 +138,7 @@ CREATE TABLE IF NOT EXISTS `categories` (
   `category_ext_id` INT UNSIGNED,
   `category_parent_id` INT UNSIGNED,
   `category_alias_id` INT UNSIGNED,
-  `category_name` VARCHAR(200) NOT NULL,
+  `category_name` NVARCHAR(200) NOT NULL,
   `category_description` TEXT NULL,
   PRIMARY KEY (`category_id`),
   UNIQUE INDEX `categories_ext_id_unique` (`category_ext_id` ASC),
@@ -113,7 +158,7 @@ CREATE TABLE IF NOT EXISTS `products` (
   `product_deleted` BOOL DEFAULT 0 NOT NULL,
   `product_ext_id` INT UNSIGNED NULL,
   `product_alias_id` INT UNSIGNED NULL,
-  `product_name` VARCHAR(255) NOT NULL,
+  `product_name` NVARCHAR(255) NOT NULL,
   `product_price` DECIMAL(10,2) UNSIGNED NOT NULL,
   `product_stock` SMALLINT UNSIGNED NOT NULL DEFAULT 0,
   `product_image` VARCHAR(255) NULL,
@@ -316,5 +361,12 @@ CREATE VIEW viewOrderProducts AS
 	SELECT *
     FROM order_products o
     LEFT OUTER JOIN products p ON (p.product_id = o.order_product_product_id);
-
+    
+DROP VIEW IF EXISTS `viewPermissionsByUser`;
+  
+CREATE VIEW viewPermissionsByUser AS
+	SELECT *
+    FROM permissions p
+    JOIN role_permissions rp ON (rp.role_permission_permission_id = p.permission_id)
+    JOIN user_roles ur ON (ur.user_role_role_id = rp.role_permission_role_id);
 
