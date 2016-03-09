@@ -141,7 +141,7 @@
 		} else {
 			$css = '';
 		}
-		echo sprintf('<li class="%s"><a href="%s" >%s</a>', $css, _url($href), t($title));
+		echo sprintf('<li class="%s"><a href="%s" >%s</a></li>', $css, _url($href), t($title));
 	}
 	
 	function renderImage($src, $alt, $css) {
