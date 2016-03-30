@@ -31,7 +31,7 @@
 			url: '<?=_url('cron.php') ?>',
 			data: {
 					job: name,
-					security_token: '<?=$globals['security_token'] ?>'
+					security_token: '<?=$config['security_token'] ?>'
 				},
 			success: jobFinished
 		});

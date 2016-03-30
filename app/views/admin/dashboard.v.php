@@ -17,7 +17,7 @@
 			</div>
 		</div>
 		<div>		
-			<a href="/cron.php?job=clean&security_token=<?=$globals['security_token'] ?>" target="_blank" class="btn btn-default"><?=t('Clean Sessions') ?></a>
+			<a href="/cron.php?job=clean&security_token=<?=$config['security_token'] ?>" target="_blank" class="btn btn-default"><?=t('Clean Sessions') ?></a>
 		</div>
 	</div>
 </div>

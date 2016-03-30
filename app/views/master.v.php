@@ -10,7 +10,7 @@
 		<meta name="author" content="Karel Zavadil">
 		<link rel="icon" href="/favicon.ico">
 
-		<title><?=$globals['shop_title'] ?></title>
+		<title><?=$globals['site_title'] ?></title>
 
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">		
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
