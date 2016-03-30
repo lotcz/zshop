@@ -80,12 +80,12 @@
 		handle fatal db error
 	*/
 	function dbErr($model, $operation, $sql, $message) {
-		global $globals;
+		global $config;
 		global $messages;
 		
 		if (!isset($messages)) {
 			die($message);
-		} elseif ($globals['debug_mode']) {
+		} elseif ($config['debug_mode']) {
 			$messages->dbErr($model, $operation, $sql, $message);
 		} else {
 			//TODO: log error
@@ -97,10 +97,10 @@
 		handle error
 	*/
 	function handleErr($message, $type) {
-		global $globals;
+		global $config;
 		global $messages;
 		
-		if ($globals['debug_mode']) {
+		if ($config['debug_mode']) {
 			$messages->add($message, $type);
 		} else {
 			// log error

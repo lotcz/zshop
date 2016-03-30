@@ -2,6 +2,15 @@ DROP DATABASE IF EXISTS zshop;
 CREATE DATABASE zshop;
 USE zshop;
 
+CREATE TABLE `site_globals` (
+  `site_global_name` varchar(100) NOT NULL DEFAULT '',
+  `site_global_value` text,
+  PRIMARY KEY (`site_global_name`)
+) ENGINE=InnoDB;
+
+INSERT INTO site_globals (`site_global_name`,`site_global_value`) VALUES ('site_title','zShop');
+
+
 CREATE TABLE IF NOT EXISTS `ip_failed_attempts` (
   `ip_failed_attempt_ip` VARCHAR(15),
   `ip_failed_attempt_count` INT UNSIGNED NOT NULL DEFAULT 1,

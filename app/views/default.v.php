@@ -9,7 +9,7 @@
 				</a>
 			</div>
 			
-			<div class="col-md-3 main-title"><?=$globals['shop_title'] ?></div>
+			<div class="col-md-3 main-title"><?=$globals['site_title'] ?></div>
 			
 			<div class="col-md-2 text-center">		
 				<?php

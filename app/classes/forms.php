@@ -3,27 +3,30 @@
 class Form {
 	
 	public $id;
-	public $action;
-	public $del_url;
+	public $action;	
 	public $method;
 	public $css;
 	public $ret = false;
 	public $fields = [];
 	public $data = [];	
-	public $render_wrapper = true;
-	public $render_admin_btns = false;
+	public $render_wrapper = false;
 	
-	function __construct($id = 'entity_id', $action = '', $del_url = null, $method = 'POST', $css = 'form-horizontal admin-form') {
+	// admin form
+	public $is_admin_form = false;
+	public $del_url;
+	
+	function __construct($id = 'entity_id', $action = '', $method = 'POST', $css = 'form-horizontal admin-form') {
 		$this->id = $id;
-		$this->action = $action;
-		$this->del_url = $del_url;
+		$this->action = $action;		
 		$this->method = $method;
 		$this->css = $css;		
 		$this->ret = _g('r', false);
 	}
 	
 	public function addField($field) {
-		$this->fields[$field['name']] = (object)$field;
+		$objField = (object)$field;
+		$objField->value = isset($objField->value) ? $objField->value : null;
+		$this->fields[$field['name']] = $objField;
 	}
 	
 	public function add($fields) {
@@ -49,8 +52,15 @@ class Form {
 	public function prepare($db, $data) {
 		$this->data = $data;
 		
+		if ($this->is_admin_form) {
+			$this->action = sprintf($this->action, $this->data->val($this->id));
+			$this->del_url = sprintf($this->del_url, $this->data->val($this->id));
+		}
+		
 		foreach ($this->fields as $field) {
-										
+			
+			$field->value = $this->data->val($field->name);
+			
 			if ($field->type == 'select') {
 				$field->select_data = ModelBase::select(
 					$db, 
@@ -72,18 +82,22 @@ class Form {
 		}
 	}
 	
+	public function renderStartTag() {
+		?>
+			<form id="form_<?=$this->id ?>" action="<?=$this->action ?>" method="<?=$this->method ?>" class="<?=$this->css ?>">
+		<?php
+	}
+	
 	public function render() {
 		global $base_url;
 		
 		if ($this->render_wrapper) {
-			?>
-				<form id="form_<?=$this->id ?>" action="<?=sprintf($this->action, $this->data->val($this->id)) ?>" method="<?=$this->method ?>" class="<?=$this->css ?>">
-			<?php
+			$this->renderStartTag();
 		}
 								
 		if ($this->ret) {
 			?>
-				<input type="hidden" name="ret" value="<?=$this->ret ?>" />
+				<input type="hidden" name="r" value="<?=$this->ret ?>" />
 			<?php
 		}
 		
@@ -92,7 +106,7 @@ class Form {
 			
 			if ($field->type == 'hidden') {
 				?>
-					<input type="hidden" name="<?=t($field->name) ?>" id="field_<?=t($field->name) ?>" value="<?=$this->data->val($field->name) ?>" />
+					<input type="hidden" name="<?=$field->name ?>" id="field_<?=$field->name ?>" value="<?=$field->value ?>" />
 				<?php
 			} else {
 				?>
@@ -104,7 +118,7 @@ class Form {
 								switch ($field->type) {
 									case 'text' :
 									?>
-										<input type="text" name="<?=t($field->name) ?>" <?=$disabled ?> value="<?=$this->data->val($field->name) ?>" class="form-control" />
+										<input type="text" name="<?=$field->name ?>" <?=$disabled ?> value="<?=$field->value ?>" class="form-control" />
 									<?php
 									break;			
 									
@@ -114,7 +128,7 @@ class Form {
 											$field->select_data,
 											$field->select_id_field,
 											$field->select_label_field,
-											$this->data->val($field->name)
+											$field->value
 										);
 									break;
 									
@@ -133,7 +147,7 @@ class Form {
 									
 									case 'static' :
 										?>
-											<p class="form-control-static"><?=$this->data->val($field->name)?></p>
+											<p class="form-control-static"><?=$field->value ?></p>
 										<?php
 									break;
 								}
@@ -154,7 +168,7 @@ class Form {
 			}						
 		}
 						
-		if ($this->render_admin_btns) {
+		if ($this->is_admin_form) {
 			?>
 	
 				<div class="form-buttons">
@@ -166,7 +180,7 @@ class Form {
 				<script>
 					function deleteItem_<?=$this->id ?>() {
 						if (confirm('<?= t('Are you sure to delete this item?') ?>')) {
-							document.location = '<?= _url(sprintf($this->del_url, $this->data->val($this->id)), $this->ret) ?>';
+							document.location = '<?= _url($this->del_url, $this->ret) ?>';
 						}
 					}	
 				</script>
@@ -207,8 +221,10 @@ class Form {
 class AdminForm extends Form {
 		
 	function __construct($entity) {
-		parent::__construct($entity . '_id', 'admin/' . $entity . '/edit/%d', 'admin/' . $entity . '/delete/%d');
-		$this->render_admin_btns = true;
+		parent::__construct($entity . '_id', 'admin/' . $entity . '/edit/%d');
+		$this->del_url = 'admin/' . $entity . '/delete/%d';		
+		$this->is_admin_form = true;
+		$this->render_wrapper = true;
 		$this->addField(
 			[
 				'name' => $this->id,

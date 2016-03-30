@@ -13,6 +13,8 @@ class SqlQuery {
 	public $orderbySQL = '';
 	public $paging = null;
 	public $limitSQL = '';
+	public $setSQL = ''; // for UPDATE	
+	public $valuesSQL = ''; // for INSERT
 	
 	function __construct($db, $table_name, $query_type = null) {
 		$this->db = $db;		
@@ -31,7 +33,7 @@ class SqlQuery {
 	}
 	
 	static function validateColumn($col) {
-		return substr($col,0,50);
+		return substr($col, 0, 50);
 	}
 	
 	static function getTypeChar($val) {
@@ -96,8 +98,28 @@ class SqlQuery {
 			$this->whereSQL = sprintf('WHERE %s', $this->where);
 		}
 		
+		if (isset($this->data)) {	
+			$columns = [];
+			$bindings = [];
+			
+			foreach ($this->data as $key => $value) {
+				$columns[] = SqlQuery::validateColumn($key) . ' = ?';
+				$bindings[] = & $value;						
+			}
+					
+			// prepend bindings because SET comes before WHERE
+			$this->bindings = array_merge($bindings, $this->bindings);
+			
+			$this->setSQL = sprintf('SET %s', implode(',', $columns));
+		}
+		
 		switch ($this->query_type) {
 			
+			case 'update' :
+				$sql = sprintf('UPDATE %s %s %s', $this->table_name, $this->setSQL, $this->whereSQL);
+				break;
+			
+			case 'select':
 			default:
 				$sql = sprintf('SELECT * FROM %s %s %s %s', $this->table_name, $this->whereSQL, $this->orderbySQL, $this->limitSQL);
 		
@@ -108,8 +130,7 @@ class SqlQuery {
 		}
 		
 		//dbg($sql);
-		//$messages->render();
-		
+		//var_dump($this->bindings);
 		
 		return SqlQuery::executeSQL($this->db, $sql, $this->bindings, $this->types);
 	}
@@ -121,6 +142,14 @@ class SqlQuery {
 		$query->types = $types;
 		$query->paging = $paging;
 		$query->orderby = $orderby;
+		return $query->execute();
+	}
+	
+	static function update($db, $table_name, $data, $where, $bindings = null) {
+		$query = new SqlQuery($db, $table_name, 'update');
+		$query->where = $where;
+		$query->bindings = $bindings;
+		$query->data = $data;
 		return $query->execute();
 	}
 	

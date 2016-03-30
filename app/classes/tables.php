@@ -74,8 +74,8 @@ class Table {
 						<?php
 					}
 				?>								
-				<div>
-					<?= $this->paging->getInfo() ?>
+				<div class="text-right">
+					<?=$this->paging->getInfo() ?>
 				</div>
 			</form>
 

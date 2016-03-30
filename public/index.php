@@ -1,14 +1,15 @@
 <?php	
 	
-	$globals = [];
-	require_once 'config.php';	
-	$home_dir = $globals['home_dir'];
-	$base_url = $globals['base_url'];
+	$config = include 'config.php';
+
+	$home_dir = $config['home_dir'];
+	$base_url = $config['base_url'];
 
 	require_once $home_dir . 'classes/functions.php';
 	require_once $home_dir . 'classes/localization.php';
 	require_once $home_dir . 'classes/messages.php';
 	require_once $home_dir . 'models/base.m.php';
+	require_once $home_dir . 'classes/globals.php';
 	require_once $home_dir . 'classes/authentication.php';
 	require_once $home_dir . 'classes/custauth.php';
 	require_once $home_dir . 'classes/images.php';
@@ -21,18 +22,18 @@
 	$page_title = null; // set this in controller
 	$messages = new Messages();
 	$data = [];
-	$images = new Images($globals['images_dir'], $globals['images_url']);
+	$images = new Images($config['images_dir'], $config['images_url']);
 	
 	$localization = new Localization($home_dir . 'lang/');
-	$db = new mysqli($globals['db_host'], $globals['db_login'], $globals['db_password'], $globals['db_name']);
+	$db = new mysqli($config['db_host'], $config['db_login'], $config['db_password'], $config['db_name']);
 	
 	if ($db->connect_errno > 0) {
 		$page = 'pages/error';
-		if ($globals['debug_mode']) {
+		if ($config['debug_mode']) {
 			$messages->error('Database connection error:' . $db->error_message);
 		}
 	} else {
-		
+		$globals = new SiteGlobals($db);
 		$auth = new Authentication($db);
 		$path = [''];
 		$raw_path = '';
