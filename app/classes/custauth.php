@@ -60,9 +60,9 @@ class CustomerAuthentication {
 	
 	public function login($email, $password) {
 		
-		if (isset($_COOKIE[$this->cookie_name])) {
-			$this->logout();
-		}
+		//if (isset($_COOKIE[$this->cookie_name])) {
+		//	$this->logout();
+		//}
 		
 		$customer = new Customer($this->db);
 		$customer->loadByEmail($email);
@@ -76,13 +76,15 @@ class CustomerAuthentication {
 				$this->customer = $customer;
 				$this->createSession();
 				$this->updateLastAccess();
-				
+				return true;
 			} else {
 				// TODO: log IP failed attempt
 				$customer->data['customer_failed_attempts'] += 1;
 				$customer->save();
-			}
-			
+				return false;
+			}			
+		} else {
+			return false;
 		}
 		
 	}

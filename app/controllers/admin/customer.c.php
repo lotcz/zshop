@@ -20,7 +20,7 @@
 			'name' => 'customer_email',
 			'label' => 'E-mail',
 			'type' => 'text',
-			'validations' => [['type' => 'price']]
+			'validations' => [['type' => 'email', 'message' => 'Please enter valid e-mail address.']]
 		],
 		[
 			'name' => 'customer_password',

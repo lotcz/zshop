@@ -99,3 +99,17 @@ ol, ul {
 	width:32px;
 	height:32px;
 }
+
+#console {
+	height:250px;
+	width:100%;
+	border:solid 1px Black;
+	overflow:auto;
+	margin-top:10px;
+	padding:0 5px;
+}
+
+img.mini-thumb {
+	max-width:75px;
+	max-height:50px;
+}

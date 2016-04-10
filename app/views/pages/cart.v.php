@@ -12,7 +12,11 @@
 										<tr class="item" id="cart_prod_<?=$product->val('product_id') ?>">
 											<td>
 												<?php
-													$images->renderImage($product->val('product_image'), 'mini-thumb');
+													if ($product->val('product_image')) {
+														$images->renderImage($product->val('product_image'), 'mini-thumb');
+													} else {
+														renderImage('no-image.png','missing image', 'mini-thumb');
+													}
 												?>
 											</td>
 											<td>
@@ -121,8 +125,9 @@
 												<div class="form-group">
 													<label for="email" class="col-sm-5 control-label"><?=t('Total Cost') ?>:</label>
 													<div class="col-sm-6 price">														
-														<span class="form-control-static cart-total-price"><?=$totals['pf'] ?></span>
 														<span class="ajax-loader"></span>
+														<span class="form-control-static cart-total-price"><?=$totals['pf'] ?></span>
+														
 													</div>			
 												</div>												
 												<div class="form-group text-center">
@@ -154,8 +159,8 @@
 												<div class="form-group">
 													<label for="email" class="col-sm-5 control-label"><?=t('Total Cost') ?>:</label>
 													<div class="col-sm-6 price">														
-														<span class="form-control-static cart-total-price"><?=$totals['pf'] ?></span>
 														<span class="ajax-loader"></span>
+														<span class="form-control-static cart-total-price"><?=$totals['pf'] ?></span>														
 													</div>
 												</div>
 												<div class="form-group text-center">

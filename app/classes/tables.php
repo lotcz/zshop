@@ -10,6 +10,8 @@ class Table {
 	public $css;
 	public $id_field;
 	
+	public $show_search = false;
+	
 	public $bindings = null;
 	public $types = null;
 	public $where = null;
@@ -60,9 +62,14 @@ class Table {
 	public function render() {		
 		?>
 			<form action="" method="GET" class="form form-inline">
-				<input type="text" name="s" value="<?=$this->search ?>" class="form-control" />
-				<input type="submit" value="<?=t('Search') ?>" class="btn btn-primary form-control" />
 				<?php
+					if ($this->show_search) {
+						?>
+							<input type="text" name="s" value="<?=$this->search ?>" class="form-control" />
+							<input type="submit" value="<?=t('Search') ?>" class="btn btn-primary form-control" />
+						<?php
+					}
+				
 					if (isset($this->new_link)) {
 						if (isset($this->new_link_label)) {
 							$label = $this->new_link_label;

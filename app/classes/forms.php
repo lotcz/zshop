@@ -153,9 +153,9 @@ class Form {
 								}
 							
 								if (isset($field->validations)) {
-									foreach ($field->validations as $val) {
+									foreach ($field->validations as $validation) {
 										?>
-											<div class="form-validation" id="<?=$field->name ?>_validation_<?=$val['type'] ?>"><?= t('Required.') ?></div>
+											<div class="form-validation" id="<?=$field->name ?>_validation_<?=$validation['type'] ?>"><?= isset($validation['message']) ? $validation['message'] : t('Required.') ?></div>
 										<?php
 									}
 								}

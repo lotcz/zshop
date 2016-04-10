@@ -4,7 +4,9 @@
 	</div>
 		
 	<div class="panel-body">		
-		<form class="form-horizontal" action="/login" method="POST">			
+		<form class="form-horizontal" action="/login" method="POST">
+			<input type="hidden" name="r" value="<?=_g('r', false); ?>" />
+			
 			<div class="form-group">
 				<label for="email" class="col-sm-4 control-label"><?=t('E-mail') ?>:</label>
 				<div class="col-sm-8">

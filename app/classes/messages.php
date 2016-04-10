@@ -38,6 +38,10 @@ class Messages {
 		$this->messages[] = new Message($text, $type);
 	}
 	
+	public function clear() {
+		$this->messages = [];
+	}
+	
 	public function error($text) {
 		$this->add($text, 'error');
 	}
