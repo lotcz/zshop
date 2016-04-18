@@ -2,7 +2,7 @@
 	global $data;
 	$product = $data['product'];
 	
-	echo $raw_path;
+	echo $product->val('product_description');
 	
 	?>
 		<div class="panel panel-default spaced">		

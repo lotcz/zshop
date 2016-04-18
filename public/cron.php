@@ -9,6 +9,7 @@
 	
 	if (_g('security_token') == $config['security_token']) {
 		$db = new mysqli($config['db_host'], $config['db_login'], $config['db_password'], $config['db_name']);
+		$db->set_charset('utf8');
 		$job = _g('job');
 		if ($db->connect_errno == 0) {
 			include $home_dir . 'cron/' . $job . '.j.php';

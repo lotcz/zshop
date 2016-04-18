@@ -2,7 +2,7 @@
 	global $data;
 	$category = $data['category'];
 	
-	echo $raw_path;
+	echo $category->val('category_description');
 	
 	/*
 		LINKS TO CHILDREN CATEGORIES

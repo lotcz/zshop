@@ -26,6 +26,7 @@
 	
 	$localization = new Localization($home_dir . 'lang/');
 	$db = new mysqli($config['db_host'], $config['db_login'], $config['db_password'], $config['db_name']);
+	$db->set_charset('utf8');
 	
 	if ($db->connect_errno > 0) {
 		$page = 'pages/error';

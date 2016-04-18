@@ -70,6 +70,8 @@
 			
 		/* produkty */		
 		foreach ($xml->products->product as $product) {
+			$save_product = true;
+			$zVariant = null;
 			$prod_total += 1;			
 			$prod_id = intval(trim($product->ean));
 			$zProduct = new Product($db);
@@ -77,37 +79,42 @@
 			$price_sales = trim($product->price_sales);
 			$price_eus = trim($product->price_eus);
 			$product_price = ($price_sales) ? $price_sales : $price_eus;
-			$product_name = myTrim($product->name);						
+			$product_name = trim($product->name);						
 			$product_stock = intval(trim($product->stock));
 			
 			/* varianty */	
 			if (strpos($product_name, ' var.') > 0) {				
-				list($prodname, $prodvar) = explode(' var.', $product_name);
-				$product_name = myTrim($prodname);
-				$prodvar = myTrim($prodvar);
+				list($prodname, $variant_name) = explode(' var.', $product_name);
+				$product_name = trim($prodname);
+				$variant_name = trim($variant_name);
 				
-				$zVariant = new ProductVariant($db);					
-				$zVariant->loadByExtId($prod_id);
-										
-				if ($zVariant->is_loaded) {
-					$zProduct->loadById($zVariant->data['product_variant_product_id']);
-				}
-				
-				if (!$zProduct->is_loaded) {
-					$zProduct->loadSingleFiltered('product_name = ?', [$product_name]);
+				if (strlen($variant_name) > 0) {
+					$zVariant = new ProductVariant($db);					
+					$zVariant->loadByExtId($prod_id);
+											
+					if ($zVariant->is_loaded) {
+						$zProduct->loadById($zVariant->ival('product_variant_product_id'));
+					} else {
+						$zVariant->save();
+					}
+					
+					if (!$zProduct->is_loaded) {
+						$zProduct->loadSingleFiltered('product_name = ?', [$product_name]);
+					}
+
+					if (!$zProduct->is_loaded) {
+						$save_product = true;
+						$zProduct->data['product_default_variant_id'] = $zVariant->val('product_variant_id');
+					} elseif ($zProduct->val('product_default_variant_id') == $zVariant->val('product_variant_id')) {
+						$save_product = true;
+					} else {
+						$save_product = false;
+					}
+				} else {
+					echo 'Variant name empty: ' . $product->name . '\n';
 				}
 
-				if (!$zProduct->is_loaded) {
-					$save_product = true;
-					$zProduct->data['product_default_variant_id'] = $zVariant->val('product_variant_id');
-				} elseif ($zProduct->val('product_default_variant_id') == $zVariant->val('product_variant_id')) {
-					$save_product = true;
-				}
-
-			} else {						
-				$save_product = true;
-				$zVariant = null;
-			} 
+			}
 			
 			if ($save_product) {
 				if ($zProduct->is_loaded) {
@@ -145,15 +152,15 @@
 			
 			if (isset($zVariant)) {
 				$zVariant->data['product_variant_ext_id'] = $prod_id;						
-				$zVariant->data['product_variant_name'] = $prodvar;
+				$zVariant->data['product_variant_name'] = $variant_name;
 				$zVariant->data['product_variant_product_id'] = $zProduct->val('product_id');
 				$zVariant->data['product_variant_price'] = $product_price;
-				$zVariant->data['product_variant_stock'] = trim($product->stock);
+				$zVariant->data['product_variant_stock'] = $product_stock;
 				$zVariant->save();
 			}
 		} // foreach
 		
-		echo "Categories: $cat_total total, $cat_updated updated, $cat_inserted inserted. Products: $prod_total'] ?> total, $prod_updated updated, $prod_inserted inserted.";
+		echo "Categories: $cat_total total, $cat_updated updated, $cat_inserted inserted. Products: $prod_total total, $prod_updated updated, $prod_inserted inserted.";
 
 	} else {
 		echo sprintf('Import file %s not found!', $xml_path);

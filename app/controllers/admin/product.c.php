@@ -12,6 +12,11 @@
 			'type' => 'hidden'
 		],
 		[
+			'name' => 'product_ext_id',
+			'label' => 'ABX ID',
+			'type' => 'static'
+		],
+		[
 			'name' => 'product_name',
 			'label' => 'Name',
 			'type' => 'text'
@@ -21,6 +26,11 @@
 			'label' => 'Price',
 			'type' => 'text',
 			'validations' => [['type' => 'price']]
+		],
+		[
+			'name' => 'product_description',
+			'label' => 'Description',
+			'type' => 'static'
 		]	
 		
 	]);

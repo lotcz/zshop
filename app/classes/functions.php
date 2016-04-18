@@ -53,6 +53,14 @@
 		}
 	}
 	
+	function parseFloat($val) {		
+		if (isset($val) && strlen(trim($val)) > 0) {
+			return floatval($val);
+		} else {
+			return null;
+		}
+	}
+	
 	/*
 		translate string to current language
 	*/

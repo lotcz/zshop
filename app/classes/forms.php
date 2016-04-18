@@ -15,7 +15,7 @@ class Form {
 	public $is_admin_form = false;
 	public $del_url;
 	
-	function __construct($id = 'entity_id', $action = '', $method = 'POST', $css = 'form-horizontal admin-form') {
+	function __construct($id = 'entity_name', $action = '', $method = 'POST', $css = 'form-horizontal admin-form') {
 		$this->id = $id;
 		$this->action = $action;		
 		$this->method = $method;
@@ -222,6 +222,7 @@ class AdminForm extends Form {
 		
 	function __construct($entity) {
 		parent::__construct($entity . '_id', 'admin/' . $entity . '/edit/%d');
+		$this->entity_name = $entity;
 		$this->del_url = 'admin/' . $entity . '/delete/%d';		
 		$this->is_admin_form = true;
 		$this->render_wrapper = true;

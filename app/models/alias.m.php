@@ -27,7 +27,7 @@ class Alias extends ModelBase {
 	}
 	
 	static function generateAliasUrl($string) {
-		setlocale(LC_ALL, 'en_US.UTF8');
+		setlocale(LC_ALL, 'cs_CZ.UTF8');
 		$clean = iconv('UTF-8', 'ASCII//TRANSLIT', $string);
 		$clean = preg_replace("/[^a-zA-Z0-9\/_| -]/", '', $clean);
 		$clean = strtolower(trim($clean, '-'));

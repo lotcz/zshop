@@ -1,5 +1,5 @@
 DROP DATABASE IF EXISTS zshop;
-CREATE DATABASE zshop;
+CREATE DATABASE zshop DEFAULT char set utf8;
 USE zshop;
 
 CREATE TABLE `site_globals` (
@@ -56,9 +56,9 @@ CREATE TABLE IF NOT EXISTS `roles` (
   UNIQUE INDEX `role_name_unique` (`role_name` ASC)
 ) ENGINE = InnoDB;
 
-INSERT INTO roles (role_name) VALUES (N'Správce uživatelů');
-INSERT INTO roles (role_name) VALUES (N'Správce zboží');
-INSERT INTO roles (role_name) VALUES (N'Správce objednávek');
+INSERT INTO roles (role_name) VALUES (N'Users admin');
+INSERT INTO roles (role_name) VALUES (N'Products admin');
+INSERT INTO roles (role_name) VALUES (N'Orders admin');
 
 CREATE TABLE IF NOT EXISTS `user_roles` (
   `user_role_user_id` INT UNSIGNED NOT NULL,
@@ -83,8 +83,11 @@ CREATE TABLE IF NOT EXISTS `permissions` (
   UNIQUE INDEX `permissions_name_unique` (`permission_name`)
 ) ENGINE = InnoDB;
 
-INSERT INTO permissions (permission_name, permission_description) VALUES ('view_orders', 'Browse orders');
-INSERT INTO permissions (permission_name, permission_description) VALUES ('edit_orders', 'Edit orders');
+INSERT INTO permissions (permission_name, permission_description) VALUES ('edit user', 'Edit users');
+INSERT INTO permissions (permission_name, permission_description) VALUES ('browse order', 'Browse orders');
+INSERT INTO permissions (permission_name, permission_description) VALUES ('edit order', 'Edit orders');
+INSERT INTO permissions (permission_name, permission_description) VALUES ('browse product', 'Browse products');
+INSERT INTO permissions (permission_name, permission_description) VALUES ('edit product', 'Edit products');
 
 CREATE TABLE IF NOT EXISTS `role_permissions` (
   `role_permission_role_id` INT UNSIGNED NOT NULL,
@@ -173,6 +176,7 @@ CREATE TABLE IF NOT EXISTS `products` (
   `product_image` VARCHAR(255) NULL,
   `product_default_variant_id` INT UNSIGNED NULL,
   `product_default_category_id` INT UNSIGNED NULL,
+  `product_description` TEXT NULL,
   PRIMARY KEY (`product_id`), 
   CONSTRAINT `product_category_parent_fk`
     FOREIGN KEY (`product_default_category_id`)
@@ -248,12 +252,51 @@ CREATE TABLE IF NOT EXISTS `order_states` (
   PRIMARY KEY (`order_state_id`)
 ) ENGINE = InnoDB;
 
-INSERT INTO `order_states` (`order_state_closed`, `order_state_name`) VALUES (0,'New (waiting for payment)'),(0,'Processing'),(0,'Re-opened'),(1,'Shipped (closed)'),(1,'Rejected');
+INSERT INTO `order_states` (`order_state_closed`, `order_state_name`) VALUES (0,'New (waiting for payment)'),(0,'Processing'),(0,'Re-opened'),(1,'Shipped (closed)'),(1,'Cancelled');
+
+CREATE TABLE IF NOT EXISTS `delivery_types` (
+ `delivery_type_id` TINYINT UNSIGNED NOT NULL AUTO_INCREMENT,
+ `delivery_type_name` VARCHAR(50) NOT NULL,
+ `delivery_type_price` DECIMAL(10,2) NOT NULL DEFAULT 0,
+ `delivery_type_min_order_cost` DECIMAL(10,2) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`delivery_type_id`)
+) ENGINE = InnoDB;
+
+INSERT INTO `delivery_types` (`delivery_type_name`) VALUES ('Pick up in store'),('Czech post'),('Parcel service');
+
+CREATE TABLE IF NOT EXISTS `payment_types` (
+ `payment_type_id` TINYINT UNSIGNED NOT NULL AUTO_INCREMENT,
+ `payment_type_name` VARCHAR(50) NOT NULL,
+ `payment_type_price` DECIMAL(10,2) NOT NULL DEFAULT 0,
+ `payment_type_min_order_cost` DECIMAL(10,2) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`payment_type_id`)
+) ENGINE = InnoDB;
+
+INSERT INTO `payment_types` (`payment_type_name`) VALUES ('Cash in store'),('Cash on delivery'),('Bank transfer'),('Credit card');
+
+CREATE TABLE IF NOT EXISTS `allowed_payment_types` (
+  `allowed_payment_type_delivery_type_id` TINYINT UNSIGNED NOT NULL,
+  `allowed_payment_type_payment_type_id` TINYINT UNSIGNED NOT NULL,
+  
+  PRIMARY KEY (`allowed_payment_type_delivery_type_id`, `allowed_payment_type_payment_type_id`),
+  
+  CONSTRAINT `allowed_payment_types_delivery_type_fk`
+    FOREIGN KEY (`allowed_payment_type_delivery_type_id`)
+    REFERENCES `delivery_types` (`delivery_type_id`),
+  CONSTRAINT `allowed_payment_types_payment_type_fk`
+    FOREIGN KEY (`allowed_payment_type_payment_type_id`)
+    REFERENCES `payment_types` (`payment_type_id`)
+) ENGINE = InnoDB;
+
+INSERT INTO `allowed_payment_types` (`allowed_payment_type_delivery_type_id`, `allowed_payment_type_payment_type_id`) 
+VALUES (1,1),(1,3),(1,4),(2,2),(2,3),(2,4),(3,2),(3,3),(3,4);
 
 CREATE TABLE IF NOT EXISTS `orders` (
   `order_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `order_order_state_id` TINYINT UNSIGNED NOT NULL DEFAULT 1, 
   `order_customer_id` INT UNSIGNED NOT NULL,
+  `order_delivery_type_id` TINYINT UNSIGNED NOT NULL,
+  `order_payment_type_id` TINYINT UNSIGNED NOT NULL,
   `order_payment_code` INT UNSIGNED NOT NULL ,
   `order_created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `order_last_status_change` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -267,7 +310,13 @@ CREATE TABLE IF NOT EXISTS `orders` (
   UNIQUE INDEX `order_payment_code_unique_index` (`order_payment_code`),
   CONSTRAINT `order_customer_fk`
     FOREIGN KEY (`order_customer_id`)
-    REFERENCES `customers` (`customer_id`)
+    REFERENCES `customers` (`customer_id`),
+  CONSTRAINT `order_delivery_type_fk`
+    FOREIGN KEY (`order_delivery_type_id`)
+    REFERENCES `delivery_types` (`delivery_type_id`),
+  CONSTRAINT `order_payment_type_fk`
+    FOREIGN KEY (`order_payment_type_id`)
+    REFERENCES `payment_types` (`payment_type_id`)
 ) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `order_products` (
@@ -379,3 +428,9 @@ CREATE VIEW viewPermissionsByUser AS
     JOIN role_permissions rp ON (rp.role_permission_permission_id = p.permission_id)
     JOIN user_roles ur ON (ur.user_role_role_id = rp.role_permission_role_id);
 
+DROP VIEW IF EXISTS `viewAllowedPaymentTypes`;
+  
+CREATE VIEW viewAllowedPaymentTypes AS
+	SELECT *
+    FROM allowed_payment_types apt
+    JOIN payment_types pt ON (apt.allowed_payment_type_payment_type_id = pt.payment_type_id);

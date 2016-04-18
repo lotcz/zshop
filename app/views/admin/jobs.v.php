@@ -12,7 +12,10 @@
 		</div>
 		
 		<div>
-			<div id="console"></div>
+			<div id="console">
+				<div id="console_inner">
+				</div>
+			</div>
 		</div>		
 		
 	</div>
@@ -20,14 +23,19 @@
 
 <script>
 
+	function cons(str) {
+		$('#console_inner').append(str);
+		$('#console').scrollTop($('#console_inner').height());
+	}
+	
 	function jobFinished(data) {		
 		hideAjaxLoaders();
-		$('#console > .ajax-loader').remove();
-		$('#console').append(data + '<br/>');
+		$('#console_inner > .ajax-loader').remove();
+		cons(data + '<br/>');
 	}
 	
 	function runJob(name) {
-		$('#console').append('<span class="ajax-loader"></span>');
+		cons('<span class="ajax-loader"></span>');
 		showAjaxLoaders();
 		$.ajax({
 			dataType: 'html',

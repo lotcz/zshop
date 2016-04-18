@@ -188,4 +188,27 @@ class ModelBase {
 		$m = new $class($db);
 		return $m->getAll();
 	}
+	
+	public function processForm($form) {
+		global $path, $page_title;
+		
+		if (isset($_POST[$this->id_name])) {		
+			if (parseInt($_POST[$this->id_name]) > 0) {
+				$this->loadById($_POST[$this->id_name]);
+			}			
+			$this->setData($form->processInput($_POST));
+			if ($this->save()) {				
+				redirect('admin/' . $this->table_name);				
+			}
+		} elseif (isset($path[2]) && $path[2] == 'edit') {		
+			$this->loadById($path[3]);
+			$page_title	= 'Editing ' . $form->entity_name;
+		} elseif (isset($path[2]) && $path[2] == 'delete') {
+			$this->deleteById($path[3]);
+			redirect('admin/' . $this->table_name);
+		} else {			
+			$page_title	= 'New ' . $form->entity_name;
+		}
+	}
+	
 }
