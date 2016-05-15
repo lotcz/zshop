@@ -28,16 +28,16 @@ class ModelBase {
 		}
 	}
 
-	public function val($key, $def = null) {
+	public function val($key, $default = null) {
 		if (isset($this->data[$key])) {
 			return $this->data[$key];
 		} else {
-			return $def;
+			return $default;
 		}
 	}
 	
-	public function ival($key, $def = null) {
-		return parseInt($this->val($key, $def));		
+	public function ival($key, $default = null) {
+		return parseInt($this->val($key, $default));		
 	}
 	
 	public function loadSingleFiltered($where, $bindings = null, $types = null) {

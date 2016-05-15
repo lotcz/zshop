@@ -1,25 +1,10 @@
-<ul class="nav nav-sidebar">
-	<?php
-		global $db, $path;
-		
-		$result = $db->query('SELECT * FROM viewCategories WHERE category_parent_id IS NULL ORDER BY category_name');
-		while ($row = $result->fetch_assoc()) {
-			$active = '';
-			if (isset($path[1]) && $path[1] == $row['category_id']) {
-				$active = 'active';
-			}
-			
-			?>
-				<li class="<?=$active?>">
-					<?php
-						if (isset($row['alias_url']) && strlen($row['alias_url']) > 0) {
-							renderLink($row['alias_url'], $row['category_name'], '');			
-						} else {
-							renderLink('category/'. $row['category_id'], $row['category_name'], '');			
-						}
-					?>
-				</li>
-			<?php
-		}
-	?>	
-</ul>
+<?php
+	require_once $home_dir . 'models/category.m.php';
+	global $db, $path;
+	
+	$selected_id = null;
+	if (isset($path[0]) && $path[0] == 'category' && isset($path[1])) {
+		$selected_id = parseInt($path[1]);
+	}
+	
+	Category::renderSideMenu($db, $selected_id);
