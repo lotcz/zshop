@@ -113,3 +113,14 @@ img.mini-thumb {
 	max-width:75px;
 	max-height:50px;
 }
+
+.side-menu-link-wrapper-level-0 {
+	margin-top:0px;
+	margin-bottom:7px;
+	padding:10px;
+	border-radius:5px;
+}
+
+.side-menu-link-wrapper-level-0 a {
+	color:White;
+}

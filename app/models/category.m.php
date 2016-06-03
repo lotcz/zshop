@@ -125,7 +125,7 @@ class Category extends ModelBase {
 		echo sprintf('<a href="%s" class="side-menu-link" data-toggle="collapse" data-target="#side-nav-%s">%s</a>', _url($url), $this->val('category_id'), $this->val('category_name'));		 
 	}
 
-	static function renderMenu($tree, $parent_id = 0, $selected_id = 0) {
+	static function renderMenu($tree, $level = 0, $parent_id = 0, $selected_id = 0) {
 		$class = ($parent_id == 0 || $parent_id == $selected_id) ? 'in' : '';
 		?>
 			<ul id="side-nav-<?=$parent_id ?>" class="nav nav-sidebar collapse <?=$class ?>">
@@ -138,11 +138,14 @@ class Category extends ModelBase {
 						
 						?>
 							<li class="<?=$active?>">
-								<?php						
-									$category->renderLink();
-									
+								<div class="side-menu-link-wrapper side-menu-link-wrapper-level-<?=$level ?>">
+									<?php						
+										$category->renderLink();
+									?>
+								</div>
+								<?php
 									if (isset($category->children)) {
-										Category::renderMenu($category->children, $category->ival('category_id'), $selected_id);
+										Category::renderMenu($category->children, $level + 1, $category->ival('category_id'), $selected_id);
 									}
 								?>
 							</li>
@@ -155,7 +158,7 @@ class Category extends ModelBase {
 	
 	static function renderSideMenu($db, $selected_id = 0) {
 		$categories_tree = Category::getCategoryTree($db);
-		Category::renderMenu($categories_tree, 0, $selected_id);		
+		Category::renderMenu($categories_tree, 0, 0, $selected_id);		
 	}
 	
 }
