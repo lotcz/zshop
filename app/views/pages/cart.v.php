@@ -1,4 +1,9 @@
 <div class="cart">
+
+<?php
+	renderBlock('customer');								
+?>
+
 <?php
 	if (isset($custAuth) && $custAuth->isAuth()) {
 		if ($totals['p'] > 0) {

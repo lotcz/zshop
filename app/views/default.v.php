@@ -1,27 +1,19 @@
 <div class="container">
 	<div class="header basic-bg spaced">
 		<div class="row">	
-			<div class="col-md-3">
+			<div class="col-md-2 text-left">
 				<a href="<?=$base_url ?>" alt="<?=t('Home') ?>">
 					<?php
-						renderImage('logo.jpg', 'Logo', 'img-circle logo' );			
+						renderImage('logo.jpg', 'Logo', 'img-circle img-responsive logo' );			
 					?>
+					
+					
 				</a>
 			</div>
 			
-			<div class="col-md-3 main-title"><?=$globals['site_title'] ?></div>
-			
-			<div class="col-md-2 text-center">		
-				<?php
-					renderBlock('search');					
-				?>			
-			</div>
-			
-			<div class="col-md-2 text-center">		
-				<?php
-					renderBlock('customer');					
-				?>			
-			</div>
+			<div class="col-md-8 text-center">
+				<div class="main-title"><?=$globals['site_title'] ?></div>
+			</div>	
 			
 			<div class="col-md-2 text-right">		
 				<?php
@@ -33,12 +25,13 @@
 	</div>
 
 	<div class="row spaced">
-		<div class="col-md-3 sidebar">
-			<?php				
+		<div class="col-md-4 sidebar">
+			<?php		
+				renderBlock('search');					
 				renderBlock('categories');
 			?>			
 		</div>
-		<div class="col-md-9">
+		<div class="col-md-8">
 			<?php
 				if (isset($page_title)) {
 					?>
