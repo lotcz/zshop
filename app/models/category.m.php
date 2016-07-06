@@ -11,19 +11,20 @@ class Category extends ModelBase {
 	
 	public $is_selected = false;
 	public $is_on_selected_path = false;
+	public $level = 0;
 		
 	public function loadByExtId($id) {
 		$filter = 'category_ext_id = ?';
 		$this->loadSingleFiltered($filter, [$id]);
 	}
 	
-	public function findInChildren($id) {
+	public function findInChildren($id, $column_name = 'category_id') {
 		if (isset($this->children)) {			
-			foreach ($this-children as $c) {
-				if ($c->ival('category_id') == $id) {
+			foreach ($this->children as $c) {
+				if ($c->ival($column_name) == $id) {
 					return $c;
 				} else {
-					$sc = $c->findInChildren($id);
+					$sc = $c->findInChildren($id, $column_name);
 					if (isset($sc)) {
 						return $sc;
 					}
@@ -44,6 +45,7 @@ class Category extends ModelBase {
 		
 		$this->children[] = $c;
 		$c->treeParent = $this;
+		$c->level = $this->level + 1;
 	}
 
 	public function setSelectedPath() {
@@ -53,9 +55,21 @@ class Category extends ModelBase {
 		}
 	}
 	
-	static function getCategoryTree($db, $selected_id = 0) {
+	public function getSubTreeIDs() {
+		$ids = [ $this->ival('category_id') ];		
+		if (isset($this->children)) {
+			
+			for ($i = 0; $i < count($this->children); $i++) {
+				$ids = array_merge($ids, $this->children[$i]->getSubTreeIDs());
+				
+			}
+		}
+		return $ids;
+	}
+	
+	static function getCategoryTree($db, $selected_id = null) {
 		if (isset(Category::$cache_tree)) {
-			return Category::$cache_tree;
+			$tree_root = Category::$cache_tree;
 		} else {
 			$all = Category::select(
 				$db, 
@@ -68,6 +82,7 @@ class Category extends ModelBase {
 			
 			$tree_root = new Category();
 			$tree_root->data['category_name'] = 'MENU';
+			$tree_root->is_on_selected_path = true;
 			
 			while (count($all) > 0) {
 				foreach ($all as $i => $c) {
@@ -78,18 +93,21 @@ class Category extends ModelBase {
 						$parent = $tree_root->findInChildren($c->ival('category_parent_id'));						
 					}
 					if (isset($parent)) {
-						$parent->addChild($c);
-						if ($c->val('category_id') == $selected_id) {
-							$c->is_selected = true;
-							$c->setSelectedPath();
-						}							
+						$parent->addChild($c);													
 						unset($all[$i]);
 					}
 				}
 			}			
 			Category::$cache_tree = $tree_root;
 		}
-		return Category::$cache_tree;		
+		
+		if (isset($selected_id)) {
+			$sc = $tree_root->findInChildren($selected_id);
+			$sc->is_selected = true;
+			$sc->setSelectedPath();
+		}
+		
+		return $tree_root;		
 	}
 	
 	public function loadChildren() {
@@ -149,81 +167,5 @@ class Category extends ModelBase {
 		}
 		return _url($url);
 	}	
-					
-	static function renderMenu($tree, $level = 0, $parent_id = 0, $collapsed = false) {
-		?>
-			<ul id="zmenu-collapse-<?=$parent_id ?>" class="list-group collapse <?=($collapsed) ? '' : 'in' ?> zmenu-collapse level-<?=$level ?>">
-				<?php		
-					foreach ($tree as $category) {
-						?>
-							<li class="list-group-item <?=($category->is_selected) ? 'selected' : '' ?>">																
-								<?php
-									if ((isset($category->children)) && (count($category->children) > 0)) {
-										?>
-											<span 
-												id="zmenu-toggle-<?=$category->val('category_id')?>" 
-												data-toggle="collapse" 
-												data-target="#zmenu-collapse-<?=$category->val('category_id')?>" 
-												class="glyphicon <?=($category->is_on_selected_path) ? 'glyphicon-menu-down' : 'glyphicon-menu-right' ?> zmenu-toggle">
-											</span>
-										<?php
-									}
-								?>
-								<a href="<?=$category->getLinkUrl(); ?>">
-									<?=$category->val('category_name')?>
-								</a>								
-							</li>							
-							
-						<?php
-						
-						if (isset($category->children)) {
-							Category::renderMenu($category->children, $level + 1, $category->ival('category_id'), !$category->is_on_selected_path);
-						}
-					}					
-				?>	
-			</ul>
-		<?php		
-	}
-	
-	static function renderSideMenu($db, $selected_id = 0) {
-		$categories_tree = Category::getCategoryTree($db, $selected_id);
-		
-		?>
-			<div id="side-menu">
-				<?php
-					Category::renderMenu($categories_tree, 0, 0);
-				?>
-				
-				<script>
-					function updateToggle(caller) {
-						var id = String.substr(caller.id, 15);
-						var state = $(caller).hasClass('in');
-						var toggle = $('#zmenu-toggle-' + id);
-						toggle.removeClass('glyphicon-menu-right');
-						toggle.removeClass('glyphicon-menu-down');
-						
-						if (state) {
-							toggle.addClass('glyphicon-menu-down');
-						} else {
-							toggle.addClass('glyphicon-menu-right');
-						}
-					}
-					
-					$('.zmenu-collapse').on('show.bs.collapse', function () {
-						updateToggle(this);
-					});
-					$('.zmenu-collapse').on('hide.bs.collapse', function () {
-						updateToggle(this);
-					});
-					$('.zmenu-collapse').on('shown.bs.collapse', function () {
-						updateToggle(this);
-					});
-					$('.zmenu-collapse').on('hidden.bs.collapse', function () {
-						updateToggle(this);
-					});
-				</script>
-			</div>
-		<?php
-	}
 	
 }

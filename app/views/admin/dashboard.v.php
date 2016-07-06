@@ -15,10 +15,7 @@
 			<div class="col-md-4">
 				<canvas id="myChart3" />
 			</div>
-		</div>
-		<div>		
-			<a href="/cron.php?job=clean&security_token=<?=$config['security_token'] ?>" target="_blank" class="btn btn-default"><?=t('Clean Sessions') ?></a>
-		</div>
+		</div>		
 	</div>
 </div>
 

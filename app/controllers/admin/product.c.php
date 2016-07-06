@@ -15,6 +15,14 @@
 			'name' => 'product_ext_id',
 			'label' => 'ABX ID',
 			'type' => 'static'
+		],		
+		[
+			'name' => 'product_category_id',
+			'label' => 'Category',
+			'type' => 'select',
+			'select_table' => 'categories',
+			'select_id_field' => 'category_id',
+			'select_label_field' => 'category_name'
 		],
 		[
 			'name' => 'product_name',
@@ -58,6 +66,5 @@
 	}
 	
 	$product->loadVariants();
-	$product->loadCategories();
 	
 	$form->prepare($db, $product);

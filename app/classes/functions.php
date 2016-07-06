@@ -92,7 +92,7 @@
 		global $messages;
 		
 		if (!isset($messages)) {
-			die($message);
+			throw new Exception($message);
 		} elseif ($config['debug_mode']) {
 			$messages->dbErr($model, $operation, $sql, $message);
 		} else {

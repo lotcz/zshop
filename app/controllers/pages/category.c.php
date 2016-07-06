@@ -5,11 +5,13 @@
 	
 	global $db, $data;
 	
-	$category = new Category($db, $path[1]);
-	if (!$category->is_loaded) {
+	$categories_tree = Category::getCategoryTree($db);
+	$category = $categories_tree->findInChildren(intval($path[1]));
+	
+	if (!isset($category)) {
 		redirect('notfound');
 	}
-	$category->loadChildren();
+	
 	$data['category'] = $category;
 	$page_title = $category->val('category_name');
 	
@@ -29,12 +31,20 @@
 	
 	$paging = new Paging(0,12);
 	
+	$ids = $category->getSubTreeIDs();
+	$values = [];
+	$types = '';
+	foreach ($ids as $id) {
+		$values[] = '?';
+		$types .= 'i';
+	}
+	
 	$products = Product::select(
 	/* db */		$db, 
-	/* table */		'viewProductsInCategories', 
-	/* where */		'product_category_category_id = ?',
-	/* bindings */	[ $category->val('category_id') ],
-	/* types */		'i',
+	/* table */		'viewProducts', 
+	/* where */		sprintf('product_category_id IN (%s)', implode(',', $values)),
+	/* bindings */	$ids,
+	/* types */		$types,
 	/* paging */	$paging,
 	/* orderby */	$orderby
 	);

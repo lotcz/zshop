@@ -96,8 +96,7 @@
 											
 					if ($zVariant->is_loaded) {
 						$zProduct->loadById($zVariant->ival('product_variant_product_id'));
-					} else {
-						$zVariant->save();
+						$zProduct->data['product_default_variant_id'] = $zVariant->val('product_variant_id');
 					}
 					
 					if (!$zProduct->is_loaded) {
@@ -105,15 +104,14 @@
 					}
 
 					if (!$zProduct->is_loaded) {
-						$save_product = true;
-						$zProduct->data['product_default_variant_id'] = $zVariant->val('product_variant_id');
+						$save_product = true;						
 					} elseif ($zProduct->val('product_default_variant_id') == $zVariant->val('product_variant_id')) {
 						$save_product = true;
 					} else {
 						$save_product = false;
 					}
 				} else {
-					echo 'Variant name empty: ' . $product->name . '\n';
+					echo 'Variant name empty: ' . $product->name . '<br/>';
 				}
 
 			}
@@ -125,41 +123,53 @@
 					$prod_inserted += 1;
 					$zProduct->data['product_ext_id'] = $prod_id;
 				}
-				$zProduct->data['product_name'] = $product_name;
-				$zProduct->data['product_price'] = $product_price;
-				$zProduct->data['product_stock'] = $product_stock;
-				$zProduct->save();
-				
-				// update alias
-				$a = new Alias($db, $zProduct->val('product_alias_id'));							
-				if (!$a->is_loaded) {
-					$a->setUrl($zProduct->getAliasUrl());
-					$a->data['alias_path'] = $zProduct->getAliasPath();
-					$a->save();
-					$zProduct->data['product_alias_id'] = $a->ival('alias_id');				
-					$zProduct->save();
-				}
 				
 				/* kategorie */				
+				$zCategory = null;
 				
-				// find the category on the very tail
+				// choose category with highest level
 				if ($product->categories->category) {
-					foreach ($product->categories->category as $cat) {
-						$zCategory = new Category($db);
-						$zCategory->loadByExtId(intval($cat));
-						$zProduct->addToCategory($zCategory->val('category_id'));
+					foreach ($product->categories->category as $cat) {						
+						$category = $categories_tree->findInChildren($cat, 'category_ext_id');						
+						if ((!isset($zCategory)) || (isset($category) && ($category->level > $zCategory->level))) {
+							$zCategory = $category;
+						}
 					}
-				}
+					if (isset($zCategory)) {
+						$zProduct->data['product_category_id'] = $zCategory->ival('category_id');
+						
+						$zProduct->data['product_name'] = $product_name;
+						$zProduct->data['product_price'] = $product_price;
+						$zProduct->data['product_stock'] = $product_stock;
+						$zProduct->save();						
+						
+						// update alias
+						$a = new Alias($db, $zProduct->val('product_alias_id'));							
+						if (!$a->is_loaded) {
+							$a->setUrl($zProduct->getAliasUrl());
+							$a->data['alias_path'] = $zProduct->getAliasPath();
+							$a->save();
+							$zProduct->data['product_alias_id'] = $a->ival('alias_id');				
+							$zProduct->save();
+						}
+					} else {
+						echo sprintf('Cannot find category with ABX id %s for product "%s"<br/>', $cat, $product_name);
+					}
+				}				
 				
 			} // if $save_product					
 			
-			if (isset($zVariant)) {
+			if (isset($zVariant) && $zProduct->val('product_id') != null) {
 				$zVariant->data['product_variant_ext_id'] = $prod_id;						
 				$zVariant->data['product_variant_name'] = $variant_name;
-				$zVariant->data['product_variant_product_id'] = $zProduct->val('product_id');
+				$zVariant->data['product_variant_product_id'] = $zProduct->ival('product_id');
 				$zVariant->data['product_variant_price'] = $product_price;
 				$zVariant->data['product_variant_stock'] = $product_stock;
-				$zVariant->save();
+				try {
+					$zVariant->save();
+				} catch (Exception $e) {
+					echo $e->getMessage() . "<br/>";
+				}
 			}
 		} // foreach
 		

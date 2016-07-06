@@ -167,7 +167,7 @@ CREATE TABLE IF NOT EXISTS `products` (
   `product_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `product_deleted` BOOL DEFAULT 0 NOT NULL,
   `product_ext_id` INT UNSIGNED NULL,
-  `product_category_id` INT UNSIGNED NULL,
+  `product_category_id` INT UNSIGNED NOT NULL,
   `product_alias_id` INT UNSIGNED NULL,
   `product_name` NVARCHAR(255) NOT NULL,
   `product_price` DECIMAL(10,2) UNSIGNED NOT NULL,
@@ -178,8 +178,7 @@ CREATE TABLE IF NOT EXISTS `products` (
   PRIMARY KEY (`product_id`), 
   CONSTRAINT `product_category_fk`
     FOREIGN KEY (`product_category_id`)
-    REFERENCES `categories` (`category_id`)
-    ON DELETE SET NULL,
+    REFERENCES `categories` (`category_id`),
   CONSTRAINT `product_alias_fk`
     FOREIGN KEY (`product_alias_id`)
     REFERENCES `aliases` (`alias_id`)

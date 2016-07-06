@@ -137,7 +137,8 @@ class ModelBase {
 			array_unshift($bindings, $types);			
 			$sql = sprintf('INSERT INTO %s (%s) VALUES (%s)', $this->table_name, implode(',', $columns), implode(',', $values));
 			
-			if ($st = $this->db->prepare($sql)) {				
+			if ($st = $this->db->prepare($sql)) {	
+				//echo $sql;
 				call_user_func_array(array($st, 'bind_param'), $bindings);				
 				if ($st->execute()) {
 					$this->is_loaded = true;

@@ -28,7 +28,7 @@
 		<div class="col-md-4 sidebar">
 			<?php		
 				renderBlock('search');					
-				renderBlock('categories');
+				renderBlock('side-menu');
 			?>			
 		</div>
 		<div class="col-md-8">

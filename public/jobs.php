@@ -12,7 +12,7 @@
 		$db->set_charset('utf8');
 		$job = _g('job');
 		if ($db->connect_errno == 0) {
-			include $home_dir . 'cron/' . $job . '.j.php';
+			include $home_dir . 'jobs/' . $job . '.j.php';
 		} else {
 			dbErr($db->erorr);
 		}

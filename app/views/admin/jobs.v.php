@@ -39,7 +39,7 @@
 		showAjaxLoaders();
 		$.ajax({
 			dataType: 'html',
-			url: '<?=_url('cron.php') ?>',
+			url: '<?=_url('jobs.php') ?>',
 			data: {
 					job: name,
 					security_token: '<?=$config['security_token'] ?>'
