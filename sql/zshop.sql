@@ -10,7 +10,6 @@ CREATE TABLE `site_globals` (
 
 INSERT INTO site_globals (`site_global_name`,`site_global_value`) VALUES ('site_title','zShop');
 
-
 CREATE TABLE IF NOT EXISTS `ip_failed_attempts` (
   `ip_failed_attempt_ip` VARCHAR(15),
   `ip_failed_attempt_count` INT UNSIGNED NOT NULL DEFAULT 1,
@@ -105,8 +104,7 @@ CREATE TABLE IF NOT EXISTS `customers` (
   `customer_created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `customer_last_access` TIMESTAMP,
 
-  `customer_fb_access` VARCHAR(255),
-  `customer_gplus_access` VARCHAR(255),
+  `customer_fb_access_token` VARCHAR(255),
     
   `customer_name` NVARCHAR(50),
   `customer_address_city` NVARCHAR(50),
@@ -169,17 +167,17 @@ CREATE TABLE IF NOT EXISTS `products` (
   `product_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `product_deleted` BOOL DEFAULT 0 NOT NULL,
   `product_ext_id` INT UNSIGNED NULL,
+  `product_category_id` INT UNSIGNED NULL,
   `product_alias_id` INT UNSIGNED NULL,
   `product_name` NVARCHAR(255) NOT NULL,
   `product_price` DECIMAL(10,2) UNSIGNED NOT NULL,
   `product_stock` SMALLINT UNSIGNED NOT NULL DEFAULT 0,
   `product_image` VARCHAR(255) NULL,
   `product_default_variant_id` INT UNSIGNED NULL,
-  `product_default_category_id` INT UNSIGNED NULL,
   `product_description` TEXT NULL,
   PRIMARY KEY (`product_id`), 
-  CONSTRAINT `product_category_parent_fk`
-    FOREIGN KEY (`product_default_category_id`)
+  CONSTRAINT `product_category_fk`
+    FOREIGN KEY (`product_category_id`)
     REFERENCES `categories` (`category_id`)
     ON DELETE SET NULL,
   CONSTRAINT `product_alias_fk`
@@ -187,20 +185,6 @@ CREATE TABLE IF NOT EXISTS `products` (
     REFERENCES `aliases` (`alias_id`)
     ON DELETE SET NULL,
   UNIQUE INDEX `products_ext_id_unique` (`product_ext_id` ASC)
-) ENGINE = InnoDB;
-
-CREATE TABLE IF NOT EXISTS `product_category` (
-  `product_category_category_id` INT UNSIGNED NOT NULL,
-  `product_category_product_id` INT UNSIGNED NOT NULL,  
-  PRIMARY KEY ( `product_category_category_id`, `product_category_product_id`),
-  CONSTRAINT `product_category_product_fk`
-    FOREIGN KEY (`product_category_product_id`)
-    REFERENCES `products` (`product_id`)
-    ON DELETE CASCADE,
-  CONSTRAINT `product_category_category_fk`
-    FOREIGN KEY (`product_category_category_id`)
-    REFERENCES `categories` (`category_id`)
-    ON DELETE CASCADE
 ) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `product_variants` (
@@ -357,24 +341,8 @@ CREATE VIEW viewProducts AS
 	SELECT *
     FROM products p
 	LEFT OUTER JOIN product_variants pv ON (p.product_default_variant_id = pv.product_variant_id)
-    LEFT OUTER JOIN categories c ON (p.product_default_category_id = c.category_id)
+    LEFT OUTER JOIN categories c ON (p.product_category_id = c.category_id)
     LEFT OUTER JOIN aliases a ON (a.alias_id = p.product_alias_id);
-
-DROP VIEW IF EXISTS `viewProductsInCategories`;
-
-CREATE VIEW viewProductsInCategories AS
-	SELECT *
-    FROM product_category pc
-    LEFT OUTER JOIN products p ON (p.product_id = pc.product_category_product_id)
-    LEFT OUTER JOIN product_variants pv ON (p.product_default_variant_id = pv.product_variant_id)
-    LEFT OUTER JOIN aliases a ON (a.alias_id = p.product_alias_id);
-	    
-DROP VIEW IF EXISTS `viewCategoriesByProduct`;
-
-CREATE VIEW viewCategoriesByProduct AS
-	SELECT *
-    FROM product_category pc
-    LEFT OUTER JOIN categories c ON (c.category_id = pc.product_category_category_id);
 
 DROP VIEW IF EXISTS `viewProductsInCart` ;
 

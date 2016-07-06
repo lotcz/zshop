@@ -116,6 +116,10 @@ h1 {
 	color:White;
 }
 
+#side-menu a:hover {
+	text-decoration:underline;
+}
+
 #side-menu li.selected {
 	font-weight:bold;
 }
@@ -124,9 +128,9 @@ h1 {
 	font-weight:normal;
 }
 
-#side-menu ul.level-1 {
-	--border-radius:5px;
-	
+#side-menu ul.level-1,
+#side-menu ul.level-1 .list-group-item {
+	border-radius:0px;	
 }
 
 #side-menu .level-1 {
@@ -141,17 +145,25 @@ h1 {
 #side-menu .level-1 .list-group-item {
 	background-image: none;
 	border-color: LightGray;
-	padding:5px 7px;
+	padding:5px 7px 5px 35px;
 }
 
 #side-menu .level-2 .list-group-item {	
-	padding:3px 3px 3px 35px;
+	padding:3px 3px 3px 55px;
 }
 
 #side-menu .level-0 .list-group {
     margin-bottom: 0px;
 }
-	
+
+#side-menu .zmenu-toggle {
+	font-size:80%;
+	line-height:120%;
+	padding-left:0px;
+	padding-right:5px;
+	cursor:pointer;
+}
+
 /* PRODUCTS */
 
 .product .panel-title {
@@ -303,4 +315,8 @@ h1 {
 
 .panel-success {
 	border-color:#419641;
+}
+
+.search-box #search-input {
+	width:290px;
 }

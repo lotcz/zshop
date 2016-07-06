@@ -16,17 +16,21 @@ class Category extends ModelBase {
 		$filter = 'category_ext_id = ?';
 		$this->loadSingleFiltered($filter, [$id]);
 	}
-
-	static function findInTree($tree, $id) {
-		foreach ($tree as $c) {
-			if ($c->ival('category_id') == $id) {
-				return $c;
-			} elseif (isset($c->children)) {
-				$sc = Category::findInTree($c->children, $id);
-				if (isset($sc)) {
-					return $sc;
+	
+	public function findInChildren($id) {
+		if (isset($this->children)) {			
+			foreach ($this-children as $c) {
+				if ($c->ival('category_id') == $id) {
+					return $c;
+				} else {
+					$sc = $c->findInChildren($id);
+					if (isset($sc)) {
+						return $sc;
+					}
 				}
 			}
+		} else {
+			return null;
 		}
 	}
 	
@@ -34,6 +38,10 @@ class Category extends ModelBase {
 		if (!isset($this->children)) {
 			$this->children = [];
 		}
+		
+		// add algoritm to keep alphabetical ordering
+		// ...
+		
 		$this->children[] = $c;
 		$c->treeParent = $this;
 	}
@@ -57,29 +65,29 @@ class Category extends ModelBase {
 				null,
 				null,
 				'category_name');
-			$tree = [];
+			
+			$tree_root = new Category();
+			$tree_root->data['category_name'] = 'MENU';
+			
 			while (count($all) > 0) {
 				foreach ($all as $i => $c) {
-					if ($c->ival('category_parent_id') == null) {
-						$tree[] = $c;
+					$parent = null;
+					if ($c->ival('category_parent_id') == null) {						
+						$parent = $tree_root;						
+					} else {
+						$parent = $tree_root->findInChildren($c->ival('category_parent_id'));						
+					}
+					if (isset($parent)) {
+						$parent->addChild($c);
 						if ($c->val('category_id') == $selected_id) {
 							$c->is_selected = true;
-						}
+							$c->setSelectedPath();
+						}							
 						unset($all[$i]);
-					} else {
-						$pc = Category::findInTree($tree, $c->ival('category_parent_id'));
-						if (isset($pc)) {
-							$pc->addChild($c);
-							if ($c->val('category_id') == $selected_id) {
-								$c->is_selected = true;
-								$c->setSelectedPath();
-							}							
-							unset($all[$i]);
-						}
 					}
 				}
 			}			
-			Category::$cache_tree = $tree;
+			Category::$cache_tree = $tree_root;
 		}
 		return Category::$cache_tree;		
 	}

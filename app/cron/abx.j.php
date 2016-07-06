@@ -64,6 +64,8 @@
 			
 		}
 
+		$categories_tree = Category::getCategoryTree($db);
+		
 		/*
 			possibly update all stock numbers to zero here?
 		*/
@@ -138,9 +140,9 @@
 					$zProduct->save();
 				}
 				
-				/* kategorie */
-				$zProduct->removeFromAllCategories();
+				/* kategorie */				
 				
+				// find the category on the very tail
 				if ($product->categories->category) {
 					foreach ($product->categories->category as $cat) {
 						$zCategory = new Category($db);
@@ -148,6 +150,7 @@
 						$zProduct->addToCategory($zCategory->val('category_id'));
 					}
 				}
+				
 			} // if $save_product					
 			
 			if (isset($zVariant)) {
