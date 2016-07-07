@@ -195,7 +195,7 @@ h1 {
 }
 
 .product-image img {	
-	
+	max-width:100%;
 }
 
 .product .prod-item-count {

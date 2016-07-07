@@ -24,10 +24,12 @@
 	
 	/* PRODUCTS */
 	$language_data['Buy'] = 'Koupit';
-	$language_data['Order by'] = 'Řadit podle';
-	$language_data['sortby_Price'] = 'Ceny';
-	$language_data['sortby_Alphabet'] = 'Abecedy';
-	$language_data['sortby_Popularity'] = 'Oblíbenosti';
+	$language_data['Order by'] = 'Řazení';
+	$language_data['sortby_Price'] = 'Od nejlevnějších po nejdražší';
+	$language_data['sortby_Price_DESC'] = 'Od nejdražších po nejlevěnjší';
+	$language_data['sortby_Alphabet'] = 'Abecedně od A do Z';
+	$language_data['sortby_Alphabet_DESC'] = 'Abecedně od Z do A';
+	$language_data['sortby_Popularity'] = 'Od nejoblíbenějších';
 	$language_data['asc'] = 'Vzestupně';
 	$language_data['desc'] = 'Sestupně';
 	

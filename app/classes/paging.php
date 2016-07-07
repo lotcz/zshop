@@ -126,5 +126,5 @@ class Paging {
 			<?php
 		}
 	}
-	
+		
 }

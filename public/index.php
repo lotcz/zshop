@@ -76,6 +76,11 @@
 				$custAuth = new CustomerAuthentication($db);
 				$page = 'ajax/' . $path[1];
 				break;
+
+			case 'partials' :
+				$master_template = 'partials/' . $path[1];
+				$page = 'partials/' . $path[1];
+				break;
 				
 			// CUSTOMER SECTION
 			default :

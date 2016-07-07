@@ -43,4 +43,24 @@ class Product extends ModelBase {
 		return 'product/' . $this->val('product_id');
 	}
 	
+	static function getSorting($sorting) {
+		switch ($sorting) {
+			case 'sortby_Popularity' :
+				$orderby = 'product_stock DESC';
+				break;			
+			case 'sortby_Price' : 
+				$orderby = 'product_price ASC';
+				break;
+			case 'sortby_Price_DESC' : 
+				$orderby = 'product_price DESC';
+				break;
+			case 'sortby_Alphabet_DESC' : 
+				$orderby = 'product_name DESC';
+				break;
+			default:
+				$orderby = 'product_name ASC';				
+		}
+		return $orderby;
+	}
+	
 }

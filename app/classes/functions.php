@@ -45,6 +45,10 @@
 		return isset($_GET[$name]) ? $_GET[$name] : (isset($_POST[$name]) ? $_POST[$name] : $def);
 	}
 	
+	function _gi($name, $def = null) {
+		return parseInt(_g($name, $def));
+	}
+	
 	function parseInt($val) {		
 		if (isset($val) && strlen(trim($val)) > 0) {
 			return intval($val);
