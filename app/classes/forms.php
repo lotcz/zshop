@@ -17,7 +17,7 @@ class Form {
 	
 	function __construct($id = 'entity_name', $action = '', $method = 'POST', $css = 'form-horizontal admin-form') {
 		$this->id = $id;
-		$this->action = $action;		
+		$this->action = '';//$action;		
 		$this->method = $method;
 		$this->css = $css;		
 		$this->ret = _g('r', false);

@@ -3,7 +3,9 @@
 	$language_data['language_code'] = 'en';
 	$language_data['language_name'] = 'English';
 	$language_data['en_css'] = 'active';
-	
+	$language_data['thousands_separator'] = ',';
+	$language_data['decimal_separator'] = '.';
+
 	/* PRODUCTS */
 	$language_data['sortby_Price'] = 'Price';
 	$language_data['sortby_Alphabet'] = 'Alphabet';

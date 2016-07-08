@@ -39,6 +39,10 @@ class ModelBase {
 	public function ival($key, $default = null) {
 		return parseInt($this->val($key, $default));		
 	}
+
+	public function fval($key, $default = null) {
+		return floatval($this->val($key, $default));		
+	}
 	
 	public function loadSingleFiltered($where, $bindings = null, $types = null) {
 		$statement = SqlQuery::select($this->db, $this->table_name, $where, $bindings, $types);
@@ -174,6 +178,12 @@ class ModelBase {
 		}		
 	}
 	
+	static function del($db, $id) {
+		$class = get_called_class();
+		$m = new $class($db);
+		return $m->deleteById($id);
+	}
+
 	public function getAll() {
 		if (isset(Self::$cache_all)) {
 			return Self::$cache_all;
@@ -212,4 +222,13 @@ class ModelBase {
 		}
 	}
 	
+	/* static methods for working with arrays of models */
+
+	static function find($arr, $field, $value) {
+		foreach ($arr as $model) {
+			if ($model->val($field) == $value) {
+				return $model;
+			}
+		}		
+	}	
 }

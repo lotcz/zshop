@@ -14,8 +14,16 @@ function validate_email(value) {
 	return re.test(value);
 }
 
+function validate_integer(n) {
+	return  (+n===parseInt(n));
+}
+
+function validate_min(n, param) {
+	return  (parseFloat(n) >= parseFloat(param));
+}
+
 function validate_decimal(n) {
-  return !isNaN(parseFloat(n)) && isFinite(n);
+	return !isNaN(parseFloat(n)) && isFinite(n);
 }
 
 function validate_price(value) {

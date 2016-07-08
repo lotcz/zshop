@@ -31,6 +31,11 @@ function setLang(lang) {
 	document.location = document.location;
 }
 
+function setCurrency(curr) {
+	setCookie('currency', curr, 365, '/');
+	document.location = document.location;
+}
+
 // AJAX LOADER
 
 function showAjaxLoaders() {

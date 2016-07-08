@@ -181,8 +181,12 @@
 		
 	}
 	
-	function formatPrice($price) {
-		$res = sprintf('%s&nbsp;Kč', number_format($price , 0 , "," , "&nbsp;" ));
+	function formatPrice($price, $selected_currency = null) {
+		if (isset($selected_currency)) {
+			$res = sprintf($selected_currency->val('currency_format'), number_format(($price / $selected_currency->fval('currency_value')) , $selected_currency->ival('currency_decimals') , t('decimal_separator') , t('thousands_separator') ));
+		} else {
+			$res = $price;
+		}
 		return $res;
 	}
 	

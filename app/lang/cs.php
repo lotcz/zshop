@@ -4,6 +4,8 @@
 	$language_data['language_name'] = 'Čeština';
 	$language_data['Czech'] = 'Čeština';	
 	$language_data['cs_css'] = 'active';
+	$language_data['thousands_separator'] = '&nbsp;';
+	$language_data['decimal_separator'] = ',';
 	
 	$language_data['Hello'] = 'Dobrý den';
 	$language_data['Anonymous'] = 'Anonym';
@@ -24,12 +26,12 @@
 	
 	/* PRODUCTS */
 	$language_data['Buy'] = 'Koupit';
-	$language_data['Order by'] = 'Řazení';
-	$language_data['sortby_Price'] = 'Od nejlevnějších po nejdražší';
-	$language_data['sortby_Price_DESC'] = 'Od nejdražších po nejlevěnjší';
-	$language_data['sortby_Alphabet'] = 'Abecedně od A do Z';
-	$language_data['sortby_Alphabet_DESC'] = 'Abecedně od Z do A';
-	$language_data['sortby_Popularity'] = 'Od nejoblíbenějších';
+	$language_data['Order by'] = 'Řadit podle';
+	$language_data['sortby_Price'] = 'Ceny - od nejlevnějších';
+	$language_data['sortby_Price_DESC'] = 'Ceny - od nejdražších';
+	$language_data['sortby_Alphabet'] = 'Abecedy - A až Z';
+	$language_data['sortby_Alphabet_DESC'] = 'Abecedy - Z až A';
+	$language_data['sortby_Popularity'] = 'Popularity';
 	$language_data['asc'] = 'Vzestupně';
 	$language_data['desc'] = 'Sestupně';
 	

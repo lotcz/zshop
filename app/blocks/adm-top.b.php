@@ -55,6 +55,7 @@
 						<li role="separator" class="divider"></li>
 						<li class="dropdown-header"><?=t('Advanced') ?></li>
 						<?php
+							renderMenuLink('admin/currencies', 'Currencies');							
 							renderMenuLink('admin/payment_types', 'Payment types');
 							renderMenuLink('admin/delivery_types', 'Delivery types');
 							renderMenuLink('admin/aliases', 'Aliases');

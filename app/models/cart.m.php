@@ -19,7 +19,8 @@ class Cart extends ModelBase {
 		$result = $statement->get_result();
 		if ($row = $result->fetch_assoc()) {
 			$totals = $row;
-			$totals['pf'] = formatPrice($row['p']);
+			$selected_currency = Currency::getSelectedCurrency($db);
+			$totals['pf'] = formatPrice($row['p'], $selected_currency);
 		}
 		$statement->close();
 		return $totals;		

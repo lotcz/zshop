@@ -45,20 +45,21 @@ class Product extends ModelBase {
 	
 	static function getSorting($sorting) {
 		switch ($sorting) {
-			case 'sortby_Popularity' :
-				$orderby = 'product_stock DESC';
-				break;			
+			case 'sortby_Alphabet' :
+				$orderby = 'product_name ASC';
+				break;
+			case 'sortby_Alphabet_DESC' : 
+				$orderby = 'product_name DESC';
+				break;
 			case 'sortby_Price' : 
 				$orderby = 'product_price ASC';
 				break;
 			case 'sortby_Price_DESC' : 
 				$orderby = 'product_price DESC';
 				break;
-			case 'sortby_Alphabet_DESC' : 
-				$orderby = 'product_name DESC';
-				break;
 			default:
-				$orderby = 'product_name ASC';				
+				//'sortby_Popularity'
+				$orderby = 'product_stock DESC';				
 		}
 		return $orderby;
 	}

@@ -143,6 +143,20 @@ ENGINE = InnoDB;
 
 INSERT INTO aliases (alias_url, alias_path) VALUES ('kosik','cart');
 
+CREATE TABLE IF NOT EXISTS `currencies` (
+  `currency_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `currency_name` NVARCHAR(50) NOT NULL,
+  `currency_format` NVARCHAR(20) NOT NULL,
+  `currency_value` DECIMAL(20,10) NOT NULL,
+  `currency_decimals` TINYINT NOT NULL DEFAULT 2,
+  PRIMARY KEY (`currency_id`),
+  UNIQUE INDEX `currency_name_unique` (`currency_name` ASC))
+ENGINE = InnoDB;
+
+INSERT INTO currencies (currency_name, currency_format, currency_value, currency_decimals) VALUES ('Koruny','%s&nbsp;Kč', 1, 0);
+INSERT INTO currencies (currency_name, currency_format, currency_value, currency_decimals) VALUES ('Euro','EUR%s', 27.02, 2);
+
+
 CREATE TABLE IF NOT EXISTS `categories` (
   `category_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `category_ext_id` INT UNSIGNED,
@@ -171,7 +185,9 @@ CREATE TABLE IF NOT EXISTS `products` (
   `product_alias_id` INT UNSIGNED NULL,
   `product_name` NVARCHAR(255) NOT NULL,
   `product_price` DECIMAL(10,2) UNSIGNED NOT NULL,
-  `product_stock` SMALLINT UNSIGNED NOT NULL DEFAULT 0,
+  `product_stock` INT UNSIGNED NOT NULL DEFAULT 0,
+  `product_views` INT UNSIGNED NOT NULL DEFAULT 0,
+  `product_sold` INT UNSIGNED NOT NULL DEFAULT 0,
   `product_image` VARCHAR(255) NULL,
   `product_default_variant_id` INT UNSIGNED NULL,
   `product_description` TEXT NULL,

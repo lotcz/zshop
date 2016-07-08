@@ -18,6 +18,7 @@
 			<div class="col-md-2 text-right">		
 				<?php
 					renderBlock('lang');
+					renderBlock('currency');
 					renderBlock('cart');
 				?>			
 			</div>

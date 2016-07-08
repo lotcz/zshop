@@ -7,8 +7,8 @@
 		
 		if (isset($custAuth) && $custAuth->isAuth()) {
 			$totals = Cart::loadCartTotals($db, $custAuth->customer->val('customer_id'));
-		}
-	
+		}		
+		
 	?>
 	
 	<div>

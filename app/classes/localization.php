@@ -5,7 +5,7 @@
 	
 	example:
 		$lang = new Localization('lang_files/');
-		echo $lang->translate('Yes');
+		echo $lang->translate('Hello');
 */
 class Localization {
 		
