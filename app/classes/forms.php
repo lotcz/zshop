@@ -6,6 +6,7 @@ class Form {
 	public $action;	
 	public $method;
 	public $css;
+	public $entity_title;
 	public $ret = false;
 	public $fields = [];
 	public $data = [];	
@@ -61,7 +62,7 @@ class Form {
 			
 			$field->value = $this->data->val($field->name);
 			
-			if ($field->type == 'select') {
+			if (($field->type == 'select') && (!isset($field->select_data))) {
 				$field->select_data = ModelBase::select(
 					$db, 
 					$field->select_table, /* table */
@@ -86,6 +87,44 @@ class Form {
 		?>
 			<form id="form_<?=$this->id ?>" action="<?=$this->action ?>" method="<?=$this->method ?>" class="<?=$this->css ?>">
 		<?php
+	}
+	
+	static function getValidationMessage($validation) {
+		$type = $validation['type'];
+		$param = '';
+		if (isset($validation['param'])) {
+			$param = $validation['param'];
+		}
+		switch ($type) {
+			case 'min' :
+				return t('Value must be higher than %s.', $param);
+			break;
+			case 'length' :
+				if (parseInt($param) > 1) {
+					return t('Value must be at least %s characters long.', $param);
+				} else {
+					return t('This field cannot be empty.');
+				}
+			break;
+			case 'email' :
+				return t('Please enter valid e-mail address.');
+			break;
+			case 'date' :
+				return t('Please enter valid date.');
+			break;
+			case 'ip' :
+				return t('Please enter valid IP address.');
+			break;
+			case 'integer' :
+				return t('Please enter whole number.');
+			break;
+			case 'decimal' :
+			case 'price' :
+				return t('Please enter valid decimal number.');
+			break;
+			default:				
+				return t('Required.');		
+		}
 	}
 	
 	public function render() {
@@ -122,6 +161,12 @@ class Form {
 									<?php
 									break;			
 									
+									case 'date' :
+									?>
+										<input type="datetime" name="<?=$field->name ?>" <?=$disabled ?> value="<?=$field->value ?>" class="form-control form-control-datetime" />
+									<?php
+									break;
+									
 									case 'select' :
 										renderSelect(
 											$field->name,
@@ -155,9 +200,15 @@ class Form {
 								if (isset($field->validations)) {
 									foreach ($field->validations as $validation) {
 										?>
-											<div class="form-validation" id="<?=$field->name ?>_validation_<?=$validation['type'] ?>"><?= isset($validation['message']) ? $validation['message'] : t('Required.') ?></div>
+											<div class="form-validation" id="<?=$field->name ?>_validation_<?=$validation['type'] ?>"><?= isset($validation['message']) ? $validation['message'] : Form::getValidationMessage($validation) ?></div>
 										<?php
 									}
+								}
+								
+								if (isset($field->hint)) {
+									?>
+										<small class="text-muted"><?=t($field->hint) ?></small>
+									<?php
 								}
 							?>											
 							
@@ -222,8 +273,8 @@ class AdminForm extends Form {
 		
 	function __construct($entity) {
 		parent::__construct($entity . '_id', 'admin/' . $entity . '/edit/%d');
-		$this->entity_name = $entity;
-		$this->del_url = 'admin/' . $entity . '/delete/%d';		
+		$this->entity_title = ucwords(str_replace('_', ' ', $entity));
+		$this->del_url = 'admin/' . $entity . '/delete/%d';
 		$this->is_admin_form = true;
 		$this->render_wrapper = true;
 		$this->addField(

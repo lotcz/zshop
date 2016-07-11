@@ -11,11 +11,13 @@ CREATE TABLE `site_globals` (
 INSERT INTO site_globals (`site_global_name`,`site_global_value`) VALUES ('site_title','zShop');
 
 CREATE TABLE IF NOT EXISTS `ip_failed_attempts` (
+  `ip_failed_attempt_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `ip_failed_attempt_ip` VARCHAR(15),
   `ip_failed_attempt_count` INT UNSIGNED NOT NULL DEFAULT 1,
   `ip_failed_attempt_first` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `ip_failed_attempt_last` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`ip_failed_attempt_ip`)
+  PRIMARY KEY (`ip_failed_attempt_id`),
+   UNIQUE INDEX `ip_failed_attempt_ip_unique` (`ip_failed_attempt_ip` ASC)
 ) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `users` (
@@ -153,9 +155,8 @@ CREATE TABLE IF NOT EXISTS `currencies` (
   UNIQUE INDEX `currency_name_unique` (`currency_name` ASC))
 ENGINE = InnoDB;
 
-INSERT INTO currencies (currency_name, currency_format, currency_value, currency_decimals) VALUES ('Koruny','%s&nbsp;Kč', 1, 0);
-INSERT INTO currencies (currency_name, currency_format, currency_value, currency_decimals) VALUES ('Euro','EUR%s', 27.02, 2);
-
+INSERT INTO currencies (currency_name, currency_format, currency_value, currency_decimals) VALUES ('Kč','%s&nbsp;Kč', 1, 0);
+INSERT INTO currencies (currency_name, currency_format, currency_value, currency_decimals) VALUES ('EUR','EUR%s', 27.02, 2);
 
 CREATE TABLE IF NOT EXISTS `categories` (
   `category_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,

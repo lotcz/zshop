@@ -59,7 +59,9 @@ class Table {
 	
 	}
 	
-	public function render() {		
+	public function render() {	
+		global $raw_path;
+		
 		?>
 			<form action="" method="GET" class="form form-inline">
 				<?php
@@ -77,7 +79,7 @@ class Table {
 							$label = t('New');
 						}
 						?>
-							<a class="btn btn-success form-control" href="<?=_url($this->new_link) ?>">+ <?=$label ?></a>		
+							<a class="btn btn-success form-control" href="<?=_url($this->new_link, $raw_path) ?>">+ <?=$label ?></a>		
 						<?php
 					}
 				?>								
@@ -106,7 +108,6 @@ class Table {
 					</thead>
 					<tbody>
 					<?php
-						global $raw_path;
 						
 						foreach ($this->data as $row) {
 							$item_url = _url(sprintf($this->edit_link, $row->val($this->id_field)), $raw_path);

@@ -1,11 +1,21 @@
 // plain validation for text fields
 function validate_length(value, param) {		
-	return value || (value.length > parseInt(param));
+	return value && (value.length >= parseInt(param));
 }
 
 // checks if password fields match
 function validate_match(value, param) {
 	return (value == param);
+}
+
+// checks if password fields match
+function validate_ip(value) {
+	return validate_length(value, 5);
+}
+
+// checks if password fields match
+function validate_date(value, param) {
+	return validate_length(value, 5);
 }
 
 // simple email validation
@@ -19,7 +29,7 @@ function validate_integer(n) {
 }
 
 function validate_min(n, param) {
-	return  (parseFloat(n) >= parseFloat(param));
+	return  (parseFloat(n) > parseFloat(param));
 }
 
 function validate_decimal(n) {

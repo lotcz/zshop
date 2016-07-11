@@ -66,4 +66,14 @@
 	$language_data['Editing Customer'] = 'Editace zákazníka';
 	$language_data['New Customer'] = 'Nový zákazník';
 	
+	$language_data['Currency'] = 'Měna';
+	$language_data['Currencies'] = 'Měny';
+	
+	$language_data['Delivery Type'] = 'Způsob dopravy';
+	$language_data['Delivery Types'] = 'Způsoby dopravy';
+	
+	/* FORM VALIDATIONS */
+	$language_data['Value must be at least %s characters long.'] = 'Hodnota musí být alespoň %s znaků dlouhá.';
+	
+	
 	$language_data['Total <b>%s</b> items.'] = 'Celkem <b>%s</b> položek.';

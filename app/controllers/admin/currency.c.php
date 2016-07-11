@@ -6,53 +6,39 @@
 	$form = new AdminForm('currency');
 	$page = 'admin/form';
 
-	$form->add([
-		[
-			'name' => 'currency_id',
-			'type' => 'hidden'
-		],
+	$form->add([		
 		[
 			'name' => 'currency_name',
 			'label' => 'Name',
-			'type' => 'text'
+			'type' => 'text',
+			'validations' => [
+				['type' => 'length', 'param' => 1],
+			]
 		],
 		[
 			'name' => 'currency_format',
 			'label' => 'Format',
-			'type' => 'text'
+			'type' => 'text',
+			'hint' => 'This specifies how prices will be displayed in this currency. Put token %s where you want amount to be.'
 		],
 		[
 			'name' => 'currency_value',
 			'label' => 'Value',
 			'type' => 'text',
+			'hint' => 'Put value 1 for default currency.',
 			'validations' => [
 				['type' => 'price'],
-				['type' => 'min', 'param' => 0.000001],
+				['type' => 'min', 'param' => 0],
 			]
 		],
 		[
 			'name' => 'currency_decimals',
-			'label' => 'Value',
+			'label' => 'Displayed decimals',
 			'type' => 'text',
-			'validations' => [['type' => 'integer', 'message' => 'Enter whole integer number.']]
+			'hint' => 'This specifies how many decimal places will be displayed for prices in this currency.',
+			'validations' => [['type' => 'integer']]
 		]
 		
 	]);
 	
-	if (isset($_POST['currency_id'])) {
-		$currency = new Currency($db, $_POST['currency_id']);
-		$currency->setData($form->processInput($_POST));	
-		$currency->save();
-		redirect('/admin/currencies');
-	} elseif (isset($path[2]) && $path[2] == 'edit') {
-		$currency = new Currency($db, $path[3]);
-		$page_title	= t('Editing Currency');
-	} elseif (isset($path[2]) && $path[2] == 'delete') {
-		Currency::del($path[3]);
-		redirect('/admin/currencies');
-	} else {
-		$currency = new Currency($db);
-		$page_title	= t('Add Currency');
-	}
-	
-	$form->prepare($db, $currency);
+	Currency::process($db, $form);	

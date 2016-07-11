@@ -21,7 +21,7 @@
 	$new = 0;
 	$updated = 0;
 	
-	
+	/*
 	$stmt = SqlQuery::select($cube_db, 'cubecart_category');
 	if ($stmt) {
 		$result = $stmt->get_result();			
@@ -47,6 +47,7 @@
 		}
 		$stmt->close();			
 	}	
+	*/
 	
 	$stmt = SqlQuery::select($cube_db, 'cubecart_inventory');
 	if ($stmt) {

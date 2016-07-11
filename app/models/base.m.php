@@ -170,6 +170,7 @@ class ModelBase {
 				$statement->close();
 				$this->is_loaded = false;
 				$this->data = [];
+				return true;
 			} else {
 				dbErr($this->table_name, 'execute', $sql, $this->db->error);
 			}			
@@ -202,24 +203,40 @@ class ModelBase {
 	
 	public function processForm($form) {
 		global $path, $page_title;
-		
+				
 		if (isset($_POST[$this->id_name])) {		
 			if (parseInt($_POST[$this->id_name]) > 0) {
 				$this->loadById($_POST[$this->id_name]);
 			}			
 			$this->setData($form->processInput($_POST));
-			if ($this->save()) {				
-				redirect('admin/' . $this->table_name);				
+			if ($this->save()) {
+				if ($form->ret) {
+					redirect($form->ret);
+				} else {
+					redirect('admin/' . $this->table_name);
+				}
 			}
 		} elseif (isset($path[2]) && $path[2] == 'edit') {		
 			$this->loadById($path[3]);
-			$page_title	= 'Editing ' . $form->entity_name;
+			$page_title	= t($form->entity_title) . ': ' . t('Editing');
 		} elseif (isset($path[2]) && $path[2] == 'delete') {
-			$this->deleteById($path[3]);
-			redirect('admin/' . $this->table_name);
+			if ($this->deleteById($path[3])) {
+				if ($form->ret) {
+					redirect($form->ret);
+				} else {
+					redirect('admin/' . $this->table_name);
+				}
+			}
 		} else {			
-			$page_title	= 'New ' . $form->entity_name;
+			$page_title	= t($form->entity_title) . ': ' . t('New');
 		}
+	}
+	
+	static function process($db, $form) {
+		$class = get_called_class();
+		$m = new $class($db);
+		$m->processForm($form);
+		$form->prepare($db, $m);
 	}
 	
 	/* static methods for working with arrays of models */

@@ -10,10 +10,6 @@
 
 	$form->add([
 		[
-			'name' => 'category_id',
-			'type' => 'hidden'
-		],
-		[
 			'name' => 'category_name',
 			'label' => 'Name',
 			'type' => 'text'

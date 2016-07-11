@@ -65,27 +65,4 @@
 		
 	]);
 	
-	if (isset($_POST['order_id'])) {
-		if ($_POST['order_id'] > 0) {
-			$order = new Order($db, intval($_POST['order_id']));
-		} else {
-			$order = new Order($db);
-		}
-		$order->setData($form->processInput($_POST));		
-		if ($order->save()) {
-			$messages->add('Order saved');
-			//redirect($form->ret);
-		}
-	} elseif (isset($path[2]) && $path[2] == 'edit') {		
-		$order = new Order($db, intval($path[3]));
-		$page_title	= t('Editing Order');
-	} elseif (isset($path[2]) && $path[2] == 'delete') {
-		$order = new Order($db);
-		$order->deleteById(intval($path[3]));
-		redirect($form->ret);
-	} else {
-		$order = new Order($db);
-		$page_title	= t('New Order');
-	}
-	
-	$form->prepare($db, $order);
+	Order::process($db, $form);

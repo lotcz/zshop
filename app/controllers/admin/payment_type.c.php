@@ -27,7 +27,4 @@
 		]	
 	]);
 	
-	$payment_type = new PaymentType($db);
-	$payment_type->processForm($form);
-	
-	$form->prepare($db, $payment_type);
+	PaymentType::process($db, $form);

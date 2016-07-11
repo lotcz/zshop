@@ -110,6 +110,36 @@ class Category extends ModelBase {
 		return $tree_root;		
 	}
 	
+	public function getSelectList() {
+		$list = [];
+		
+		if ($this->ival('category_id') > 0) {
+			$cat = new Category();
+			$cat->data['category_id'] = $this->ival('category_id');
+			$cat->data['category_name'] = '';
+			if ($this->level > 1) {
+				$cat->data['category_name'] = str_repeat('&nbsp;', $this->level);
+				$cat->data['category_name'] .= str_repeat('-', $this->level);
+				$cat->data['category_name'] .= '&nbsp;';
+			}
+			$cat->data['category_name'] .= $this->val('category_name');
+			$list[] = $cat;
+		}
+		
+		if (isset($this->children)) {
+			foreach ($this->children as $cat) {
+				$list = array_merge($list, $cat->getSelectList());
+			}
+		}
+		
+		return $list;
+	}
+	
+	static function getTreeForSelect($db) {
+		$tree = Category::getCategoryTree($db);
+		return $tree->getSelectList();
+	}
+	
 	public function loadChildren() {
 		$sql = 'SELECT * FROM viewCategories WHERE category_parent_id = ? ORDER BY category_name';
 		if ($statement = $this->db->prepare($sql)) {

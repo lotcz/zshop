@@ -1,6 +1,7 @@
 <?php
 
 require_once $home_dir . 'models/product.m.php';
+require_once $home_dir . 'models/currency.m.php';
 
 class Cart extends ModelBase {
 	

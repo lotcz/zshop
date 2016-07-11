@@ -6,19 +6,16 @@
 					<?php
 						renderImage('logo.jpg', 'Logo', 'img-circle img-responsive logo' );			
 					?>
-					
-					
 				</a>
 			</div>
 			
-			<div class="col-md-8 text-center">
+			<div class="col-md-6 text-center">
 				<div class="main-title"><?=$globals['site_title'] ?></div>
 			</div>	
 			
-			<div class="col-md-2 text-right">		
+			<div class="col-md-4 text-right">		
 				<?php
 					renderBlock('lang');
-					renderBlock('currency');
 					renderBlock('cart');
 				?>			
 			</div>

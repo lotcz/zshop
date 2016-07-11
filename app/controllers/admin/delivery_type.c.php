@@ -27,7 +27,4 @@
 		]	
 	]);
 	
-	$delivery_type = new DeliveryType($db);
-	$delivery_type->processForm($form);
-		
-	$form->prepare($db, $delivery_type);
+	DeliveryType::process($db, $form);
