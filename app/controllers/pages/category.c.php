@@ -13,7 +13,7 @@
 	
 	$data['category'] = $category;
 	$page_title = $category->val('category_name');		
-	$paging = new Paging(0,12);
+	$paging = Paging::getFromUrl();
 	$sorting = _g('o', 'sortby_Alphabet');
 	$orderby = Product::getSorting($sorting);
 

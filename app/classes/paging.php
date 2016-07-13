@@ -2,7 +2,7 @@
 
 class Paging {
 	
-	static $default_size = 10;
+	static $default_size = 12;
 	static $max_pages_links = 10;
 	static $default_url_name = 'p';
 	
@@ -44,7 +44,7 @@ class Paging {
 		if ($pages_count > 1) {
 			
 			if ($this->offset == 0) {
-				$class = 'disabled';
+				$class = 'active';
 				$href = $base_url . '?' . $this->url_name . '=0,' . $this->limit;
 			} else {
 				$class = '';
@@ -74,7 +74,7 @@ class Paging {
 					$link['href'] .= '&s=' . $this->filter;
 				}
 				if ($this->offset == $offset) {
-					$link['class'] = 'disabled';
+					$link['class'] = 'active';
 				}
 				$link['title'] = $i;
 				$links[] = $link;
@@ -82,7 +82,7 @@ class Paging {
 			
 			$offset = $this->offset + $this->limit;
 			if ($offset > $this->total_records) {
-				$class = 'disabled';
+				$class = 'active';
 				$href = $base_url . '?' . $this->url_name . '=' . $this->offset . ',' . $this->limit;
 			} else {
 				$class = '';
@@ -112,17 +112,19 @@ class Paging {
 	
 		if (count($links) > 0) {
 			?>
-				<div class="text-center">
-					<div class="panel panel-primary">
+				<nav>
+					<ul class="pagination">
+						
 						<?php
 							foreach ($links as $link) {						
 								?>
-									<a class="btn btn-sm btn-default <?=$link['class'] ?>" href="<?=$link['href']?>"><?=$link['title']?></a>
+									<li class="<?=$link['class'] ?>"><a href="<?=$link['href']?>"><?=$link['title']?><span class="sr-only">(current)</span></a></li>						
 								<?php						
 							}
 						?>
-					</div>
-				</div>
+						
+					</ul>
+				</nav>				
 			<?php
 		}
 	}

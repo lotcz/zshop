@@ -1,10 +1,12 @@
 <?php
 	global $data;
 	$category = $data['category'];
+	$paging = $data['paging'];
 	
 	echo $category->val('category_description');
 	
 	renderPartial('prod-sort', null);
+	$paging->renderLinks();
 	
 ?>
 
@@ -15,8 +17,8 @@
 		}
 		
 		// render Load more... button
-		$paging = $data['paging'];
-		renderPartial('lmbutton', $paging);
+		
+		//renderPartial('lmbutton', $paging);
 	?>	
 	
 </div>

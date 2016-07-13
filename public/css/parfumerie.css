@@ -133,7 +133,8 @@ h1 {
 	border-radius:0px;	
 }
 
-#side-menu .level-1 {
+#side-menu .level-1,
+#side-menu .badge {
 	background-color:White;
 	color: #337ab7;
 }
