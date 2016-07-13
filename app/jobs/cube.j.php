@@ -58,23 +58,22 @@
 			
 			// import new product
 			if (!$product->is_loaded) {
-				$product->data['product_ext_id'] = $row['productId'];				
+				$product->data['product_ext_id'] = $row['productId'];
+				$product->data['product_name'] = myTrim(convertEncoding($row['name']));			
+				$product->data['product_price'] = parseFloat($row['price']);
+			
+				$category = loadCategory($row['cat_id']);
+				if (isset($category)) {
+					$product->data['product_category_id'] = $category->ival('category_id');
+				}				
 				$new++;
 			} else {
 				$updated++;
 			}
-			
-			// update existing product
-			$product->data['product_name'] = myTrim(convertEncoding($row['name']));
+						
 			$product->data['product_description'] = convertEncoding($row['description']);
 			$product->data['product_image'] = $row['image'];
-			$product->data['product_price'] = parseFloat($row['price']);
 			
-			$category = loadCategory($row['cat_id']);
-				if (isset($category)) {
-					$product->data['product_category_id'] = $category->ival('category_id');
-				}
-				
 			$product->save();
 		}
 		$stmt->close();			

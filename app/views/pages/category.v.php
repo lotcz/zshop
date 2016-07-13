@@ -13,31 +13,18 @@
 		foreach ( $data['products'] as $product) {
 			renderPartial('prod-prev', $product);
 		}
-	?>
+		
+		// render Load more... button
+		$paging = $data['paging'];
+		renderPartial('lmbutton', $paging);
+	?>	
+	
 </div>
 	
-<?php
-	// render Load more... button
-	$paging = $data['paging'];
-	$remaining = $paging->total_records - ($paging->offset + $paging->limit);
-	if ($remaining > 0) {
-		?>
-			<div id="load-more" class="text-center">
-				<button id="load-more-button" class="btn btn-primary" title="<?=t('Load more...') ?>" onclick="javascript:loadMore(<?=($paging->offset + $paging->limit) ?>, <?=$paging->limit ?>);" >
-					<?=t('Load more...') ?>
-					<span class="badge"><?=$remaining ?></span>
-				</button>
-				<span id="load-more-waiting" class="ajax-loader"></span>
-			</div>
-		<?php
-	}
-
-?>
-
 <script>
 
 	function loadMore(offset, limit) {
-		$('#load-more-button').hide();
+		$('#load-more-button').remove();
 		$('#load-more-waiting').show();
 		$.get(
 			'<?=_url('partials/loadmore') ?>', 
@@ -53,9 +40,8 @@
 	}
 
 	function moreLoaded(data) {
-		$('#products-container').append(data);
-		$('#load-more-button').show();
-		$('#load-more-waiting').hide();
+		$('#load-more').remove();
+		$('#products-container').html(data);
 	}
 
 

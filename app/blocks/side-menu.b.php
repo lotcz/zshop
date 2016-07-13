@@ -24,7 +24,11 @@
 									?>
 									<a href="<?=$category->getLinkUrl(); ?>">
 										<?=$category->val('category_name')?>
-									</a>								
+									</a>
+
+									<span class="badge">
+										<?=$category->total_products?>
+									</span>
 								</li>							
 								
 							<?php

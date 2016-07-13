@@ -17,8 +17,9 @@ h1 {
 	text-align:center;
 }
 
-.alert {
+.messages .alert {
 	padding:6px 12px;
+	margin-bottom:0;
 }
 
 ol, ul {

@@ -52,11 +52,15 @@ class Messages {
 	
 	public function render() {
 		if (count($this->messages) > 0) {
-			echo '<div class="messages">';
-			foreach ($this->messages as $m) {				
-				echo $m->render();
-			}
-			echo '</div>';
+			?>
+				<div class="spaced well messages">
+					<?php
+						foreach ($this->messages as $m) {				
+							echo $m->render();
+						}
+					?>
+				</div>
+			<?php
 		}
 	}
 

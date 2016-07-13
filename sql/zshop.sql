@@ -165,6 +165,8 @@ CREATE TABLE IF NOT EXISTS `categories` (
   `category_alias_id` INT UNSIGNED,
   `category_name` NVARCHAR(200) NOT NULL,
   `category_description` TEXT NULL,
+  `category_total_products` INT UNSIGNED NOT NULL DEFAULT 0,
+  `category_visible` BIT NOT NULL DEFAULT 1,
   PRIMARY KEY (`category_id`),
   UNIQUE INDEX `categories_ext_id_unique` (`category_ext_id` ASC),
   INDEX `categories_parent_id_index` (`category_parent_id` ASC),
@@ -203,6 +205,49 @@ CREATE TABLE IF NOT EXISTS `products` (
   UNIQUE INDEX `products_ext_id_unique` (`product_ext_id` ASC)
 ) ENGINE = InnoDB;
 
+ DROP PROCEDURE IF EXISTS spUpdateCategoryProductCount;
+ 
+ DELIMITER //
+ CREATE PROCEDURE spUpdateCategoryProductCount(IN cat_id INT UNSIGNED)
+	BEGIN
+		DECLARE total INT DEFAULT 0;
+		SELECT COUNT(*) INTO total
+		FROM products WHERE product_category_id = cat_id;
+		UPDATE categories SET category_total_products = total WHERE category_id = cat_id;
+   END //
+ DELIMITER ;
+ 
+ DROP TRIGGER IF EXISTS update_product_count_trigger;
+ 
+ DELIMITER //
+ CREATE TRIGGER update_product_count_trigger AFTER UPDATE ON products
+	FOR EACH ROW
+		BEGIN
+			CALL spUpdateCategoryProductCount(OLD.product_category_id);            
+            CALL spUpdateCategoryProductCount(NEW.product_category_id);            
+		END //
+ DELIMITER ;
+ 
+  DROP TRIGGER IF EXISTS update_product_count_trigger_ins;
+  
+  DELIMITER //
+ CREATE TRIGGER update_product_count_trigger_ins AFTER INSERT ON products
+	FOR EACH ROW
+		BEGIN
+            CALL spUpdateCategoryProductCount(NEW.product_category_id);            
+		END //
+ DELIMITER ;
+ 
+  DROP TRIGGER IF EXISTS update_product_count_trigger_del;
+  
+ DELIMITER //
+ CREATE TRIGGER update_product_count_trigger_del AFTER DELETE ON products
+	FOR EACH ROW
+		BEGIN
+            CALL spUpdateCategoryProductCount(OLD.product_category_id);            
+		END //
+ DELIMITER ;
+ 
 CREATE TABLE IF NOT EXISTS `product_variants` (
   `product_variant_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `product_variant_deleted` BOOL NOT NULL DEFAULT 0,

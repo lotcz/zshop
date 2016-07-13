@@ -12,7 +12,8 @@ class Category extends ModelBase {
 	public $is_selected = false;
 	public $is_on_selected_path = false;
 	public $level = 0;
-		
+	public $total_products = 0;
+	
 	public function loadByExtId($id) {
 		$filter = 'category_ext_id = ?';
 		$this->loadSingleFiltered($filter, [$id]);
@@ -46,6 +47,22 @@ class Category extends ModelBase {
 		$this->children[] = $c;
 		$c->treeParent = $this;
 		$c->level = $this->level + 1;
+		
+		// update product total
+		if ($c->total_products == 0) {
+			$c->total_products = $c->ival('category_total_products');
+		}
+		$this->updateTotalProducts($c->total_products);
+	}
+	
+	public function updateTotalProducts($add) {
+		if ($this->total_products == 0) {
+			$this->total_products = $this->ival('category_total_products');
+		}
+		$this->total_products += $add;
+		if (isset($this->treeParent)) {			
+			$this->treeParent->updateTotalProducts($add);
+		}
 	}
 
 	public function setSelectedPath() {

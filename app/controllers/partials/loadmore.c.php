@@ -26,3 +26,4 @@
 	);
 	
 	$data['products'] = $products;
+	$data['paging'] = $paging;
