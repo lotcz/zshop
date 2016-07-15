@@ -14,10 +14,10 @@ class Product extends ModelBase {
 		$this->variants = ModelBase::select($this->db, 'product_variants', 'product_variant_product_id = ?', [ $this->val('product_id') ]);
 	}
 	
-	public function renderImage($size = 'thumb') {
+	public function renderImage($size = null, $css = '') {
 		if ($this->val('product_image')) {	
 			global $images;
-			$images->renderImage($this->val('product_image'), $size);
+			$images->renderImage($this->val('product_image'), $size, $this->val('product_name'), $css);
 		} else {
 			renderImage('no-image.png',t('Image missing'),'');
 		}
@@ -43,25 +43,14 @@ class Product extends ModelBase {
 		return 'product/' . $this->val('product_id');
 	}
 	
-	static function getSorting($sorting) {
-		switch ($sorting) {
-			case 'sortby_Alphabet' :
-				$orderby = 'product_name ASC';
-				break;
-			case 'sortby_Alphabet_DESC' : 
-				$orderby = 'product_name DESC';
-				break;
-			case 'sortby_Price' : 
-				$orderby = 'product_price ASC';
-				break;
-			case 'sortby_Price_DESC' : 
-				$orderby = 'product_price DESC';
-				break;
-			default:
-				//'sortby_Popularity'
-				$orderby = 'product_stock DESC';				
-		}
-		return $orderby;
+	static function getSortingItems() {
+		return [
+					'sortby_Popularity' => 'product_stock DESC',
+					'sortby_Alphabet' => 'product_name ASC',
+					'sortby_Alphabet_DESC' => 'product_name DESC',
+					'sortby_Price' => 'product_price ASC',
+					'sortby_Price_DESC' => 'product_price DESC'					
+		];
 	}
 	
 }

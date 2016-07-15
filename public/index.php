@@ -86,22 +86,24 @@
 			default :
 				$theme = 'parfumerie';
 				$custAuth = new CustomerAuthentication($db);
-				$pg = $path[0];
+				$pg = $path[0];				
 				if (strlen($pg) > 0) {
-					require_once $home_dir . 'models/alias.m.php';
-					$alias = new Alias($db);
-					$alias->loadByUrl($raw_path);
-					if ($alias->is_loaded) {
-							$path = explode('/', $alias->val('alias_path'));
-						$pg = $path[0];
-						$raw_path = $alias->val('alias_path');						
-					} 
-					
 					if (file_exists($home_dir . 'views/pages/' . $pg . '.v.php')) {
 						$page = 'pages/' . $pg;
 					} else {
-						$page = 'pages/notfound';
-					}								
+						require_once $home_dir . 'models/alias.m.php';
+						$alias = new Alias($db);
+						$alias->loadByUrl($raw_path);
+						if ($alias->is_loaded) {
+							$path = explode('/', $alias->val('alias_path'));
+							$page = 'pages/' . $path[0];
+							$raw_path = $alias->val('alias_path');
+							
+						} else {
+							$page = 'pages/notfound';
+						}
+					}
+													
 				} else {
 					$page = 'pages/front';
 				}

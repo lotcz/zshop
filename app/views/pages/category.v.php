@@ -5,7 +5,7 @@
 	
 	echo $category->val('category_description');
 	
-	renderPartial('prod-sort', null);
+	$paging->renderSorting();
 	$paging->renderLinks();
 	
 ?>

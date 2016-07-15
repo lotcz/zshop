@@ -125,7 +125,7 @@
 		include $home_dir . 'blocks/' . $block . '.b.php';
 	}
 		
-	function renderPartial($name, $paramdata) {
+	function renderPartial($name, $paramdata = null) {
 		global $home_dir;
 		global $data;
 		$data['partials.' . $name] = $paramdata;
@@ -142,8 +142,8 @@
 		return $url;
 	}
 	
-	function renderLink($href, $title, $css = '') {
-		echo sprintf('<a href="%s" class="%s">%s</a>', _url($href), $css, t($title));
+	function renderLink($href, $title, $css = '', $ret = null) {
+		echo sprintf('<a href="%s" class="%s">%s</a>', _url($href, $ret), $css, t($title));
 	}
 	
 	function renderMenuLink($href, $title) {

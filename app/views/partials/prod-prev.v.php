@@ -1,5 +1,5 @@
 <?php
-	global $data, $custAuth;
+	global $data, $auth, $custAuth, $raw_path;
 	$product = $data['partials.prod-prev'];
 		
 ?>
@@ -8,13 +8,19 @@
 	<div class="panel panel-default">
 		<div class="panel-body">
 			
+			<?php
+				if ($auth->isAuth()) {
+					renderLink('admin/product/edit/'. $product->val('product_id'), 'Edit', 'badge', $raw_path);
+				}
+			?>
+			
 			<div class="product-image">
-				<a href="/<?=$product->val('alias_url') ?>"><?php $product->renderImage(); ?></a>
+				<a href="<?=_url($product->val('alias_url')) ?>"><?php $product->renderImage('thumb'); ?></a>
 			</div>				
 						
 			<div class="panel-title">				
 				<?php
-					renderLink('admin/product/edit/'. $product->val('product_id'), $product->val('product_name'), '');
+					renderLink($product->val('alias_url'), $product->val('product_name'), '');
 				?>
 			</div>
 			

@@ -13,10 +13,8 @@
 	
 	$data['category'] = $category;
 	$page_title = $category->val('category_name');		
-	$paging = Paging::getFromUrl();
-	$sorting = _g('o', 'sortby_Alphabet');
-	$orderby = Product::getSorting($sorting);
-
+	$paging = Paging::getFromUrl(Product::getSortingItems());
+	
 	$ids = $category->getSubTreeIDs();
 	$values = [];
 	$types = '';
@@ -32,10 +30,9 @@
 		$ids,
 		$types,
 		$paging,
-		$orderby
+		$paging->getOrderBy()
 	);
 	
 	$data['products'] = $products;
 	$data['paging'] = $paging;
-	$data['sorting'] = $sorting;
 	$data['ids'] = $ids;

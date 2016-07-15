@@ -88,6 +88,34 @@ class Images {
 				}
 
 				$tmp = imagecreatetruecolor($newWidth, $newHeight);
+				
+				switch ($new_image_ext)
+					{
+						case "png":
+							// integer representation of the color black (rgb: 0,0,0)
+							$background = imagecolorallocate($tmp, 0, 0, 0);
+							// removing the black from the placeholder
+							imagecolortransparent($tmp, $background);
+
+							// turning off alpha blending (to ensure alpha channel information 
+							// is preserved, rather than removed (blending with the rest of the 
+							// image in the form of black))
+							imagealphablending($tmp, false);
+
+							// turning on alpha channel information saving (to ensure the full range 
+							// of transparency is preserved)
+							imagesavealpha($tmp, true);
+
+							break;
+						case "gif":
+							// integer representation of the color black (rgb: 0,0,0)
+							$background = imagecolorallocate($tmp, 0, 0, 0);
+							// removing the black from the placeholder
+							imagecolortransparent($tmp, $background);
+
+							break;
+					}
+					
 				imagecopyresampled($tmp, $img, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
 
 				if (file_exists($resized_path)) {
