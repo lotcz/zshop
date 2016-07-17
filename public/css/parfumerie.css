@@ -194,6 +194,13 @@ h1 {
     padding-left: 7px;
 }
 
+.products .product .badge {	
+	background-color:#337ab7;
+	float:right;
+	margin-top:-15px;
+	margin-right:-15px;
+}
+
 .product-image {	
 	text-align:center;
 	height:150px;
@@ -326,7 +333,7 @@ h1 {
 	width:290px;
 }
 
-mark{
+mark {
     background: orange;
     color: black;
 }

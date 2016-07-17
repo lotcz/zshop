@@ -3,9 +3,10 @@
 class Paging {
 	
 	static $default_size = 12;
-	static $max_pages_links = 10;
+	static $max_pages_links = 9;
 	static $default_url_name = 'p';
 	static $sorting_url_name = 's';
+	static $filter_url_name = 'f';
 	
 	public $url_name = null;	
 	public $offset = 0;
@@ -15,7 +16,7 @@ class Paging {
 	public $orderby = null;
 	
 	public $sorting_items = [];
-	public $active_sorting = 0;
+	public $active_sorting = null;
 	
 	function __construct($offset = 0, $limit = null) {
 		if (isset($limit)) {
@@ -51,53 +52,82 @@ class Paging {
 		return $paging;
 	}
 
-	static function getLinkUrl($offset = 0, $limit = null, $sorting = null) {
-		$url = '?';
-		if (!isset($limit)) {
-			$limit = Paging::$default_size;
+	public function getLinkUrl($offset = 0) {
+		$url = '?';		
+		$url .= sprintf('%s=%d,%d', Paging::$default_url_name, $offset, $this->limit);
+		if (isset($this->active_sorting) && strlen($this->active_sorting)>0) {
+			$url .= sprintf('&%s=%s',Paging::$sorting_url_name, $this->active_sorting);
 		}
-		$url .= sprintf('%s=%d,%d',Paging::$default_url_name, $offset, $limit);
-		if (isset($sorting)) {
-			$url .= sprintf('&%s=%s',Paging::$sorting_url_name, $sorting);
+		if (isset($this->filter) && strlen($this->filter)>0) {
+			$url .= sprintf('&%s=%s',Paging::$filter_url_name, $this->filter);
 		}
 		return $url;
 	}
 	
 	public function getLinks($base_url) {
+		global $messages;
 		$links = [];
-		$pages_count = ceil($this->total_records / $this->limit);
-		if ($pages_count > 1) {
+		$this->total_pages = ceil($this->total_records / $this->limit);
+		$this->current_page = ceil($this->offset / $this->limit) + 1;
+		
+		if ($this->total_pages > 1) {
 			
+			// this is to not render all pages links
+			// if there is too many of them at the beginning or ending			
+			$render_start = 1;
+			$render_end = $this->total_pages;
+			if ($this->total_pages > Self::$max_pages_links) {				
+				$allowed_links = (Self::$max_pages_links-1)/2;
+				if (($this->current_page - $allowed_links) <= 1) { // only in ending					
+					$render_end = Self::$max_pages_links - 1;
+					$messages->add('only in ending');
+				} elseif ($this->current_page > ($this->total_pages - $allowed_links)) { // only in beginning	
+					$render_start = $this->total_pages - Self::$max_pages_links + 2;
+					$messages->add('only in beginning');
+				} else { // both
+					$render_start = $this->current_page - $allowed_links + 1;
+					$render_end = $this->current_page + $allowed_links - 1;	
+				}
+			}		
+			
+			// render Fast Prev button			
+			if ($render_start > 1) {
+				$offset = max($render_start-2, 0) * $this->limit;
+				$href = $this->getLinkUrl($offset);
+				$links[] = [
+					'href' => $href,
+					'title' => '<span class="glyphicon glyphicon-backward"></span>'
+				];
+			}
+			
+			// render Previous button
 			if ($this->offset == 0) {
 				$class = 'active';
-				$href = Paging::getLinkUrl(0, $this->limit, $this->active_sorting);
+				$href = $this->getLinkUrl(0);
 			} else {
 				$class = '';
 				$offset = $this->offset - $this->limit;
 				if ($offset < 0) {
 					$offset = 0;
 				}
-				$href = Paging::getLinkUrl($offset, $this->limit, $this->active_sorting);
+				$href = $this->getLinkUrl($offset);
 			}	
 		
 			$links[] = [
 				'class' => $class,
 				'href' => $href,
-				'title' => '&#10094;'
+				'title' => '<span class="glyphicon glyphicon-triangle-left"></span>'
 			];			
 			
-			$skip = 1; // print all links
-			if ($pages_count > Self::$max_pages_links) {
-				//$skip = floor($pages_count / Self::$max_pages_links);
-			}
-			for ($i = 1, $max = $pages_count; $i <= $max; $i += $skip) {
+			
+			
+			//render page buttons
+			for ($i = $render_start; $i <= $render_end; $i++ ) {
 				$link = [];
 				$link['class'] = '';
 				$offset = ($i - 1) * $this->limit;				
-				$link['href'] = Paging::getLinkUrl($offset, $this->limit, $this->active_sorting);
-				if (isset($this->filter)) {
-					$link['href'] .= '&s=' . $this->filter;
-				}
+				$link['href'] = $this->getLinkUrl($offset);
+				
 				if ($this->offset == $offset) {
 					$link['class'] = 'active';
 				}
@@ -105,20 +135,31 @@ class Paging {
 				$links[] = $link;
 			}
 			
+			//render Next button
 			$offset = $this->offset + $this->limit;
-			if ($offset > $this->total_records) {
+			if ($offset >= $this->total_records) {
 				$class = 'active';
-				$href = Paging::getLinkUrl($this->offset, $this->limit, $this->active_sorting);
+				$href = $this->getLinkUrl($this->offset);
 			} else {
 				$class = '';
-				$href = Paging::getLinkUrl($offset, $this->limit, $this->active_sorting);
+				$href = $this->getLinkUrl($offset);
 			}	
 		
 			$links[] = [
 				'class' => $class,
 				'href' => $href,
-				'title' => '&#10095'
+				'title' => '<span class="glyphicon glyphicon-triangle-right"></span>'
 			];				
+			
+			// render Fast Next button			
+			if ($render_end < $this->total_pages) {
+				$offset = min($render_end, $this->total_pages) * $this->limit;
+				$href = $this->getLinkUrl($offset);
+				$links[] = [
+					'href' => $href,
+					'title' => '<span class="glyphicon glyphicon-forward"></span>'
+				];
+			}
 		}
 		return $links;
 	}
@@ -149,14 +190,18 @@ class Paging {
 						<?php
 							foreach ($links as $link) {						
 								?>
-									<li class="<?=$link['class'] ?>"><a href="<?=$link['href']?>"><?=$link['title']?><span class="sr-only">(current)</span></a></li>						
+									<li class="<?=$link['class'] ?>"><a href="<?=$link['href']?>"><?=$link['title']?></a></li>						
 								<?php						
 							}
 						?>
 						
 					</ul>
-				</nav>				
+				</nav>
+				
+				<?=sprintf('%d / %d',$this->current_page, $this->total_pages);?>
 			<?php
+			
+			
 		}
 	}
 	

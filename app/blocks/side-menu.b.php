@@ -17,7 +17,7 @@
 													id="zmenu-toggle-<?=$category->val('category_id')?>" 
 													data-toggle="collapse" 
 													data-target="#zmenu-collapse-<?=$category->val('category_id')?>" 
-													class="glyphicon <?=($category->is_on_selected_path) ? 'glyphicon-menu-down' : 'glyphicon-menu-right' ?> zmenu-toggle">
+													class="glyphicon glyphicon-triangle-<?=($category->is_on_selected_path) ? 'bottom' : 'right' ?> zmenu-toggle">
 												</span>
 											<?php
 										}
@@ -61,13 +61,13 @@
 				var id = String.substr(caller.id, 15);
 				var state = $(caller).hasClass('in');
 				var toggle = $('#zmenu-toggle-' + id);
-				toggle.removeClass('glyphicon-menu-right');
-				toggle.removeClass('glyphicon-menu-down');
+				toggle.removeClass('glyphicon-triangle-right');
+				toggle.removeClass('glyphicon-triangle-bottom');
 				
 				if (state) {
-					toggle.addClass('glyphicon-menu-down');
+					toggle.addClass('glyphicon-triangle-bottom');
 				} else {
-					toggle.addClass('glyphicon-menu-right');
+					toggle.addClass('glyphicon-triangle-right');
 				}
 			}
 			
