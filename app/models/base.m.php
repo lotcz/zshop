@@ -9,7 +9,7 @@ class ModelBase {
 	public $table_name = 'table';
 	public $id_name = 'table_id';
 
-	static $cache_all = null;
+	static $cache = [];
 	public $is_loaded = false;
 	public $data = [];
 	
@@ -185,20 +185,20 @@ class ModelBase {
 		return $m->deleteById($id);
 	}
 
-	public function getAll() {
-		if (isset(Self::$cache_all)) {
-			return Self::$cache_all;
+	public function getAll($class) {
+		if (isset(Self::$cache[$class])) {
+			return Self::$cache[$class];
 		} else {
 			$all = Self::select($this->db, $this->table_name);
-			Self::$cache_all = $all;
+			Self::$cache[$class] = $all;
 		}
-		return Self::$cache_all;
+		return Self::$cache[$class];
 	}
 	
 	static function all($db) {
 		$class = get_called_class();
 		$m = new $class($db);
-		return $m->getAll();
+		return $m->getAll($class);
 	}
 	
 	public function processForm($form) {

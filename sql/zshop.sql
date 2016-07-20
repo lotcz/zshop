@@ -303,6 +303,7 @@ CREATE TABLE IF NOT EXISTS `delivery_types` (
  `delivery_type_id` TINYINT UNSIGNED NOT NULL AUTO_INCREMENT,
  `delivery_type_name` VARCHAR(50) NOT NULL,
  `delivery_type_price` DECIMAL(10,2) NOT NULL DEFAULT 0,
+ `delivery_type_is_default` BOOL NOT NULL DEFAULT 0,
  `delivery_type_min_order_cost` DECIMAL(10,2) NOT NULL DEFAULT 0,
   PRIMARY KEY (`delivery_type_id`)
 ) ENGINE = InnoDB;
@@ -313,6 +314,7 @@ CREATE TABLE IF NOT EXISTS `payment_types` (
  `payment_type_id` TINYINT UNSIGNED NOT NULL AUTO_INCREMENT,
  `payment_type_name` VARCHAR(50) NOT NULL,
  `payment_type_price` DECIMAL(10,2) NOT NULL DEFAULT 0,
+  `payment_type_is_default` BOOL NOT NULL DEFAULT 0,
  `payment_type_min_order_cost` DECIMAL(10,2) NOT NULL DEFAULT 0,
   PRIMARY KEY (`payment_type_id`)
 ) ENGINE = InnoDB;

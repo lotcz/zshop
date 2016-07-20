@@ -5,5 +5,7 @@ class PaymentType extends ModelBase {
 	public $table_name = 'payment_types';
 	public $id_name = 'payment_type_id';
 		
-	
+	static function getDefault($payment_types) {
+		return Self::find($payment_types, 'payment_type_is_default', 1);
+	}
 }

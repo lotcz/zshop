@@ -150,29 +150,30 @@
 							
 								<div class="col-md-8 address">									
 									<?php
-										renderBlock('register');
+										
+										renderBlock('payment-form');
+										renderBlock('delivery-form');
+										renderBlock('address-form');
+										
 									?>
 								</div>
 								
 								<div class="col-md-4">
-									<div class="panel panel-default">
+									<div class="panel panel-default">										
 										<div class="panel-heading">
 											<h3 class="panel-title"><?=t('Place an order') ?></h3>
 										</div>
-										<div class="panel-body">
-											<form class="form-horizontal">												
-												<div class="form-group">
-													<label for="email" class="col-sm-5 control-label"><?=t('Total Cost') ?>:</label>
-													<div class="col-sm-6 price">														
-														<span class="ajax-loader"></span>
-														<span class="form-control-static cart-total-price"><?=$totals['pf'] ?></span>														
-													</div>
-												</div>
-												<div class="form-group text-center">
-													<a class="btn btn-success"><?=t('Order') ?></a>
-												</div>
-											</form>						
-										</div>
+										<div class="panel-body text-center">											
+											<div  class="col-sm-12 control-label"><?=t('Total Cost') ?>:</div>
+											<div class="col-sm-12 price">
+												
+												<span class="form-control-static cart-total-price"><?=$totals['pf'] ?></span>														
+											</div>												
+											<div class="form-group text-center">
+												<a class="btn btn-success"><?=t('Order') ?></a>
+												<span class="ajax-loader" style="float:right;margin-left:-31px"></span>
+											</div>															
+										</div>										
 									</div>
 								</div>
 							
