@@ -150,8 +150,8 @@ class Form {
 			} else {
 				?>
 					<div class="form-group">
-						<label for="<?=$field->name ?>" class="col-sm-2 control-label"><?=t($field->label) ?>:</label>
-						<div class="col-sm-6">
+						<label for="<?=$field->name ?>" class="col-sm-4 control-label"><?=t($field->label) ?>:</label>
+						<div class="col-sm-8">
 							<?php
 														
 								switch ($field->type) {

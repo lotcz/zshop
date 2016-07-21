@@ -182,6 +182,11 @@
 	}
 	
 	function formatPrice($price, $selected_currency = null) {
+		global $db, $home_dir;
+		require_once $home_dir . 'models/currency.m.php';
+		if (!isset($selected_currency)) {			
+			$selected_currency = Currency::getSelectedCurrency($db);
+		}
 		if (isset($selected_currency)) {
 			$res = sprintf($selected_currency->val('currency_format'), number_format(($price / $selected_currency->fval('currency_value')) , $selected_currency->ival('currency_decimals') , t('decimal_separator') , t('thousands_separator') ));
 		} else {

@@ -194,11 +194,10 @@ class Paging {
 								<?php						
 							}
 						?>
-						
+						<li><a class="pagination-pages"><?=sprintf('%d / %d',$this->current_page, $this->total_pages);?></a></li>
 					</ul>
-				</nav>
+				</nav>				
 				
-				<?=sprintf('%d / %d',$this->current_page, $this->total_pages);?>
 			<?php
 			
 			

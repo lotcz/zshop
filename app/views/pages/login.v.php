@@ -1,5 +1,5 @@
 <div class="inner cover">
-	<form method="post" action="/login" class="form-horizontal" >
+	<form method="post" action="<?=_url('login', _g('r'))?>" class="form-horizontal" >
 		<div class="form-group">
 			<label for="email" class="col-sm-4 control-label"><?=t('E-mail') ?>:</label>
 			<div class="col-sm-4">
@@ -17,7 +17,7 @@
 		<div class="form-buttons">
 			<a class="form-button" href="/"><?=t('Go to E-shop') ?></a>
 			<input type="submit" onclick="javascript:validate();return false;" class="btn btn-success form-button" value="<?=t('Sign In') ?>">			
-			<a class="form-button" href="/forgotten-password<?=(isset($_POST['email']) && strlen($_POST['email']) > 0) ? '?email=' . $_POST['email'] : '' ?>"><?= t('Forgotten Password') ?></a>		
+			<a class="form-button" href="<?=_url('forgotten-password', _g('r'))?><?=(isset($_POST['email']) && strlen($_POST['email']) > 0) ? '&email=' . $_POST['email'] : '' ?>"><?= t('Forgotten Password') ?></a>		
 		</div>
 	</form>	
 </div>

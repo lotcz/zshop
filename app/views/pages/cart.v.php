@@ -1,10 +1,6 @@
 <div class="cart">
 
 <?php
-	renderBlock('customer');								
-?>
-
-<?php
 	if (isset($custAuth) && $custAuth->isAuth()) {
 		if ($totals['p'] > 0) {
 			?>					
@@ -148,17 +144,7 @@
 						} else {
 							?>
 							
-								<div class="col-md-8 address">									
-									<?php
-										
-										renderBlock('payment-form');
-										renderBlock('delivery-form');
-										renderBlock('address-form');
-										
-									?>
-								</div>
-								
-								<div class="col-md-4">
+								<div class="col-md-12">
 									<div class="panel panel-default">										
 										<div class="panel-heading">
 											<h3 class="panel-title"><?=t('Place an order') ?></h3>
@@ -170,7 +156,7 @@
 												<span class="form-control-static cart-total-price"><?=$totals['pf'] ?></span>														
 											</div>												
 											<div class="form-group text-center">
-												<a class="btn btn-success"><?=t('Order') ?></a>
+												<a class="btn btn-success" href="<?=_url('order')?>"><?=t('Order') ?></a>
 												<span class="ajax-loader" style="float:right;margin-left:-31px"></span>
 											</div>															
 										</div>										

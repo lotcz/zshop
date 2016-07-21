@@ -88,7 +88,7 @@
 				$custAuth = new CustomerAuthentication($db);
 				$pg = $path[0];				
 				if (strlen($pg) > 0) {
-					if (file_exists($home_dir . 'views/pages/' . $pg . '.v.php')) {
+					if (file_exists($home_dir . 'views/pages/' . $pg . '.v.php') || file_exists($home_dir . 'controllers/pages/' . $pg . '.c.php')) {
 						$page = 'pages/' . $pg;
 					} else {
 						require_once $home_dir . 'models/alias.m.php';

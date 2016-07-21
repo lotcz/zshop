@@ -308,7 +308,8 @@ CREATE TABLE IF NOT EXISTS `delivery_types` (
   PRIMARY KEY (`delivery_type_id`)
 ) ENGINE = InnoDB;
 
-INSERT INTO `delivery_types` (`delivery_type_name`) VALUES ('Pick up in store'),('Czech post'),('Parcel service');
+INSERT INTO `delivery_types` (`delivery_type_name`, `delivery_type_price`, `delivery_type_is_default`, `delivery_type_min_order_cost`) 
+VALUES ('Pick up in store', 0, 0, 0),('Czech post', 100, 1, 100),('Parcel service', 250, 0, 250);
 
 CREATE TABLE IF NOT EXISTS `payment_types` (
  `payment_type_id` TINYINT UNSIGNED NOT NULL AUTO_INCREMENT,

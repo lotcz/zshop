@@ -9,13 +9,16 @@
 				</a>
 			</div>
 			
-			<div class="col-md-6 text-center">
+			<div class="col-md-4 text-center">
 				<div class="main-title"><?=$globals['site_title'] ?></div>
 			</div>	
 			
-			<div class="col-md-4 text-right">		
+			<div class="col-md-6 text-right">		
 				<?php
-					renderBlock('lang');
+					
+							
+
+					renderBlock('menu');
 					renderBlock('cart');
 				?>			
 			</div>
