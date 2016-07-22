@@ -22,7 +22,11 @@
 	?>	
 	
 </div>
-	
+
+<?php
+	$paging->renderLinks();	
+?>	
+
 <script>
 
 	function loadMore(offset, limit) {

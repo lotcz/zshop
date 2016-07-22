@@ -19,6 +19,9 @@ class Table {
 	public $fields = [];
 	public $data = [];
 	
+	public $page_size = 20;
+	public $max_pages_links = 20;
+	
 	function __construct($name = 'table or view', $id_field = '', $edit_link = '', $new_link = '', $css = '') {
 		$this->name = $name;
 		$this->id_field = $id_field;
@@ -43,6 +46,8 @@ class Table {
 	
 	public function prepare($db) {
 		$this->paging = Paging::getFromUrl();
+		$this->paging->limit = $this->page_size;
+		Paging::$max_pages_links = $this->max_pages_links;
 		$this->search = isset($_GET['s']) ? $_GET['s'] : '';
 		
 		// add filtering logic here

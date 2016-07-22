@@ -18,7 +18,7 @@
 					<?php
 						foreach ($paging->sorting_items as $key => $item) {
 							?>
-								<li class="<?= ($paging->active_sorting == $key) ? 'active' : '' ?>"><a href="<?=$paging->getLinkUrl($paging->offset) ?>"><?=t($key) ?></a></li>
+								<li class="<?= ($paging->active_sorting == $key) ? 'active' : '' ?>"><a href="<?=$paging->getLinkUrl($paging->offset, $paging->limit, $key) ?>"><?=t($key) ?></a></li>
 							<?php
 						}
 					?>

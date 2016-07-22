@@ -4,8 +4,12 @@
 			<h3 class="panel-title">Panel title</h3>
 		</div>
 		<div class="panel-body">
-			Panel content
+			Hello World!
 		</div>
 	</div>
+	
+	<?php
+		renderBlock('sellers');
+	?>
 	
 </div>

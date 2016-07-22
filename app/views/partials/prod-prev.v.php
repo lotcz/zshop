@@ -13,11 +13,13 @@
 					renderLink('admin/product/edit/'. $product->val('product_id'), 'Edit', 'badge', $raw_path);
 				}
 			?>
-			
-			<div class="product-image">
-				<a href="<?=_url($product->val('alias_url')) ?>"><?php $product->renderImage('thumb'); ?></a>
-			</div>				
 						
+			<a href="<?=_url($product->val('alias_url')) ?>">
+				<div class="product-image">
+					<?php $product->renderImage('thumb', 'img-thumbnail'); ?>
+				</div>				
+			</a>
+				
 			<div class="panel-title">				
 				<?php
 					renderLink($product->val('alias_url'), $product->val('product_name'), '');
