@@ -202,19 +202,24 @@ class ModelBase {
 	}
 	
 	public function processForm($form) {
-		global $path, $page_title;
+		global $path, $page_title, $messages;
 				
 		if (isset($_POST[$this->id_name])) {		
-			if (parseInt($_POST[$this->id_name]) > 0) {
-				$this->loadById($_POST[$this->id_name]);
-			}			
-			$this->setData($form->processInput($_POST));
-			if ($this->save()) {
-				if ($form->ret) {
-					redirect($form->ret);
-				} else {
-					redirect('admin/' . $this->table_name);
+			if ($form->processInput($_POST)) {
+				if (parseInt($_POST[$this->id_name]) > 0) {
+					$this->loadById($_POST[$this->id_name]);			
+				}			
+				$this->setData($form->processed_input);
+				if ($this->save()) {
+					if ($form->ret) {
+						redirect($form->ret);
+					} else {
+						redirect('admin/' . $this->table_name);
+					}
 				}
+			} else {
+				$messages->error('Input does not validate.');
+				$this->setData($form->processed_input);
 			}
 		} elseif (isset($path[2]) && $path[2] == 'edit') {		
 			$this->loadById($path[3]);

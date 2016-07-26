@@ -19,7 +19,7 @@ class Product extends ModelBase {
 			global $images;
 			$images->renderImage($this->val('product_image'), $size, $this->val('product_name'), $css);
 		} else {
-			renderImage('no-image.png',t('Image missing'),'');
+			renderImage('no-image.png',t('Image missing'),$size);
 		}
 	}
 	

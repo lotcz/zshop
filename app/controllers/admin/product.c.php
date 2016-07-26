@@ -37,7 +37,12 @@
 			'name' => 'product_description',
 			'label' => 'Description',
 			'type' => 'static'
-		]	
+		],
+		[
+			'name' => 'product_image',
+			'label' => 'Image',
+			'type' => 'image'
+		],
 		
 	]);
 	

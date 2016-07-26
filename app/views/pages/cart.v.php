@@ -152,12 +152,11 @@
 										<div class="panel-body text-center">											
 											<div  class="col-sm-12 control-label"><?=t('Total Cost') ?>:</div>
 											<div class="col-sm-12 price">
-												
+												<span class="ajax-loader" style="margin-left:-31px;vertical-align:middle"></span>
 												<span class="form-control-static cart-total-price"><?=$totals['pf'] ?></span>														
 											</div>												
-											<div class="form-group text-center">
-												<a class="btn btn-success" href="<?=_url('order')?>"><?=t('Order') ?></a>
-												<span class="ajax-loader" style="float:right;margin-left:-31px"></span>
+											<div class="form-group text-center">												
+												<a class="btn btn-success" href="<?=_url('order')?>"><?=t('Order') ?></a>												
 											</div>															
 										</div>										
 									</div>

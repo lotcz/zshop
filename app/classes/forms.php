@@ -10,6 +10,8 @@ class Form {
 	public $ret = false;
 	public $fields = [];
 	public $data = [];	
+	public $processed_input = [];
+	public $is_valid = true;
 	public $render_wrapper = false;
 	
 	// admin form
@@ -27,7 +29,11 @@ class Form {
 	public function addField($field) {
 		$objField = (object)$field;
 		$objField->value = isset($objField->value) ? $objField->value : null;
-		$this->fields[$field['name']] = $objField;
+		if (isset($field['name'])) {
+			$this->fields[$field['name']] = $objField;
+		} else {
+			$this->fields[] = $objField;
+		}
 	}
 	
 	public function add($fields) {
@@ -42,12 +48,30 @@ class Form {
 	
 	public function processInput($data) {
 		$result = [];
+		$is_valid = true;
 		foreach ($this->fields as $field) {
-			if (isset($data[$field->name]) && !isset($field->disabled)) {
-				$result[$field->name] = $data[$field->name];
+			if (isset($field->name)) {
+				if ($field->type == 'bool') {
+					$result[$field->name] = isset($data[$field->name]) ? 1 : 0;
+				} elseif ($field->type == 'image') {
+					/* upload image */
+					global $images;
+					$name = $field->name . '_image_file';
+					if (isset($_FILES[$name]) && strlen($_FILES[$name]['name'])) {
+						$image = $images->uploadImage($name);
+						if (isset($image) && strlen($image) > 0) {
+							$result[$field->name] = $image;
+						} else {
+							$is_valid = false;							
+						}
+					}				
+				} elseif (isset($data[$field->name]) && !isset($field->disabled)) {
+					$result[$field->name] = $data[$field->name];
+				}
 			}
 		}
-		return $result;
+		$this->processed_input = $result;
+		return ($is_valid) ? $result : false;
 	}
 	
 	public function prepare($db, $data) {
@@ -59,34 +83,29 @@ class Form {
 		}
 		
 		foreach ($this->fields as $field) {
-			
-			$field->value = $this->data->val($field->name);
-			
-			if (($field->type == 'select') && (!isset($field->select_data))) {
-				$field->select_data = ModelBase::select(
-					$db, 
-					$field->select_table, /* table */
-					null, /* where */
-					null, /* bindings */
-					null, /* types */
-					null, /* paging */
-					$field->select_label_field /* orderby */
-				);
-			} elseif ($field->type == 'foreign_key_link') {
-				$entity = new ModelBase($db);
-				$entity->table_name = $field->link_table;
-				$filter = sprintf('%s = ?', $field->link_id_field);
-				$entity->loadSingleFiltered($filter, [$this->data->val($field->name)]);
-				$field->link_label = $entity->val($field->link_label_field);
-				$field->link_url = sprintf($field->link_template, $entity->val($field->link_id_field));
+			if (isset($field->name)) {
+				$field->value = $this->data->val($field->name);
+				
+				if (($field->type == 'select') && (!isset($field->select_data))) {
+					$field->select_data = ModelBase::select(
+						$db, 
+						$field->select_table, /* table */
+						null, /* where */
+						null, /* bindings */
+						null, /* types */
+						null, /* paging */
+						$field->select_label_field /* orderby */
+					);
+				} elseif ($field->type == 'foreign_key_link') {
+					$entity = new ModelBase($db);
+					$entity->table_name = $field->link_table;
+					$filter = sprintf('%s = ?', $field->link_id_field);
+					$entity->loadSingleFiltered($filter, [$this->data->val($field->name)]);
+					$field->link_label = $entity->val($field->link_label_field);
+					$field->link_url = sprintf($field->link_template, $entity->val($field->link_id_field));
+				}
 			}
 		}
-	}
-	
-	public function renderStartTag() {
-		?>
-			<form id="form_<?=$this->id ?>" action="<?=$this->action ?>" method="<?=$this->method ?>" class="<?=$this->css ?>">
-		<?php
 	}
 	
 	static function getValidationMessage($validation) {
@@ -105,6 +124,9 @@ class Form {
 				} else {
 					return t('This field cannot be empty.');
 				}
+			break;
+			case 'maxlen' :				
+				return t('Maximum length is %s characters.', $param);				
 			break;
 			case 'email' :
 				return t('Please enter valid e-mail address.');
@@ -127,6 +149,12 @@ class Form {
 		}
 	}
 	
+	public function renderStartTag() {
+		?>
+			<form id="form_<?=$this->id ?>" action="<?=$this->action ?>" method="<?=$this->method ?>" class="<?=$this->css ?>" enctype="multipart/form-data">
+		<?php
+	}
+	
 	public function render() {
 		global $base_url;
 		
@@ -147,6 +175,16 @@ class Form {
 				?>
 					<input type="hidden" name="<?=$field->name ?>" id="field_<?=$field->name ?>" value="<?=$field->value ?>" />
 				<?php
+			} elseif ($field->type == 'begin_group') {
+				?>
+					<div class="panel panel-default">
+						<div class="panel-body">
+				<?php
+			} elseif ($field->type == 'end_group') {
+				?>
+						</div>
+					</div>
+				<?php					
 			} else {
 				?>
 					<div class="form-group">
@@ -154,19 +192,47 @@ class Form {
 						<div class="col-sm-8">
 							<?php
 														
-								switch ($field->type) {
+								switch ($field->type) {									
+									
 									case 'text' :
 									?>
 										<input type="text" name="<?=$field->name ?>" <?=$disabled ?> value="<?=$field->value ?>" class="form-control" />
 									<?php
 									break;			
 									
+									case 'password' :
+									?>
+										<input type="password" name="<?=$field->name ?>" <?=$disabled ?> value="<?=$field->value ?>" class="form-control" />
+									<?php
+									break;	
+									
+									case 'bool' :
+									?>
+										<input type="checkbox" name="<?=$field->name ?>" <?=$disabled ?> value="1" <?=($field->value) ? 'checked' : '' ?> class="form-control form-control-checkbox" />
+									<?php
+									break;	
+									
 									case 'date' :
 									?>
-										<input type="datetime" name="<?=$field->name ?>" <?=$disabled ?> value="<?=$field->value ?>" class="form-control form-control-datetime" />
+										<input type="datetime" name="<?=$field->name ?>" <?=$disabled ?> value="<?=$field->value ?>" class="form-control" />
 									<?php
 									break;
 									
+									case 'file' :
+									?>										
+										<input type="file" name="<?=$field->name ?>" <?=$disabled ?> class="form-control-file" />
+									<?php
+									break;
+									
+									case 'image' :
+										global $images;
+										$images->renderImage($field->value, 'mini-thumb');
+									?>
+										<input type="hidden" name="<?=$field->name ?>" id="field_<?=$field->name ?>" value="<?=$field->value ?>" />
+										<input type="file" name="<?=$field->name ?>_image_file" <?=$disabled ?> class="form-control-file" />
+									<?php
+									break;
+							
 									case 'select' :
 										renderSelect(
 											$field->name,

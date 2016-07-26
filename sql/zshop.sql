@@ -96,6 +96,47 @@ CREATE TABLE IF NOT EXISTS `role_permissions` (
   PRIMARY KEY (`role_permission_role_id`,  `role_permission_permission_id`)
 ) ENGINE = InnoDB;
 
+CREATE TABLE IF NOT EXISTS `delivery_types` (
+ `delivery_type_id` TINYINT UNSIGNED NOT NULL AUTO_INCREMENT,
+ `delivery_type_name` VARCHAR(50) NOT NULL,
+ `delivery_type_price` DECIMAL(10,2) NOT NULL DEFAULT 0,
+ `delivery_type_is_default` BOOL NOT NULL DEFAULT 0,
+ `delivery_type_require_address` BOOL NOT NULL DEFAULT 0,
+ `delivery_type_min_order_cost` DECIMAL(10,2) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`delivery_type_id`)
+) ENGINE = InnoDB;
+
+INSERT INTO `delivery_types` (`delivery_type_name`, `delivery_type_price`, `delivery_type_is_default`, `delivery_type_require_address`, `delivery_type_min_order_cost`) 
+VALUES ('Pick up in store', 0, 0, 0, 0),('Czech post', 100, 1, 1, 100),('Parcel service', 250, 0, 1, 250);
+
+CREATE TABLE IF NOT EXISTS `payment_types` (
+ `payment_type_id` TINYINT UNSIGNED NOT NULL AUTO_INCREMENT,
+ `payment_type_name` VARCHAR(50) NOT NULL,
+ `payment_type_price` DECIMAL(10,2) NOT NULL DEFAULT 0,
+  `payment_type_is_default` BOOL NOT NULL DEFAULT 0,
+ `payment_type_min_order_cost` DECIMAL(10,2) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`payment_type_id`)
+) ENGINE = InnoDB;
+
+INSERT INTO `payment_types` (`payment_type_name`) VALUES ('Cash in store'),('Cash on delivery'),('Bank transfer'),('Credit card');
+
+CREATE TABLE IF NOT EXISTS `allowed_payment_types` (
+  `allowed_payment_type_delivery_type_id` TINYINT UNSIGNED NOT NULL,
+  `allowed_payment_type_payment_type_id` TINYINT UNSIGNED NOT NULL,
+  
+  PRIMARY KEY (`allowed_payment_type_delivery_type_id`, `allowed_payment_type_payment_type_id`),
+  
+  CONSTRAINT `allowed_payment_types_delivery_type_fk`
+    FOREIGN KEY (`allowed_payment_type_delivery_type_id`)
+    REFERENCES `delivery_types` (`delivery_type_id`),
+  CONSTRAINT `allowed_payment_types_payment_type_fk`
+    FOREIGN KEY (`allowed_payment_type_payment_type_id`)
+    REFERENCES `payment_types` (`payment_type_id`)
+) ENGINE = InnoDB;
+
+INSERT INTO `allowed_payment_types` (`allowed_payment_type_delivery_type_id`, `allowed_payment_type_payment_type_id`) 
+VALUES (1,1),(1,3),(1,4),(2,2),(2,3),(2,4),(3,2),(3,3),(3,4);
+
 CREATE TABLE IF NOT EXISTS `customers` (
   `customer_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `customer_deleted` BOOL DEFAULT FALSE,
@@ -108,6 +149,9 @@ CREATE TABLE IF NOT EXISTS `customers` (
 
   `customer_fb_access_token` VARCHAR(255),
     
+  `customer_delivery_type_id` TINYINT UNSIGNED NULL,
+  `customer_payment_type_id` TINYINT UNSIGNED NULL,
+  
   `customer_name` NVARCHAR(50),
   `customer_address_city` NVARCHAR(50),
   `customer_address_street` NVARCHAR(50),
@@ -119,8 +163,14 @@ CREATE TABLE IF NOT EXISTS `customers` (
   `customer_ship_zip` INT,  
   
   PRIMARY KEY (`customer_id`),
-  UNIQUE INDEX `customers_email_unique` (`customer_email` ASC))
-ENGINE = InnoDB;
+  UNIQUE INDEX `customers_email_unique` (`customer_email` ASC),
+  CONSTRAINT `customer_delivery_type_fk`
+    FOREIGN KEY (`customer_delivery_type_id`)
+    REFERENCES `delivery_types` (`delivery_type_id`),
+  CONSTRAINT `customer_payment_type_fk`
+    FOREIGN KEY (`customer_payment_type_id`)
+    REFERENCES `payment_types` (`payment_type_id`)
+) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `customer_sessions` (
   `customer_session_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -299,45 +349,6 @@ CREATE TABLE IF NOT EXISTS `order_states` (
 
 INSERT INTO `order_states` (`order_state_closed`, `order_state_name`) VALUES (0,'New (waiting for payment)'),(0,'Processing'),(0,'Re-opened'),(1,'Shipped (closed)'),(1,'Cancelled');
 
-CREATE TABLE IF NOT EXISTS `delivery_types` (
- `delivery_type_id` TINYINT UNSIGNED NOT NULL AUTO_INCREMENT,
- `delivery_type_name` VARCHAR(50) NOT NULL,
- `delivery_type_price` DECIMAL(10,2) NOT NULL DEFAULT 0,
- `delivery_type_is_default` BOOL NOT NULL DEFAULT 0,
- `delivery_type_min_order_cost` DECIMAL(10,2) NOT NULL DEFAULT 0,
-  PRIMARY KEY (`delivery_type_id`)
-) ENGINE = InnoDB;
-
-INSERT INTO `delivery_types` (`delivery_type_name`, `delivery_type_price`, `delivery_type_is_default`, `delivery_type_min_order_cost`) 
-VALUES ('Pick up in store', 0, 0, 0),('Czech post', 100, 1, 100),('Parcel service', 250, 0, 250);
-
-CREATE TABLE IF NOT EXISTS `payment_types` (
- `payment_type_id` TINYINT UNSIGNED NOT NULL AUTO_INCREMENT,
- `payment_type_name` VARCHAR(50) NOT NULL,
- `payment_type_price` DECIMAL(10,2) NOT NULL DEFAULT 0,
-  `payment_type_is_default` BOOL NOT NULL DEFAULT 0,
- `payment_type_min_order_cost` DECIMAL(10,2) NOT NULL DEFAULT 0,
-  PRIMARY KEY (`payment_type_id`)
-) ENGINE = InnoDB;
-
-INSERT INTO `payment_types` (`payment_type_name`) VALUES ('Cash in store'),('Cash on delivery'),('Bank transfer'),('Credit card');
-
-CREATE TABLE IF NOT EXISTS `allowed_payment_types` (
-  `allowed_payment_type_delivery_type_id` TINYINT UNSIGNED NOT NULL,
-  `allowed_payment_type_payment_type_id` TINYINT UNSIGNED NOT NULL,
-  
-  PRIMARY KEY (`allowed_payment_type_delivery_type_id`, `allowed_payment_type_payment_type_id`),
-  
-  CONSTRAINT `allowed_payment_types_delivery_type_fk`
-    FOREIGN KEY (`allowed_payment_type_delivery_type_id`)
-    REFERENCES `delivery_types` (`delivery_type_id`),
-  CONSTRAINT `allowed_payment_types_payment_type_fk`
-    FOREIGN KEY (`allowed_payment_type_payment_type_id`)
-    REFERENCES `payment_types` (`payment_type_id`)
-) ENGINE = InnoDB;
-
-INSERT INTO `allowed_payment_types` (`allowed_payment_type_delivery_type_id`, `allowed_payment_type_payment_type_id`) 
-VALUES (1,1),(1,3),(1,4),(2,2),(2,3),(2,4),(3,2),(3,3),(3,4);
 
 CREATE TABLE IF NOT EXISTS `orders` (
   `order_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,

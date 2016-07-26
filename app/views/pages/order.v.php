@@ -85,7 +85,7 @@
 					</div>												
 					<div class="form-group text-center">
 						<a class="btn btn-success"><?=t('Order') ?></a>
-						<span class="ajax-loader" style="float:right;margin-left:-31px"></span>
+						<span class="ajax-loader" style="float:left;margin-left:-31px"></span>
 					</div>															
 				</div>										
 			</div>
