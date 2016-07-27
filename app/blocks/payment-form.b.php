@@ -6,14 +6,21 @@
 	$selected_payment = PaymentType::getDefault($payment_types);
 
 ?>
-<div class="list-group">  
+<div class="payment-types list-group">  
 	<?php
 		foreach ($payment_types as $payment) {
 			?>
-				<a class="list-group-item <?=($selected_payment === $payment) ? 'active' : ''?>">
-					<span class="badge"><?=$payment->val('payment_type_price')?></span>
+				<a class="list-group-item <?=($selected_payment === $payment) ? 'active' : ''?>" data-id="<?=$payment->val('payment_type_id')?>">
+					<?php
+						if ($payment->val('payment_type_price') > 0) {
+							?>
+								<span class="badge"><?=$payment->val('payment_type_price')?></span>
+							<?php
+						}
+					?>
+					
 					<span class="radio-checkbox">
-						<input type="radio" aria-label="Select payment type.">
+						<input type="radio" aria-label="Select payment type." <?=($selected_payment === $payment) ? 'checked' : ''?>  />
 					</span>
 					<h4 class="list-group-item-heading"><?=$payment->val('payment_type_name')?></h4>
 					
@@ -27,5 +34,6 @@
 				</a>
 			<?php
 		}
+		
 	?>
 </div>

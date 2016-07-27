@@ -12,4 +12,5 @@ class DeliveryType extends ModelBase {
 	static function getDefault($delivery_types) {
 		return Self::find($delivery_types, 'delivery_type_is_default', 1);
 	}
+		
 }

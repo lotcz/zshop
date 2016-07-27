@@ -1,6 +1,7 @@
 <div class="cart">
 
 <?php
+
 	if (isset($custAuth) && $custAuth->isAuth()) {
 		if ($totals['p'] > 0) {
 			?>					
@@ -48,6 +49,21 @@
 								}
 							?>
 							
+							<tr class="item">								
+								<td>
+									<?=t('Total')?>
+								</td>
+								
+								<td></td>								
+								<td></td>
+								<td></td>								
+								
+								<td class="text-right">
+									<strong class="cart-total-price"><?=formatPrice($data['totals']['p'])?></strong>
+								</td>								
+								
+								<td></td>
+							</tr>
 						</tbody>
 					</table>
 				</div>
@@ -98,6 +114,20 @@
 					
 				</script>
 			
+			
+				<div class="row">				
+					<div class="col-md-6">									
+						<?php				
+							renderBlock('delivery-form');				
+						?>
+					</div>					
+					<div class="col-md-6">									
+						<?php				
+							renderBlock('payment-form');				
+						?>
+					</div>					
+				</div>
+				
 				<div class="row">
 				
 					<?php
@@ -156,7 +186,7 @@
 												<span class="form-control-static cart-total-price"><?=$totals['pf'] ?></span>														
 											</div>												
 											<div class="form-group text-center">												
-												<a class="btn btn-success" href="<?=_url('order')?>"><?=t('Order') ?></a>												
+												<a class="btn btn-success" href="<?=_url('order')?>"><?=t('Continue') ?></a>												
 											</div>															
 										</div>										
 									</div>
@@ -180,3 +210,32 @@
 	
 ?>
 </div>
+
+<script>
+
+	var payment_types = [], delivery_types = [], allowed_pt = [];
+	
+	<?php
+	
+		$payment_types = PaymentType::all($db);
+		foreach ($payment_types as $pt) {
+			echo 'payment_types.push(' . json_encode($pt->data) . ');';	
+		}
+		
+		$delivery_types = DeliveryType::all($db);
+		foreach ($delivery_types as $d) {
+			echo 'delivery_types.push(' . json_encode($d->data) . ');';	
+		}
+		
+		$allowed = PaymentType::getAllowedPT($db);
+		foreach ($allowed as $a) {
+			echo 'allowed_pt.push(' . json_encode($a->data) . ');';	
+		}
+	?>
+	
+	
+	console.log(payment_types);
+	console.log(allowed_pt);
+	
+</script>
+<script src="<?=_url('js/cart.js')?>"></script>

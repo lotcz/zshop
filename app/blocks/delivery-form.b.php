@@ -6,14 +6,21 @@
 	$selected_delivery = DeliveryType::getDefault($delivery_types);
 
 ?>
-<div class="list-group">  
+<div class="delivery-types list-group">  
 	<?php
 		foreach ($delivery_types as $delivery) {
 			?>
-				<a class="list-group-item delivery-type-item <?=($selected_delivery === $delivery) ? 'active' : ''?>">
-					<span class="badge"><?=formatPrice($delivery->val('delivery_type_price'))?></span>
+				<a class="list-group-item delivery-type-item <?=($selected_delivery === $delivery) ? 'active' : ''?>" data-id="<?=$delivery->val('delivery_type_id')?>">
+					<?php
+						if ($delivery->val('delivery_type_price') > 0) {
+							?>
+								<span class="badge"><?=formatPrice($delivery->val('delivery_type_price'))?></span>
+							<?php
+						}
+					?>
+					
 					<span class="radio-checkbox">
-						<input type="radio" aria-label="Select type of delivery.">
+						<input type="radio" aria-label="Select type of delivery." <?=($selected_delivery === $delivery) ? 'checked' : ''?> />
 					</span>
 					<h4 class="list-group-item-heading"><?=$delivery->val('delivery_type_name')?></h4>
 						

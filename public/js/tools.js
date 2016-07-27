@@ -50,6 +50,7 @@ function hideAjaxLoaders() {
 
 function updateCart(data) {
 	$('.cart-total-price').html(data.pf);
+	$('.cart-total-price').data('price', data.pc);
 }
 
 function productAdded(data) {

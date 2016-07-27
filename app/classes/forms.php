@@ -60,6 +60,7 @@ class Form {
 					if (isset($_FILES[$name]) && strlen($_FILES[$name]['name'])) {
 						$image = $images->uploadImage($name);
 						if (isset($image) && strlen($image) > 0) {
+							
 							$result[$field->name] = $image;
 						} else {
 							$is_valid = false;							

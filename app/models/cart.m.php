@@ -1,6 +1,7 @@
 <?php
 
 require_once $home_dir . 'models/product.m.php';
+require_once $home_dir . 'models/currency.m.php';
 
 class Cart extends ModelBase {
 	
@@ -19,7 +20,9 @@ class Cart extends ModelBase {
 		$result = $statement->get_result();
 		if ($row = $result->fetch_assoc()) {
 			$totals = $row;
-			$totals['pf'] = formatPrice($row['p']);
+			$selected_currency = Currency::getSelectedCurrency($db);
+			$totals['pf'] = formatPrice($row['p'], $selected_currency);
+			$totals['pc'] = $row['p'] / $selected_currency->fval('currency_value');
 		}
 		$statement->close();
 		return $totals;		

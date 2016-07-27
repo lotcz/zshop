@@ -8,4 +8,9 @@ class PaymentType extends ModelBase {
 	static function getDefault($payment_types) {
 		return Self::find($payment_types, 'payment_type_is_default', 1);
 	}
+	
+	static function getAllowedPT($db) {
+		 return ModelBase::select($db, 'allowed_payment_types');
+	}
+	
 }

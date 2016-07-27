@@ -129,3 +129,7 @@ img.mini-thumb {
     display: inline-block;
     width: auto;
 }
+
+.payment-types, .delivery-types a {
+	cursor:pointer;
+}

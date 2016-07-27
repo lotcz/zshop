@@ -54,18 +54,6 @@
 						
 	<div class="row">
 				
-		<div class="col-md-6">									
-			<?php				
-				renderBlock('delivery-form');				
-			?>
-		</div>
-		
-		<div class="col-md-6">									
-			<?php				
-				renderBlock('payment-form');				
-			?>
-		</div>
-		
 		<div class="col-md-6 address">									
 			<?php				
 				renderBlock('address-form');				

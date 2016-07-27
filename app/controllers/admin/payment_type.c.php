@@ -24,7 +24,12 @@
 			'label' => 'Min. order cost',
 			'type' => 'text',
 			'validations' => [['type' => 'price']]		
-		]	
+		],
+		[
+			'name' => 'payment_type_is_default',
+			'label' => 'Is Default',
+			'type' => 'bool'			
+		]			
 	]);
 	
 	PaymentType::process($db, $form);
