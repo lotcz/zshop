@@ -1,3 +1,7 @@
+function _includes(arr,obj) {
+    return (arr.indexOf(obj) != -1);
+}
+
 function checkCookies() {
 	if (navigator.cookieEnabled) return true;
 	document.cookie = "cookietest=1";
@@ -50,7 +54,10 @@ function hideAjaxLoaders() {
 
 function updateCart(data) {
 	$('.cart-total-price').html(data.pf);
-	$('.cart-total-price').data('price', data.pc);
+	$('#cart_total_price').val(data.pc);
+	if (typeof cartUpdate == 'function') {
+		cartUpdate();
+	}
 }
 
 function productAdded(data) {

@@ -60,6 +60,7 @@
 								
 								<td class="text-right">
 									<strong class="cart-total-price"><?=formatPrice($data['totals']['p'])?></strong>
+									<input type="hidden" name="cart_total_price" id="cart_total_price" value="<?=$data['totals']['pc'] ?>" />
 								</td>								
 								
 								<td></td>
@@ -147,26 +148,9 @@
 								</div>
 								
 								<div class="col-md-4">
-									<div class="panel panel-default">
-										<div class="panel-heading">
-											<h3 class="panel-title"><?=t('Place an order') ?></h3>
-										</div>
-										<div class="panel-body">
-											<form class="form-horizontal">												
-												<div class="form-group">
-													<label for="email" class="col-sm-5 control-label"><?=t('Total Cost') ?>:</label>
-													<div class="col-sm-6 price">														
-														<span class="ajax-loader"></span>
-														<span class="form-control-static cart-total-price"><?=$totals['pf'] ?></span>
-														
-													</div>			
-												</div>												
-												<div class="form-group text-center">
-													<a class="btn btn-default"><?=t('Order Without Registration') ?></a>
-												</div>
-											</form>						
-										</div>
-									</div>
+									<?php
+										renderBlock('order');
+									?>
 								</div>	
 								
 							<?php
@@ -175,21 +159,9 @@
 							?>
 							
 								<div class="col-md-12">
-									<div class="panel panel-default">										
-										<div class="panel-heading">
-											<h3 class="panel-title"><?=t('Place an order') ?></h3>
-										</div>
-										<div class="panel-body text-center">											
-											<div  class="col-sm-12 control-label"><?=t('Total Cost') ?>:</div>
-											<div class="col-sm-12 price">
-												<span class="ajax-loader" style="margin-left:-31px;vertical-align:middle"></span>
-												<span class="form-control-static cart-total-price"><?=$totals['pf'] ?></span>														
-											</div>												
-											<div class="form-group text-center">												
-												<a class="btn btn-success" href="<?=_url('order')?>"><?=t('Continue') ?></a>												
-											</div>															
-										</div>										
-									</div>
+									<?php
+										renderBlock('order');
+									?>
 								</div>
 							
 							<?php
@@ -213,29 +185,33 @@
 
 <script>
 
-	var payment_types = [], delivery_types = [], allowed_pt = [];
+	var payment_types = [], delivery_types = [];
 	
 	<?php
 	
-		$payment_types = PaymentType::all($db);
-		foreach ($payment_types as $pt) {
-			echo 'payment_types.push(' . json_encode($pt->data) . ');';	
-		}
-		
 		$delivery_types = DeliveryType::all($db);
 		foreach ($delivery_types as $d) {
-			echo 'delivery_types.push(' . json_encode($d->data) . ');';	
+			echo 'delivery_types[' . $d->val('delivery_type_id') . '] = ' . json_encode($d->data) . ';';	
+			echo 'delivery_types[' . $d->val('delivery_type_id') . '].allowed = [];';
 		}
 		
 		$allowed = PaymentType::getAllowedPT($db);
 		foreach ($allowed as $a) {
-			echo 'allowed_pt.push(' . json_encode($a->data) . ');';	
+			echo 'delivery_types[' . $a->val('allowed_payment_type_delivery_type_id') . '].allowed.push(' . $a->val('allowed_payment_type_payment_type_id') . ');';	
 		}
+		
+		$payment_types = PaymentType::all($db);
+		foreach ($payment_types as $pt) {
+			echo 'payment_types[' . $pt->val('payment_type_id') . '] = ' . json_encode($pt->data) . ';';			
+		}
+				
+		
+		
 	?>
 	
-	
+	console.log(delivery_types);
 	console.log(payment_types);
-	console.log(allowed_pt);
+	
 	
 </script>
 <script src="<?=_url('js/cart.js')?>"></script>

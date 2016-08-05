@@ -135,7 +135,7 @@ CREATE TABLE IF NOT EXISTS `allowed_payment_types` (
 ) ENGINE = InnoDB;
 
 INSERT INTO `allowed_payment_types` (`allowed_payment_type_delivery_type_id`, `allowed_payment_type_payment_type_id`) 
-VALUES (1,1),(1,3),(1,4),(2,2),(2,3),(2,4),(3,2),(3,3),(3,4);
+VALUES (1,1),(2,2),(2,3),(2,4),(3,2),(3,3),(3,4);
 
 CREATE TABLE IF NOT EXISTS `customers` (
   `customer_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,

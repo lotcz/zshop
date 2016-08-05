@@ -1,3 +1,11 @@
+@font-face {
+	font-family: parfumerie;
+	src: local('☺'), url('akaFrivolity.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+
+
 body {
 	background-color:White;
 }
@@ -11,8 +19,16 @@ h1 {
 }
 
 .spaced {
-	margin-top:15px;
-	margin-bottom:15px;
+	margin-top:10px;
+	margin-bottom:10px;
+}
+
+.spaced-top {
+	margin-top:10px;
+}
+
+.spaced-botom {
+	margin-bottom:10px;
 }
 
 .cookies-disabled {
@@ -36,7 +52,6 @@ h1 {
 .zblock {
 	border-radius:5px;
 	padding:10px;
-	margin-top:10px;
 }
 
 .basic-bg .dropdown {
@@ -72,15 +87,10 @@ h1 {
 }
 
 .main-title {
+	font-size:1cm;
 	color:White;
-	text-align:center;
-}
-
-.main-title {
-	display:inline-block;
-	font-size:24px;
-	color:White;
-	font-family:Georgia, serif;
+	text-align:left;
+	font-family:parfumerie;
 }
 
 .head-block {

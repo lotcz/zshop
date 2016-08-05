@@ -10,7 +10,7 @@
 	<?php
 		foreach ($payment_types as $payment) {
 			?>
-				<a class="list-group-item <?=($selected_payment === $payment) ? 'active' : ''?>" data-id="<?=$payment->val('payment_type_id')?>">
+				<a id="link_payment_type_<?=$payment->val('payment_type_id')?>" class="list-group-item <?=($selected_payment === $payment) ? 'active' : ''?>" data-id="<?=$payment->val('payment_type_id')?>">
 					<?php
 						if ($payment->val('payment_type_price') > 0) {
 							?>
@@ -37,3 +37,5 @@
 		
 	?>
 </div>
+
+<input type="hidden" name="payment_type_id" id="payment_type_id" value="<?=$selected_payment->val('payment_type_id')?>" />

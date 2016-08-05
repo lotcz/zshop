@@ -9,15 +9,12 @@
 				</a>
 			</div>
 			
-			<div class="col-md-4 text-center">
-				<div class="main-title"><?=$globals['site_title'] ?></div>
+			<div class="col-md-4">
+				<span class="main-title"><?=$globals['site_title'] ?></span>
 			</div>	
 			
 			<div class="col-md-6 text-right">		
 				<?php
-					
-							
-
 					renderBlock('menu');
 					renderBlock('cart');
 				?>			
