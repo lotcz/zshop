@@ -208,6 +208,36 @@ ENGINE = InnoDB;
 INSERT INTO currencies (currency_name, currency_format, currency_value, currency_decimals) VALUES ('Kč','%s&nbsp;Kč', 1, 0);
 INSERT INTO currencies (currency_name, currency_format, currency_value, currency_decimals) VALUES ('EUR','EUR%s', 27.02, 2);
 
+CREATE TABLE IF NOT EXISTS `languages` (
+  `language_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `language_name` VARCHAR(100) NOT NULL,
+  `language_code` VARCHAR(10) NOT NULL,
+  `language_decimal_separator` VARCHAR(10) NOT NULL,
+  `language_thousands_separator` VARCHAR(10) NOT NULL,
+  `language_default_currency_id` INT UNSIGNED NOT NULL,
+  PRIMARY KEY (`language_id`),
+  CONSTRAINT `language_currency_fk`
+    FOREIGN KEY (`language_default_currency_id`)
+    REFERENCES `currencies` (`currency_id`)
+)ENGINE = InnoDB;
+
+INSERT INTO languages VALUES (NULL, 'English','en', '.', ',',2);
+INSERT INTO languages VALUES (NULL, 'Čeština','cs', ',', '&nbsp',1);
+
+CREATE TABLE IF NOT EXISTS `translations` (
+  `translation_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `translation_language_id` INT UNSIGNED NOT NULL,
+  `translation_name` VARCHAR(255) NOT NULL,
+  `translation_translation` TEXT NOT NULL,
+   PRIMARY KEY (`translation_id`),
+  UNIQUE INDEX (`translation_language_id`, `translation_name`),
+  CONSTRAINT `translation_language_fk`
+    FOREIGN KEY (`translation_language_id`)
+    REFERENCES `languages` (`language_id`)
+)ENGINE = InnoDB;
+
+INSERT INTO translations VALUES (NULL, 2, 'Hello', 'Dobrý den' );
+
 CREATE TABLE IF NOT EXISTS `categories` (
   `category_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `category_ext_id` INT UNSIGNED,

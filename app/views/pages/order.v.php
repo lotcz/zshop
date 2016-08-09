@@ -1,7 +1,3 @@
-<?php 
-	global $data;
-
-?>
 <form class="order">
 				
 	<div class="table-responsive panel panel-default">
@@ -28,7 +24,7 @@
 								</td>								
 							</tr>
 						<?php
-					}
+					}					
 					
 				?>
 				
@@ -44,14 +40,70 @@
 					</td>
 					
 					<td class="text-right">
-						<strong><span><?=formatPrice($data['totals']['p'])?></span></strong>
+						<strong><span><?=formatPrice($total_cart_value)?></span></strong>
 					</td>								
 				</tr>
 				
 			</tbody>
 		</table>
 	</div>
-						
+	
+	<div class="table-responsive panel panel-default">
+		<table class="table">									
+			<tbody>
+			
+				<tr class="item">								
+					<td>
+						<?=$delivery_type->val('delivery_type_name')?>
+					</td>
+					
+					<td>						
+					</td>
+					
+					<td>
+					</td>
+					
+					<td class="text-right">
+						<strong><span><?=formatPrice($delivery_type->fval('delivery_type_price'))?></span></strong>
+					</td>								
+				</tr>
+				
+				<tr class="item">								
+					<td>
+						<?=$payment_type->val('payment_type_name')?>
+					</td>
+					
+					<td>						
+					</td>
+					
+					<td>
+					</td>
+					
+					<td class="text-right">
+						<strong><span><?=formatPrice($payment_type->fval('payment_type_price'))?></span></strong>
+					</td>								
+				</tr>
+				
+				
+				<tr class="item">								
+					<td>
+						<?=t('Total')?>
+					</td>
+					
+					<td>						
+					</td>
+					
+					<td>
+					</td>
+					
+					<td class="text-right">
+						<strong><span><?=formatPrice($total_order_value)?></span></strong>
+					</td>								
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	
 	<div class="row">
 				
 		<div class="col-md-6 address">									
@@ -69,11 +121,10 @@
 					<div  class="col-sm-12 control-label"><?=t('Total Cost') ?>:</div>
 					<div class="col-sm-12 price">
 						
-						<span class="form-control-static cart-total-price"><?=$totals['pf'] ?></span>														
+						<span class="form-control-static cart-total-price"><?=formatPrice($total_order_value) ?></span>														
 					</div>												
 					<div class="form-group text-center">
-						<a class="btn btn-success"><?=t('Order') ?></a>
-						<span class="ajax-loader" style="float:left;margin-left:-31px"></span>
+						<a class="btn btn-success"><?=t('Confirm Your Order') ?></a>
 					</div>															
 				</div>										
 			</div>

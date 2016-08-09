@@ -59,6 +59,8 @@
 							renderMenuLink('admin/payment_types', 'Payment types');
 							renderMenuLink('admin/delivery_types', 'Delivery types');
 							renderMenuLink('admin/aliases', 'Aliases');
+							renderMenuLink('admin/languages', 'Languages');
+							renderMenuLink('admin/translations', 'Translations');
 							renderMenuLink('admin/ip_failed_attempts', 'Failed login attempts');
 							renderMenuLink('admin/jobs', 'Jobs');
 						?>

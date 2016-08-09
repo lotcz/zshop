@@ -48,10 +48,10 @@
 		
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
-		<script src="/js/tools.js"></script>		
-		<script src="/js/forms.js"></script>
+		<script src="<?=_url('js/tools.js')?>"></script>		
+		<script src="<?=_url('js/forms.js')?>"></script>
 
-		<!--script src="/js/devejs.js"></script-->		
+		<!--script src="/js/devejs.js"></script-->
 
 	</body>
 </html>

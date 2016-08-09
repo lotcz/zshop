@@ -93,6 +93,11 @@ h1 {
 	font-family:parfumerie;
 }
 
+h1.page-title {
+	margin-top:5px;
+	margin-bottom:20px;
+}
+
 .head-block {
 	background-color:White;		
 	display:inline-block;

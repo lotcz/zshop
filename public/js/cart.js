@@ -20,9 +20,9 @@ function cartUpdate() {
 	
 	cartSelectPayment(selected_payment.payment_type_id);
 	
-	total_price = total_products_price + parseFloat(selected_delivery.delivery_type_price) + parseFloat(selected_payment.payment_type_price);
+	total_price = total_products_price + convertPrice(selected_delivery.delivery_type_price) + convertPrice(selected_payment.payment_type_price);
 	
-	$('#order_total_price').html(total_price);
+	$('#order_total_price').html(formatPrice(total_price));
 }
 
 function cartSelectDelivery(id) {

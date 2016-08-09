@@ -87,6 +87,13 @@ class Table {
 							<a class="btn btn-success form-control" href="<?=_url($this->new_link, $raw_path) ?>">+ <?=$label ?></a>		
 						<?php
 					}
+					
+					foreach ($this->links as $link) {						
+						?>
+							<a class="btn btn-success form-control" href="<?=_url($link['url'], $raw_path) ?>"><?=$link['title'] ?></a>		
+						<?php
+					}
+					
 				?>								
 				<div class="text-right">
 					<?=$this->paging->getInfo() ?>
@@ -145,6 +152,8 @@ class Table {
 
 class AdminTable extends Table {
 	
+	public $links = [];
+	
 	function __construct($view_name = 'table or view', $entity_name = 'entity') {
 		parent::__construct(
 			$view_name,
@@ -155,4 +164,7 @@ class AdminTable extends Table {
 		);
 	}
 	
+	public function addLink($url, $title) {
+		$this->links[] = ['url'=>$url,'title'=>$title];
+	}
 }

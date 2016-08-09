@@ -34,6 +34,7 @@
 	$language_data['sortby_Popularity'] = 'Popularity';
 	$language_data['asc'] = 'Vzestupně';
 	$language_data['desc'] = 'Sestupně';
+	$language_data['Free'] = 'Zdarma';
 	
 	$language_data['Cart'] = 'Košík';
 	$language_data['<b>%s</b> items'] = '<b>%s</b> položek';

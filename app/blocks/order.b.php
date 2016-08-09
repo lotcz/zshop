@@ -9,7 +9,7 @@
 			<span class="form-control-static" id="order_total_price"></span>			
 		</div>												
 		<div class="form-group text-center">												
-			<a class="btn btn-success" href="<?=_url('order')?>"><?=t('Continue') ?></a>												
+			<input type="submit" class="btn btn-success" value="<?=t('Continue') ?>" />												
 		</div>															
 	</div>										
 </div>

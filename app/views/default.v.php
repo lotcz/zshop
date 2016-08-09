@@ -33,7 +33,7 @@
 			<?php
 				if (isset($page_title)) {
 					?>
-						<h1><?=$page_title ?></h1>						
+						<h1 class="page-title"><?=$page_title ?></h1>						
 					<?php
 				}
 				
