@@ -7,8 +7,7 @@
 			<a href="#" onclick="javascript:runJob('clean');return false;" class="btn btn-default"><?=t('Clean sessions') ?></a>
 			<a href="#" onclick="javascript:runJob('abx');return false;" class="btn btn-default"><?=t('Import from ABX') ?></a>
 			<a href="#" onclick="javascript:runJob('cube');return false;" class="btn btn-default"><?=t('Import from Cubecart') ?></a>
-			<a href="#" onclick="javascript:runJob('backup');return false;" class="btn btn-default"><?=t('Backup') ?></a>
-			<a href="#" onclick="javascript:runJob('zbozi');return false;" class="btn btn-default"><?=t('Generate XML for Zbozi.cz') ?></a>
+			<a href="#" onclick="javascript:runJob('implang');return false;" class="btn btn-default"><?=t('Import Langage') ?></a>
 		</div>
 		
 		<div>

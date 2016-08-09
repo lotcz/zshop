@@ -236,8 +236,6 @@ CREATE TABLE IF NOT EXISTS `translations` (
     REFERENCES `languages` (`language_id`)
 )ENGINE = InnoDB;
 
-INSERT INTO translations VALUES (NULL, 2, 'Hello', 'Dobrý den' );
-
 CREATE TABLE IF NOT EXISTS `categories` (
   `category_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `category_ext_id` INT UNSIGNED,
