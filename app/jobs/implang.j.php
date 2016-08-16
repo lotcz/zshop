@@ -11,6 +11,7 @@
 	
 	foreach ($language_data as $name => $translation) {
 		$t = new Translation($db);
+		$t->load($language->ival('language_id'), $name);		
 		$t->data['translation_name'] = $name;	
 		$t->data['translation_translation'] = $translation;		
 		$t->data['translation_language_id'] = $language->ival('language_id');

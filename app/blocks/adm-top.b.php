@@ -63,6 +63,7 @@
 							renderMenuLink('admin/translations', 'Translations');
 							renderMenuLink('admin/ip_failed_attempts', 'Failed login attempts');
 							renderMenuLink('admin/jobs', 'Jobs');
+							renderMenuLink('admin/phpinfo', 'PHP Info');
 						?>
 				  </ul>
 				</li>

@@ -228,7 +228,7 @@ CREATE TABLE IF NOT EXISTS `translations` (
   `translation_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `translation_language_id` INT UNSIGNED NOT NULL,
   `translation_name` VARCHAR(255) NOT NULL,
-  `translation_translation` TEXT NOT NULL,
+  `translation_translation` TEXT,
    PRIMARY KEY (`translation_id`),
   UNIQUE INDEX (`translation_language_id`, `translation_name`),
   CONSTRAINT `translation_language_fk`
@@ -236,6 +236,13 @@ CREATE TABLE IF NOT EXISTS `translations` (
     REFERENCES `languages` (`language_id`)
 )ENGINE = InnoDB;
 
+DROP VIEW IF EXISTS `viewTranslations`;
+
+CREATE VIEW viewTranslations AS
+	SELECT *
+    FROM translations t
+    LEFT OUTER JOIN languages l ON (t.translation_language_id = l.language_id);
+    
 CREATE TABLE IF NOT EXISTS `categories` (
   `category_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `category_ext_id` INT UNSIGNED,

@@ -18,7 +18,15 @@
 		
 	<a class="price" href="/cart">
 		<span class="ajax-loader ajax-loader-blue"></span>	
-		<span class="cart-total-price"><?=$totals['pf']?></span>			
+		<span class="cart-total-price">
+			<?php
+				if ($totals['p'] > 0) {
+					echo $totals['pf'];
+				} else {
+					echo t('Empty');
+				}				
+			?>
+		</span>			
 	</a>
 	
 </div>

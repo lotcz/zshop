@@ -6,7 +6,7 @@
 	$page = 'admin/table';
 	
 	$table = new AdminTable(
-		'translations', 		
+		'viewTranslations', 		
 		'translation'
 	);
 	
@@ -20,7 +20,11 @@
 		[
 			'name' => 'translation_translation',
 			'label' => 'Translation'			
-		]	
+		],
+		[
+			'name' => 'language_name',
+			'label' => 'Language'			
+		]
 	]);
 	
 	$table->prepare($db);

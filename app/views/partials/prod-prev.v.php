@@ -21,9 +21,7 @@
 			</a>
 				
 			<div class="panel-title">				
-				<?php
-					renderLink($product->val('alias_url'), $product->val('product_name'), '');
-				?>
+				<a href="<?=_url($product->val('alias_url'))?>"><?=$product->val('product_name')?></a>
 			</div>
 			
 			<div class="product-price">
