@@ -3,7 +3,7 @@
 	require_once $home_dir . 'classes/paging.php';
 	require_once $home_dir . 'models/category.m.php';
 	require_once $home_dir . 'models/product.m.php';
-		
+	
 	$categories_tree = Category::getCategoryTree($db);
 	$category = $categories_tree->findInChildren(intval($path[1]));
 	

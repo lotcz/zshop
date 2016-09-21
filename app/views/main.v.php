@@ -7,7 +7,7 @@
 	<div class="row spaced">
 		<div class="col-md-4 sidebar">
 			<?php		
-				renderBlock('search');					
+				//renderBlock('search');					
 				renderBlock('side-menu');
 			?>			
 		</div>
@@ -21,7 +21,7 @@
 				
 				renderBlock('messages');
 
-				include $home_dir . 'views/' . $page . '.v.php';
+				include $home_dir . 'views/' . $page_template . '.v.php';
 				
 				renderBlock('messages');				
 			?>
