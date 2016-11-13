@@ -16,7 +16,7 @@
 		</div>
 		<div class="form-buttons">
 			<a class="form-button" href="/"><?=t('Go to E-shop') ?></a>
-			<input type="button" onclick="javascript:login_validate();" class="btn btn-success form-button" value="<?=t('Sign In') ?>">			
+			<input type="button" onclick="javascript:login_validate();" class="btn btn-success form-button" value="<?=t('Sign In') ?>" />			
 			<a class="form-button" href="<?=_url('forgotten-password', _g('r'))?><?=(isset($_POST['email']) && strlen($_POST['email']) > 0) ? '&email=' . $_POST['email'] : '' ?>"><?= t('Forgotten Password') ?></a>		
 		</div>
 	</form>	

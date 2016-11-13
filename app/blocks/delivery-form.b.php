@@ -39,3 +39,9 @@
 </div>
 
 <input type="hidden" name="delivery_type_id" id="delivery_type_id" value="<?=$selected_delivery->val('delivery_type_id')?>" />
+
+<script>	
+	$(function (){
+		cartSelectDelivery(<?=$selected_delivery->val('delivery_type_id')?>);
+	});
+</script>

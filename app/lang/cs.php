@@ -76,5 +76,5 @@
 	/* FORM VALIDATIONS */
 	$language_data['Value must be at least %s characters long.'] = 'Hodnota musí být alespoň %s znaků dlouhá.';
 	
-	
+	$language_data['Total'] = 'Celkem';
 	$language_data['Total <b>%s</b> items.'] = 'Celkem <b>%s</b> položek.';

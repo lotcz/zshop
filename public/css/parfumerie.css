@@ -352,3 +352,7 @@ mark {
     background: orange;
     color: black;
 }
+
+.dropdown-menu .glyphicon-log-out {
+	padding-right:10px;
+}

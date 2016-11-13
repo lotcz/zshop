@@ -46,6 +46,10 @@ class Form {
 		}
 	}
 	
+	static function submitted($method = 'POST') {
+		return ($_SERVER['REQUEST_METHOD'] == $method);
+	}
+	
 	public function processInput($data) {
 		$result = [];
 		$is_valid = true;

@@ -9,7 +9,7 @@
 	</div>
 
 	<div class="panel-body">
-		<form id="register_form" class="form-horizontal" action="/register?ret=<?=$raw_path ?>" method="post">			
+		<form id="register_form" class="form-horizontal" action="<?=_url('register',$raw_path) ?>" method="post">			
 			<div class="form-group">
 				<label for="register_email" class="col-md-4 control-label"><?=t('E-mail') ?>:</label>
 				<div class="col-md-8">

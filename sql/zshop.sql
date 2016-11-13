@@ -99,6 +99,7 @@ CREATE TABLE IF NOT EXISTS `role_permissions` (
 CREATE TABLE IF NOT EXISTS `delivery_types` (
  `delivery_type_id` TINYINT UNSIGNED NOT NULL AUTO_INCREMENT,
  `delivery_type_name` VARCHAR(50) NOT NULL,
+ `delivery_type_description` TEXT,
  `delivery_type_price` DECIMAL(10,2) NOT NULL DEFAULT 0,
  `delivery_type_is_default` BOOL NOT NULL DEFAULT 0,
  `delivery_type_require_address` BOOL NOT NULL DEFAULT 0,
@@ -112,8 +113,9 @@ VALUES ('Pick up in store', 0, 0, 0, 0),('Czech post', 100, 1, 1, 100),('Parcel 
 CREATE TABLE IF NOT EXISTS `payment_types` (
  `payment_type_id` TINYINT UNSIGNED NOT NULL AUTO_INCREMENT,
  `payment_type_name` VARCHAR(50) NOT NULL,
+ `payment_type_description` TEXT,
  `payment_type_price` DECIMAL(10,2) NOT NULL DEFAULT 0,
-  `payment_type_is_default` BOOL NOT NULL DEFAULT 0,
+ `payment_type_is_default` BOOL NOT NULL DEFAULT 0,
  `payment_type_min_order_cost` DECIMAL(10,2) NOT NULL DEFAULT 0,
   PRIMARY KEY (`payment_type_id`)
 ) ENGINE = InnoDB;

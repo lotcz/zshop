@@ -206,12 +206,13 @@
 		
 		$payment_types = PaymentType::all($db);
 		foreach ($payment_types as $pt) {
-			echo 'payment_types[' . $pt->val('payment_type_id') . '] = ' . json_encode($pt->data) . ';';			
+			echo 'payment_types[' . $pt->val('payment_type_id') . '] = ' . json_encode($pt->data) . ';';
 		}
-				
-		
 		
 	?>
 	
+	$(function (){
+		cartUpdate();
+	});
 </script>
 <script src="<?=_url('js/cart.js')?>"></script>
