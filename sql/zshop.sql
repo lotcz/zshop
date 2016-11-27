@@ -121,7 +121,7 @@ CREATE TABLE IF NOT EXISTS `payment_types` (
 ) ENGINE = InnoDB;
 
 INSERT INTO `payment_types` (`payment_type_name`, `payment_type_price`,  `payment_type_is_default`, `payment_type_min_order_cost`) 
-VALUES ('Cash in store',0,0,0),('Cash on delivery',35,0,0),('Bank transfer',0,1,0),('Credit card',0,0,1000);
+VALUES ('Cash in store',0,0,0),('Cash on delivery',35,0,0),('Bank transfer',0,1,0);
 
 CREATE TABLE IF NOT EXISTS `allowed_payment_types` (
   `allowed_payment_type_delivery_type_id` TINYINT UNSIGNED NOT NULL,
