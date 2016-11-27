@@ -8,11 +8,6 @@ a, a:hover, a:active, a:focus,
 	text-decoration:none;
 }
 
-.header {
-	border-radius:5px;
-	padding:15px;
-}
-
 h1 {
 	text-align:center;
 }

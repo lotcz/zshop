@@ -3,7 +3,7 @@
 	require_once $home_dir . 'classes/tables.php';
 	
 	$page_title	= t('Delivery types');
-	$page = 'admin/table';
+	$page_template = 'admin/table';
 	
 	$table = new AdminTable(
 		'delivery_types', 		

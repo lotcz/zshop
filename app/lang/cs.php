@@ -14,6 +14,7 @@
 	$language_data['Forgotten Password'] = 'Zapomenuté heslo';
 	$language_data['Login or E-mail'] = 'Login nebo e-mail';
 	$language_data['Reset Password'] = 'Resetovat heslo';
+	$language_data['Register'] = 'Registrovat';
 	$language_data['Shopping Cart'] = 'Nákupní košík';
 	
 	$language_data['Sign In'] = 'Přihlásit';
@@ -35,6 +36,8 @@
 	$language_data['asc'] = 'Vzestupně';
 	$language_data['desc'] = 'Sestupně';
 	$language_data['Free'] = 'Zdarma';
+	$language_data['Price'] = 'Cena';
+	$language_data['Empty'] = 'Prázdný';
 	
 	$language_data['Cart'] = 'Košík';
 	$language_data['<b>%s</b> items'] = '<b>%s</b> položek';
@@ -72,6 +75,11 @@
 	
 	$language_data['Delivery Type'] = 'Způsob dopravy';
 	$language_data['Delivery Types'] = 'Způsoby dopravy';
+	
+	$language_data['Payment Type'] = 'Způsob platby';
+	$language_data['Payment Types'] = 'Způsoby platby';
+	
+	$language_data['Place an order'] = 'Vytvořit objednávku';
 	
 	/* FORM VALIDATIONS */
 	$language_data['Value must be at least %s characters long.'] = 'Hodnota musí být alespoň %s znaků dlouhá.';

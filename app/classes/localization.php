@@ -36,7 +36,7 @@ class Localization {
 			return $language_data[$s];
 		} else {
 			global $config, $home_dir, $db;
-			if ($config['debug_mode']) {
+			if ($config['language_check']) {
 				require_once $home_dir . 'models/translation.m.php';
 				require_once $home_dir . 'models/language.m.php';				
 				$language = new Language($db);

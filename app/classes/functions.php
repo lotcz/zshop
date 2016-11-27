@@ -142,8 +142,12 @@
 		return $url;
 	}
 	
+	function _link($href, $title, $css = '', $ret = null) {
+		return sprintf('<a href="%s" class="%s">%s</a>', _url($href, $ret), $css, t($title));
+	}
+	
 	function renderLink($href, $title, $css = '', $ret = null) {
-		echo sprintf('<a href="%s" class="%s">%s</a>', _url($href, $ret), $css, t($title));
+		echo _link($href, $title, $css, $ret);
 	}
 	
 	function renderMenuLink($href, $title) {

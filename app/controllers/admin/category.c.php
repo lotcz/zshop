@@ -6,7 +6,7 @@
 	require_once $home_dir . 'classes/forms.php';
 
 	$form = new AdminForm('category');
-	$page = 'admin/form';
+	$page_template = 'admin/form';
 
 	$form->add([
 		[

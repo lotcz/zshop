@@ -3,7 +3,7 @@
 	require_once $home_dir . 'classes/tables.php';
 	
 	$page_title	= t('Failed Attempts');
-	$page = 'admin/table';
+	$page_template = 'admin/table';
 	
 	$table = new AdminTable(
 		'ip_failed_attempts', 		

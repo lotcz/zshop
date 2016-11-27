@@ -44,7 +44,7 @@ class CustomerAuthentication {
 		}
 		
 		$token_hash = CustomerAuthentication::hashPassword($token);
-		$expires = time()+CustomerAuthentication::$session_expire;
+		$expires = time() + CustomerAuthentication::$session_expire;
 		$session = new CustomerSession($this->db);
 		$session->data['customer_session_token_hash'] = $token_hash;
 		$session->data['customer_session_customer_id'] = $this->customer->val('customer_id');
@@ -58,11 +58,15 @@ class CustomerAuthentication {
 		return isset($this->customer) && isset($this->session);
 	}
 	
+	public function isAnonymous() {
+		return $this->isAuth() && $this->val('customer_anonymous');
+	}
+	
 	public function login($email, $password) {
 		
-		//if (isset($_COOKIE[$this->cookie_name])) {
-		//	$this->logout();
-		//}
+		if (!$this->isAnonymous()) {
+			$this->logout();
+		}
 		
 		$customer = new Customer($this->db);
 		$customer->loadByEmail($email);
@@ -81,11 +85,10 @@ class CustomerAuthentication {
 				// TODO: log IP failed attempt
 				$customer->data['customer_failed_attempts'] += 1;
 				$customer->save();
-				return false;
 			}			
-		} else {
-			return false;
 		}
+		
+		return false;		
 		
 	}
 	

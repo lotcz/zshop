@@ -13,7 +13,9 @@
 
 		include $home_dir . 'views/' . $page_template . '.v.php';
 		
-		renderBlock('messages');				
+		renderBlock('messages');	
+		
+		renderBlock('footer');		
 	?>
 	
 </div>

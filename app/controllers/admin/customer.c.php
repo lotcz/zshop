@@ -4,7 +4,7 @@
 	require_once $home_dir . 'classes/forms.php';
 
 	$form = new AdminForm('customer');
-	$page = 'admin/form';
+	$page_template = 'admin/form';
 
 	$form->add([
 		[
@@ -91,25 +91,25 @@
 		],
 		[
 			'name' => 'customer_ship_name',
-			'label' => 'Name (shipping)',
+			'label' => 'Name',
 			'type' => 'text',
 			'validations' => [['type' => 'maxlen', 'param' => 50]]
 		],
 		[
 			'name' => 'customer_ship_city',
-			'label' => 'City (shipping)',
+			'label' => 'City',
 			'type' => 'text',
 			'validations' => [['type' => 'maxlen', 'param' => 50]]
 		],
 		[
 			'name' => 'customer_ship_street',
-			'label' => 'Street (shipping)',
+			'label' => 'Street',
 			'type' => 'text',
 			'validations' => [['type' => 'maxlen', 'param' => 50]]
 		],
 		[
 			'name' => 'customer_ship_zip',
-			'label' => 'ZIP (shipping)',
+			'label' => 'ZIP',
 			'type' => 'text',
 			'validations' => [
 				['type' => 'integer', 'param' => true]

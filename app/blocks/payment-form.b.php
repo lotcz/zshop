@@ -6,6 +6,9 @@
 	$selected_payment = PaymentType::getDefault($payment_types);
 
 ?>
+
+<h2><?=t('Payment Type'); ?></h2>
+
 <div class="payment-types list-group">  
 	<?php
 		foreach ($payment_types as $payment) {
@@ -27,7 +30,7 @@
 					<?php
 						if ($payment->val('payment_type_min_order_cost') > 0) {
 							?>
-								<p class="list-group-item-text"><?=t('Minimum shopping value %s.', formatPrice($payment->val('payment_type_min_order_cost')))?></p>
+								<p class="list-group-item-text"><?=t('Spend at least %s to use this type of payment.', formatPrice($payment->val('payment_type_min_order_cost')))?></p>
 							<?php
 						}
 					?>

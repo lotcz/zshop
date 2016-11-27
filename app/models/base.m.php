@@ -208,7 +208,7 @@ class ModelBase {
 			if ($form->processInput($_POST)) {
 				if (parseInt($_POST[$this->id_name]) > 0) {
 					$this->loadById($_POST[$this->id_name]);			
-				}			
+				}
 				$this->setData($form->processed_input);
 				if ($this->save()) {
 					if ($form->ret) {

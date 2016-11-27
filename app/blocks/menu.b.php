@@ -73,7 +73,7 @@
 					<li>
 						<?php
 							renderLink('register', 'Register', 'link', $raw_path);	
-							renderLink('login', 'Log In', 'link', $raw_path);	
+							renderLink('login', 'Sign In', 'link', $raw_path);	
 						?>
 					</li>
 				<?php

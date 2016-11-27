@@ -120,6 +120,9 @@ class Form {
 			$param = $validation['param'];
 		}
 		switch ($type) {
+			case 'confirm' :
+				return t('Passwords don\'t match.', $param);
+			break;
 			case 'min' :
 				return t('Value must be higher than %s.', $param);
 			break;
@@ -183,6 +186,9 @@ class Form {
 			} elseif ($field->type == 'begin_group') {
 				?>
 					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><?=t($field->label) ?></h3>
+						</div>
 						<div class="panel-body">
 				<?php
 			} elseif ($field->type == 'end_group') {

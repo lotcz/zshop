@@ -70,53 +70,6 @@
 						</table>
 					</div>
 				
-					<script>
-					
-						function getItemCount(id) {
-							return parseInt($('#prod_count_'+id).val());
-						}
-						
-						function setItemCount(id, cnt) {
-							return $('#prod_count_'+id).val(parseInt(cnt));
-						}
-						
-						function minusItem(id) {
-							var c = getItemCount(id)-1;
-							if (c < 1) {
-								removeItem(id);
-							} else {
-								setItemCount(id, c);
-								updateProductInCart(id);
-							}			
-						}
-						
-						function plusItem(id) {
-							var c = getItemCount(id)+1;
-							setItemCount(id, c);
-							updateProductInCart(id);
-							if (c == 1) {
-								reviveItem(id);
-							}
-						}
-						
-						function removeItem(id) {
-							if (getItemCount(id) > 0) {
-								setItemCount(id, 0);
-								$('#cart_prod_'+id).addClass('removed');													
-							} else {
-								reviveItem(id);
-							}
-							updateProductInCart(id);
-						}
-						
-						function reviveItem(id) {
-							setItemCount(id, 1);
-							$('#cart_prod_'+id).removeClass('removed');						
-						}
-						
-					</script>
-				
-				
 					<div class="row">				
 						<div class="col-md-6">									
 							<?php				
@@ -130,52 +83,67 @@
 						</div>					
 					</div>
 					
-					<div class="row">
-					
-						<?php
-							
-							if ($custAuth->customer->val('customer_anonymous')) {
-								?>
-									<div class="col-md-4">									
-										<?php
-											renderBlock('login');
-										?>							
-									</div>
-									
-									<div class="col-md-4">									
-										<?php
-											renderBlock('register');
-										?>
-									</div>
-									
-									<div class="col-md-4">
-										<?php
-											renderBlock('order');
-										?>
-									</div>	
-									
-								<?php
-								
-							} else {
-								?>
-								
-									<div class="col-md-12">
-										<?php
-											renderBlock('order');
-										?>
-									</div>
-								
-								<?php
-							}
-						?>																		
+					<?php
 						
-					</div> <!-- // row -->
+						if ($custAuth->customer->val('customer_anonymous')) {
+							?>		
+								<div class="row">
+									<div class="col-md-12">	
+										<h2><?=t('Sign In or Register'); ?></h2>										
+										<p>
+											<?=t('You are currently not logged in. If you have an account with our e-shop, please log in to use all features.');?>
+										</p>
+										<p>
+											<?php
+												renderLink('login', 'Sign In', 'btn btn-primary', 'cart'); 
+											?>
+										</p>										
+										<p>
+											<?=t('If you don\'t have an account with us yet, please create one. Only registered customers can use all features of our e-shop.');?>
+										</p>
+										<p>
+											<?php
+												renderLink('register', 'Register', 'btn btn-success', 'cart'); 
+											?>
+										</p>
+										<p>&nbsp;</p>
+									</div>
+								</div> <!-- // row -->
+							<?php							
+						}
+					?>
 					
+					<div class="row">
+						<div class="col-md-12">	
+							<h2><?=t('Place an order'); ?></h2>
+							
+							<p>
+								<?=t('Total Cost') ?>:								
+								<span id="order_total_price"></span>
+								<span class="ajax-loader" style="vertical-align:middle"></span>
+							</p>
+							
+							<p>
+								<?php
+									if ($custAuth->customer->val('customer_anonymous')) {
+										?>								
+											<input type="submit" class="btn btn-default" value="<?=t('Order Without Registration') ?>" />
+										<?php									
+									} else {
+										?>								
+											<input type="submit" class="btn btn-success" value="<?=t('Continue') ?>" />												
+										<?php									
+									}
+								?>	
+							</p>							
+						</div>
+					</div> <!-- // row -->
+						
 				<?php
 				
 			} else {
 				?>
-					<p>Your shopping cart is empty.</p>							
+					<p><?=t('Your shopping cart is empty.');?></p>							
 				<?php
 			}
 					

@@ -17,6 +17,9 @@
 		// turn this off in production!
 		'debug_mode' => true, 
 		
+		// save untranslated strings, turn this off in production!
+		'language_check' => false, 
+		
 		'emails_from' => 'info@parfumerie-hracky.cz',
 		
 		// for production, put something random here

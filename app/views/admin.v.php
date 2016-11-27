@@ -6,6 +6,6 @@
 		
 		renderBlock('messages');
 								
-		include $home_dir . 'views/' . $page . '.v.php';
+		include $home_dir . 'views/' . $page_template . '.v.php';
 	?>
 </div>

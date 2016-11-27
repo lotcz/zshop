@@ -6,6 +6,9 @@
 	$selected_delivery = DeliveryType::getDefault($delivery_types);
 
 ?>
+
+<h2><?=t('Delivery Type'); ?></h2>
+
 <div class="delivery-types list-group">  
 	<?php
 		foreach ($delivery_types as $delivery) {

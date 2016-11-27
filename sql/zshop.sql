@@ -108,7 +108,7 @@ CREATE TABLE IF NOT EXISTS `delivery_types` (
 ) ENGINE = InnoDB;
 
 INSERT INTO `delivery_types` (`delivery_type_name`, `delivery_type_price`, `delivery_type_is_default`, `delivery_type_require_address`, `delivery_type_min_order_cost`) 
-VALUES ('Pick up in store', 0, 0, 0, 0),('Czech post', 100, 1, 1, 100),('Parcel service', 250, 0, 1, 250);
+VALUES ('Pick up in store', 0, 0, 0, 0),('Czech post', 118, 0, 1, 0),('Parcel service', 99, 1, 1, 0);
 
 CREATE TABLE IF NOT EXISTS `payment_types` (
  `payment_type_id` TINYINT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -120,7 +120,8 @@ CREATE TABLE IF NOT EXISTS `payment_types` (
   PRIMARY KEY (`payment_type_id`)
 ) ENGINE = InnoDB;
 
-INSERT INTO `payment_types` (`payment_type_name`) VALUES ('Cash in store'),('Cash on delivery'),('Bank transfer'),('Credit card');
+INSERT INTO `payment_types` (`payment_type_name`, `payment_type_price`,  `payment_type_is_default`, `payment_type_min_order_cost`) 
+VALUES ('Cash in store',0,0,0),('Cash on delivery',35,0,0),('Bank transfer',0,1,0),('Credit card',0,0,1000);
 
 CREATE TABLE IF NOT EXISTS `allowed_payment_types` (
   `allowed_payment_type_delivery_type_id` TINYINT UNSIGNED NOT NULL,
