@@ -1,135 +1,46 @@
-<form class="order">
-				
-	<div class="table-responsive panel panel-default">
-		<table class="table">									
-			<tbody>
-				<?php
-					foreach ($products as $product) {
-						?>
-							<tr class="item">								
-								<td>
-									<?=$product->val('product_name')?>
-								</td>
-								
-								<td class="text-right">
-									<span><?=formatPrice($product->val('product_price')) ?></span>
-								</td>
-								
-								<td>
-									<?=$product->val('cart_count') ?>
-								</td>
-								
-								<td class="text-right">
-									<strong><span><?=formatPrice($product->val('item_price')) ?></span></strong>
-								</td>								
-							</tr>
-						<?php
-					}					
-					
-				?>
-				
-				<tr class="item">								
-					<td>
-						<?=t('Total')?>
-					</td>
-					
-					<td>						
-					</td>
-					
-					<td>
-					</td>
-					
-					<td class="text-right">
-						<strong><span><?=formatPrice($total_cart_value)?></span></strong>
-					</td>								
-				</tr>
-				
-			</tbody>
-		</table>
-	</div>
+<?php
+	global $data, $db;
+	$product = $data['product'];
 	
-	<div class="table-responsive panel panel-default">
-		<table class="table">									
-			<tbody>
+	$currency = Currency::getSelectedCurrency($db);
+	
+	?>
+		<div class="spaced product">		
 			
-				<tr class="item">								
-					<td>
-						<?=$delivery_type->val('delivery_type_name')?>
-					</td>
-					
-					<td>						
-					</td>
-					
-					<td>
-					</td>
-					
-					<td class="text-right">
-						<strong><span><?=formatPrice($delivery_type->fval('delivery_type_price'))?></span></strong>
-					</td>								
-				</tr>
-				
-				<tr class="item">								
-					<td>
-						<?=$payment_type->val('payment_type_name')?>
-					</td>
-					
-					<td>						
-					</td>
-					
-					<td>
-					</td>
-					
-					<td class="text-right">
-						<strong><span><?=formatPrice($payment_type->fval('payment_type_price'))?></span></strong>
-					</td>								
-				</tr>
-				
-				
-				<tr class="item">								
-					<td>
-						<?=t('Total')?>
-					</td>
-					
-					<td>						
-					</td>
-					
-					<td>
-					</td>
-					
-					<td class="text-right">
-						<strong><span><?=formatPrice($total_order_value)?></span></strong>
-					</td>								
-				</tr>
-			</tbody>
-		</table>
-	</div>
-	
-	<div class="row">
-				
-		<div class="col-md-6 address">									
-			<?php				
-				renderBlock('address-form');				
-			?>
-		</div>
-		
-		<div class="col-md-6">
-			<div class="panel panel-default">										
-				<div class="panel-heading">
-					<h3 class="panel-title"><?=t('Place an order') ?></h3>
+			<div class="row">
+				<div class="col col-md-6 text-center">
+					<?php					
+						$product->renderImage('view', 'img-thumbnail');					
+					?>
 				</div>
-				<div class="panel-body text-center">											
-					<div  class="col-sm-12 control-label"><?=t('Total Cost') ?>:</div>
-					<div class="col-sm-12 price">
-						
-						<span class="form-control-static cart-total-price"><?=formatPrice($total_order_value) ?></span>														
-					</div>												
-					<div class="form-group text-center">
-						<a class="btn btn-success"><?=t('Confirm Your Order') ?></a>
-					</div>															
-				</div>										
+				
+				<div class="col col-md-6">
+					<div class="row">
+						<div class="col col-md-6 text-left">
+							<h3><?=t('Price') ?></h3>
+						</div>
+						<div class="col col-md-6 text-right">
+							<h3><?=formatPrice($product->val('product_price'), $currency) ?></h3>
+						</div>					
+					</div>
+					
+					<div class="row spaced">
+						<div class="col col-md-6 col-md-offset-6 text-right">
+							<form class="form-inline">
+								<input name="product_count" id="prod_count_<?=$product->val('product_id')?>" value="1" type="text" maxlength="2" class="form-control prod-item-count" />
+								<button class="btn btn-success" onclick="javascript:addProductToCart(<?=$product->val('product_id')?>);return false;"><span class="glyphicon glyphicon-shopping-cart"></span><?=t('Buy')?></button>
+							</form>
+						</div>					
+					</div>
+				</div>
 			</div>
-		</div>																	
-		
-	</div> <!-- // row -->
-
-</form> <!-- // order -->
+			
+			<div class="row spaced">
+				<div class="spaced col col-md-12">
+					<?=$product->val('product_description') ?>
+				</div>
+			</div>
+			
+		</div>	
+	<?php
+	

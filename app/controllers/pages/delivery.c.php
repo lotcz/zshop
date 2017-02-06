@@ -1,5 +1,10 @@
 <?php
 	global $db, $messages, $home_dir;
+	require_once $home_dir . 'models/delivery_type.m.php';
+			
+	$delivery_types = DeliveryType::all($db);
+	$selected_delivery = DeliveryType::getDefault($delivery_types);
+	
 	require_once $home_dir . 'classes/forms.php';
 
 	$form = new Form('address');
@@ -38,5 +43,4 @@
 		]
 		
 	]);
-	$form->render();
-?>
+	

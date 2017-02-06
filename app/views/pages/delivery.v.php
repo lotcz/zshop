@@ -1,15 +1,5 @@
-<?php
-	global $db, $messages, $home_dir;
-	require_once $home_dir . 'models/delivery_type.m.php';
-			
-	$delivery_types = DeliveryType::all($db);
-	$selected_delivery = DeliveryType::getDefault($delivery_types);
-
-?>
-
-<h2><?=t('Delivery Type'); ?></h2>
-
-<div class="delivery-types list-group">  
+<form action="<?=_url('delivery')?>" method="POST">
+	<div class="delivery-types list-group">  
 	<?php
 		foreach ($delivery_types as $delivery) {
 			?>
@@ -41,10 +31,48 @@
 	?>
 </div>
 
+<?php
+	$form->render();
+?>
+
 <input type="hidden" name="delivery_type_id" id="delivery_type_id" value="<?=$selected_delivery->val('delivery_type_id')?>" />
 
-<script>	
+<script>
 	$(function (){
 		cartSelectDelivery(<?=$selected_delivery->val('delivery_type_id')?>);
 	});
 </script>
+</form>
+
+<script>
+
+	var payment_types = [], delivery_types = [];
+
+	<?php
+	
+		echo Currency::jsFormatPrice($db);
+	
+		$delivery_types = DeliveryType::all($db);
+		foreach ($delivery_types as $d) {
+			echo 'delivery_types[' . $d->val('delivery_type_id') . '] = ' . json_encode($d->data) . ';';	
+			echo 'delivery_types[' . $d->val('delivery_type_id') . '].allowed = [];';
+		}
+		
+		$allowed = PaymentType::getAllowedPT($db);
+		foreach ($allowed as $a) {
+			echo 'delivery_types[' . $a->val('allowed_payment_type_delivery_type_id') . '].allowed.push(' . $a->val('allowed_payment_type_payment_type_id') . ');';	
+		}
+		
+		$payment_types = PaymentType::all($db);
+		foreach ($payment_types as $pt) {
+			echo 'payment_types[' . $pt->val('payment_type_id') . '] = ' . json_encode($pt->data) . ';';
+		}
+		
+	?>
+	
+	$(function (){
+		cartUpdate();
+	});
+</script>
+
+<script src="<?=_url('js/delivery.js')?>"></script>
