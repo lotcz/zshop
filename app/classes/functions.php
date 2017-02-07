@@ -40,6 +40,10 @@
 		die();
 	}
 	
+	function isPost() {
+		return ($_SERVER['REQUEST_METHOD'] === 'POST');
+	}
+	
 	/* GET */
 	function _g($name, $def = null) {
 		return isset($_GET[$name]) ? $_GET[$name] : (isset($_POST[$name]) ? $_POST[$name] : $def);

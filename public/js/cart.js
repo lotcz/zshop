@@ -45,3 +45,7 @@ function reviveItem(id) {
 	setItemCount(id, 1);
 	$('#cart_prod_'+id).removeClass('removed');						
 }
+
+$(function (){
+	cartUpdate();
+});

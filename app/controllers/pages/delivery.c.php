@@ -1,46 +1,57 @@
 <?php
 	global $db, $messages, $home_dir;
 	require_once $home_dir . 'models/delivery_type.m.php';
-			
-	$delivery_types = DeliveryType::all($db);
-	$selected_delivery = DeliveryType::getDefault($delivery_types);
-	
 	require_once $home_dir . 'classes/forms.php';
-
-	$form = new Form('address');
 	
-	$form->add([		
+	
+	$form = new Form('address');
+
+	$form->add([
 		[
-			'name' => 'currency_name',
+			'name' => 'delivery_type_id',
+			'type' => 'hidden'
+		],	
+		[
+			'name' => 'customer_ship_name',
 			'label' => 'Name',
 			'type' => 'text',
-			'validations' => [
-				['type' => 'length', 'param' => 1],
-			]
+			'validations' => [['type' => 'maxlen', 'param' => 50]]
 		],
 		[
-			'name' => 'currency_format',
-			'label' => 'Street',
-			'type' => 'text',
-			'hint' => 'This specifies how prices will be displayed in this currency. Put token %s where you want amount to be.'
-		],
-		[
-			'name' => 'currency_value',
+			'name' => 'customer_ship_city',
 			'label' => 'City',
 			'type' => 'text',
-			'hint' => 'Put value 1 for default currency.',
-			'validations' => [
-				['type' => 'price'],
-				['type' => 'min', 'param' => 0],
-			]
+			'validations' => [['type' => 'maxlen', 'param' => 50]]
 		],
 		[
-			'name' => 'currency_decimals',
-			'label' => 'Country',
+			'name' => 'customer_ship_street',
+			'label' => 'Street',
 			'type' => 'text',
-			'hint' => 'This specifies how many decimal places will be displayed for prices in this currency.',
-			'validations' => [['type' => 'integer']]
-		]
-		
+			'validations' => [['type' => 'maxlen', 'param' => 50]]
+		],
+		[
+			'name' => 'customer_ship_zip',
+			'label' => 'ZIP',
+			'type' => 'text',
+			'validations' => [
+				['type' => 'integer', 'param' => true]
+			]
+		]		
 	]);
+
+	$render_page = true;
 	
+	if (isPost()) {
+		redirect('payment');
+		$render_page = false;
+	}
+		
+	if ($render_page) {
+		$page_title = t('Invoicing address');
+		$main_template = 'nocats';
+		
+		$delivery_types = DeliveryType::all($db);
+		$selected_delivery = DeliveryType::getDefault($delivery_types);
+
+		$form->prepare($db, $custAuth->customer);
+	}
