@@ -1,8 +1,11 @@
 <div class="cart">
 
 	<?php
-
+	
 		if ($totals['p'] > 0) {
+			
+			renderBlock('progress');
+			
 			?>					
 				<div class="table-responsive panel panel-default">
 					<table class="table">									

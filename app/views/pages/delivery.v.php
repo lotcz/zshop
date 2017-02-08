@@ -1,6 +1,9 @@
 <form action="<?=_url('delivery')?>" method="POST">
 
 	<?php
+	
+		renderBlock('progress');
+	
 		$form->render();
 	?>
 

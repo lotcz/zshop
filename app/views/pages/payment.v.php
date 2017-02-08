@@ -1,4 +1,10 @@
 <form action="<?=_url('order')?>" method="POST">
+	<?php
+	
+		renderBlock('progress');
+	
+	?>
+	
 	<div class="payment-types list-group">  
 	<?php
 		foreach ($payment_types as $payment) {
