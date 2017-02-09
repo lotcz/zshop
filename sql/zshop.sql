@@ -394,7 +394,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `order_customer_id` INT UNSIGNED NOT NULL,
   `order_delivery_type_id` TINYINT UNSIGNED NOT NULL,
   `order_payment_type_id` TINYINT UNSIGNED NOT NULL,
-  `order_payment_code` INT UNSIGNED NOT NULL ,
+  `order_payment_code` INT UNSIGNED NULL,
   `order_created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `order_last_status_change` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
  

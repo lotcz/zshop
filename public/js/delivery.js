@@ -4,8 +4,7 @@ function selectDelivery(id) {
 	$('.delivery-types > [data-id="' + id + '"]').addClass('active');
 	$('.delivery-types [data-id="' + id + '"] input[type="radio"]').prop('checked', true);
 	
-	$('#delivery_type_id').val(id);
-	
+	$('#field_customer_delivery_type_id').val(id);
 		
 }
 

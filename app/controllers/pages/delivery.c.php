@@ -2,13 +2,12 @@
 	global $db, $messages, $home_dir;
 	require_once $home_dir . 'models/delivery_type.m.php';
 	require_once $home_dir . 'classes/forms.php';
-	
-	
+		
 	$form = new Form('address');
 
 	$form->add([
 		[
-			'name' => 'delivery_type_id',
+			'name' => 'customer_delivery_type_id',
 			'type' => 'hidden'
 		],	
 		[
@@ -41,9 +40,15 @@
 
 	$render_page = true;
 	
-	if (isPost()) {
-		redirect('payment');
-		$render_page = false;
+	if (Form::submitted()) {
+		$customer = $custAuth->customer;
+		if ($form->processInput($_POST)) {
+			$customer->setData($form->processed_input);
+			if ($customer->save()) {
+				redirect('payment');
+				$render_page = false;	
+			}
+		}		
 	}
 		
 	if ($render_page) {
@@ -51,7 +56,11 @@
 		$main_template = 'nocats';
 		
 		$delivery_types = DeliveryType::all($db);
-		$selected_delivery = DeliveryType::getDefault($delivery_types);
+		$selected_delivery = DeliveryType::find($delivery_types, 'delivery_type_id', $custAuth->val('customer_delivery_type_id'));
+		
+		if (!isset($selected_delivery)) {
+			$selected_delivery = DeliveryType::getDefault($delivery_types);
+		}		
 
 		$form->prepare($db, $custAuth->customer);
 	}

@@ -1,4 +1,4 @@
-<form action="<?=_url('order')?>" method="POST">
+<form action="<?=_url('payment')?>" method="POST">
 	<?php
 	
 		renderBlock('progress');
@@ -35,29 +35,29 @@
 		}
 		
 	?>
-</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-md-6 text-right">				
+			<?php
+				renderLink('delivery', 'Back to delivery', 'btn btn-default'); 
+			?>			
+		</div>
+		<div class="col-md-6">				
+			<input type="submit" value="<?=t('Continue')?>" class="btn btn-success" />						
+		</div>
+	</div>
 
-<input type="hidden" name="payment_type_id" id="payment_type_id" value="<?=$selected_payment->val('payment_type_id')?>" />
+	<input type="hidden" name="payment_type_id" id="payment_type_id" value="<?=$selected_payment->val('payment_type_id')?>" />
 </form>
 
 <script>
 
-	var payment_types = [], delivery_types = [];
+	var payment_types = [];
 	
 	<?php
 	
 		echo Currency::jsFormatPrice($db);
-	
-		$delivery_types = DeliveryType::all($db);
-		foreach ($delivery_types as $d) {
-			echo 'delivery_types[' . $d->val('delivery_type_id') . '] = ' . json_encode($d->data) . ';';	
-			echo 'delivery_types[' . $d->val('delivery_type_id') . '].allowed = [];';
-		}
-		
-		$allowed = PaymentType::getAllowedPT($db);
-		foreach ($allowed as $a) {
-			echo 'delivery_types[' . $a->val('allowed_payment_type_delivery_type_id') . '].allowed.push(' . $a->val('allowed_payment_type_payment_type_id') . ');';	
-		}
 		
 		$payment_types = PaymentType::all($db);
 		foreach ($payment_types as $pt) {
@@ -65,10 +65,7 @@
 		}
 		
 	?>
-	
-	$(function (){
-		cartUpdate();
-	});
+
 </script>
 
 <script src="<?=_url('js/payment.js')?>"></script>
