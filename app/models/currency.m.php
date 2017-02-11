@@ -30,20 +30,12 @@ class Currency extends ModelBase {
 		$s.= sprintf('function formatPrice(price) { return (\'%s\').replace(\'%s\', price.formatMoney(%d, \'%s\', \'%s\')); }', $selected_currency->val('currency_format'), '%s', $selected_currency->ival('currency_decimals'), t('decimal_separator'), t('thousands_separator') );
 		return $s;
 	}
-	
-	static function formatPrice($db, $price, $selected_currency = null) {
-		if (!isset($selected_currency)) {			
-			$selected_currency = Currency::getSelectedCurrency($db);
-		}
-		if (isset($selected_currency)) {
-			return sprintf($selected_currency->val('currency_format'), number_format($selected_currency->convert($price), $selected_currency->ival('currency_decimals') , t('decimal_separator') , t('thousands_separator') ));
-		} else {
-			return $price;
-		}
-	}
-	
+		
 	public function convert($price) {
 		return parseFloat($price) / $this->fval('currency_value');
 	}
 	
+	public function format($price) {
+		return sprintf($this->val('currency_format'), number_format($price, $this->ival('currency_decimals'), t('decimal_separator'), t('thousands_separator')));
+	}
 }

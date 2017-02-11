@@ -119,6 +119,10 @@ class SqlQuery {
 				$sql = sprintf('UPDATE %s %s %s', $this->table_name, $this->setSQL, $this->whereSQL);
 				break;
 			
+			case 'delete' :
+				$sql = sprintf('DELETE FROM %s %s', $this->table_name, $this->whereSQL);
+				break;
+				
 			case 'select':
 			default:
 				$sql = sprintf('SELECT * FROM %s %s %s %s', $this->table_name, $this->whereSQL, $this->orderbySQL, $this->limitSQL);
@@ -150,6 +154,13 @@ class SqlQuery {
 		$query->where = $where;
 		$query->bindings = $bindings;
 		$query->data = $data;
+		return $query->execute();
+	}
+	
+	static function del($db, $table_name, $where, $bindings = null) {
+		$query = new SqlQuery($db, $table_name, 'delete');
+		$query->where = $where;
+		$query->bindings = $bindings;
 		return $query->execute();
 	}
 	

@@ -192,8 +192,16 @@
 	function formatPrice($price, $selected_currency = null) {
 		if (parseFloat($price) > 0) {
 			global $db, $home_dir;
-			require_once $home_dir . 'models/currency.m.php';		
-			return Currency::formatPrice($db, $price, $selected_currency);
+			require_once $home_dir . 'models/currency.m.php';			
+			if (!isset($selected_currency)) {			
+				$selected_currency = Currency::getSelectedCurrency($db);
+			}		
+			if (isset($selected_currency)) {
+				$price = $selected_currency->convert($price);
+				return $selected_currency->format($price);
+			} else {
+				return $price;
+			}
 		} else {
 			return t('Free');
 		}

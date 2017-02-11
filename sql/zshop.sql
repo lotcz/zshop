@@ -3,8 +3,12 @@ CREATE DATABASE zshop DEFAULT char set utf8;
 USE zshop;
 
 CREATE TABLE `site_globals` (
-  `site_global_name` varchar(100) NOT NULL DEFAULT '',
+  `site_global_name` varchar(100) NOT NULL,
+  `site_global_label` varchar(100),
+  `site_global_type` varchar(100) NOT NULL DEFAULT 'text',
+  `site_global_validations_json` text,
   `site_global_value` text,
+  
   PRIMARY KEY (`site_global_name`)
 ) ENGINE=InnoDB;
 
@@ -20,6 +24,35 @@ CREATE TABLE IF NOT EXISTS `ip_failed_attempts` (
    UNIQUE INDEX `ip_failed_attempt_ip_unique` (`ip_failed_attempt_ip` ASC)
 ) ENGINE = InnoDB;
 
+CREATE TABLE IF NOT EXISTS `currencies` (
+  `currency_id` TINYINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `currency_name` NVARCHAR(50) NOT NULL,
+  `currency_format` NVARCHAR(20) NOT NULL,
+  `currency_value` DECIMAL(20,10) NOT NULL,
+  `currency_decimals` TINYINT NOT NULL DEFAULT 2,
+  PRIMARY KEY (`currency_id`),
+  UNIQUE INDEX `currency_name_unique` (`currency_name` ASC))
+ENGINE = InnoDB;
+
+INSERT INTO currencies (currency_name, currency_format, currency_value, currency_decimals) VALUES ('Kč','%s&nbsp;Kč', 1, 0);
+INSERT INTO currencies (currency_name, currency_format, currency_value, currency_decimals) VALUES ('EUR','EUR%s', 27.02, 2);
+
+CREATE TABLE IF NOT EXISTS `languages` (
+  `language_id` TINYINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `language_name` VARCHAR(100) NOT NULL,
+  `language_code` VARCHAR(10) NOT NULL,
+  `language_decimal_separator` VARCHAR(10) NOT NULL,
+  `language_thousands_separator` VARCHAR(10) NOT NULL,
+  `language_default_currency_id` TINYINT UNSIGNED NOT NULL,
+  PRIMARY KEY (`language_id`),
+  CONSTRAINT `language_currency_fk`
+    FOREIGN KEY (`language_default_currency_id`)
+    REFERENCES `currencies` (`currency_id`)
+)ENGINE = InnoDB;
+
+INSERT INTO languages VALUES (NULL, 'English','en', '.', ',',2);
+INSERT INTO languages VALUES (NULL, 'Čeština','cs', ',', '&nbsp',1);
+
 CREATE TABLE IF NOT EXISTS `users` (
   `user_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_deleted` BIT DEFAULT 0 NOT NULL,
@@ -31,10 +64,15 @@ CREATE TABLE IF NOT EXISTS `users` (
   `user_last_access` TIMESTAMP,
   `user_reset_password_hash` VARCHAR(255) NULL,
   `user_reset_password_until` TIMESTAMP NULL,
+  `user_language_id` TINYINT UNSIGNED NOT NULL,
+ 
   PRIMARY KEY (`user_id`),
   UNIQUE INDEX `users_email_unique` (`user_email` ASC),
-  UNIQUE INDEX `users_login_unique` (`user_login` ASC))
-ENGINE = InnoDB;
+  UNIQUE INDEX `users_login_unique` (`user_login` ASC),
+  CONSTRAINT `user_language_fk`
+    FOREIGN KEY (`user_language_id`)
+    REFERENCES `languages` (`language_id`)
+) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `user_sessions` (
   `user_session_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -138,7 +176,7 @@ CREATE TABLE IF NOT EXISTS `allowed_payment_types` (
 ) ENGINE = InnoDB;
 
 INSERT INTO `allowed_payment_types` (`allowed_payment_type_delivery_type_id`, `allowed_payment_type_payment_type_id`) 
-VALUES (1,1),(2,2),(2,3),(2,4),(3,2),(3,3),(3,4);
+VALUES (1,1),(2,2),(2,3),(3,2),(3,3);
 
 CREATE TABLE IF NOT EXISTS `customers` (
   `customer_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -154,6 +192,8 @@ CREATE TABLE IF NOT EXISTS `customers` (
     
   `customer_delivery_type_id` TINYINT UNSIGNED NULL,
   `customer_payment_type_id` TINYINT UNSIGNED NULL,
+  `customer_currency_id` TINYINT UNSIGNED NOT NULL,
+  `customer_language_id` TINYINT UNSIGNED NOT NULL,
   
   `customer_name` NVARCHAR(50),
   `customer_address_city` NVARCHAR(50),
@@ -172,7 +212,13 @@ CREATE TABLE IF NOT EXISTS `customers` (
     REFERENCES `delivery_types` (`delivery_type_id`),
   CONSTRAINT `customer_payment_type_fk`
     FOREIGN KEY (`customer_payment_type_id`)
-    REFERENCES `payment_types` (`payment_type_id`)
+    REFERENCES `payment_types` (`payment_type_id`),
+  CONSTRAINT `customer_currency_fk`
+    FOREIGN KEY (`customer_currency_id`)
+    REFERENCES `currencies` (`currency_id`),
+ CONSTRAINT `customer_language_fk`
+    FOREIGN KEY (`customer_language_id`)
+    REFERENCES `languages` (`language_id`)
 ) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `customer_sessions` (
@@ -198,38 +244,9 @@ ENGINE = InnoDB;
 
 INSERT INTO aliases (alias_url, alias_path) VALUES ('kosik','cart');
 
-CREATE TABLE IF NOT EXISTS `currencies` (
-  `currency_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `currency_name` NVARCHAR(50) NOT NULL,
-  `currency_format` NVARCHAR(20) NOT NULL,
-  `currency_value` DECIMAL(20,10) NOT NULL,
-  `currency_decimals` TINYINT NOT NULL DEFAULT 2,
-  PRIMARY KEY (`currency_id`),
-  UNIQUE INDEX `currency_name_unique` (`currency_name` ASC))
-ENGINE = InnoDB;
-
-INSERT INTO currencies (currency_name, currency_format, currency_value, currency_decimals) VALUES ('Kč','%s&nbsp;Kč', 1, 0);
-INSERT INTO currencies (currency_name, currency_format, currency_value, currency_decimals) VALUES ('EUR','EUR%s', 27.02, 2);
-
-CREATE TABLE IF NOT EXISTS `languages` (
-  `language_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `language_name` VARCHAR(100) NOT NULL,
-  `language_code` VARCHAR(10) NOT NULL,
-  `language_decimal_separator` VARCHAR(10) NOT NULL,
-  `language_thousands_separator` VARCHAR(10) NOT NULL,
-  `language_default_currency_id` INT UNSIGNED NOT NULL,
-  PRIMARY KEY (`language_id`),
-  CONSTRAINT `language_currency_fk`
-    FOREIGN KEY (`language_default_currency_id`)
-    REFERENCES `currencies` (`currency_id`)
-)ENGINE = InnoDB;
-
-INSERT INTO languages VALUES (NULL, 'English','en', '.', ',',2);
-INSERT INTO languages VALUES (NULL, 'Čeština','cs', ',', '&nbsp',1);
-
 CREATE TABLE IF NOT EXISTS `translations` (
   `translation_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `translation_language_id` INT UNSIGNED NOT NULL,
+  `translation_language_id` TINYINT UNSIGNED NOT NULL,
   `translation_name` VARCHAR(255) NOT NULL,
   `translation_translation` TEXT,
    PRIMARY KEY (`translation_id`),
@@ -387,7 +404,6 @@ CREATE TABLE IF NOT EXISTS `order_states` (
 
 INSERT INTO `order_states` (`order_state_closed`, `order_state_name`) VALUES (0,'New (waiting for payment)'),(0,'Processing'),(0,'Re-opened'),(1,'Shipped (closed)'),(1,'Cancelled');
 
-
 CREATE TABLE IF NOT EXISTS `orders` (
   `order_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `order_order_state_id` TINYINT UNSIGNED NOT NULL DEFAULT 1, 
@@ -395,6 +411,12 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `order_delivery_type_id` TINYINT UNSIGNED NOT NULL,
   `order_payment_type_id` TINYINT UNSIGNED NOT NULL,
   `order_payment_code` INT UNSIGNED NULL,
+  `order_currency_id` TINYINT UNSIGNED NOT NULL,
+  `order_delivery_type_price` DECIMAL(10,2) UNSIGNED NOT NULL DEFAULT 0,
+  `order_payment_type_price` DECIMAL(10,2) UNSIGNED NOT NULL DEFAULT 0,
+  `order_total_cart_price` DECIMAL(10,2) UNSIGNED NOT NULL DEFAULT 0,
+  `order_total_price` DECIMAL(10,2) UNSIGNED NOT NULL DEFAULT 0,
+    
   `order_created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `order_last_status_change` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
  
@@ -413,7 +435,10 @@ CREATE TABLE IF NOT EXISTS `orders` (
     REFERENCES `delivery_types` (`delivery_type_id`),
   CONSTRAINT `order_payment_type_fk`
     FOREIGN KEY (`order_payment_type_id`)
-    REFERENCES `payment_types` (`payment_type_id`)
+    REFERENCES `payment_types` (`payment_type_id`),
+  CONSTRAINT `order_currency_fk`
+    FOREIGN KEY (`order_currency_id`)
+    REFERENCES `currencies` (`currency_id`)
 ) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `order_products` (
@@ -423,8 +448,9 @@ CREATE TABLE IF NOT EXISTS `order_products` (
   `order_product_variant_id` INT UNSIGNED NULL,
   `order_product_name` VARCHAR(255) NOT NULL,
   `order_product_variant_name` VARCHAR(100) NOT NULL,
-  `order_product_price` DECIMAL(10,2) UNSIGNED NOT NULL,
+  `order_product_price` DECIMAL(10,2) UNSIGNED NOT NULL,  
   `order_product_count` INT UNSIGNED NOT NULL DEFAULT 1, 
+  `order_product_item_price` DECIMAL(10,2) UNSIGNED NOT NULL,
 
   PRIMARY KEY (`order_product_id`),
   CONSTRAINT `order_product_pruduct_fk`
@@ -460,7 +486,7 @@ CREATE VIEW viewProducts AS
 DROP VIEW IF EXISTS `viewProductsInCart` ;
 
 CREATE VIEW viewProductsInCart AS
-	SELECT *, coalesce(pv.product_variant_price, p.product_price ) * c.cart_count AS item_price
+	SELECT *, coalesce(pv.product_variant_price, p.product_price ) AS actual_price, coalesce(pv.product_variant_price, p.product_price ) * c.cart_count AS item_price
     FROM cart c
     LEFT OUTER JOIN products p ON (c.cart_product_id = p.product_id)
     LEFT OUTER JOIN product_variants pv ON (c.cart_variant_id = pv.product_variant_id)

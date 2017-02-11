@@ -15,14 +15,14 @@ class Cart extends ModelBase {
 	
 	static function loadCartTotals($db, $customer_id) {
 		$totals = [];
-		$sql = 'SELECT SUM(product_price * cart_count) AS p FROM viewProductsInCart WHERE cart_customer_id = ?';
+		$sql = 'SELECT SUM(item_price) AS p FROM viewProductsInCart WHERE cart_customer_id = ?';
 		$statement = SqlQuery::executeSQL($db, $sql, [$customer_id]);
 		$result = $statement->get_result();
 		if ($row = $result->fetch_assoc()) {
 			$totals = $row;
 			$selected_currency = Currency::getSelectedCurrency($db);
 			$totals['pf'] = formatPrice($row['p'], $selected_currency);
-			$totals['pc'] = $row['p'] / $selected_currency->fval('currency_value');
+			$totals['pc'] = $selected_currency->convert($row['p']);
 		}
 		$statement->close();
 		return $totals;		
@@ -32,4 +32,7 @@ class Cart extends ModelBase {
 		return Product::loadCart($db, $customer_id);
 	}
 	
+	static function emptyCart($db, $customer_id) {
+		return SqlQuery::del($db, 'cart', 'cart_customer_id = ?', [$customer_id]);
+	}
 }

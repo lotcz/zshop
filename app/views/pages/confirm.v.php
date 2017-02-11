@@ -1,4 +1,4 @@
-<form class="order">
+<form action="<?=_url('confirm')?>" method="POST">
 				
 	<div class="table-responsive panel panel-default">
 		<table class="table">									
@@ -97,7 +97,7 @@
 					</td>
 					
 					<td class="text-right">
-						<strong><span><?=formatPrice($total_order_value)?></span></strong>
+						<strong><span><?=$total_order_value?></span></strong>
 					</td>								
 				</tr>
 			</tbody>
@@ -105,30 +105,23 @@
 	</div>
 	
 	<div class="row">
-				
-		<div class="col-md-6 address">									
-			<?php				
-				renderBlock('address-form');				
-			?>
-		</div>
 		
-		<div class="col-md-6">
-			<div class="panel panel-default">										
-				<div class="panel-heading">
-					<h3 class="panel-title"><?=t('Place an order') ?></h3>
-				</div>
-				<div class="panel-body text-center">											
-					<div  class="col-sm-12 control-label"><?=t('Total Cost') ?>:</div>
-					<div class="col-sm-12 price">
-						
-						<span class="form-control-static cart-total-price"><?=formatPrice($total_order_value) ?></span>														
-					</div>												
-					<div class="form-group text-center">
-						<a class="btn btn-success"><?=t('Confirm Your Order') ?></a>
-					</div>															
-				</div>										
+		<div class="panel panel-default">										
+			<div class="panel-heading">
+				<h3 class="panel-title"><?=t('Place an order') ?></h3>
 			</div>
-		</div>																	
+			<div class="panel-body text-center">											
+				<div  class="col-sm-12 control-label"><?=t('Total Cost') ?>:</div>
+				<div class="col-sm-12 price">
+					
+					<span class="form-control-static cart-total-price"><?=formatPrice($total_order_value) ?></span>														
+				</div>												
+				<div class="form-group text-center">
+					<input type="submit" class="btn btn-success" value="<?=t('Confirm Your Order') ?>" />
+				</div>															
+			</div>										
+		</div>
+																		
 		
 	</div> <!-- // row -->
 

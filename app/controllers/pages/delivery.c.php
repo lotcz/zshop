@@ -35,7 +35,7 @@
 			'validations' => [
 				['type' => 'integer', 'param' => true]
 			]
-		]		
+		]
 	]);
 
 	$render_page = true;
@@ -48,9 +48,9 @@
 				redirect('payment');
 				$render_page = false;	
 			}
-		}		
+		}
 	}
-		
+
 	if ($render_page) {
 		$page_title = t('Invoicing address');
 		$main_template = 'nocats';

@@ -1,5 +1,5 @@
 <?php
-
+require_once $home_dir . 'models/currency.m.php';
 require_once $home_dir . 'models/customer.m.php';
 require_once $home_dir . 'models/custsess.m.php';
 
@@ -20,18 +20,22 @@ class CustomerAuthentication {
 	static $min_password_length = 5;
 	static $session_expire = 60*60*24*7; //7 days
 	
-	function __construct($auth_db) {
-		$this->db = $auth_db;	
+	function __construct($db) {
+		$this->db = $db;	
 		$this->checkAuthentication();		
 		
 		// create anonymous session
 		if (!$this->isAuth()) {
 			$token = $this->generateToken();
-			$this->customer = new Customer($auth_db);
+			$this->customer = new Customer($db);
 			$this->customer->data['customer_anonymous'] = 1;
 			$this->customer->data['customer_name'] = t('Anonymous');
 			$this->customer->data['customer_email'] = 'anonymous@' . $token;
-			$this->customer->save();			
+			$this->customer->data['customer_language_id'] = 'anonymous@' . $token;
+			$currency = Currency::getSelectedCurrency($db);
+			$this->customer->data['customer_currency_id'] = $currency->val('currency_id');
+			$this->customer->data['customer_language_id'] = 1;
+			$this->customer->save();
 			$this->createSession();
 		}	
 	}
