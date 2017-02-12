@@ -1,6 +1,6 @@
 @font-face {
 	font-family: parfumerie;
-	src: local('☺'), url('akaFrivolity.ttf') format('truetype');
+	src: local('☺'), url('akaFrivolity.ttf') forma$this->t('truetype');
 	font-weight: normal;
 	font-style: normal;
 }

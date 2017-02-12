@@ -52,8 +52,8 @@ CREATE TABLE IF NOT EXISTS `languages` (
     REFERENCES `currencies` (`currency_id`)
 )ENGINE = InnoDB;
 
-INSERT INTO languages VALUES (NULL, 'English','en','','' '.', ',',2);
-INSERT INTO languages VALUES (NULL, 'Čeština','cs', ',', '&nbsp',1);
+INSERT INTO languages VALUES (NULL, 'English','en','j/n/Y','j/n/Y h:i:s', '.', ',',2);
+INSERT INTO languages VALUES (NULL, 'Čeština','cs','j.n.Y','j.n.Y h:i:s', ',', '&nbsp',1);
 
 CREATE TABLE IF NOT EXISTS `users` (
   `user_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,

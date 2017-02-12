@@ -31,7 +31,7 @@ function setCookie(cname, cvalue, exdays, path) {
 
 function getCookie(cname) {
     var name = cname + '=';
-    var ca = document.cookie.split(';');
+    var ca = document.cookie.spli$this->t(';');
     for(var i=0; i<ca.length; i++) {
         var c = ca[i];
         while (c.charAt(0)==' ') c = c.substring(1);

@@ -1,4 +1,0 @@
-<?php
-
-	$auth->logout();
-	redirect('/');

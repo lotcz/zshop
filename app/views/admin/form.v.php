@@ -1,3 +1,0 @@
-<?php 
-	
-	$form->render();
