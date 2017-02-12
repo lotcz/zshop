@@ -83,6 +83,7 @@
 	
 	/* FORM VALIDATIONS */
 	$language_data['Value must be at least %s characters long.'] = 'Hodnota musí být alespoň %s znaků dlouhá.';
+	$language_data['Please enter valid e-mail address.'] = 'Zadejte prosím platnou emailovou adresu.';
 	
 	$language_data['Total'] = 'Celkem';
 	$language_data['Total <b>%s</b> items.'] = 'Celkem <b>%s</b> položek.';

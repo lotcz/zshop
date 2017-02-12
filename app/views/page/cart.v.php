@@ -2,16 +2,16 @@
 
 	<?php
 	
-		if ($totals['p'] > 0) {
+		if ($this->data['cart_totals']['total_cart_price'] > 0) {
 			
-			renderBlock('progress');
+			$this->renderPartialView('order-progress');
 			
 			?>					
 				<div class="table-responsive panel panel-default">
 					<table class="table">									
 						<tbody>
 							<?php
-								foreach ($products as $product) {
+								foreach ($this->data['cart_products'] as $product) {
 									?>
 										<tr class="item" id="cart_prod_<?=$product->val('product_id') ?>">
 											<td>
@@ -53,7 +53,7 @@
 							
 							<tr class="item">								
 								<td>
-									<?=t('Total')?>
+									<?=$this->t('Total')?>
 								</td>
 								
 								<td></td>								
@@ -61,8 +61,8 @@
 								<td></td>								
 								
 								<td class="text-right">
-									<strong class="cart-total-price"><?=formatPrice($data['totals']['p'])?></strong>
-									<input type="hidden" name="cart_total_price" id="cart_total_price" value="<?=$data['totals']['pc'] ?>" />
+									<strong class="cart-total-price"><?=$this->data['cart_totals']['cart_total_price_formatted']?></strong>
+									<input type="hidden" name="cart_total_price" id="cart_total_price" value="<?=$this->data['cart_totals']['cart_total_price_converted'] ?>" />
 								</td>								
 								
 								<td></td>
@@ -75,25 +75,25 @@
 				
 				<?php
 					
-					if ($custAuth->customer->val('customer_anonymous')) {
+					if ($this->getCustomer->val('customer_anonymous')) {
 						?>		
 							<div class="row">
 								<div class="col-md-12">	
-									<h2><?=t('Sign In or Register'); ?></h2>										
+									<h2><?=$this->t('Sign In or Register'); ?></h2>										
 									<p>
-										<?=t('You are currently not logged in. If you have an account with our e-shop, please log in to use all features.');?>
+										<?=$this->t('You are currently not logged in. If you have an account with our e-shop, please log in to use all features.');?>
 									</p>
 									<p>
 										<?php
-											renderLink('login', 'Sign In', 'btn btn-primary', 'cart'); 
+											$this->renderLink('login', 'Sign In', 'btn btn-primary', 'cart'); 
 										?>
 									</p>										
 									<p>
-										<?=t('If you don\'t have an account with us yet, please create one. Only registered customers can use all features of our e-shop.');?>
+										<?=$this->t('If you don\'t have an account with us yet, please create one. Only registered customers can use all features of our e-shop.');?>
 									</p>
 									<p>
 										<?php
-											renderLink('register', 'Register', 'btn btn-success', 'cart'); 
+											$this->renderLink('register', 'Register', 'btn btn-success', 'cart'); 
 										?>
 									</p>									
 								</div>
@@ -106,20 +106,20 @@
 				
 				<div class="row">
 					<div class="col-md-12">	
-						<h2><?=t('Place an order'); ?></h2>
+						<h2><?=$this->t('Place an order'); ?></h2>
 						
 						<p>
-							<?=t('Total Cost') ?>:								
+							<?=$this->t('Total Cost') ?>:								
 							<span id="order_total_price"></span>
 							<span class="ajax-loader" style="vertical-align:middle"></span>
 						</p>
 						
 						<p>
 							<?php
-								if ($custAuth->customer->val('customer_anonymous')) {									
-									renderLink('delivery', 'Order Without Registration', 'btn btn-default', 'cart'); 									
+								if ($this->getCustomer->val('customer_anonymous')) {									
+									$this->renderLink('delivery', 'Order Without Registration', 'btn btn-default', 'cart'); 									
 								} else {									
-									renderLink('delivery', 'Create Order', 'btn btn-success', 'cart');																
+									$this->renderLink('delivery', 'Create Order', 'btn btn-success', 'cart');																
 								}
 							?>	
 						</p>							
@@ -130,7 +130,7 @@
 			
 		} else {
 			?>
-				<p><?=t('Your shopping cart is empty.');?></p>							
+				<p><?=$this->t('Your shopping cart is empty.');?></p>							
 			<?php
 		}
 	
@@ -139,7 +139,7 @@
 </div>
 
 <script>
-	<?=Currency::jsFormatPrice($db);?>	
+	<?=$this->z->i18n->jsFormatPrice();?>	
 </script>
 
-<script src="<?=_url('js/cart.js')?>"></script>
+<script src="<?=$this->url('js/cart.js')?>"></script>
