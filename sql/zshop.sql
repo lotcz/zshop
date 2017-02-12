@@ -40,7 +40,9 @@ INSERT INTO currencies (currency_name, currency_format, currency_value, currency
 CREATE TABLE IF NOT EXISTS `languages` (
   `language_id` TINYINT UNSIGNED NOT NULL AUTO_INCREMENT,
   `language_name` VARCHAR(100) NOT NULL,
-  `language_code` VARCHAR(10) NOT NULL,
+  `language_code` VARCHAR(5) NOT NULL,
+  `language_date_format` VARCHAR(50) NOT NULL,
+  `language_datetime_format` VARCHAR(100) NOT NULL,
   `language_decimal_separator` VARCHAR(10) NOT NULL,
   `language_thousands_separator` VARCHAR(10) NOT NULL,
   `language_default_currency_id` TINYINT UNSIGNED NOT NULL,
@@ -50,7 +52,7 @@ CREATE TABLE IF NOT EXISTS `languages` (
     REFERENCES `currencies` (`currency_id`)
 )ENGINE = InnoDB;
 
-INSERT INTO languages VALUES (NULL, 'English','en', '.', ',',2);
+INSERT INTO languages VALUES (NULL, 'English','en','','' '.', ',',2);
 INSERT INTO languages VALUES (NULL, 'Čeština','cs', ',', '&nbsp',1);
 
 CREATE TABLE IF NOT EXISTS `users` (
@@ -447,7 +449,7 @@ CREATE TABLE IF NOT EXISTS `order_products` (
   `order_product_product_id` INT UNSIGNED NULL,
   `order_product_variant_id` INT UNSIGNED NULL,
   `order_product_name` VARCHAR(255) NOT NULL,
-  `order_product_variant_name` VARCHAR(100) NOT NULL,
+  `order_product_variant_name` VARCHAR(100) NULL,
   `order_product_price` DECIMAL(10,2) UNSIGNED NOT NULL,  
   `order_product_count` INT UNSIGNED NOT NULL DEFAULT 1, 
   `order_product_item_price` DECIMAL(10,2) UNSIGNED NOT NULL,
