@@ -31,7 +31,7 @@
 			$this->renderPartialView('cookies');
 			
 			if ($this->isAuth()) {
-				renderPartialView('adm-top');
+				$this->renderAdminMenu();
 			}
 		
 			$this->renderMainView();
@@ -40,7 +40,7 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>		
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
-		<script src="<?=$this->url('js/tools.js')?>"></script>		
+		<script src="<?=$this->url('js/zshop.js')?>"></script>		
 		<script src="<?=$this->url('js/forms.js')?>"></script>
 
 	</body>

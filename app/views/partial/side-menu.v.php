@@ -42,39 +42,9 @@
 	}
 		
 ?>
-	
-	<div id="side-menu">
-		<?php
-			renderSideMenu($this->data['category_tree']);
-		?>
-			
-		<script>
-			function updateToggle(caller) {
-				var id = String.substr(caller.id, 15);
-				var state = $(caller).hasClass('in');
-				var toggle = $('#zmenu-toggle-' + id);
-				toggle.removeClass('glyphicon-triangle-right');
-				toggle.removeClass('glyphicon-triangle-bottom');
-				
-				if (state) {
-					toggle.addClass('glyphicon-triangle-bottom');
-				} else {
-					toggle.addClass('glyphicon-triangle-right');
-				}
-			}
-			
-			$('.zmenu-collapse').on('show.bs.collapse', function () {
-				updateToggle(this);
-			});
-			$('.zmenu-collapse').on('hide.bs.collapse', function () {
-				updateToggle(this);
-			});
-			$('.zmenu-collapse').on('shown.bs.collapse', function () {
-				updateToggle(this);
-			});
-			$('.zmenu-collapse').on('hidden.bs.collapse', function () {
-				updateToggle(this);
-			});
-		</script>
-		
-	</div>
+
+<div id="side-menu">
+	<?php
+		renderSideMenu($this->data['category_tree']);
+	?>
+</div>

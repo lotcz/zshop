@@ -13,6 +13,15 @@ Number.prototype.formatMoney = function(c, d, t) {
 	return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
 }
 
+
+// COOKIES CHECK
+
+$(function() {
+  if (!checkCookies()) {
+		$('#cookies_disabled').show();
+	}
+});
+
 function checkCookies() {
 	if (navigator.cookieEnabled) return true;
 	document.cookie = "cookietest=1";
@@ -31,7 +40,7 @@ function setCookie(cname, cvalue, exdays, path) {
 
 function getCookie(cname) {
     var name = cname + '=';
-    var ca = document.cookie.spli$this->t(';');
+    var ca = document.cookie.split(';');
     for(var i=0; i<ca.length; i++) {
         var c = ca[i];
         while (c.charAt(0)==' ') c = c.substring(1);
@@ -60,6 +69,35 @@ function showAjaxLoaders() {
 function hideAjaxLoaders() {
 	$('.ajax-loader').animate({opacity:0});
 }
+
+// SIDE MENU
+
+function sideMenuUpdateToggle(caller) {
+	var id = String.substr(caller.id, 15);
+	var state = $(caller).hasClass('in');
+	var toggle = $('#zmenu-toggle-' + id);
+	toggle.removeClass('glyphicon-triangle-right');
+	toggle.removeClass('glyphicon-triangle-bottom');
+	
+	if (state) {
+		toggle.addClass('glyphicon-triangle-bottom');
+	} else {
+		toggle.addClass('glyphicon-triangle-right');
+	}
+}
+
+$('.zmenu-collapse').on('show.bs.collapse', function () {
+	sideMenuUpdateToggle(this);
+});
+$('.zmenu-collapse').on('hide.bs.collapse', function () {
+	sideMenuUpdateToggle(this);
+});
+$('.zmenu-collapse').on('shown.bs.collapse', function () {
+	sideMenuUpdateToggle(this);
+});
+$('.zmenu-collapse').on('hidden.bs.collapse', function () {
+	sideMenuUpdateToggle(this);
+});
 
 // CART
 
