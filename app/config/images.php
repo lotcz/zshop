@@ -9,8 +9,8 @@
 		],
 		
 		// path to disk where all images are stored
-		'images_disk_path' = '',
+		'images_disk_path' => '',
 		
 		// base url for images src
-		'images_url' = ''
+		'images_url' => ''
 	];

@@ -5,6 +5,7 @@
 	$z = new zEngine('../app/');
 	$z->enableModule('mysql');
 	$z->enableModule('admin');
+	$z->enableModule('images');
 	$z->enableModule('cart');	
 	
 	$z->run();
