@@ -1,7 +1,7 @@
 <?php
 			
 	// let's call this function recursively to render menu tree
-	function renderSideMenu($parent) {
+	function renderSideMenu($zcore, $parent) {
 		if (isset($parent->children)) {
 			?>
 				<ul id="zmenu-collapse-<?=$parent->val('category_id') ?>" class="list-group collapse <?=($parent->is_on_selected_path) ? 'in' : '' ?> zmenu-collapse level-<?=$parent->level ?>">
@@ -21,7 +21,7 @@
 											<?php
 										}
 									?>
-									<a href="<?=$category->getLinkUrl(); ?>">
+									<a href="<?=$zcore->url($category->getLinkPath()); ?>">
 										<?=$category->val('category_name')?>
 									</a>
 
@@ -32,7 +32,7 @@
 								
 							<?php
 							
-							renderSideMenu($category);
+							renderSideMenu($zcore, $category);
 							
 						}					
 					?>	
@@ -45,6 +45,6 @@
 
 <div id="side-menu">
 	<?php
-		renderSideMenu($this->data['category_tree']);
+		renderSideMenu($this, $this->getData('category_tree'));
 	?>
 </div>

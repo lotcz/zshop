@@ -1,4 +1,4 @@
-@font-face {
+﻿@font-face {
 	font-family: parfumerie;
 	src: local('☺'), url('akaFrivolity.ttf') forma$this->t('truetype');
 	font-weight: normal;
@@ -36,6 +36,10 @@ label {
 
 .cookies-disabled {
 	margin:0;
+}
+
+.navbar-right {
+	margin-right:0;
 }
 
 .basic-bg,

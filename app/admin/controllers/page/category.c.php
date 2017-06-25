@@ -43,7 +43,7 @@
 		
 		// save alias if new or changed
 		if ($alias->val('alias_url') != $alias_url || !$alias->is_loaded) {
-			$alias->data['alias_path'] = $category->getAliasPath();
+			$alias->data['alias_path'] = $category->getViewPath();
 			if (isset($alias_url) && strlen(trim($alias_url)) > 0) {
 				$alias->setUrl($alias_url);
 			} else {

@@ -1,19 +1,21 @@
 <?php
-	global $data;
-	$category = $data['category'];
-	$paging = $data['paging'];
+
+	$category = $this->getData('category');
+	$paging = $this->getData('paging');
+	$products = $this->getData('products');
 	
 	echo $category->val('category_description');
 	
-	$paging->renderSorting();
+	$this->renderPartialView('prod-sort', $paging);
+
 	$paging->renderLinks();
 	
 ?>
 
 <div id="products-container" class="row spaced products">	
 	<?php
-		foreach ( $data['products'] as $product) {
-			renderPartial('prod-prev', $product);
+		foreach ( $products as $product) {
+			$this->renderPartialView('prod-prev', $product);
 		}
 		
 		// render Load more... button
@@ -33,10 +35,10 @@
 		$('#load-more-button').remove();
 		$('#load-more-waiting').show();
 		$.get(
-			'<?=_url('partials/loadmore') ?>', 
+			'<?=$this->url('partials/loadmore') ?>', 
 			{
-				category_ids: '<?=implode(',', $data['ids']) ?>',
-				sorting: '<?=$data['sorting'] ?>',
+				category_ids: '<?=implode(',', $this->getData('ids')) ?>',
+				sorting: '<?=$this->getData('sorting') ?>',
 				offset: offset,
 				limit: limit
 			},

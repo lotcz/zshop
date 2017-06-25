@@ -8,9 +8,9 @@
 			'view' => ['width' => 800, 'height' => 600 ]
 		],
 		
-		// path to disk where all images are stored
-		'images_disk_path' => '',
+		// absolute path to disk where all images are stored
+		'images_disk_path' => 'C:\\develop\\parfumerie\\images\\',
 		
 		// base url for images src
-		'images_url' => ''
+		'images_url' => 'http://parf-images.loc'
 	];

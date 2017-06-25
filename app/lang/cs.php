@@ -1,5 +1,5 @@
 <?php
-	global $language_data;
+	$language_data = [];
 	$language_data['language_code'] = 'cs';
 	$language_data['language_name'] = 'Čeština';
 	$language_data['Czech'] = 'Čeština';	
@@ -87,3 +87,5 @@
 	
 	$language_data['Total'] = 'Celkem';
 	$language_data['Total <b>%s</b> items.'] = 'Celkem <b>%s</b> položek.';
+	
+	return $language_data;

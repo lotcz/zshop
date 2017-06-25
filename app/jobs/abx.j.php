@@ -12,7 +12,6 @@
 	$cat_total = 0;	
 		
 	set_time_limit ( 60*60 );
-			
 
 	$data_path = '../data/';
 	$archive_file = 'katalog.zip';
@@ -56,7 +55,7 @@
 			$a = new AliasModel($db, $zCategory->ival('category_alias_id'));							
 			if (!$a->is_loaded) {
 				$a->setUrl($zCategory->getAliasUrl());
-				$a->data['alias_path'] = $zCategory->getAliasPath();
+				$a->data['alias_path'] = $zCategory->getViewPath();
 				$a->save();
 				$zCategory->data['category_alias_id'] = $a->ival('alias_id');				
 				$zCategory->save();

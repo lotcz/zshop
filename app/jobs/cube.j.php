@@ -1,6 +1,8 @@
 <?php
-	require_once $home_dir . 'models/product.m.php';
-	require_once $home_dir . 'models/category.m.php';
+	
+	$this->requireModule('mysql');
+	$this->requireModule('shop');
+	$db = $this->z->core->db;
 	
 	function convertEncoding($str) {
 		//return $str;
@@ -8,9 +10,8 @@
 		return iconv('Windows-1250', 'UTF-8', $str);
 	}
 	
-	function loadCategory($ext_id) {
-		global $db;
-		$category = new Category($db);
+	function loadCategory($ext_id, $db) {
+		$category = new CategoryModel($db);
 		$category->loadByExtId($ext_id);
 		return $category;
 	}
@@ -49,20 +50,20 @@
 	}	
 	*/
 	
-	$stmt = SqlQuery::select($cube_db, 'cubecart_inventory');
+	$stmt = zSqlQuery::select($cube_db, 'cubecart_inventory');
 	if ($stmt) {
 		$result = $stmt->get_result();			
 		while ($row = $result->fetch_assoc()) {			
-			$product = new Product($db);
+			$product = new ProductModel($db);
 			$product->loadByExtId($row['productId']);
 			
 			// import new product
 			if (!$product->is_loaded) {
 				$product->data['product_ext_id'] = $row['productId'];
-				$product->data['product_name'] = myTrim(convertEncoding($row['name']));			
+				$product->data['product_name'] = customTrim(convertEncoding($row['name']));			
 				$product->data['product_price'] = parseFloat($row['price']);
 			
-				$category = loadCategory($row['cat_id']);
+				$category = loadCategory($row['cat_id'], $db);
 				if (isset($category)) {
 					$product->data['product_category_id'] = $category->ival('category_id');
 				}				
