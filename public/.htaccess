@@ -4,10 +4,15 @@ ErrorDocument 500 /error.html
 <IfModule mod_rewrite.c>
     RewriteEngine On
 	
-	# Handle Downloads...
-    RewriteCond %{REQUEST_URI} ^/download/ [NC]
-	RewriteCond %{REQUEST_URI} !^/download/$ [NC]
-    RewriteRule ^download/(.*) /download.php?file=$1 [L]
+	# Handle downloads...
+    RewriteCond %{REQUEST_URI} ^/resources/ [NC]
+	RewriteCond %{REQUEST_URI} !^/resources/$ [NC]
+    RewriteRule ^resources/(.*) /resources.php?path=resources/$1 [L]
+	
+	# Handle jobs...
+    RewriteCond %{REQUEST_URI} ^/jobs/ [NC]
+	RewriteCond %{REQUEST_URI} !^/jobs/$ [NC]
+    RewriteRule ^jobs/(.*) /jobs.php?path=jobs/$1 [L,QSA]
 	
     # Handle Front Page...
     RewriteCond %{REQUEST_FILENAME} !-d

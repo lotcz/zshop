@@ -8,6 +8,10 @@
 			[
 				'name' => 'category_name',
 				'label' => 'Name'			
+			],
+			[
+				'name' => 'category_description',
+				'label' => 'Description'			
 			]
 		]
 	);

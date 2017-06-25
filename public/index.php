@@ -6,6 +6,6 @@
 	$z->enableModule('mysql');
 	$z->enableModule('admin');
 	$z->enableModule('images');
-	$z->enableModule('cart');	
+	$z->enableModule('shop');	
 	
 	$z->run();

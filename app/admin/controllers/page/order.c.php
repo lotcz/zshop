@@ -1,6 +1,5 @@
 <?php
-	require_once __DIR__ . '/../../../models/order.m.php';
-	
+
 	$this->renderAdminForm(
 		'order',
 		'OrderModel',

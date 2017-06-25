@@ -1,7 +1,5 @@
 <?php
 	
-	require_once __DIR__ . '/../../../models/payment_type.m.php';	
-	
 	$this->renderAdminForm(
 		'payment_type',
 		'PaymentTypeModel',

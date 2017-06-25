@@ -1,7 +1,4 @@
 <?php
-	
-	require_once __DIR__ . '/../../../models/product.m.php';	
-	require_once __DIR__ . '/../../../models/category.m.php';	
 
 	$this->renderAdminForm(
 		'product',
@@ -17,14 +14,15 @@
 				'label' => 'Category',
 				'type' => 'select',
 				'select_table' => 'categories',
-				'select_data' => Category::getTreeForSelect($this->db),
+				'select_data' => CategoryModel::getTreeForSelect($this->db),
 				'select_id_field' => 'category_id',
 				'select_label_field' => 'category_name'
 			],
 			[
 				'name' => 'product_name',
 				'label' => 'Name',
-				'type' => 'text'
+				'type' => 'text',
+				'validations' => [['type' => 'length']]
 			],
 			[
 				'name' => 'product_price',

@@ -1,7 +1,5 @@
 <?php
 	
-	require_once __DIR__ . '/../../../models/delivery_type.m.php';	
-
 	$this->renderAdminForm(
 		'delivery_type',
 		'DeliveryTypeModel',
