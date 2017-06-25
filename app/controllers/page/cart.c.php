@@ -1,5 +1,5 @@
 <?php
-	$page_title = $this->t('Shopping Cart');
-	$main_template = 'nocats';
-	$data['cart_products'] = $this->z->cart->loadCartProducts();
-
+	$this->setPageTitle('Shopping Cart');
+	$this->setMainTemplate = 'nocats';
+	$this->setData('cart_products', $this->z->cart->loadCartProducts());
+	$this->includeJS('js/cart.js');

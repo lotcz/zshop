@@ -90,6 +90,17 @@ label {
 	text-shadow:none;
 }
 
+.basic-bg .dropdown-menu > li > a {
+   color: #333;
+   
+}
+
+.basic-bg .dropdown-menu > li.active > a {
+   color: White;
+   
+}
+
+
 .basic-bg label {
 	font-weight:normal;
 	margin-left:10px;

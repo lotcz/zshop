@@ -1,10 +1,6 @@
 <?php
-	global $db, $messages, $home_dir;
-	require_once $home_dir . 'models/delivery_type.m.php';
-	require_once $home_dir . 'classes/forms.php';
-		
-	$form = new Form('address');
-
+	$this->requireModule('forms');
+	$form = new zForm('address');
 	$form->add([
 		[
 			'name' => 'customer_delivery_type_id',
@@ -39,28 +35,32 @@
 	]);
 
 	$render_page = true;
+	$customer = $this->getCustomer();
 	
-	if (Form::submitted()) {
-		$customer = $custAuth->customer;
+	if (isPost()) {		
 		if ($form->processInput($_POST)) {
 			$customer->setData($form->processed_input);
 			if ($customer->save()) {
-				redirect('payment');
+				$this->redirect('payment');
 				$render_page = false;	
 			}
 		}
 	}
 
 	if ($render_page) {
-		$page_title = t('Invoicing address');
-		$main_template = 'nocats';
+		$this->setPageTitle('Invoicing address');
+		$this->setMainTemplate('nocats');
+		$this->includeJS('js/delivery.js');
 		
-		$delivery_types = DeliveryType::all($db);
-		$selected_delivery = DeliveryType::find($delivery_types, 'delivery_type_id', $custAuth->val('customer_delivery_type_id'));
+		$delivery_types = DeliveryTypeModel::all($this->db);
+		$selected_delivery = DeliveryTypeModel::find($delivery_types, 'delivery_type_id', $customer->val('customer_delivery_type_id'));
 		
 		if (!isset($selected_delivery)) {
-			$selected_delivery = DeliveryType::getDefault($delivery_types);
+			$selected_delivery = DeliveryTypeModel::getDefault($delivery_types);
 		}		
 
-		$form->prepare($db, $custAuth->customer);
+		$form->prepare($this->db, $customer);
+		$this->setData('form', $form);
+		$this->setData('delivery_types', $delivery_types);
+		$this->setData('selected_delivery', $selected_delivery);
 	}

@@ -1,2 +1,2 @@
 <?php	
-	$this->data['cart_totals'] = $this->z->cart->loadCartTotals();
+	$this->setData('cart_totals', $this->z->cart->loadCartTotals());

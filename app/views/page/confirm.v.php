@@ -1,4 +1,11 @@
-<form action="<?=_url('confirm')?>" method="POST">
+<?php
+	$products = $this->getData('products');
+	$total_cart_value = $this->getData('total_cart_value');
+	$total_order_value_formatted = $this->getData('total_order_value_formatted');
+	$delivery_type = $this->getData('delivery_type');
+	$payment_type = $this->getData('payment_type');
+?>
+<form action="<?=$this->url('confirm')?>" method="POST">
 				
 	<div class="table-responsive panel panel-default">
 		<table class="table">									
@@ -12,7 +19,7 @@
 								</td>
 								
 								<td class="text-right">
-									<span><?=formatPrice($product->val('product_price')) ?></span>
+									<span><?=$this->formatAndConvertMoney($product->val('product_price')) ?></span>
 								</td>
 								
 								<td>
@@ -20,7 +27,7 @@
 								</td>
 								
 								<td class="text-right">
-									<strong><span><?=formatPrice($product->val('item_price')) ?></span></strong>
+									<strong><span><?=$this->formatAndConvertMoney($product->val('item_price')) ?></span></strong>
 								</td>								
 							</tr>
 						<?php
@@ -30,7 +37,7 @@
 				
 				<tr class="item">								
 					<td>
-						<?=t('Total')?>
+						<?=$this->t('Total')?>
 					</td>
 					
 					<td>						
@@ -40,7 +47,7 @@
 					</td>
 					
 					<td class="text-right">
-						<strong><span><?=formatPrice($total_cart_value)?></span></strong>
+						<strong><span><?=$this->formatAndConvertMoney($total_cart_value)?></span></strong>
 					</td>								
 				</tr>
 				
@@ -64,7 +71,7 @@
 					</td>
 					
 					<td class="text-right">
-						<strong><span><?=formatPrice($delivery_type->fval('delivery_type_price'))?></span></strong>
+						<strong><span><?=$this->formatAndConvertMoney($delivery_type->fval('delivery_type_price'))?></span></strong>
 					</td>								
 				</tr>
 				
@@ -80,14 +87,14 @@
 					</td>
 					
 					<td class="text-right">
-						<strong><span><?=formatPrice($payment_type->fval('payment_type_price'))?></span></strong>
+						<strong><span><?=$this->formatAndConvertMoney($payment_type->fval('payment_type_price'))?></span></strong>
 					</td>								
 				</tr>
 				
 				
 				<tr class="item">								
 					<td>
-						<?=t('Total')?>
+						<?=$this->t('Total')?>
 					</td>
 					
 					<td>						
@@ -97,7 +104,7 @@
 					</td>
 					
 					<td class="text-right">
-						<strong><span><?=$total_order_value?></span></strong>
+						<strong><span><?=$total_order_value_formatted ?></span></strong>
 					</td>								
 				</tr>
 			</tbody>
@@ -108,16 +115,15 @@
 		
 		<div class="panel panel-default">										
 			<div class="panel-heading">
-				<h3 class="panel-title"><?=t('Place an order') ?></h3>
+				<h3 class="panel-title"><?=$this->t('Place an order') ?></h3>
 			</div>
 			<div class="panel-body text-center">											
-				<div  class="col-sm-12 control-label"><?=t('Total Cost') ?>:</div>
+				<div  class="col-sm-12 control-label"><?=$this->t('Total Cost') ?>:</div>
 				<div class="col-sm-12 price">
-					
-					<span class="form-control-static cart-total-price"><?=formatPrice($total_order_value) ?></span>														
+					<span class="form-control-static cart-total-price"><?=$total_order_value_formatted ?></span>														
 				</div>												
 				<div class="form-group text-center">
-					<input type="submit" class="btn btn-success" value="<?=t('Confirm Your Order') ?>" />
+					<input type="submit" class="btn btn-success" value="<?=$this->t('Confirm Your Order') ?>" />
 				</div>															
 			</div>										
 		</div>

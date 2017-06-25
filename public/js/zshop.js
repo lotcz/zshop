@@ -102,8 +102,8 @@ $('.zmenu-collapse').on('hidden.bs.collapse', function () {
 // CART
 
 function updateCart(data) {
-	$('.cart-total-price').html(data.pf);
-	$('#cart_total_price').val(data.pc);
+	$('.cart-total-price').html(data.total_cart_price_formatted);
+	$('#cart_total_price').val(data.total_cart_price_converted);
 	if (typeof cartUpdate == 'function') {
 		cartUpdate();
 	}
@@ -117,7 +117,7 @@ function productAdded(data) {
 function addProductToCart(id) {
 	showAjaxLoaders();
 	var cnt = $('#prod_count_' + id).val();
-	$.getJSON('/ajax/cart/add', 
+	$.getJSON('/json/default/json-cart/add', 
 		{
 			product_id: id,
 			count: cnt
@@ -135,7 +135,7 @@ function productUpdated(data) {
 function updateProductInCart(id) {
 	showAjaxLoaders();
 	var cnt = $('#prod_count_' + id).val();
-	$.getJSON('/ajax/cart/update', 
+	$.getJSON('/json/default/json-cart/update', 
 		{
 			product_id: id,
 			count: cnt

@@ -1,5 +1,4 @@
 <?php
-	global $raw_path;
 	
 	$progress_stages = [
 		[
@@ -20,7 +19,7 @@
 		]
 	];
 	
-	$progress_current = $raw_path;
+	$progress_current = $this->raw_path;
 
 ?>
 
@@ -41,13 +40,10 @@
 							<?php
 						 }
 						 
-						 echo t($progress_stage['name']);
+						 echo $this->t($progress_stage['name']);
 					?>							
 				</div>
-			<?php
-			
-			
-			
+			<?php			
 		}
 	?>	
 </div>

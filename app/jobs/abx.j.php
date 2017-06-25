@@ -146,7 +146,7 @@
 						$a = new AliasModel($db, $zProduct->ival('product_alias_id'));							
 						if (!$a->is_loaded) {
 							$a->setUrl($zProduct->getAliasUrl());
-							$a->data['alias_path'] = $zProduct->getAliasPath();
+							$a->data['alias_path'] = $zProduct->getViewPath();
 							$a->save();
 							$zProduct->data['product_alias_id'] = $a->ival('alias_id');				
 							$zProduct->save();

@@ -1,7 +1,11 @@
-<form action="<?=_url('payment')?>" method="POST">
+<?php
+	$payment_types = $this->getData('payment_types');
+	$selected_payment = $this->getData('selected_payment');
+?>
+<form action="<?=$this->url('payment')?>" method="POST">
 	<?php
 	
-		renderBlock('progress');
+		$this->renderPartialView('order-progress');
 	
 	?>
 	
@@ -40,11 +44,11 @@
 	<div class="row">
 		<div class="col-md-6 text-right">				
 			<?php
-				renderLink('delivery', 'Back to delivery', 'btn btn-default'); 
+				$this->renderLink('delivery', 'Back to delivery', 'btn btn-default'); 
 			?>			
 		</div>
 		<div class="col-md-6">				
-			<input type="submit" value="<?=t('Continue')?>" class="btn btn-success" />						
+			<input type="submit" value="<?=$this->t('Continue')?>" class="btn btn-success" />						
 		</div>
 	</div>
 
@@ -57,9 +61,8 @@
 	
 	<?php
 	
-		echo Currency::jsFormatPrice($db);
-		
-		$payment_types = PaymentType::all($db);
+		echo $this->z->i18n->jsFormatPrice();
+
 		foreach ($payment_types as $pt) {
 			echo 'payment_types[' . $pt->val('payment_type_id') . '] = ' . json_encode($pt->data) . ';';
 		}
@@ -67,5 +70,3 @@
 	?>
 
 </script>
-
-<script src="<?=_url('js/payment.js')?>"></script>

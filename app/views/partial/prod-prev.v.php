@@ -16,7 +16,6 @@
 						
 			<a href="<?=$this->url($product->val('alias_url')) ?>">
 				<div class="product-image">
-					<?= '<!-- image: ' . $product->val('product_image') . '-->'?>
 					<?php $this->z->images->renderImage($product->val('product_image'), 'thumb', $product->val('product_name'), 'img-thumbnail'); ?>
 				</div>				
 			</a>
@@ -27,7 +26,7 @@
 			
 			<div class="product-price">
 				<div class="price">
-					<?=$this->formatMoney($product->val('product_price')) ?>
+					<?=$this->formatAndConvertMoney($product->val('product_price')) ?>
 				</div>					
 			</div>	
 

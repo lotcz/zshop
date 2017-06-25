@@ -1,34 +1,27 @@
 <?php
-	global $db, $messages, $home_dir, $globals, $path, $custAuth;
-	require_once $home_dir . 'models/cart.m.php';
-	require_once $home_dir . 'models/delivery_type.m.php';
-	require_once $home_dir . 'models/payment_type.m.php';
-	require_once $home_dir . 'models/currency.m.php';
-	require_once $home_dir . 'models/order.m.php';
-
+	$customer = $this->getCustomer();
 	$render_page = true;
 	
 	if (isPost()) {		
-		$order = Order::createOrder($db, $custAuth->customer);
+		$order = OrderModel::createOrder($this->db, $customer);
 		if ($order) {
-			redirect(sprintf('order/%s',$order->val('order_id')));
+			$this->redirect(sprintf('order/%s', $order->val('order_id')));
 			$render_page = false;			
 		}
 	}
 
 	if ($render_page) {
-		$page_title = t('Confirm order');
-		$main_template = 'nocats';
+		$this->setPageTitle('Confirm order');
+		$this->setMainTemplate('nocats');
+	
+		$this->setData('products', $this->z->cart->loadCartProducts());
 
-		$products = Cart::loadCart($db, $custAuth->customer->val('customer_id'));
-		$totals = Cart::loadCartTotals($db, $custAuth->customer->val('customer_id'));
-		
-		$total_cart_value = $totals['p'];
-		
-		$delivery_type = new DeliveryType($db, $custAuth->customer->val('customer_delivery_type_id'));	
-		$payment_type = new PaymentType($db, $custAuth->customer->val('customer_payment_type_id'));
-			
-		$currency = Currency::getSelectedCurrency($db);
-		$total_order_value = $currency->format($currency->convert($total_cart_value) + $currency->convert($delivery_type->fval('delivery_type_price')) + $currency->convert($payment_type->fval('payment_type_price')));
+		$delivery_type = new DeliveryTypeModel($this->db, $customer->val('customer_delivery_type_id'));
+		$this->setData('delivery_type', $delivery_type);
+		$payment_type = new PaymentTypeModel($this->db, $customer->val('customer_payment_type_id'));			
+		$this->setData('payment_type', $payment_type);
+		$total_cart_value = $this->getData('cart_totals')['total_cart_price'];
+		$this->setData('total_cart_value', $total_cart_value);
+		$this->setData('total_order_value_formatted', $this->formatMoney($this->convertMoney($total_cart_value) + $this->convertMoney($delivery_type->fval('delivery_type_price')) + $this->convertMoney($payment_type->fval('payment_type_price'))));
 	
 	}

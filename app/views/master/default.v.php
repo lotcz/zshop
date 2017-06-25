@@ -15,6 +15,12 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">		
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
 		
+		<?php		
+			$this->renderCSSIncludes();
+			$this->renderLESSIncludes();
+			$this->renderJSIncludes_head();
+		?>
+		
 		<link href="/css/style.css" rel="stylesheet">
 		<link href="/css/parfumerie.css" rel="stylesheet">		
 		
@@ -43,5 +49,8 @@
 		<script src="<?=$this->url('js/zshop.js')?>"></script>		
 		<script src="<?=$this->url('js/forms.js')?>"></script>
 
+		<?php
+			$this->renderJSIncludes();			
+		?>
 	</body>
 </html>
