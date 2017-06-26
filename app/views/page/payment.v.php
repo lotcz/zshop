@@ -17,7 +17,7 @@
 					<?php
 						if ($payment->val('payment_type_price') > 0) {
 							?>
-								<span class="badge"><?=$payment->val('payment_type_price')?></span>
+								<span class="badge"><?=$this->convertAndFormatMoney($payment->val('payment_type_price')) ?></span>
 							<?php
 						}
 					?>
@@ -30,7 +30,7 @@
 					<?php
 						if ($payment->val('payment_type_min_order_cost') > 0) {
 							?>
-								<p class="list-group-item-text"><?=t('Spend at least %s to use this type of payment.', formatPrice($payment->val('payment_type_min_order_cost')))?></p>
+								<p class="list-group-item-text"><?=$this->t('Spend at least %s to use this type of payment.', $this->convertAndFormatMoney($payment->val('payment_type_min_order_cost'))) ?></p>
 							<?php
 						}
 					?>

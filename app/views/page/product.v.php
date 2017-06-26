@@ -19,7 +19,7 @@
 							<h3><?=$this->t('Price') ?></h3>
 						</div>
 						<div class="col col-md-6 text-right">
-							<h3><?=$this->formatMoney($product->val('product_price'), $currency) ?></h3>
+							<h3><?=$this->convertAndFormatMoney($product->val('product_price')) ?></h3>
 						</div>					
 					</div>
 					

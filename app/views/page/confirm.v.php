@@ -19,7 +19,7 @@
 								</td>
 								
 								<td class="text-right">
-									<span><?=$this->formatAndConvertMoney($product->val('product_price')) ?></span>
+									<span><?=$this->convertAndFormatMoney($product->val('product_price')) ?></span>
 								</td>
 								
 								<td>
@@ -27,7 +27,7 @@
 								</td>
 								
 								<td class="text-right">
-									<strong><span><?=$this->formatAndConvertMoney($product->val('item_price')) ?></span></strong>
+									<strong><span><?=$this->convertAndFormatMoney($product->val('item_price')) ?></span></strong>
 								</td>								
 							</tr>
 						<?php
@@ -47,7 +47,7 @@
 					</td>
 					
 					<td class="text-right">
-						<strong><span><?=$this->formatAndConvertMoney($total_cart_value)?></span></strong>
+						<strong><span><?=$this->convertAndFormatMoney($total_cart_value)?></span></strong>
 					</td>								
 				</tr>
 				
@@ -71,7 +71,7 @@
 					</td>
 					
 					<td class="text-right">
-						<strong><span><?=$this->formatAndConvertMoney($delivery_type->fval('delivery_type_price'))?></span></strong>
+						<strong><span><?=$this->convertAndFormatMoney($delivery_type->fval('delivery_type_price'))?></span></strong>
 					</td>								
 				</tr>
 				
@@ -87,7 +87,7 @@
 					</td>
 					
 					<td class="text-right">
-						<strong><span><?=$this->formatAndConvertMoney($payment_type->fval('payment_type_price'))?></span></strong>
+						<strong><span><?=$this->convertAndFormatMoney($payment_type->fval('payment_type_price'))?></span></strong>
 					</td>								
 				</tr>
 				
@@ -111,15 +111,15 @@
 		</table>
 	</div>
 	
-	<div class="row">
+	<div class="">
 		
 		<div class="panel panel-default">										
 			<div class="panel-heading">
 				<h3 class="panel-title"><?=$this->t('Place an order') ?></h3>
 			</div>
 			<div class="panel-body text-center">											
-				<div  class="col-sm-12 control-label"><?=$this->t('Total Cost') ?>:</div>
-				<div class="col-sm-12 price">
+				<div class="control-label"><?=$this->t('Total Cost') ?>:</div>
+				<div class="price">
 					<span class="form-control-static cart-total-price"><?=$total_order_value_formatted ?></span>														
 				</div>												
 				<div class="form-group text-center">
@@ -129,6 +129,6 @@
 		</div>
 																		
 		
-	</div> <!-- // row -->
+	</div>
 
 </form> <!-- // order -->

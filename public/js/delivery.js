@@ -8,6 +8,15 @@ function selectDelivery(id) {
 		
 }
 
+function validateDeliveryForm() {
+	var frm = new formValidation('form_address');
+	frm.add('customer_ship_name', 'maxlen', '50');
+	frm.add('customer_ship_city', 'maxlen', '50');
+	frm.add('customer_ship_street', 'maxlen', '50');
+	frm.add('customer_ship_zip', 'integer', '1');
+	frm.submit();
+}		
+		
 $(function() {
 
 	$('.delivery-types > a').click(function() {

@@ -1,16 +1,17 @@
 <?php
-	$form = $this->getData('form');
 	$delivery_types = $this->getData('delivery_types');
 	$selected_delivery = $this->getData('selected_delivery');
 ?>
-<form action="<?=$this->url('delivery')?>" method="POST">
-
+<form action="<?=$this->url('delivery')?>" class="form-horizontal" method="POST">
+	<input type="hidden" name="customer_delivery_type_id" id="field_customer_delivery_type_id" value="<?=$selected_delivery->ival('delivery_type_id') ?>" />
+	
 	<?php	
 		$this->renderPartialView('order-progress');	
-		$this->z->forms->renderForm($form);
 	?>
-
-	<h2><?=$this->t('Delivery type'); ?></h2>
+	
+	<p>
+		<?=$this->t('Select type of delivery.') ?>
+	</p>
 
 	<div class="delivery-types list-group">  
 		<?php
@@ -20,7 +21,7 @@
 						<?php
 							if ($delivery->val('delivery_type_price') > 0) {
 								?>
-									<span class="badge"><?=$this->formatMoney($delivery->val('delivery_type_price'))?></span>
+									<span class="badge"><?=$this->convertAndFormatMoney($delivery->val('delivery_type_price'))?></span>
 								<?php
 							}
 						?>
@@ -44,6 +45,83 @@
 		?>
 	</div>
 
+	<div class="row">
+		<div class="col-md-6">				
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title"><?=$this->t('Invoicing Address'); ?></h3>
+				</div>
+				<div class="panel-body">
+					<div id="customer_ship_name_form_group" class="form-group">
+						<label for="customer_ship_name" class="col-sm-4 control-label form-label">Name:</label>
+						<div class="col-sm-8 form-field">
+							<input type="text" name="customer_ship_name" maxlength="50" value="" class="form-control" />						
+						</div>					
+					</div>
+								
+					<div id="customer_ship_city_form_group" class="form-group">
+						<label for="customer_ship_city" class="col-sm-4 control-label form-label">City:</label>
+						<div class="col-sm-8 form-field">
+							<input type="text" name="customer_ship_city" maxlength="50" value="" class="form-control" />
+						</div>						
+					</div>
+									
+					<div id="customer_ship_street_form_group" class="form-group">
+						<label for="customer_ship_street" class="col-sm-4 control-label form-label">Street:</label>
+						<div class="col-sm-8 form-field">
+							<input type="text" name="customer_ship_street" maxlength="50" value="" class="form-control" />
+						</div>						
+					</div>
+									
+					<div id="customer_ship_zip_form_group" class="form-group">
+						<label for="customer_ship_zip" class="col-sm-4 control-label form-label">ZIP:</label>
+						<div class="col-sm-8 form-field">
+							<input type="text" name="customer_ship_zip"  value="0" class="form-control" />
+							<div class="form-validation" id="customer_ship_zip_validation_integer">Please enter whole number.</div>
+						</div>						
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6">				
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title"><?=$this->t('Shipping Address'); ?></h3>
+				</div>
+				<div class="panel-body">
+					<div id="customer_ship_name_form_group" class="form-group">
+						<label for="customer_ship_name" class="col-sm-4 control-label form-label">Name:</label>
+						<div class="col-sm-8 form-field">
+							<input type="text" name="customer_ship_name" maxlength="50" value="" class="form-control" />						
+						</div>					
+					</div>
+								
+					<div id="customer_ship_city_form_group" class="form-group">
+						<label for="customer_ship_city" class="col-sm-4 control-label form-label">City:</label>
+						<div class="col-sm-8 form-field">
+							<input type="text" name="customer_ship_city" maxlength="50" value="" class="form-control" />
+						</div>						
+					</div>
+									
+					<div id="customer_ship_street_form_group" class="form-group">
+						<label for="customer_ship_street" class="col-sm-4 control-label form-label">Street:</label>
+						<div class="col-sm-8 form-field">
+							<input type="text" name="customer_ship_street" maxlength="50" value="" class="form-control" />
+						</div>						
+					</div>
+									
+					<div id="customer_ship_zip_form_group" class="form-group">
+						<label for="customer_ship_zip" class="col-sm-4 control-label form-label">ZIP:</label>
+						<div class="col-sm-8 form-field">
+							<input type="text" name="customer_ship_zip"  value="0" class="form-control" />
+							<div class="form-validation" id="customer_ship_zip_validation_integer">Please enter whole number.</div>
+						</div>						
+					</div>
+				</div>
+			</div>					
+		</div>
+	</div>
+							
 	<div class="row">
 		<div class="col-md-6 text-right">				
 			<?php

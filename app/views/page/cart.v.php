@@ -33,7 +33,7 @@
 											</td>
 											
 											<td class="text-right">
-												<span><?=$this->formatMoney($product->val('product_price')) ?></span>
+												<span><?=$this->convertAndFormatMoney($product->val('product_price')) ?></span>
 												<input type="hidden" id="item-price-<?=$product->val('product_id') ?>" value="<?=$product->val('product_price') ?>" />
 											</td>
 											
@@ -45,7 +45,7 @@
 												</div>
 											</td>
 											
-											<td class="text-right"><strong><span id="item_total_price_<?=$product->val('product_id') ?>"><?=$this->formatMoney($product->val('item_price')) ?></span></strong></td>
+											<td class="text-right"><strong><span id="item_total_price_<?=$product->val('product_id') ?>"><?=$this->convertAndFormatMoney($product->val('item_price')) ?></span></strong></td>
 											<td>												
 												<a onclick="javascript:removeItem(<?=$product->val('product_id') ?>);return false;" href="#" class="remove-item"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>												
 											</td>

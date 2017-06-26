@@ -57,8 +57,8 @@ VALUES (1,1),(2,2),(2,3),(3,2),(3,3);
 
 CREATE TABLE IF NOT EXISTS `customers` (
   `customer_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `customer_deleted` BOOL DEFAULT FALSE,
-  `customer_anonymous` BOOL DEFAULT TRUE,
+  `customer_deleted` BOOL NOT NULL DEFAULT FALSE,
+  `customer_anonymous` BOOL NOT NULL DEFAULT TRUE,
   `customer_email` VARCHAR(50) NOT NULL,
   `customer_password_hash` VARCHAR(255) ,
   `customer_failed_attempts` INT UNSIGNED NOT NULL DEFAULT 0,
@@ -77,6 +77,7 @@ CREATE TABLE IF NOT EXISTS `customers` (
   `customer_address_street` NVARCHAR(50),
   `customer_address_zip` INT,
   
+  `customer_use_ship_address` BOOL NOT NULL DEFAULT FALSE,
   `customer_ship_name` NVARCHAR(50),
   `customer_ship_city` NVARCHAR(50),
   `customer_ship_street` NVARCHAR(50),

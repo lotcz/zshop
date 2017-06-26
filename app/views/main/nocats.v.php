@@ -4,7 +4,7 @@
 		$this->renderPartialView('header');
 	?>
 	
-	<div class="row spaced">
+	<div class="spaced">
 		<h1 class="page-title"><?=$this->data['page_title'] ?></h1>
 		
 		<?php
