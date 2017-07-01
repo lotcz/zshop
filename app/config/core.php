@@ -1,6 +1,8 @@
 <?php
 	
 	return [
+				
+		'site_title' => 'Parfumerie-hračky.cz',
 		
 		// will be used to create all link urls, no trailing slash
 		'base_url' => 'http://zshop.loc',

@@ -4,6 +4,7 @@
 	
 	$z = new zEngine('../app/');
 	$z->enableModule('mysql');
+	$z->enableModule('i18n');
 	$z->enableModule('admin');
 	$z->enableModule('images');
 	$z->enableModule('shop');	

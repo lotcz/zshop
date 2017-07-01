@@ -86,7 +86,10 @@
 		<div class="col-md-6">				
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<h3 class="panel-title"><?=$this->t('Shipping Address'); ?></h3>
+					<h3 class="panel-title">
+						<input type="checkbox" style="float:left;margin:2px 10px 0 0;outline:none;" id="customer_use_ship_address" name="customer_use_ship_address" value="1" class="" />
+						<label for="customer_use_ship_address" style="margin:0"><?=$this->t('Shipping Address'); ?></label>					
+					</h3>
 				</div>
 				<div class="panel-body">
 					<div id="customer_ship_name_form_group" class="form-group">

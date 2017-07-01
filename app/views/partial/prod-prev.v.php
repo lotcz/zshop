@@ -10,7 +10,7 @@
 			
 			<?php
 				if ($this->isAuth()) {
-					$this->renderLink('admin/product/edit/'. $product->val('product_id'), 'Edit', 'badge', $this->raw_path);
+					$this->renderLink('admin/default/default/product/edit/'. $product->val('product_id'), 'Edit', 'badge', $this->raw_path);
 				}
 			?>
 						
@@ -26,7 +26,7 @@
 			
 			<div class="product-price">
 				<div class="price">
-					<?=$this->formatAndConvertMoney($product->val('product_price')) ?>
+					<?=$this->convertAndFormatMoney($product->val('product_price')) ?>
 				</div>					
 			</div>	
 

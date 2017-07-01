@@ -3,6 +3,7 @@
 	return [
 		
 		'menu' => [
+			['','E-shop'],
 			['admin/products','Products'],
 			['admin/orders','Orders'],
 			['admin/default/default/customers','Customers'],

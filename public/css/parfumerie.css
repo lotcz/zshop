@@ -1,6 +1,6 @@
 ﻿@font-face {
 	font-family: parfumerie;
-	src: local('☺'), url('akaFrivolity.ttf') forma$this->t('truetype');
+	src: local('☺'), url('akaFrivolity.ttf') format('truetype');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -133,6 +133,15 @@ label {
 
 h1.page-title {
 	margin-top:5px;
+}
+
+.light-frame {
+	border-radius:5px;
+	border:1px solid LightGray;
+	padding:10px;
+	-webkit-box-shadow: 3px 3px 4px 0px rgba(219,219,219,1);
+    -moz-box-shadow: 3px 3px 4px 0px rgba(219,219,219,1);
+    box-shadow: 3px 3px 4px 0px rgba(219,219,219,1);
 }
 
 .head-block {
@@ -362,7 +371,7 @@ h1.page-title {
 }
 
 .price {
-	font-size:200%;
+	font-size:150%;
 	text-align:center;
 }
 

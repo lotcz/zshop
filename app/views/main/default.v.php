@@ -11,7 +11,7 @@
 			?>			
 		</div>
 		<div class="col-md-8">
-			<h1 class="page-title"><?=$this->data['page_title'] ?></h1>
+			<h1 class="light-frame spaced"><?=$this->data['page_title'] ?></h1>
 			
 			<?php
 				$this->renderPartialView('messages');

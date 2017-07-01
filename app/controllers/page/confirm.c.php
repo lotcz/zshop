@@ -3,7 +3,7 @@
 	$render_page = true;
 	
 	if (isPost()) {		
-		$order = OrderModel::createOrder($this->db, $customer);
+		$order = $this->z->shop->createOrder();
 		if ($order) {
 			$this->redirect(sprintf('order/%s', $order->val('order_id')));
 			$render_page = false;			

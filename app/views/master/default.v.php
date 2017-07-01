@@ -10,7 +10,7 @@
 		<meta name="author" content="Karel Zavadil">
 		<link rel="icon" href="/favicon.ico">
 
-		<title><?=$this->data['site_title'] ?> - <?=$this->data['page_title'] ?></title>
+		<title><?=$this->getFullPageTitle() ?></title>
 
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">		
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
