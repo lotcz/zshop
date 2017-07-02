@@ -1,0 +1,1 @@
+Hello, your order n. <?=$data->val('order_number') ?> has been placed.

@@ -1,11 +1,8 @@
 <?php	
-	global $db, $home_dir, $custAuth;
-	require_once $home_dir . 'classes/forms.php';
-	require_once $home_dir . 'classes/emails.php';
+	$this->requireModule('forms');
+	$this->setPageTitle('Registration');
 	
-	$page_title	= t('Registration');
-	
-	$form = new Form('register_form');
+	$form = new zForm('register_form');
 	$form->add([		
 		[
 			'name' => 'customer_email',
@@ -24,78 +21,49 @@
 			'label' => 'Confirm Password',
 			'type' => 'password',
 			'validations' => [['type' => 'confirm', 'param' => 'customer_password']]
-		],
-		[
-			'label' => 'Shipping Address',
-			'type' => 'begin_group'
-		],
-		[
-			'name' => 'customer_ship_name',
-			'label' => 'Name',
-			'type' => 'text',
-			'validations' => [['type' => 'maxlen', 'param' => 50]]
-		],
-		[
-			'name' => 'customer_ship_city',
-			'label' => 'City',
-			'type' => 'text',
-			'validations' => [['type' => 'maxlen', 'param' => 50]]
-		],
-		[
-			'name' => 'customer_ship_street',
-			'label' => 'Street',
-			'type' => 'text',
-			'validations' => [['type' => 'maxlen', 'param' => 50]]
-		],
-		[
-			'name' => 'customer_ship_zip',
-			'label' => 'ZIP',
-			'type' => 'text',
-			'validations' => [
-				['type' => 'integer', 'param' => true]
-			]
-		],
-		[
-			'type' => 'end_group'
-		],		
-		
+		]		
 	]);
 	
-	if (!$custAuth->isAnonymous()) {
-		$messages->add(t('You are already registered and logged in.'));
-	} elseif (Form::submitted()) {
+	$render_form = true;
+	
+	if (!$this->z->custauth->isAnonymous()) {
+		$this->z->messages->add($this->t('You are already registered and logged in!'));
+		$render_form = false;
+	} elseif ($this->isPost()) {
 		
-		$email = myTrim(strtolower(_g('customer_email')));
-		$password = _g('customer_password');
+		$email = trim(strtolower($this->get('customer_email')));
+		$password = $this->get('customer_password');
 		
 		// validate email and password once again 
-		if ($custAuth->isValidEmail($email) && $custAuth->isValidPassword($password)) {			
+		if ($this->z->custauth->isValidEmail($email) && $this->z->custauth->isValidPassword($password)) {			
 			
 			// check if email exists
-			$customer = new Customer($db);
-			$customer->loadByEmail($email);
-			if ($customer->is_loaded) {
-				$messages->error(t('This email is already used.'));
-			} else {				
-				$custAuth->customer->setData($form->processInput($_POST));
-				$custAuth->customer->data['customer_name'] = null;
-				$custAuth->customer->data['customer_email'] = $email;
-				$custAuth->customer->data['customer_anonymous'] = 0;
-				$custAuth->customer->data['customer_password_hash'] = CustomerAuthentication::hashPassword($password);
-				unset($custAuth->customer->data['customer_password']);		
-				unset($custAuth->customer->data['customer_password_confirm']);
-				$custAuth->customer->save();
+			$existing_customer = new CustomerModel($this->db);
+			$existing_customer->loadByEmail($email);
+			if ($existing_customer->is_loaded) {
+				$messages->error($this->t('This email is already used!'));
+			} else {
+				$customer = $this->getCustomer();
+				$customer->data['customer_name'] = null;
+				$customer->data['customer_email'] = $email;
+				$customer->data['customer_anonymous'] = 0;
+				$customer->data['customer_password_hash'] = $this->z->custauth->hashPassword($password);
+				$customer->save();
 								
-				if ($custAuth->login($email, $password)) {
-					Emails::sendPlain('info@zshop.com', $email, null, 'Welcome to zShop', 'Hello, you have been registered.');
-					redirect(_g('ret','/'));
+				if ($this->z->custauth->login($email, $password)) {
+					$this->z->custauth->sendRegistrationEmail();
+					$render_form = false;
 				} else {
-					$messages->error(t('Cannot log you in. Something went wrong during registration process.'));
+					$messages->error($this->t('Cannot log you in. Something went wrong during registration process.'));
 				}
 			}
 		} else {
 			$messages->error(t('Invalid password or email.'));
 		}
 		
+	}
+
+	if ($render_form) {
+		$this->setData('form', $form);
 	}
 	

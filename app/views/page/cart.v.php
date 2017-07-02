@@ -1,7 +1,6 @@
 <?php
 	$cart_totals = $this->getData('cart_totals');
-	$cart_products = $this->getData('cart_products');
-	
+	$cart_products = $this->getData('cart_products');	
 ?>
 <div class="cart">
 
@@ -74,60 +73,53 @@
 					</table>
 				</div>
 				
-				<p>&nbsp;</p>
-				
-				<?php
-					
-					if ($this->z->custauth->customer->val('customer_anonymous')) {
-						?>		
-							<div class="row">
-								<div class="col-md-12">	
-									<h2><?=$this->t('Sign In or Register'); ?></h2>										
+				<div class="row">
+					<?php
+						if ($this->z->custauth->customer->val('customer_anonymous')) {
+							?>
+								<div class="col-md-6">	
+									<h2><?=$this->t('Sign In'); ?></h2>										
 									<p>
-										<?=$this->t('You are currently not logged in. If you have an account with our e-shop, please log in to use all features.');?>
+										<?=$this->t('You are currently not logged in. If you have an account with our e-shop, log in to finish your shopping under your account.');?>
 									</p>
 									<p>
 										<?php
 											$this->renderLink('login', 'Sign In', 'btn btn-primary', 'cart'); 
 										?>
-									</p>										
+									</p>
+								</div>
+								<div class="col-md-6">	
+									<h2><?=$this->t('Place an order'); ?></h2>										
 									<p>
-										<?=$this->t('If you don\'t have an account with us yet, please create one. Only registered customers can use all features of our e-shop.');?>
+									<p>
+										<?=$this->t('If you don\'t have an account with us yet, we will create one for you in course of order process.');?>
+									</p>
+									<p>
+										<?=$this->t('Total Cost') ?>:								
+										<span id="order_total_price"></span>
+										<span class="ajax-loader" style="vertical-align:middle"></span>
 									</p>
 									<p>
 										<?php
-											$this->renderLink('register', 'Register', 'btn btn-success', 'cart'); 
+											$this->renderLink('delivery', 'Create Order', 'btn btn-success', 'cart'); 
 										?>
 									</p>									
 								</div>
-							</div>
-						<?php							
-					}
-				?>
-				
-				<p>&nbsp;</p>
-				
-				<div class="row">
-					<div class="col-md-12">	
-						<h2><?=$this->t('Place an order'); ?></h2>
-						
-						<p>
-							<?=$this->t('Total Cost') ?>:								
-							<span id="order_total_price"></span>
-							<span class="ajax-loader" style="vertical-align:middle"></span>
-						</p>
-						
-						<p>
+							<?php							
+						} else {
+							?>
+								<div class="col-md-12 text-center">
+									<br/>
+									<?php
+										$this->renderLink('delivery', 'Place an order', 'btn btn-success large-button', 'cart');											
+									?>
+									<br/>
+									<br/>
+								</div>
 							<?php
-								if ($this->getCustomer()->val('customer_anonymous')) {									
-									$this->renderLink('delivery', 'Order Without Registration', 'btn btn-default', 'cart'); 									
-								} else {									
-									$this->renderLink('delivery', 'Create Order', 'btn btn-success', 'cart');																
-								}
-							?>	
-						</p>							
-					</div>
-				</div>
+						}
+					?>
+				</div>		
 					
 			<?php
 			

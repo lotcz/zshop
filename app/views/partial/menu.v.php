@@ -56,7 +56,7 @@
 			<span class="caret"></span>
 			<?php
 				if ($is_logged_in) {			
-					echo $this->custauth->val('customer_name', $this->custauth->val('customer_email'));
+					echo $this->z->custauth->val('customer_name', $this->z->custauth->val('customer_email'));
 				} else {
 					echo $this->t('Anonymous');
 				}					
@@ -70,7 +70,7 @@
 					?>				
 						<li>
 							<?php
-								$this->renderLink('customer', $this->custauth->val('customer_name', $this->custauth->val('customer_email')), 'link');
+								$this->renderLink('customer', $this->z->custauth->val('customer_name', $this->z->custauth->val('customer_email')), 'link');
 							?>
 						</li>
 						

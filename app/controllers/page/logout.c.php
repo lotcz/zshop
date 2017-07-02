@@ -1,8 +1,7 @@
 <?php
-	global $custAuth;
 	
-	if ($custAuth->isAuth() && !$custAuth->val('customer_anonymous')) {
-		$custAuth->logout();		
+	if ($this->isCustAuth() && !$this->z->custauth->val('customer_anonymous')) {
+		$this->z->custauth->logout();		
 	}
 	
-	redirect(_g('ret','/'));
+	$this->redirectBack();

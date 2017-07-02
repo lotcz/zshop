@@ -5,6 +5,7 @@
 	if (isPost()) {		
 		$order = $this->z->shop->createOrder();
 		if ($order) {
+			$this->z->shop->sendOrderConfirmationEmail($order);
 			$this->redirect(sprintf('order/%s', $order->val('order_id')));
 			$render_page = false;			
 		}

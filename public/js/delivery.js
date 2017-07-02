@@ -9,7 +9,10 @@ function selectDelivery(id) {
 }
 
 function validateDeliveryForm() {
-	var frm = new formValidation('form_address');
+	var frm = new formValidation('form_delivery');
+	frm.add('customer_name', 'length', '1');
+	
+	frm.add('customer_ship_name', 'length', '1');
 	frm.add('customer_ship_name', 'maxlen', '50');
 	frm.add('customer_ship_city', 'maxlen', '50');
 	frm.add('customer_ship_street', 'maxlen', '50');

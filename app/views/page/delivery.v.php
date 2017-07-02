@@ -2,7 +2,7 @@
 	$delivery_types = $this->getData('delivery_types');
 	$selected_delivery = $this->getData('selected_delivery');
 ?>
-<form action="<?=$this->url('delivery')?>" class="form-horizontal" method="POST">
+<form action="<?=$this->url('delivery')?>" id="form_delivery" class="form-horizontal" method="POST">
 	<input type="hidden" name="customer_delivery_type_id" id="field_customer_delivery_type_id" value="<?=$selected_delivery->ival('delivery_type_id') ?>" />
 	
 	<?php	
@@ -55,7 +55,8 @@
 					<div id="customer_ship_name_form_group" class="form-group">
 						<label for="customer_ship_name" class="col-sm-4 control-label form-label">Name:</label>
 						<div class="col-sm-8 form-field">
-							<input type="text" name="customer_ship_name" maxlength="50" value="" class="form-control" />						
+							<input type="text" name="customer_ship_name" maxlength="50" value="" class="form-control" />
+							<div class="form-validation" id="customer_name_validation_length"><?=$this->t('Please enter your name.') ?></div>
 						</div>					
 					</div>
 								
@@ -128,11 +129,13 @@
 	<div class="row">
 		<div class="col-md-6 text-right">				
 			<?php
-				$this->renderLink('cart', 'Back to cart', 'btn btn-default'); 
+				$this->renderLink('cart', 'Back to cart', ''); 
 			?>			
 		</div>
 		<div class="col-md-6">				
-			<input type="submit" value="<?=$this->t('Continue')?>" class="btn btn-success" />						
+			<button onclick="javascript:validateDeliveryForm();return false;" class="btn btn-success large-button" >
+				<?=$this->t('Continue')?>
+			</button>
 		</div>
 	</div>
 </form>

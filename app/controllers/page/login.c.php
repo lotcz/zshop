@@ -1,11 +1,8 @@
 <?php
 
-	if (isPost()) {
-		$cart_products = null;
-		$cart_totals = null;
-				
-		if ($this->z->custauth->login(get('email'), get('password'))) {
-			redirect(get('r', 'front'));			
+	if ($this->isPost()) {
+		if ($this->z->custauth->login($this->get('email'), $this->get('password'))) {
+			$this->redirectBack();			
 		} else {
 			$this->z->messages->error($this->t('Login incorrect!'));
 		}
