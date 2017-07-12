@@ -8,25 +8,40 @@ function selectDelivery(id) {
 		
 }
 
+function useShippingAddress() {
+	return $('#customer_use_ship_address').prop('checked');
+}
+
 function validateDeliveryForm() {
 	var frm = new formValidation('form_delivery');
-	frm.add('customer_name', 'length', '1');
+	frm.add('customer_name', 'name');
+	frm.add('customer_address_city', 'length', '2');
+	frm.add('customer_address_street', 'length', '2');
+	frm.add('customer_address_zip', 'zip');
 	
-	frm.add('customer_ship_name', 'length', '1');
-	frm.add('customer_ship_name', 'maxlen', '50');
-	frm.add('customer_ship_city', 'maxlen', '50');
-	frm.add('customer_ship_street', 'maxlen', '50');
-	frm.add('customer_ship_zip', 'integer', '1');
+	if (useShippingAddress()) {
+		frm.add('customer_ship_name', 'name');	
+		frm.add('customer_ship_city', 'length', '2');
+		frm.add('customer_ship_street', 'length', '2');
+		frm.add('customer_ship_zip', 'zip');
+	}
 	frm.submit();
-}		
-		
+}
+
 $(function() {
 
 	$('.delivery-types > a').click(function() {
 		if (!$(this).hasClass('disabled')) {
 			selectDelivery(this.dataset.id);
-
 		}
 	});	
-
+	
+	$('#customer_use_ship_address').change(function(e) {                                           
+		if (useShippingAddress()) {
+			$('.shipping-address-form input').prop('disabled', false);
+		} else {
+			$('.shipping-address-form input').prop('disabled', true);
+		}
+	});
+	
 });

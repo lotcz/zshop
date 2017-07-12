@@ -35,6 +35,7 @@
 		$this->setPageTitle('Delivery Type');
 		$this->setMainTemplate('nocats');
 		$this->includeJS('js/delivery.js');
+		$this->requireModule('forms');
 		
 		if (!isset($customer)) {
 			$customer = $this->getCustomer();

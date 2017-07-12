@@ -52,33 +52,35 @@
 					<h3 class="panel-title"><?=$this->t('Invoicing Address'); ?></h3>
 				</div>
 				<div class="panel-body">
-					<div id="customer_ship_name_form_group" class="form-group">
-						<label for="customer_ship_name" class="col-sm-4 control-label form-label">Name:</label>
+					<div id="customer_name_form_group" class="form-group">
+						<label for="customer_ship_name" class="col-sm-4 control-label form-label"><?=$this->t('Name')?>:</label>
 						<div class="col-sm-8 form-field">
-							<input type="text" name="customer_ship_name" maxlength="50" value="" class="form-control" />
-							<div class="form-validation" id="customer_name_validation_length"><?=$this->t('Please enter your name.') ?></div>
+							<input type="text" name="customer_name" maxlength="50" value="" class="form-control" />
+							<div class="form-validation" id="customer_name_validation_name"><?=$this->t('Please enter your whole name.') ?></div>
 						</div>					
 					</div>
 								
-					<div id="customer_ship_city_form_group" class="form-group">
-						<label for="customer_ship_city" class="col-sm-4 control-label form-label">City:</label>
+					<div id="customer_address_city_form_group" class="form-group">
+						<label for="customer_address_city" class="col-sm-4 control-label form-label"><?=$this->t('City')?>:</label>
 						<div class="col-sm-8 form-field">
-							<input type="text" name="customer_ship_city" maxlength="50" value="" class="form-control" />
+							<input type="text" name="customer_address_city" maxlength="50" value="" class="form-control" />
+							<div class="form-validation" id="customer_address_city_validation_length"><?=$this->t('Required.') ?></div>
 						</div>						
 					</div>
 									
-					<div id="customer_ship_street_form_group" class="form-group">
-						<label for="customer_ship_street" class="col-sm-4 control-label form-label">Street:</label>
+					<div id="customer_address_street_form_group" class="form-group">
+						<label for="customer_address_street" class="col-sm-4 control-label form-label"><?=$this->t('Street')?>:</label>
 						<div class="col-sm-8 form-field">
-							<input type="text" name="customer_ship_street" maxlength="50" value="" class="form-control" />
+							<input type="text" name="customer_address_street" maxlength="50" value="" class="form-control" />
+							<div class="form-validation" id="customer_address_street_validation_length"><?=$this->t('Required.') ?></div>
 						</div>						
 					</div>
 									
-					<div id="customer_ship_zip_form_group" class="form-group">
-						<label for="customer_ship_zip" class="col-sm-4 control-label form-label">ZIP:</label>
+					<div id="customer_address_zip_form_group" class="form-group">
+						<label for="customer_ship_zip" class="col-sm-4 control-label form-label"><?=$this->t('ZIP')?>:</label>
 						<div class="col-sm-8 form-field">
-							<input type="text" name="customer_ship_zip"  value="0" class="form-control" />
-							<div class="form-validation" id="customer_ship_zip_validation_integer">Please enter whole number.</div>
+							<input type="text" name="customer_address_zip"  value="0" class="form-control" />
+							<div class="form-validation" id="customer_address_zip_validation_zip"><?=$this->t('Please enter valid ZIP code.')?></div>
 						</div>						
 					</div>
 				</div>
@@ -92,33 +94,36 @@
 						<label for="customer_use_ship_address" style="margin:0"><?=$this->t('Shipping Address'); ?></label>					
 					</h3>
 				</div>
-				<div class="panel-body">
+				<div class="panel-body shipping-address-form">
 					<div id="customer_ship_name_form_group" class="form-group">
-						<label for="customer_ship_name" class="col-sm-4 control-label form-label">Name:</label>
+						<label for="customer_ship_name" class="col-sm-4 control-label form-label"><?=$this->t('Name')?>:</label>
 						<div class="col-sm-8 form-field">
 							<input type="text" name="customer_ship_name" maxlength="50" value="" class="form-control" />						
+							<div class="form-validation" id="customer_ship_name_validation_name"><?=$this->t('Please enter your whole name.') ?></div>
 						</div>					
 					</div>
 								
 					<div id="customer_ship_city_form_group" class="form-group">
-						<label for="customer_ship_city" class="col-sm-4 control-label form-label">City:</label>
+						<label for="customer_ship_city" class="col-sm-4 control-label form-label"><?=$this->t('City')?>:</label>
 						<div class="col-sm-8 form-field">
 							<input type="text" name="customer_ship_city" maxlength="50" value="" class="form-control" />
+							<div class="form-validation" id="customer_ship_city_validation_length"><?=$this->t('Required.') ?></div>
 						</div>						
 					</div>
 									
 					<div id="customer_ship_street_form_group" class="form-group">
-						<label for="customer_ship_street" class="col-sm-4 control-label form-label">Street:</label>
+						<label for="customer_ship_street" class="col-sm-4 control-label form-label"><?=$this->t('Street')?>:</label>
 						<div class="col-sm-8 form-field">
 							<input type="text" name="customer_ship_street" maxlength="50" value="" class="form-control" />
+							<div class="form-validation" id="customer_ship_street_validation_length"><?=$this->t('Required.') ?></div>
 						</div>						
 					</div>
 									
 					<div id="customer_ship_zip_form_group" class="form-group">
-						<label for="customer_ship_zip" class="col-sm-4 control-label form-label">ZIP:</label>
+						<label for="customer_ship_zip" class="col-sm-4 control-label form-label"><?=$this->t('ZIP')?>:</label>
 						<div class="col-sm-8 form-field">
 							<input type="text" name="customer_ship_zip"  value="0" class="form-control" />
-							<div class="form-validation" id="customer_ship_zip_validation_integer">Please enter whole number.</div>
+							<div class="form-validation" id="customer_ship_zip_validation_zip"><?=$this->t('Please enter valid ZIP code.')?></div>
 						</div>						
 					</div>
 				</div>
