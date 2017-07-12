@@ -48,6 +48,7 @@
 			$selected_delivery = DeliveryTypeModel::getDefault($delivery_types);
 		}		
 
+		$this->setData('customer', $customer);
 		$this->setData('delivery_types', $delivery_types);
 		$this->setData('selected_delivery', $selected_delivery);
 	}

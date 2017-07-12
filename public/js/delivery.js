@@ -12,6 +12,14 @@ function useShippingAddress() {
 	return $('#customer_use_ship_address').prop('checked');
 }
 
+function updateShippingAddressForm() {
+	if (useShippingAddress()) {
+		$('.shipping-address-form input').prop('disabled', false);
+	} else {
+		$('.shipping-address-form input').prop('disabled', true);
+	}
+}
+
 function validateDeliveryForm() {
 	var frm = new formValidation('form_delivery');
 	frm.add('customer_name', 'name');
@@ -37,11 +45,7 @@ $(function() {
 	});	
 	
 	$('#customer_use_ship_address').change(function(e) {                                           
-		if (useShippingAddress()) {
-			$('.shipping-address-form input').prop('disabled', false);
-		} else {
-			$('.shipping-address-form input').prop('disabled', true);
-		}
+		updateShippingAddressForm();
 	});
 	
 });
