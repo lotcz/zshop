@@ -1,5 +1,6 @@
 <?php
 	$customer = $this->getData('customer');
+	$customer_email = $this->getData('customer_email');
 	$use_ship_address = $customer->val('customer_use_ship_address');
 	$use_ship_address_attr = ($customer->val('customer_use_ship_address') == 1) ? '' : 'disabled';
 	$delivery_types = $this->getData('delivery_types');
@@ -84,6 +85,14 @@
 						<div class="col-sm-8 form-field">
 							<input type="text" name="customer_address_zip" value="<?=$customer->val('customer_address_zip') ?>" class="form-control" />
 							<div class="form-validation" id="customer_address_zip_validation_zip"><?=$this->t('Please enter valid ZIP code.')?></div>
+						</div>						
+					</div>
+					
+					<div id="customer_email_form_group" class="form-group">
+						<label for="customer_ship_zip" class="col-sm-4 control-label form-label"><?=$this->t('Email')?>:</label>
+						<div class="col-sm-8 form-field">
+							<input type="text" name="customer_email" value="<?=$customer_email ?>" class="form-control" />
+							<div class="form-validation" id="customer_email_validation_email"><?=$this->t('Please enter valid email.')?></div>
 						</div>						
 					</div>
 				</div>

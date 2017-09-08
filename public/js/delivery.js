@@ -26,6 +26,7 @@ function validateDeliveryForm() {
 	frm.add('customer_address_city', 'length', '2');
 	frm.add('customer_address_street', 'length', '2');
 	frm.add('customer_address_zip', 'zip');
+	frm.add('customer_email', 'email');
 	
 	if (useShippingAddress()) {
 		frm.add('customer_ship_name', 'name');	
