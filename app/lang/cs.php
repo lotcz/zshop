@@ -17,6 +17,7 @@
 	$language_data['Confirm Password'] = 'Potvrdit heslo';
 	$language_data['Passwords don\'t match.'] = 'Hesla se neshodují.';
 	$language_data['Register'] = 'Registrovat';
+	$language_data['Order & Register'] = 'Objednat & registrovat';
 	$language_data['Registration'] = 'Registrace';
 	$language_data['Thank you for your registration'] = 'Děkujeme za Vaši registraci';
 	$language_data['Shopping Cart'] = 'Nákupní košík';
@@ -27,6 +28,8 @@
 	$language_data['Edit'] = 'Editovat';
 	$language_data['Password'] = 'Heslo';
 	$language_data['Search'] = 'Hledat';
+
+	$language_data['Full name'] = 'Jméno a příjmení';
 
 	/* PRODUCTS AND CART */
 	$language_data['Buy'] = 'Koupit';
@@ -41,12 +44,17 @@
 	$language_data['Free'] = 'Zdarma';
 	$language_data['Price'] = 'Cena';
 	$language_data['Empty'] = 'Prázdný';
-
 	$language_data['Cart'] = 'Košík';
 	$language_data['<b>%s</b> items'] = '<b>%s</b> položek';
+	$language_data['Pick up in store'] = 'Osobní převzetí';
+	$language_data['Czech post'] = 'Česká Pošta';
+	$language_data['Parcel service'] = 'Kurýr';
 
 	/* LONG USER MESSAGES */
 	$language_data['--cookies--'] = 'Tato stránka nefunguje bez souborů cookies v prohlížeči. Prosím zapněte si funkci cookies v nastavení Vašeho prohlížeče.';
+	$language_data['--please-log-in--'] = 'Momentálně nejste přihlášeni. Pokud máte účet v našem obchodě, přihlašte se a dokončete nákup pod Vaším účtem.';
+	$language_data['--order-and-register--'] = 'Pokud u nás ještě nemáte účet, vytvoříme jej pro Vás v průběhu obědnávky.';
+	$language_data['--select-delivery--'] = 'Zvolte prosím, jakým si způsobem si přejete doručit Vaše zboží.';
 
 	/* ADMIN SECTION */
 	$language_data['Administrator Sign In'] = 'Vstup pro správce';

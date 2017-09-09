@@ -16,13 +16,13 @@
 		return $category;
 	}
 
-	$cube_db = new mysqli('localhost', 'root', '', 'parfumerie1');
+	$cube_db = new mysqli('uvdb21.active24.cz', 'parfumerie1', 'aRWmRPka8W', 'parfumerie1');
 	$cube_db->set_charset('ISO-8859-2');
 
 	$new = 0;
 	$updated = 0;
 
-	$stmt = zSqlQuery::select($cube_db, 'cubecart_category');
+	$stmt = zSqlQuery::select($cube_db, 'CubeCart_category');
 	if ($stmt) {
 		$result = $stmt->get_result();
 		while ($row = $result->fetch_assoc()) {
@@ -48,7 +48,7 @@
 		$stmt->close();
 	}
 
-	$stmt = zSqlQuery::select($cube_db, 'cubecart_inventory');
+	$stmt = zSqlQuery::select($cube_db, 'CubeCart_inventory');
 	if ($stmt) {
 		$result = $stmt->get_result();
 		while ($row = $result->fetch_assoc()) {
