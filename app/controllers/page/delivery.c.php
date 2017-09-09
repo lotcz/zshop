@@ -49,7 +49,14 @@
 		}		
 
 		$this->setData('customer', $customer);
-		$this->setData('customer_email', $customer->bval('customer_anonymous') ? '' : $customer->val('customer_email'));
+		if ($customer->bval('customer_anonymous')) {
+			$this->setData('customer_email', '');	
+			$this->setData('customer_name', '');	
+		} else {
+			$this->setData('customer_email', $customer->val('customer_email'));	
+			$this->setData('customer_name', $customer->val('customer_name'));	
+		}
+				
 		$this->setData('delivery_types', $delivery_types);
 		$this->setData('selected_delivery', $selected_delivery);
 	}

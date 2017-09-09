@@ -1,6 +1,7 @@
 <?php
 	$customer = $this->getData('customer');
 	$customer_email = $this->getData('customer_email');
+	$customer_name = $this->getData('customer_name');
 	$use_ship_address = $customer->val('customer_use_ship_address');
 	$use_ship_address_attr = ($customer->val('customer_use_ship_address') == 1) ? '' : 'disabled';
 	$delivery_types = $this->getData('delivery_types');
@@ -57,9 +58,9 @@
 				</div>
 				<div class="panel-body">
 					<div id="customer_name_form_group" class="form-group">
-						<label for="customer_ship_name" class="col-sm-4 control-label form-label"><?=$this->t('Name')?>:</label>
+						<label for="customer_ship_name" class="col-sm-4 control-label form-label"><?=$this->t('Full name')?>:</label>
 						<div class="col-sm-8 form-field">
-							<input type="text" name="customer_name" maxlength="50" value="<?=$customer->val('customer_name') ?>" class="form-control" />
+							<input type="text" name="customer_name" maxlength="50" value="<?=$customer_name ?>" class="form-control" />
 							<div class="form-validation" id="customer_name_validation_name"><?=$this->t('Please enter your whole name.') ?></div>
 						</div>					
 					</div>
@@ -108,7 +109,7 @@
 				</div>
 				<div class="panel-body shipping-address-form">
 					<div id="customer_ship_name_form_group" class="form-group">
-						<label for="customer_ship_name" class="col-sm-4 control-label form-label"><?=$this->t('Name')?>:</label>
+						<label for="customer_ship_name" class="col-sm-4 control-label form-label"><?=$this->t('Full name')?>:</label>
 						<div class="col-sm-8 form-field">
 							<input type="text" name="customer_ship_name" maxlength="50" value="<?=$customer->val('customer_ship_name') ?>" <?=$use_ship_address_attr ?> class="form-control" />						
 							<div class="form-validation" id="customer_ship_name_validation_name"><?=$this->t('Please enter your whole name.') ?></div>

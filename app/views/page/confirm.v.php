@@ -23,7 +23,7 @@
 								</td>
 								
 								<td>
-									<?=$product->val('cart_count') ?>
+									<?=$product->val('cart_count') ?>x
 								</td>
 								
 								<td class="text-right">
@@ -37,7 +37,7 @@
 				
 				<tr class="item">								
 					<td>
-						<?=$this->t('Total')?>
+						<?=$this->t('Subtotal')?>
 					</td>
 					
 					<td>						
@@ -61,7 +61,7 @@
 			
 				<tr class="item">								
 					<td>
-						<?=$delivery_type->val('delivery_type_name')?>
+						<?=$this->t('Delivery type')?>: <?=$delivery_type->val('delivery_type_name')?>
 					</td>
 					
 					<td>						
@@ -77,7 +77,7 @@
 				
 				<tr class="item">								
 					<td>
-						<?=$payment_type->val('payment_type_name')?>
+						<?=$this->t('Payment type')?>: <?=$payment_type->val('payment_type_name')?>
 					</td>
 					
 					<td>						
@@ -94,7 +94,7 @@
 				
 				<tr class="item">								
 					<td>
-						<?=$this->t('Total')?>
+						<strong><?=$this->t('Total')?></strong>
 					</td>
 					
 					<td>						
