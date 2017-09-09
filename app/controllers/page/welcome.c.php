@@ -1,3 +1,3 @@
 <?php
-	$this->setPageTitle('ORder ??');
+	$this->setPageTitle('Welcome');
 	$this->setMainTemplate('nocats');

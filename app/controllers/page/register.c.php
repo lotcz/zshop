@@ -1,9 +1,9 @@
-<?php	
+<?php
 	$this->requireModule('forms');
 	$this->setPageTitle('Registration');
-	
+
 	$form = new zForm('register_form');
-	$form->add([		
+	$form->add([
 		[
 			'name' => 'customer_email',
 			'label' => 'E-mail',
@@ -21,22 +21,22 @@
 			'label' => 'Confirm Password',
 			'type' => 'password',
 			'validations' => [['type' => 'confirm', 'param' => 'customer_password']]
-		]		
+		]
 	]);
-	
+
 	$render_form = true;
-	
+
 	if (!$this->z->custauth->isAnonymous()) {
 		$this->z->messages->add($this->t('You are already registered and logged in!'));
 		$render_form = false;
 	} elseif ($this->isPost()) {
-		
+
 		$email = trim(strtolower($this->get('customer_email')));
 		$password = $this->get('customer_password');
-		
-		// validate email and password once again 
-		if ($this->z->custauth->isValidEmail($email) && $this->z->custauth->isValidPassword($password)) {			
-			
+
+		// validate email and password once again
+		if ($this->z->custauth->isValidEmail($email) && $this->z->custauth->isValidPassword($password)) {
+
 			// check if email exists
 			$existing_customer = new CustomerModel($this->db);
 			$existing_customer->loadByEmail($email);
@@ -49,21 +49,21 @@
 				$customer->data['customer_anonymous'] = 0;
 				$customer->data['customer_password_hash'] = $this->z->custauth->hashPassword($password);
 				$customer->save();
-								
+
 				if ($this->z->custauth->login($email, $password)) {
 					$this->z->custauth->sendRegistrationEmail();
+					$this->redirect('welcome');
 					$render_form = false;
 				} else {
 					$messages->error($this->t('Cannot log you in. Something went wrong during registration process.'));
 				}
 			}
 		} else {
-			$messages->error(t('Invalid password or email.'));
+			$messages->error($this->t('Invalid password or email.'));
 		}
-		
+
 	}
 
 	if ($render_form) {
 		$this->setData('form', $form);
 	}
-	

@@ -14,11 +14,11 @@
 			</div>
 			<div class="col-sm-4 form-validation" id="password_validation_password"><?= $this->t('Required.') ?></div>
 		</div>
-		<div class="form-buttons">			
-			<input type="button" onclick="javascript:login_validate();" class="btn btn-success form-button" value="<?=$this->t('Sign In') ?>" />			
-			<a class="form-button" href="<?=$this->url('forgotten-password', get('r'))?><?=(isset($_POST['email']) && strlen($_POST['email']) > 0) ? '&email=' . $_POST['email'] : '' ?>"><?= $this->t('Forgotten Password') ?></a>		
+		<div class="form-buttons">
+			<input type="button" onclick="javascript:login_validate();return false;" class="btn btn-success form-button" value="<?=$this->t('Sign In') ?>" />			
+			<a class="form-button" href="<?=$this->url('forgotten-password', get('r'))?><?=(isset($_POST['email']) && strlen($_POST['email']) > 0) ? '&email=' . $_POST['email'] : '' ?>"><?= $this->t('Forgotten Password') ?></a>
 		</div>
-	</form>	
+	</form>
 </div>
 
 <script>
@@ -26,7 +26,6 @@
 		var frm = new formValidation('login_form');
 		frm.add('email', 'email');
 		frm.add('password', 'password');
-		
 		frm.submit();
 	}
 </script>
