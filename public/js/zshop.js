@@ -3,16 +3,15 @@ function _includes(arr,obj) {
 }
 
 Number.prototype.formatMoney = function(c, d, t) {
-	var n = this, 
-    c = isNaN(c = Math.abs(c)) ? 2 : c, 
-    d = d == undefined ? "," : d, 
-    t = t == undefined ? "." : t, 
-    s = n < 0 ? "-" : "", 
-    i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "", 
+	var n = this,
+    c = isNaN(c = Math.abs(c)) ? 2 : c,
+    d = d == undefined ? "," : d,
+    t = t == undefined ? "." : t,
+    s = n < 0 ? "-" : "",
+    i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "",
     j = (j = i.length) > 3 ? j % 3 : 0;
 	return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
 }
-
 
 // COOKIES CHECK
 
@@ -27,7 +26,7 @@ function checkCookies() {
 	document.cookie = "cookietest=1";
 	var ret = document.cookie.indexOf("cookietest=") != -1;
 	document.cookie = "cookietest=1; expires=Thu, 01-Jan-1970 00:00:01 GMT";
-	return ret;	
+	return ret;
 }
 
 // set cookie value
@@ -47,7 +46,7 @@ function getCookie(cname) {
         if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
     }
     return '';
-} 
+}
 
 // change language
 function setLang(lang) {
@@ -78,7 +77,7 @@ function sideMenuUpdateToggle(caller) {
 	var toggle = $('#zmenu-toggle-' + id);
 	toggle.removeClass('glyphicon-triangle-right');
 	toggle.removeClass('glyphicon-triangle-bottom');
-	
+
 	if (state) {
 		toggle.addClass('glyphicon-triangle-bottom');
 	} else {
@@ -117,17 +116,32 @@ function productAdded(data) {
 function addProductToCart(id) {
 	showAjaxLoaders();
 	var cnt = $('#prod_count_' + id).val();
-	$.getJSON('/json/default/json-cart/add', 
+	$.getJSON('/json/default/json-cart/add',
 		{
 			product_id: id,
 			count: cnt
 		},
 		productAdded
 	);
+
+  //render product fragment and show modal dialog
+  $.get('/fragment/default/added-item',
+		{
+			product_id: id
+		},
+		productFragmentRendered
+	);
+
+}
+
+function productFragmentRendered(data) {
+  var addPanel = $("div#modal-added");
+  $('#modal-added-item', addPanel).html(data);
+  addPanel.modal("show");
 }
 
 function productUpdated(data) {
-	updateCart(data);	
+	updateCart(data);
 	$('#item_total_price_'+data.ii).html(data.ip);
 	hideAjaxLoaders();
 }
@@ -135,7 +149,7 @@ function productUpdated(data) {
 function updateProductInCart(id) {
 	showAjaxLoaders();
 	var cnt = $('#prod_count_' + id).val();
-	$.getJSON('/json/default/json-cart/update', 
+	$.getJSON('/json/default/json-cart/update',
 		{
 			product_id: id,
 			count: cnt

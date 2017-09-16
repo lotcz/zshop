@@ -41,7 +41,7 @@
 			$existing_customer = new CustomerModel($this->db);
 			$existing_customer->loadByEmail($email);
 			if ($existing_customer->is_loaded) {
-				$messages->error($this->t('This email is already used!'));
+				$this->z->messages->error($this->t('This email is already used!'));
 			} else {
 				$customer = $this->getCustomer();
 				$customer->data['customer_name'] = null;
@@ -55,11 +55,11 @@
 					$this->redirect('welcome');
 					$render_form = false;
 				} else {
-					$messages->error($this->t('Cannot log you in. Something went wrong during registration process.'));
+					$this->z->messages->error($this->t('Cannot log you in. Something went wrong during registration process.'));
 				}
 			}
 		} else {
-			$messages->error($this->t('Invalid password or email.'));
+			$this->z->messages->error($this->t('Invalid password or email.'));
 		}
 
 	}
