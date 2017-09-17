@@ -24,3 +24,7 @@
 </td>
 
 <td class="text-right"><strong><span id="item_total_price_<?=$product->val('product_id') ?>"><?=$this->convertAndFormatMoney($product->val('item_price')) ?></span></strong></td>
+
+<script>
+  setItemCount(<?=$product->val('product_id') ?>, <?=$product->val('cart_count') ?>);
+</script>

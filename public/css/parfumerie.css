@@ -97,12 +97,11 @@ label {
 
 .basic-bg .dropdown-menu > li > a {
    color: #333;
-   
+
 }
 
 .basic-bg .dropdown-menu > li.active > a {
    color: White;
-   
 }
 
 .basic-bg label {
@@ -149,10 +148,10 @@ h1.page-title {
 }
 
 .head-block {
-	background-color:White;		
+	background-color:White;
 	display:inline-block;
 	vertical-align:top;
-	margin-top:0px;	
+	margin-top:0px;
 }
 
 .language {
@@ -195,7 +194,7 @@ h1.page-title {
 
 #side-menu ul.level-1,
 #side-menu ul.level-1 .list-group-item {
-	border-radius:0px;	
+	border-radius:0px;
 }
 
 #side-menu .level-1,
@@ -218,7 +217,7 @@ h1.page-title {
 	background-color:#F0F0F0;
 }
 
-#side-menu .level-2 .list-group-item {	
+#side-menu .level-2 .list-group-item {
 	padding:3px 3px 3px 55px;
 }
 
@@ -238,14 +237,14 @@ h1.page-title {
 
 .product .panel-title {
 	height:45px;
-	overflow:hidden;	
+	overflow:hidden;
 }
 
 .product .panel {
 	border-color:LightGray;
 }
 
-.products {	
+.products {
 	margin-right: -7px;
     margin-left: -7px;
 }
@@ -254,34 +253,52 @@ h1.page-title {
     margin-bottom: 14px;
 }
 
-.products .product {	
+.products .product {
 	padding-right: 7px;
     padding-left: 7px;
 }
 
-.products .product .badge {	
+.products .product .badge {
 	background-color:#337ab7;
 	float:right;
 	margin-top:-15px;
 	margin-right:-15px;
 }
 
-.product-image {	
+.product-image {
 	text-align:center;
 	height:160px;
 }
 
-.product-image img {	
+.product-image img {
 	max-width:100%;
 }
 
 .product .prod-item-count {
-	display:inline-block;	
-	width:50px;	
+	display:inline-block;
+	width:50px;
 }
 
-.product button .glyphicon {	
+.product button .glyphicon {
 	padding-right:10px;
+}
+
+.product-preview-bottom {
+	padding:0px;
+	text-align: right;
+}
+
+.product-preview-bottom .already-in-cart {
+	display: inline-block;
+	text-align: center;
+	vertical-align: middle;
+	margin: 0px 5px;
+}
+
+.product-preview-bottom .add-to-cart-button {
+	display: inline-block;
+	vertical-align: middle;
+	margin: 7px 5px;
 }
 
 .cart .table > tbody > tr > td {
@@ -305,11 +322,11 @@ h1.page-title {
 	color:#A5A5A5;
 }
 
-.cart .item .minus-item .glyphicon:hover {	
+.cart .item .minus-item .glyphicon:hover {
 	color:Red;
 }
 
-.cart .item .plus-item .glyphicon:hover {	
+.cart .item .plus-item .glyphicon:hover {
 	color:Green;
 }
 
@@ -319,7 +336,7 @@ h1.page-title {
 
 .cart .item .item-count .glyphicon {
 	position:relative;
-	top:4px;	
+	top:4px;
 }
 
 .cart .item.removed {
@@ -327,7 +344,7 @@ h1.page-title {
 }
 
 .cart .item.removed a {
-	color:Black;	
+	color:Black;
 }
 
 .cart .item.removed img {
@@ -335,11 +352,11 @@ h1.page-title {
 }
 
 .cart .item.removed .item-count .glyphicon {
-	color:White;	
+	color:White;
 }
 
 .cart .item.removed .remove-item .glyphicon {
-	color:#60FF40;	
+	color:#60FF40;
 }
 
 .cart .item .item-count input {
@@ -360,7 +377,7 @@ h1.page-title {
 
 .cart-small {
 	margin-top:10px;
-	font-size:15px;	
+	font-size:15px;
 }
 
 .cart-small .price {
@@ -427,7 +444,7 @@ mark {
 }
 
 .order-progress {
-	height:35px;		
+	height:35px;
 }
 
 .order-progress .progress-bar {

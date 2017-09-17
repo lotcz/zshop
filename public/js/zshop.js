@@ -169,7 +169,15 @@ function getItemCount(id) {
 }
 
 function setItemCount(id, cnt) {
-	return $('#prod_count_'+id).val(parseInt(cnt));
+	$('#prod_count_'+id).val(parseInt(cnt));
+
+  // update amount already in cart in product preview
+  if (cnt > 0) {
+    $('#already_in_cart_'+id).removeClass('hidden');
+  } else {
+    $('#already_in_cart_'+id).addClass('hidden');
+  }
+  $('#in_cart_prod_count_'+id).html(parseInt(cnt));
 }
 
 function minusItem(id) {

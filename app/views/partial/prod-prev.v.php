@@ -30,11 +30,15 @@
 
 		</div>
 
-		<div class="panel-heading basic-bg text-right">
-				<span id="in_cart_prod_count_<?=$product->val('product_id')?>">
+		<div class="panel-heading basic-bg product-preview-bottom">
+			<div id="already_in_cart_<?=$product->val('product_id') ?>" class="<?=($product->ival('in_cart_prod_count', 0) > 0) ? '' : 'hidden' ?> already-in-cart">
+				<span class="small"><?=$this->t('In cart') ?>:</span>
+				<br/>
+				<strong id="in_cart_prod_count_<?=$product->val('product_id')?>" >
 					<?=$product->val('in_cart_prod_count') ?>
-				</span>
-				<button class="btn btn-success" onclick="javascript:addProductToCart(<?=$product->val('product_id')?>);return false;"><span class="glyphicon glyphicon-shopping-cart"></span><?=$this->t('Buy')?></button>
+				</strong>
+			</div>
+			<button class="btn btn-success add-to-cart-button" onclick="javascript:addProductToCart(<?=$product->val('product_id')?>);return false;"><span class="glyphicon glyphicon-shopping-cart"></span><?=$this->t('Buy')?></button>
 		</div>
 
 	</div>
