@@ -1,4 +1,6 @@
 <?php
+	$this->setPageTitle('Sign In');
+
 	$this->z->core->includeJS('resources/forms.js');
 
 	if ($this->isPost()) {
