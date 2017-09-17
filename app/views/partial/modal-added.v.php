@@ -9,11 +9,11 @@
         <h5 class="modal-title" id="addedModalLabel"><?=$this->t('Product was added to cart.') ?></h5>
       </div>
       <div class="modal-body">
-        <div class="table-responsive panel panel-default">
+        <div class="table-responsive panel panel-default cart">
           <table class="table">
             <tbody>
                 <tr class="item" id="modal-added-item">
-
+                  <!-- Here comes added product -->
                 </tr>
               </tbody>
             </table>
@@ -27,3 +27,7 @@
     </div>
   </div>
 </div>
+
+<script>
+	<?=$this->z->i18n->jsFormatPrice();?>
+</script>

@@ -88,4 +88,5 @@ $language_data['This email is already used!'] = 'Tento email je již obsazen!';
 $language_data['Continue shopping'] = 'Pokračovat v nákupu';
 $language_data['Go to cart'] = 'Jít do košíku';
 $language_data['No description is available for this product. '] = 'Pro toto zboží není k dispozici žádný popis.';
+$language_data['Product was added to cart.'] = 'Zboží bylo přidáno do košíku.';
 return $language_data;

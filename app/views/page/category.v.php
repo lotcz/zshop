@@ -42,7 +42,7 @@
 			'<?=$this->url('partials/loadmore') ?>',
 			{
 				category_ids: '<?=implode(',', $this->getData('ids')) ?>',
-				sorting: '<?=$this->getData('sorting') ?>',
+				sorting: '<?=$this->get('sorting') ?>',
 				offset: offset,
 				limit: limit
 			},

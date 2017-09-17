@@ -98,38 +98,36 @@ $('.zmenu-collapse').on('hidden.bs.collapse', function () {
 	sideMenuUpdateToggle(this);
 });
 
-// CART
+// CART preview
 
 function updateCart(data) {
 	$('.cart-total-price').html(data.total_cart_price_formatted);
 	$('#cart_total_price').val(data.total_cart_price_converted);
-	if (typeof cartUpdate == 'function') {
-		cartUpdate();
-	}
+	cartUpdate();
 }
 
 function productAdded(data) {
 	updateCart(data);
 	hideAjaxLoaders();
-}
-
-function addProductToCart(id) {
-	showAjaxLoaders();
-	var cnt = $('#prod_count_' + id).val();
-	$.getJSON('/json/default/json-cart/add',
-		{
-			product_id: id,
-			count: cnt
-		},
-		productAdded
-	);
 
   //render product fragment and show modal dialog
   $.get('/fragment/default/added-item',
+    {
+      product_id: data.product_id
+    },
+    productFragmentRendered
+  );
+}
+
+function addProductToCart(id) {
+  //update cart preview
+	showAjaxLoaders();
+	$.getJSON('/json/default/json-cart/add',
 		{
-			product_id: id
+			product_id: id,
+			count: 1
 		},
-		productFragmentRendered
+		productAdded
 	);
 
 }
@@ -142,7 +140,7 @@ function productFragmentRendered(data) {
 
 function productUpdated(data) {
 	updateCart(data);
-	$('#item_total_price_'+data.ii).html(data.ip);
+	$('#item_total_price_'+data.product_id).html(data.item_price_formatted);
 	hideAjaxLoaders();
 }
 
@@ -157,3 +155,57 @@ function updateProductInCart(id) {
 		productUpdated
 	);
 }
+
+// CART page and added product modal
+
+function cartUpdate() {
+	var total_price;
+	total_price = parseFloat($('#cart_total_price').val());
+	$('#order_total_price').html(formatPrice(total_price));
+}
+
+function getItemCount(id) {
+	return parseInt($('#prod_count_'+id).val());
+}
+
+function setItemCount(id, cnt) {
+	return $('#prod_count_'+id).val(parseInt(cnt));
+}
+
+function minusItem(id) {
+	var c = getItemCount(id)-1;
+	if (c < 1) {
+		removeItem(id);
+	} else {
+		setItemCount(id, c);
+		updateProductInCart(id);
+	}
+}
+
+function plusItem(id) {
+	var c = getItemCount(id)+1;
+	setItemCount(id, c);
+	updateProductInCart(id);
+	if (c == 1) {
+		reviveItem(id);
+	}
+}
+
+function removeItem(id) {
+	if (getItemCount(id) > 0) {
+		setItemCount(id, 0);
+		$('#cart_prod_'+id).addClass('removed');
+	} else {
+		reviveItem(id);
+	}
+	updateProductInCart(id);
+}
+
+function reviveItem(id) {
+	setItemCount(id, 1);
+	$('#cart_prod_'+id).removeClass('removed');
+}
+
+$(function (){
+	cartUpdate();
+});
