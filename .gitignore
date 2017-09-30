@@ -50,3 +50,4 @@ app/config/emails.php
 app/config/i18n.php
 app/config/images.php
 app/config/jobs.php
+sql/secret.sql
