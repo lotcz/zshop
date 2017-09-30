@@ -1,7 +1,11 @@
 <?php
-	$product_id = intval(get('product_id'));
-	$count = intval(get('count'));
+	$product_id = $this->getInt('product_id');
+	$count = $this->getInt('count');
 	$action = $this->getPath(-1);
+
+	if (!$this->isCustAuth()) {
+		$this->z->custauth->createAnonymousSession();
+	}
 
 	if ($this->isCustAuth()) {
 		$cart = new CartModel($this->db);
@@ -18,7 +22,7 @@
 			$cart->data['cart_customer_id'] = $customer_id;
 			$cart->data['cart_count'] = $count;
 		}
-		if ($cart->val('cart_count') > 0) {
+		if ($cart->ival('cart_count') > 0) {
 			$cart->save();
 		} else {
 			$cart->deleteById();
@@ -31,5 +35,5 @@
 		$data['product_id'] = $product_id;
 		$this->setData('json', $data);
 	} else {
-		echo 'Cannot authenticate customer';
+		$this->message('Cannot authenticate customer!', 'error');
 	}
