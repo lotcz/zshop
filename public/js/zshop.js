@@ -100,14 +100,13 @@ $('.zmenu-collapse').on('hidden.bs.collapse', function () {
 
 // CART preview
 
-function updateCart(data) {
+function updateCartPreview(data) {
 	$('.cart-total-price').html(data.total_cart_price_formatted);
 	$('#cart_total_price').val(data.total_cart_price_converted);
-	cartUpdate();
 }
 
 function productAdded(data) {
-	updateCart(data);
+	productUpdated(data);
 	hideAjaxLoaders();
 
   //render product fragment and show modal dialog
@@ -139,7 +138,10 @@ function productFragmentRendered(data) {
 }
 
 function productUpdated(data) {
-	updateCart(data);
+	updateCartPreview(data);
+  if (typeof updateCartPage == 'function') {
+    updateCartPage();
+  }
 	$('#item_total_price_'+data.product_id).html(data.item_price_formatted);
 	hideAjaxLoaders();
 }
@@ -157,12 +159,6 @@ function updateProductInCart(id) {
 }
 
 // CART page and added product modal
-
-function cartUpdate() {
-	var total_price;
-	total_price = parseFloat($('#cart_total_price').val());
-	$('#order_total_price').html(formatPrice(total_price));
-}
 
 function getItemCount(id) {
 	return parseInt($('#prod_count_'+id).val());
@@ -213,7 +209,3 @@ function reviveItem(id) {
 	setItemCount(id, 1);
 	$('#cart_prod_'+id).removeClass('removed');
 }
-
-$(function (){
-	cartUpdate();
-});

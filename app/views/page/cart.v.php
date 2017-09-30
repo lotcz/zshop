@@ -38,7 +38,7 @@
 
 											<td>
 												<div class="item-count">
-													<a onclick="javascript:minusItem(<?=$product->val('product_id') ?>);return false;" href="#" class="minus-item"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></a><input id="prod_count_<?=$product->val('product_id') ?>" type="text" maxlength="2" class="form-control" value="<?=$product->val('cart_count') ?>"><a onclick="javascript:plusItem(<?=$product->val('product_id') ?>);return false;" href="#" class="plus-item"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
+													<a onclick="javascript:minusItem(<?=$product->val('product_id') ?>);return false;" href="#" class="minus-item"><span class="glyphicon glyphicon-minus"></span></a><input id="prod_count_<?=$product->val('product_id') ?>" product-id="<?=$product->val('product_id') ?>" type="text" maxlength="2" class="form-control prod-count-input" value="<?=$product->val('cart_count') ?>"><a onclick="javascript:plusItem(<?=$product->val('product_id') ?>);return false;" href="#" class="plus-item"><span class="glyphicon glyphicon-plus"></span></a>
 												</div>
 											</td>
 

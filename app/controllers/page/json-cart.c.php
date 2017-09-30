@@ -30,7 +30,7 @@
 		$data = $this->z->cart->loadCartTotals($customer_id);
 		if ($action == 'update') {
 			$product = new ProductModel($this->db, $product_id);
-			$data['item_price_formatted'] = $this->formatMoney($cart->ival('cart_count') * $product->fval('product_price'));
+			$data['item_price_formatted'] = $this->convertAndFormatMoney($cart->ival('cart_count') * $product->fval('product_price'));
 		}
 		$data['product_id'] = $product_id;
 		$this->setData('json', $data);
