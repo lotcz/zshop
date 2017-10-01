@@ -9,7 +9,7 @@
 
 		// if turned on, display message of unrecoverable error
 		// turn this off in production!
-		'debug_mode' => true, 
+		'debug_mode' => true,
 
 		// redirect here in case of unrecoverable error
 		// only applies when debug_mode is off
