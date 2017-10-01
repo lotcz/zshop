@@ -4,7 +4,7 @@
 			<h3 class="panel-title">Panel title</h3>
 		</div>
 		<div class="panel-body">
-			Hello World! This is version <strong>1.04</strong>.
+			Hello World! This is version <strong><?=$this->z->app->version ?></strong>.
 		</div>
 	</div>
 
