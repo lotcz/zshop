@@ -51,4 +51,5 @@ app/config/i18n.php
 app/config/images.php
 app/config/jobs.php
 app/config/shop.php
+app/config/errorlog.php
 sql/secret.sql
