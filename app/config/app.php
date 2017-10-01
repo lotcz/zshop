@@ -4,7 +4,7 @@
 
 		// this is application version
 		// should be identical with GIT branch name
-		'version' => 1.04,
+		'version' => 1.05,
 
 		// this is minimum required zEngine version
 		// should be identical with GIT branch name
