@@ -8,7 +8,7 @@
 
 		// this is minimum required zEngine version
 		// should be identical with GIT branch name
-		'require_z_version' => 1.04,
+		'require_z_version' => 1.03,
 
 		'modules' => ['mysql', 'i18n', 'admin', 'images', 'shop']
 
