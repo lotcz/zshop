@@ -50,4 +50,5 @@ app/config/emails.php
 app/config/i18n.php
 app/config/images.php
 app/config/jobs.php
+app/config/shop.php
 sql/secret.sql
