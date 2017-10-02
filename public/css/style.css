@@ -17,25 +17,10 @@ ol, ul {
     margin: 0;
 }
 
-.vcenter fb {
-	vertical-align:middle;
-	display:inline-block;
-}
-
 /* tables */
 
 .table-hover > tbody > tr {
 	cursor:pointer;
-}
-
-.top-button {
-	margin-bottom:15px;
-	margin-left:auto;
-	margin-right:auto;
-}
-
-.language img {
-	margin:0 10px 0 0;
 }
 
 .dropdown.btn {
@@ -79,7 +64,7 @@ ol, ul {
 .ajax-loader {
 	opacity:0;
 	display:inline-block;
-	margin:auto;	
+	margin:auto;
 	background-image:url('../images/ajax-loader.gif');
 	width:31px;
 	height:31px;
@@ -112,15 +97,11 @@ img.mini-thumb {
 }
 
 .radio-checkbox {
-	float:left; 
+	float:left;
 	margin-right:10px;
 }
 
 .form-control.form-control-checkbox {
     display: inline-block;
     width: auto;
-}
-
-.payment-types, .delivery-types a {
-	cursor:pointer;
 }

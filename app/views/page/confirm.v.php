@@ -6,129 +6,129 @@
 	$payment_type = $this->getData('payment_type');
 ?>
 <form action="<?=$this->url('confirm')?>" method="POST">
-				
+
 	<div class="table-responsive panel panel-default">
-		<table class="table">									
+		<table class="table">
 			<tbody>
 				<?php
 					foreach ($products as $product) {
 						?>
-							<tr class="item">								
+							<tr class="item">
 								<td>
 									<?=$product->val('product_name')?>
 								</td>
-								
+
 								<td class="text-right">
 									<span><?=$this->convertAndFormatMoney($product->val('product_price')) ?></span>
 								</td>
-								
+
 								<td>
 									<?=$product->val('cart_count') ?>x
 								</td>
-								
+
 								<td class="text-right">
 									<strong><span><?=$this->convertAndFormatMoney($product->val('item_price')) ?></span></strong>
-								</td>								
+								</td>
 							</tr>
 						<?php
-					}					
-					
+					}
+
 				?>
-				
-				<tr class="item">								
+
+				<tr class="item">
 					<td>
-						<?=$this->t('Subtotal')?>
+						<strong><?=$this->t('Subtotal')?></strong>
 					</td>
-					
-					<td>						
-					</td>
-					
+
 					<td>
 					</td>
-					
+
+					<td>
+					</td>
+
 					<td class="text-right">
-						<strong><span><?=$this->convertAndFormatMoney($total_cart_value)?></span></strong>
-					</td>								
+						<strong><?=$this->convertAndFormatMoney($total_cart_value)?></strong>
+					</td>
 				</tr>
-				
+
 			</tbody>
 		</table>
 	</div>
-	
+
 	<div class="table-responsive panel panel-default">
-		<table class="table">									
+		<table class="table">
 			<tbody>
-			
-				<tr class="item">								
+
+				<tr class="item">
 					<td>
 						<?=$this->t('Delivery type')?>: <?=$delivery_type->val('delivery_type_name')?>
 					</td>
-					
-					<td>						
-					</td>
-					
+
 					<td>
 					</td>
-					
+
+					<td>
+					</td>
+
 					<td class="text-right">
 						<strong><span><?=$this->convertAndFormatMoney($delivery_type->fval('delivery_type_price'))?></span></strong>
-					</td>								
+					</td>
 				</tr>
-				
-				<tr class="item">								
+
+				<tr class="item">
 					<td>
 						<?=$this->t('Payment type')?>: <?=$payment_type->val('payment_type_name')?>
 					</td>
-					
-					<td>						
-					</td>
-					
+
 					<td>
 					</td>
-					
+
+					<td>
+					</td>
+
 					<td class="text-right">
 						<strong><span><?=$this->convertAndFormatMoney($payment_type->fval('payment_type_price'))?></span></strong>
-					</td>								
+					</td>
 				</tr>
-				
-				
-				<tr class="item">								
+
+
+				<tr class="item">
 					<td>
 						<strong><?=$this->t('Total')?></strong>
 					</td>
-					
-					<td>						
-					</td>
-					
+
 					<td>
 					</td>
-					
+
+					<td>
+					</td>
+
 					<td class="text-right">
 						<strong><span><?=$total_order_value_formatted ?></span></strong>
-					</td>								
+					</td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
-	
+
 	<div class="">
-		
-		<div class="panel panel-default">										
+
+		<div class="panel panel-default">
 			<div class="panel-heading">
 				<h3 class="panel-title"><?=$this->t('Place an order') ?></h3>
 			</div>
-			<div class="panel-body text-center">											
+			<div class="panel-body text-center">
 				<div class="control-label"><?=$this->t('Total Cost') ?>:</div>
 				<div class="price">
-					<span class="form-control-static cart-total-price"><?=$total_order_value_formatted ?></span>														
-				</div>												
+					<span class="form-control-static cart-total-price"><?=$total_order_value_formatted ?></span>
+				</div>
 				<div class="form-group text-center">
 					<input type="submit" class="btn btn-success" value="<?=$this->t('Confirm Your Order') ?>" />
-				</div>															
-			</div>										
+				</div>
+			</div>
 		</div>
-																		
-		
+
+
 	</div>
 
 </form> <!-- // order -->

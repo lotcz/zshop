@@ -160,6 +160,10 @@ h1.page-title {
 	padding:5px 10px;
 }
 
+.language img {
+	margin:0 10px 0 0;
+}
+
 #side-menu .list-group-item {
 	background-image: -webkit-linear-gradient(top,#337ab7 0,#2b669a 100%);
 	background-image: -o-linear-gradient(top,#337ab7 0,#2b669a 100%);
@@ -462,4 +466,8 @@ mark {
 	-webkit-box-shadow: none;
 	box-shadow: none;
 	color:DarkGray;
+}
+
+.payment-types, .delivery-types a {
+	cursor:pointer;
 }

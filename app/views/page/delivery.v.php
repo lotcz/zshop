@@ -34,7 +34,7 @@
 						<span class="radio-checkbox">
 							<input type="radio" aria-label="<?=$this->t('Select type of delivery.') ?>" <?=($selected_delivery === $delivery) ? 'checked' : ''?> />
 						</span>
-						<h4 class="list-group-item-heading"><?=$delivery->val('delivery_type_name')?></h4>
+						<h4 class="list-group-item-heading"><?=$this->t($delivery->val('delivery_type_name')) ?></h4>
 
 						<?php
 							if ($delivery->val('delivery_type_min_order_cost') > 0) {
@@ -151,7 +151,7 @@
 			?>
 		</div>
 		<div class="col-md-6">
-			<button onclick="javascript:validateDeliveryForm();return false;" class="btn btn-success large-button" >
+			<button onclick="javascript:validateDeliveryForm();return false;" class="btn btn-success" >
 				<?=$this->t('Continue')?>
 			</button>
 		</div>
