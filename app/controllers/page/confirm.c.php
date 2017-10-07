@@ -2,9 +2,9 @@
 	$customer = $this->getCustomer();
 	$render_page = true;
 
-	if (isPost()) {
+	if (z::isPost()) {
 		$order = $this->z->shop->createOrder();
-		if ($order) {			
+		if ($order) {
 			$this->redirect(sprintf('order/%s', $order->val('order_id')));
 			$render_page = false;
 		}

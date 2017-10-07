@@ -1,6 +1,6 @@
 <?php
-	$product_id = $this->getInt('product_id');
-	$count = $this->getInt('count');
+	$product_id = z::getInt('product_id');
+	$count = z::getInt('count');
 	$action = $this->getPath(-1);
 
 	if (!$this->isCustAuth()) {
