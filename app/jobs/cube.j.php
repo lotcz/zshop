@@ -41,7 +41,7 @@
 			}
 
 			// update existing category
-			$category->data['category_name'] = $this->z->core->customTrim(convertEncoding($row['cat_name']));
+			$category->data['category_name'] = z::trim(convertEncoding($row['cat_name']));
 
 			$category->save();
 		}
@@ -58,8 +58,8 @@
 			// import new product
 			if (!$product->is_loaded) {
 				$product->data['product_ext_id'] = $row['productId'];
-				$product->data['product_name'] = customTrim(convertEncoding($row['name']));
-				$product->data['product_price'] = parseFloat($row['price']);
+				$product->data['product_name'] = z::trim(convertEncoding($row['name']));
+				$product->data['product_price'] = z::parseFloat($row['price']);
 
 				$category = loadCategory($row['cat_id'], $db);
 				if (isset($category)) {

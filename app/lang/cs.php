@@ -108,4 +108,5 @@ $language_data['Bank transfer'] = 'Bankovní převod';
 $language_data['Subtotal'] = 'Mezisoučet';
 $language_data['Total Cost'] = 'Celková cena';
 $language_data['Confirm Your Order'] = 'Potvrdit objednávku';
+$language_data['Orders'] = 'Objednávky';
 return $language_data;

@@ -1,18 +1,18 @@
 <?php
-	
-	$this->setPageTitle('Orders');	
-	$this->renderAdminTable(		
-		'viewOrders', 		
+
+	$this->setPageTitle('Orders');
+	$this->renderAdminTable(
+		'viewOrders',
 		'order',
 		[
 			[
 				'name' => 'order_created',
 				'label' => 'Date',
-				'type' => 'date'			
+				'type' => 'date'
 			],
 			[
 				'name' => 'order_state_name',
-				'label' => 'Status'			
+				'label' => 'Status'
 			],
 			[
 				'name' => 'customer_name',
@@ -20,7 +20,15 @@
 			],
 			[
 				'name' => 'order_payment_code',
-				'label' => 'Payment Code'			
+				'label' => 'Payment Code'
+			]
+		],
+		[
+			[
+				'name' => 'search_text',
+				'label' => 'Search',
+				'type' => 'text',
+				'filter_fields' => ['customer_name', 'order_number', 'order_payment_code']
 			]
 		]
 	);
