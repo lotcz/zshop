@@ -40,7 +40,7 @@
 				$cat_inserted += 1;
 				$zCategory->data['category_ext_id'] = intval($category->id);
 			}
-			$zCategory->data['category_name'] = customTrim($category->name);
+			$zCategory->data['category_name'] = z::trim($category->name);
 			$zCategory->data['category_description'] = $category->desc;
 			if (isset($category->parentid) && $category->parentid > 0) {
 				$parent = new CategoryModel($db);
