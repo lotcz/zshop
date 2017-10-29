@@ -4,8 +4,8 @@ git clone https://github.com/lotcz/zshop.git zShop
 git clone https://github.com/lotcz/zEngine.git zEngine
 
 cd zEngine
-./upgrade.sh 1.03
+./upgrade.sh master
 
 cd ..
 cd zShop
-./upgrade.sh 1.05
+./upgrade.sh master
