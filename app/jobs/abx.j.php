@@ -2,7 +2,7 @@
 
 	$this->requireModule('mysql');
 	$this->requireModule('shop');
-	$this->requireClass('zip');
+	$this->z->core->requireClass('zip');
 	$db = $this->z->core->db;
 
 	$prod_updated = 0;

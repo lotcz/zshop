@@ -61,7 +61,7 @@
 
 				<tr class="item">
 					<td>
-						<?=$this->t('Delivery type')?>: <?=$delivery_type->val('delivery_type_name')?>
+						<?=$this->t('Delivery Type')?>: <?=$this->t($delivery_type->val('delivery_type_name'))?>
 					</td>
 
 					<td>
@@ -77,7 +77,7 @@
 
 				<tr class="item">
 					<td>
-						<?=$this->t('Payment type')?>: <?=$payment_type->val('payment_type_name')?>
+						<?=$this->t('Payment Type')?>: <?=$this->t($payment_type->val('payment_type_name'))?>
 					</td>
 
 					<td>
@@ -123,7 +123,7 @@
 					<span class="form-control-static cart-total-price"><?=$total_order_value_formatted ?></span>
 				</div>
 				<div class="form-group text-center">
-					<input type="submit" class="btn btn-success" value="<?=$this->t('Confirm Your Order') ?>" />
+					<input type="submit" class="btn btn-success" value="<?=$this->t('Confirm Order') ?>" />
 				</div>
 			</div>
 		</div>

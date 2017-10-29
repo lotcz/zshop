@@ -1,14 +1,11 @@
 <?php
 
+	$this->z->staticpages->activateEditor();
+
 	$this->renderAdminForm(
 		'product',
 		'ProductModel',
 		[
-			[
-				'name' => 'product_ext_id',
-				'label' => 'ABX ID',
-				'type' => 'static'
-			],		
 			[
 				'name' => 'product_category_id',
 				'label' => 'Category',
@@ -33,13 +30,18 @@
 			[
 				'name' => 'product_description',
 				'label' => 'Description',
-				'type' => 'static'
+				'type' => 'html',
+				'validations' => [['type' => 'html']]
 			],
 			[
 				'name' => 'product_image',
 				'label' => 'Image',
 				'type' => 'image'
 			],
-			
+			[
+				'name' => 'product_ext_id',
+				'label' => 'ABX ID',
+				'type' => 'static'
+			],
 		]
 	);

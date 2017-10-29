@@ -12,7 +12,7 @@
 			[
 				'name' => 'order_created',
 				'label' => 'Date',
-				'type' => 'static',
+				'type' => 'staticdate',
 				'disabled' => 'disabled'
 			],
 			[
@@ -21,7 +21,8 @@
 				'type' => 'select',
 				'select_table' => 'order_states',
 				'select_id_field' => 'order_state_id',
-				'select_label_field' => 'order_state_name'
+				'select_label_field' => 'order_state_name',
+				'select_label_localized' => true
 			],
 			[
 				'name' => 'order_customer_id',
@@ -40,25 +41,25 @@
 			],
 			[
 				'name' => 'order_ship_name',
-				'label' => 'Name',
+				'label' => 'Full name',
 				'type' => 'text',
 				'validations' => [['type' => 'length', 'param' => 1]]
 			],
 			[
 				'name' => 'order_ship_city',
 				'label' => 'City',
-				'type' => 'text'		
+				'type' => 'text'
 			],
 			[
 				'name' => 'order_ship_street',
 				'label' => 'Street',
-				'type' => 'text'			
+				'type' => 'text'
 			],
 			[
 				'name' => 'order_ship_zip',
 				'label' => 'ZIP',
-				'type' => 'text'			
+				'type' => 'text'
 			],
-			
+
 		]
 	);

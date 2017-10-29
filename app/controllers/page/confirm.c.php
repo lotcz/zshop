@@ -11,7 +11,7 @@
 	}
 
 	if ($render_page) {
-		$this->setPageTitle('Confirm order');
+		$this->setPageTitle('Confirm Order');
 		$this->setMainTemplate('nocats');
 		$this->setData('products', $this->z->cart->loadCartProducts());
 		$delivery_type = new DeliveryTypeModel($this->db, $customer->val('customer_delivery_type_id'));
