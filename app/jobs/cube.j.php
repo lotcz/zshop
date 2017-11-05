@@ -17,6 +17,9 @@
 	}
 
 	$cube_db = new mysqli('uvdb21.active24.cz', 'parfumerie1', 'aRWmRPka8W', 'parfumerie1');
+	if ($cube_db->connect_errno > 0) {
+		throw new Exception('Database connection error: ' . $cube_db->connect_error);
+	}
 	$cube_db->set_charset('ISO-8859-2');
 
 	$new = 0;
