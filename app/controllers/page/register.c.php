@@ -31,8 +31,8 @@
 		$render_form = false;
 	} elseif (z::isPost()) {
 
-		$email = trim(strtolower($this->get('customer_email')));
-		$password = $this->get('customer_password');
+		$email = trim(strtolower(z::get('customer_email')));
+		$password = z::get('customer_password');
 
 		// validate email and password once again
 		if ($this->z->custauth->isValidEmail($email) && $this->z->custauth->isValidPassword($password)) {

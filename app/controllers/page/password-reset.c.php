@@ -2,8 +2,8 @@
 	$this->setPageTitle('Reset Password');
 
 	$show_form = false;
-	$reset_token = $this->get('reset_token');
-	$customer_email = $this->get('email');
+	$reset_token = z::get('reset_token');
+	$customer_email = z::get('email');
 
 	if (isset($reset_token) && isset($customer_email)) {
 		$customer = new CustomerModel($this->db);
@@ -13,8 +13,8 @@
 		$token_valid = custauthModule::verifyPassword($reset_token, $customer->val('customer_reset_password_hash'));
 
 		if ($customer->is_loaded && $token_not_expired && $token_valid) {
-			$password = $this->get('password');
-			$password2 = $this->get('password2');
+			$password =z::get('password');
+			$password2 = z::get('password2');
 			if (isset($password) && isset($password2)) {
 				if ($password == $password2) {
 					$customer->set('customer_password_hash', $this->z->custauth->hashPassword($password));
