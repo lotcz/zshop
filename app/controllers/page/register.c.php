@@ -29,7 +29,7 @@
 	if (!$this->z->custauth->isAnonymous()) {
 		$this->z->messages->add($this->t('You are already registered and logged in!'));
 		$render_form = false;
-	} elseif ($this->isPost()) {
+	} elseif (z::isPost()) {
 
 		$email = trim(strtolower($this->get('customer_email')));
 		$password = $this->get('customer_password');

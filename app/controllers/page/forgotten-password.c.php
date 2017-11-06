@@ -3,7 +3,7 @@
 	$this->setPageTitle('Forgotten Password');
 	$this->z->core->includeJS('resources/forms.js');
 
-	if ($this->isPost()) {
+	if (z::isPost()) {
 		$customer = new CustomerModel($this->db);
 		$customer->loadByEmail($this->get('email'));
 		if ($customer->is_loaded) {
