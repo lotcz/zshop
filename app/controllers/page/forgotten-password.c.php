@@ -5,7 +5,7 @@
 
 	if (z::isPost()) {
 		$customer = new CustomerModel($this->db);
-		$customer->loadByEmail($this->get('email'));
+		$customer->loadByEmail(z::get('email'));
 		if ($customer->is_loaded) {
 			$reset_token = $this->z->custauth->generateResetPasswordToken();
 			$expires = time() + $this->z->custauth->getConfigValue('reset_password_expires');
