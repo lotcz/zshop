@@ -64,6 +64,8 @@
 
 	}
 
+	$this->setData('render_form', $render_form);
+	
 	if ($render_form) {
 		$this->setData('form', $form);
 	}
