@@ -16,7 +16,7 @@
 							</td>
 
 							<td class="text-right">
-								<span><?=$this->convertAndFormatMoney($product->val('product_price')) ?></span>
+								<span><?=$this->formatMoney($product->val('order_product_price')) ?></span>
 							</td>
 
 							<td>
@@ -24,7 +24,7 @@
 							</td>
 
 							<td class="text-right">
-								<strong><span><?=$this->convertAndFormatMoney($product->val('item_price')) ?></span></strong>
+								<strong><span><?=$this->formatMoney($product->val('order_product_item_price')) ?></span></strong>
 							</td>
 						</tr>
 					<?php
@@ -44,7 +44,7 @@
 				</td>
 
 				<td id="order_subtotal" class="text-right">
-					<strong><?=$this->convertAndFormatMoney($order->val('order_total_cart_price'))?></strong>
+					<strong><?=$this->formatMoney($order->val('order_total_cart_price'))?></strong>
 				</td>
 			</tr>
 
@@ -68,7 +68,7 @@
 				</td>
 
 				<td class="text-right">
-					<strong><span><?=$this->convertAndFormatMoney($order->fval('order_delivery_type_price'))?></span></strong>
+					<strong><span><?=$this->formatMoney($order->fval('order_delivery_type_price'))?></span></strong>
 				</td>
 			</tr>
 
@@ -84,7 +84,7 @@
 				</td>
 
 				<td class="text-right">
-					<strong><span><?=$this->convertAndFormatMoney($payment_type->fval('order_payment_type_price'))?></span></strong>
+					<strong><span><?=$this->formatMoney($payment_type->fval('order_payment_type_price'))?></span></strong>
 				</td>
 			</tr>
 
