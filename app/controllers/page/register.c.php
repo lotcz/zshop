@@ -42,7 +42,10 @@
 			$existing_customer->loadByEmail($email);
 			if ($existing_customer->is_loaded) {
 				$this->z->messages->error($this->t('This email is already used!'));
-			} else {
+			} else {				
+				if (!$this->isCustAuth()) {
+					$this->z->custauth->createAnonymousSession();
+				}
 				$customer = $this->getCustomer();
 				$customer->data['customer_name'] = null;
 				$customer->data['customer_email'] = $email;
