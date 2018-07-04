@@ -15,7 +15,7 @@
 		$customer->set('customer_address_zip', z::getInt('customer_address_zip'));
 
 		//shipping address
-		$use_ship_address = z::getInt('customer_use_ship_address');
+		$use_ship_address = z::getInt('customer_use_ship_address', 0);
 		$customer->set('customer_use_ship_address', $use_ship_address);
 		if ($use_ship_address) {
 			$customer->set('customer_ship_name', z::get('customer_ship_name'));
