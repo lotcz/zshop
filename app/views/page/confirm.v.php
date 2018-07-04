@@ -123,7 +123,7 @@
 					<span class="form-control-static cart-total-price"><?=$total_order_value_formatted ?></span>
 				</div>
 				<div class="form-group text-center">
-					<input type="submit" class="btn btn-success" value="<?=$this->t('Confirm Order') ?>" />
+					<input id="submit_button" type="submit" class="btn btn-success" value="<?=$this->t('Confirm Order') ?>" />
 				</div>
 			</div>
 		</div>

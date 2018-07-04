@@ -48,7 +48,7 @@
 			?>			
 		</div>
 		<div class="col-md-6">				
-			<input type="submit" value="<?=$this->t('Continue')?>" class="btn btn-success" />						
+			<input id="submit_button" type="submit" value="<?=$this->t('Continue')?>" class="btn btn-success" />						
 		</div>
 	</div>
 

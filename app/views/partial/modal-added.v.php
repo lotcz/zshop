@@ -21,8 +21,8 @@
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal"><?=$this->t('Continue shopping') ?></button>
-        <a type="button" class="btn btn-success" href="<?=$this->url('cart') ?>"><?=$this->t('Go to cart') ?></a>
+        <button type="button" class="btn btn-primary continue-shopping-button" data-dismiss="modal"><?=$this->t('Continue shopping') ?></button>
+        <a type="button" class="btn btn-success go-to-cart-button" href="<?=$this->url('cart') ?>"><?=$this->t('Go to cart') ?></a>
       </div>
     </div>
   </div>

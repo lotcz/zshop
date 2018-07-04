@@ -82,7 +82,7 @@
 									</p>
 									<p>
 										<?php
-											$this->renderLink('login', 'Sign In', 'btn btn-primary', 'cart');
+											$this->renderLink('login', 'Sign In', 'btn btn-primary login-button', 'cart');
 										?>
 									</p>
 								</div>
@@ -99,7 +99,7 @@
 									</p>
 									<p>
 										<?php
-											$this->renderLink('delivery', 'Order & Register', 'btn btn-success', 'cart');
+											$this->renderLink('delivery', 'Order & Register', 'btn btn-success order-register-button', 'cart');
 										?>
 									</p>
 								</div>
@@ -109,7 +109,7 @@
 								<div class="col-md-12 text-center">
 									<br/>
 									<?php
-										$this->renderLink('delivery', 'Place an order', 'btn btn-success large-button', 'cart');
+										$this->renderLink('delivery', 'Place an order', 'btn btn-success large-button order-button', 'cart');
 									?>
 									<br/>
 									<br/>

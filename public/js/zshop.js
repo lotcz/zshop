@@ -139,9 +139,9 @@ function productFragmentRendered(data) {
 
 function productUpdated(data) {
 	updateCartPreview(data);
-  if (typeof updateCartPage == 'function') {
-    updateCartPage();
-  }
+	if (typeof updateCartPage == 'function') {
+		updateCartPage();
+	}
 	$('#item_total_price_'+data.product_id).html(data.item_price_formatted);
 	hideAjaxLoaders();
 }

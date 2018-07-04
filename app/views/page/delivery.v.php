@@ -151,7 +151,7 @@
 			?>
 		</div>
 		<div class="col-md-6">
-			<button onclick="javascript:validateDeliveryForm();return false;" class="btn btn-success" >
+			<button id="submit_button" onclick="javascript:validateDeliveryForm();return false;" class="btn btn-success" >
 				<?=$this->t('Continue')?>
 			</button>
 		</div>

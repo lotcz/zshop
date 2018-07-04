@@ -5,7 +5,7 @@
 	if (z::isPost()) {
 		$order = $this->z->shop->createOrder();
 		if ($order) {
-			$this->redirect(sprintf('order/%s', $order->val('order_id')));
+			$this->redirect(sprintf('default/nocats/order/%s', $order->val('order_id')));
 			$render_page = false;
 		}
 	}
