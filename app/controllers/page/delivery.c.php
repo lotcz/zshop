@@ -25,7 +25,7 @@
 		}
 
 		//after filling an email, customer is no longer anonymous
-		$customer->set('customer_anonymous', false);
+		$customer->set('customer_anonymous', 0);
 
 		if ($customer->save()) {
 			$this->redirect('payment');
