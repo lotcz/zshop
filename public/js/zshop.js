@@ -13,47 +13,6 @@ Number.prototype.formatMoney = function(c, d, t) {
 	return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
 }
 
-// COOKIES CHECK
-
-$(function() {
-  if (!checkCookies()) {
-		$('#cookies_disabled').show();
-	}
-});
-
-function checkCookies() {
-	if (navigator.cookieEnabled) return true;
-	document.cookie = "cookietest=1";
-	var ret = document.cookie.indexOf("cookietest=") != -1;
-	document.cookie = "cookietest=1; expires=Thu, 01-Jan-1970 00:00:01 GMT";
-	return ret;
-}
-
-// set cookie value
-function setCookie(cname, cvalue, exdays, path) {
-    var d = new Date();
-    d.setTime(d.getTime() + (exdays*24*60*60*1000));
-    var expires = 'expires='+d.toUTCString();
-    document.cookie = cname + '=' + cvalue + '; ' + expires + ';path=' + path;
-}
-
-function getCookie(cname) {
-    var name = cname + '=';
-    var ca = document.cookie.split(';');
-    for(var i=0; i<ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0)==' ') c = c.substring(1);
-        if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
-    }
-    return '';
-}
-
-// change language
-function setLang(lang) {
-	setCookie('language', lang, 365, '/');
-	document.location = document.location;
-}
-
 function setCurrency(curr) {
 	setCookie('currency', curr, 365, '/');
 	document.location = document.location;
